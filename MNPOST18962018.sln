@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MNPOSTAPI", "MNPOSTAPI\MNPOSTAPI.csproj", "{47E4029E-EA1E-4A25-ADED-13FC960DC6C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MNPOSTDATA", "MNPOSTDATA\MNPOSTDATA.csproj", "{911B5872-8DF9-463E-879C-FE1B8AA1AB0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MNPOST", "MNPOST\MNPOST.csproj", "{B9308DA9-2D75-4252-9E2D-BF8968F3AF93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47E4029E-EA1E-4A25-ADED-13FC960DC6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47E4029E-EA1E-4A25-ADED-13FC960DC6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47E4029E-EA1E-4A25-ADED-13FC960DC6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47E4029E-EA1E-4A25-ADED-13FC960DC6C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{911B5872-8DF9-463E-879C-FE1B8AA1AB0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{911B5872-8DF9-463E-879C-FE1B8AA1AB0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{911B5872-8DF9-463E-879C-FE1B8AA1AB0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{911B5872-8DF9-463E-879C-FE1B8AA1AB0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9308DA9-2D75-4252-9E2D-BF8968F3AF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9308DA9-2D75-4252-9E2D-BF8968F3AF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9308DA9-2D75-4252-9E2D-BF8968F3AF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9308DA9-2D75-4252-9E2D-BF8968F3AF93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
