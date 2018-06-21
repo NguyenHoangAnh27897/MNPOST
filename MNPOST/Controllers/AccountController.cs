@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -12,9 +13,11 @@ using MNPOST.Models;
 
 namespace MNPOST.Controllers
 {
+    
     [Authorize]
     public class AccountController : Controller
     {
+        MNPOSTEntities db = new MNPOSTEntities();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -45,15 +48,24 @@ namespace MNPOST.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                //var user = await UserManager.FindAsync(model.UserName, model.Password);
+                string username = model.UserName;
+                string password = model.Password;
+                if (username.Equals(db.UMS_UserAccounts.FirstOrDefault().UserName))
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    if (password.Equals(db.UMS_UserAccounts.FirstOrDefault().Password))
+                    {
+                        //await SignInAsync(user, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Sai mật khẩu");
+                    }        
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", "Tài khoản không tồn tại");
                 }
             }
 
