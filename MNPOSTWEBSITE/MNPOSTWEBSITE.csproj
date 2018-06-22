@@ -171,6 +171,14 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\contact_me.js" />
+    <Content Include="Content\custom.js" />
+    <Content Include="Content\jqBootstrapValidation.js" />
+    <Content Include="Content\materialdesignicons.min.css" />
+    <Content Include="Content\osahan.css" />
+    <Content Include="Content\select2-bootstrap.css" />
+    <Content Include="Content\select2.min.css" />
+    <Content Include="Content\select2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
