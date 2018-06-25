@@ -6,40 +6,40 @@
 
 @*<h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary()
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+        <hr />
+        @Html.ValidationSummary()
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
         </div>
-    </div>
-}
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
 
 
 
@@ -73,26 +73,29 @@
                     <div class="card padding-card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">ĐĂNG KÝ</h5>
-                            <form>
+                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary()
                                 <div class="form-group">
                                     <label>Họ tên <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Nhập họ tên" required>
+                                    <input type="text" class="form-control" placeholder="Nhập họ tên">
                                 </div>
                                 <div class="form-group">
                                     <label>Số điện thoại <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Nhập SĐT" required>
+                                    <input type="text" class="form-control" placeholder="Nhập SĐT">
                                 </div>
                                 <div class="form-group">
                                     <label>Tên tài khoản <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" placeholder="Nhập tên tài khoản" required>
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Mật khẩu <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" placeholder="Nhập mật khẩu" required>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" placeholder="Nhập Email" required>
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
 
@@ -104,7 +107,7 @@
 
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block">ĐĂNG KÝ</button>
-                            </form>
+                            }
                         </div>
                     </div>
                 </div>
@@ -113,57 +116,6 @@
 
     </section>
     <!-- End Register -->
-    <!-- Footer -->
-    <section class="section-padding footer bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-3">
-                    <h4 class="mb-5"><a class="text-success logo" href="index.html"><i class="mdi mdi-home-map-marker"></i> <strong>Osahan</strong>Land</a></h4>
-                    <p>86 Petersham town, New South wales<br>Waedll Steet, Australia PA 6550</p>
-                    <p class="mb-0"><a class="text-dark" href="#">+61 525 240 310</a></p>
-                    <p class="mb-0"><a class="text-success" href="#">iamosahan@gmail.com</a></p>
-                    <p class="mb-0"><a class="text-info" href="#">www.askbootstrap.com</a></p>
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <h6 class="mb-4">COMPANY</h6>
-                    <ul>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Properties</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <ul>
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <h6 class="mb-4">LEARN MORE</h6>
-                    <ul>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Account</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <ul>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <h6 class="mb-4">NEWSLETTER</h6>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Email Address..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button"><i class="mdi mdi-arrow-right"></i></button>
-                        </div>
-                    </div>
-                    <h6 class="mb-4 mt-5">GET IN TOUCH</h6>
-                    <div class="footer-social">
-                        <a href="#"><i class="mdi mdi-facebook"></i></a>
-                        <a href="#"><i class="mdi mdi-twitter"></i></a>
-                        <a href="#"><i class="mdi mdi-instagram"></i></a>
-                        <a href="#"><i class="mdi mdi-google"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Footer -->
     <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -178,5 +130,3 @@
     <script src="/Content/custom.js"></script>
 </body>
 </html>
-
-
