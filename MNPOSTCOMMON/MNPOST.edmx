@@ -1,0 +1,1346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="IsActivced" Type="int" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="AccountType" Type="nvarchar(max)" />
+          <Property Name="GroupId" Type="nvarchar(max)" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BS_Contracts">
+          <Key>
+            <PropertyRef Name="ContractID" />
+          </Key>
+          <Property Name="ContractID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CustomerID" Type="varchar" MaxLength="15" />
+          <Property Name="RepresentativeID" Type="varchar" MaxLength="15" />
+          <Property Name="BeginDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Value" Type="money" />
+          <Property Name="CurrencyID" Type="varchar" MaxLength="15" />
+          <Property Name="AppendDate" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="varbinary(max)" />
+          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="MemberOf" Type="varchar" MaxLength="15" />
+          <Property Name="Note" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractNo" Type="varchar" MaxLength="15" />
+          <Property Name="LastUpdUser" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BS_Countries">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="BS_CustomerGroups">
+          <Key>
+            <PropertyRef Name="CustomerGroupID" />
+          </Key>
+          <Property Name="CustomerGroupID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CustomerGroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BS_Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="15" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CustomerType" Type="int" />
+          <Property Name="CustomerGroupID" Type="varchar" MaxLength="15" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="DistrictID" Type="varchar" MaxLength="15" />
+          <Property Name="ProvinceID" Type="varchar" MaxLength="15" />
+          <Property Name="CountryID" Type="varchar" MaxLength="15" />
+          <Property Name="FaxNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="PersonalInfo" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankAccount" Type="nvarchar" MaxLength="20" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="DebtDayInMonth" Type="tinyint" />
+          <Property Name="MemberOf" Type="varchar" MaxLength="50" />
+          <Property Name="DebitObjectID" Type="varchar" MaxLength="20" />
+          <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="BS_Districts">
+          <Key>
+            <PropertyRef Name="DistrictID" />
+          </Key>
+          <Property Name="DistrictID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DistrictName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProvinceID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BS_Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartmentID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="25" />
+          <Property Name="IdentifyCard" Type="nvarchar" MaxLength="20" />
+          <Property Name="FaxNo" Type="nvarchar" MaxLength="25" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="MemberOf" Type="varchar" MaxLength="50" />
+          <Property Name="ProvinceID" Type="varchar" MaxLength="15" />
+          <Property Name="IsCollaborators" Type="bit" />
+          <Property Name="SGPEmployeeID" Type="nvarchar" MaxLength="20" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="ApproveDate" Type="date" />
+        </EntityType>
+        <EntityType Name="BS_PostOffices">
+          <Key>
+            <PropertyRef Name="PostOfficeID" />
+          </Key>
+          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PostOfficeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZoneID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ProvinceID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="25" />
+          <Property Name="FaxNo" Type="nvarchar" MaxLength="25" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCollaborator" Type="bit" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="TaxCode" Type="varchar" MaxLength="50" />
+          <Property Name="BankAccount" Type="varchar" MaxLength="50" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="100" />
+          <Property Name="MemberOf" Type="varchar" MaxLength="15" />
+          <Property Name="CustomerPre" Type="varchar" MaxLength="10" />
+          <Property Name="SGPPostOfficeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BS_Provinces">
+          <Key>
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="ProvinceID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ProvinceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PhoneCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="BS_Wards">
+          <Key>
+            <PropertyRef Name="WardID" />
+          </Key>
+          <Property Name="WardID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="WardName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DistrictID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BS_Zones">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ZoneName" Type="nvarchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MM_Mailers">
+          <Key>
+            <PropertyRef Name="MailerID" />
+          </Key>
+          <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PostOfficeAcceptID" Type="nvarchar" MaxLength="10" />
+          <Property Name="SenderName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SenderAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="SenderWardID" Type="nvarchar" MaxLength="10" />
+          <Property Name="SenderDistrictID" Type="nvarchar" MaxLength="10" />
+          <Property Name="SenderProvinceID" Type="nvarchar" MaxLength="10" />
+          <Property Name="SenderPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="RecieverName" Type="nvarchar" MaxLength="100" />
+          <Property Name="RecieverAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="RecieverWardID" Type="nvarchar" MaxLength="10" />
+          <Property Name="RecieverDistrictID" Type="nvarchar" MaxLength="10" />
+          <Property Name="RecieverProvinceID" Type="nvarchar" MaxLength="10" />
+          <Property Name="RecieverPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="EmployeeAcceptID" Type="nvarchar" MaxLength="20" />
+          <Property Name="AcceptDate" Type="date" />
+          <Property Name="AcceptTime" Type="datetime" />
+          <Property Name="MailerTypeID" Type="nvarchar" MaxLength="10" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Weight" Type="float" />
+          <Property Name="ReWeight" Type="float" />
+          <Property Name="PriceDefault" Type="money" />
+          <Property Name="Price" Type="money" />
+          <Property Name="PriceService" Type="money" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="BefVATAmount" Type="money" />
+          <Property Name="VATPercent" Type="float" />
+          <Property Name="VATAmount" Type="money" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="AmountBefDiscount" Type="money" />
+          <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="5" />
+          <Property Name="MailerDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="ThirdpartyDocID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ThirdpartyCost" Type="money" />
+          <Property Name="ThirdpartyPaymentMethodID" Type="nvarchar" MaxLength="5" />
+          <Property Name="CurrentStatusID" Type="int" />
+          <Property Name="CurrentPostOfficeID" Type="nvarchar" MaxLength="10" />
+          <Property Name="PriceType" Type="nvarchar" MaxLength="1" />
+          <Property Name="PriceIncludeVAT" Type="bit" />
+          <Property Name="CommissionAmt" Type="money" />
+          <Property Name="CommissionPercent" Type="float" />
+          <Property Name="CostAmt" Type="money" />
+          <Property Name="SalesClosingDate" Type="date" />
+          <Property Name="DiscountPercent" Type="float" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MM_TroubleTickets">
+          <Key>
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="TicketID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CustomerID" Type="nvarchar" MaxLength="20" />
+          <Property Name="TicketName" Type="nvarchar" MaxLength="500" />
+          <Property Name="TicketDate" Type="datetime" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UMS_GroupMenu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Position" Type="int" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="UMS_Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Link" Type="nvarchar(max)" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="128" />
+          <Property Name="GroupMenuId" Type="nvarchar" MaxLength="128" />
+          <Property Name="Position" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="UMS_MenuGroupUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MenuId" Type="nvarchar" MaxLength="128" />
+          <Property Name="GroupUserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="CanEdit" Type="int" />
+        </EntityType>
+        <EntityType Name="UMS_UserGroups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="int" />
+        </EntityType>
+        <Association Name="FK__UMS_Menu__GroupM__628FA481">
+          <End Role="UMS_GroupMenu" Type="Self.UMS_GroupMenu" Multiplicity="0..1" />
+          <End Role="UMS_Menu" Type="Self.UMS_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMS_GroupMenu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UMS_Menu">
+              <PropertyRef Name="GroupMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupId" Type="nvarchar" Mode="In" />
+          <Parameter Name="menuCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USER_GETMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USER_GETROLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="MNPOSTModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Contracts" EntityType="Self.BS_Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Countries" EntityType="Self.BS_Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_CustomerGroups" EntityType="Self.BS_CustomerGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__UMS_Menu__GroupM__628FA481" Association="Self.FK__UMS_Menu__GroupM__628FA481">
+            <End Role="UMS_GroupMenu" EntitySet="UMS_GroupMenu" />
+            <End Role="UMS_Menu" EntitySet="UMS_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MNPOSTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActivced" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GroupId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="BS_Contracts">
+          <Key>
+            <PropertyRef Name="ContractID" />
+          </Key>
+          <Property Name="ContractID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RepresentativeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Value" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CurrencyID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AppendDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberOf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContractNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_Countries">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="CountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_CustomerGroups">
+          <Key>
+            <PropertyRef Name="CustomerGroupID" />
+          </Key>
+          <Property Name="CustomerGroupID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BS_Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerType" Type="Int32" />
+          <Property Name="CustomerGroupID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CountryID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PersonalInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="DebtDayInMonth" Type="Byte" />
+          <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DebitObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPreID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BS_Districts">
+          <Key>
+            <PropertyRef Name="DistrictID" />
+          </Key>
+          <Property Name="DistrictID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DistrictName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BS_Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="IdentifyCard" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FaxNo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IsCollaborators" Type="Boolean" />
+          <Property Name="SGPEmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="ApproveDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="BS_PostOffices">
+          <Key>
+            <PropertyRef Name="PostOfficeID" />
+          </Key>
+          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostOfficeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="FaxNo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsCollaborator" Type="Boolean" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MemberOf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerPre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SGPPostOfficeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_Provinces">
+          <Key>
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProvinceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ZoneID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_Wards">
+          <Key>
+            <PropertyRef Name="WardID" />
+          </Key>
+          <Property Name="WardID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WardName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DistrictID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BS_Zones">
+          <Key>
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="ZoneID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZoneName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MM_Mailers">
+          <Key>
+            <PropertyRef Name="MailerID" />
+          </Key>
+          <Property Name="MailerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PostOfficeAcceptID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SenderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SenderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SenderWardID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SenderDistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SenderProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SenderPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RecieverName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RecieverAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RecieverWardID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RecieverDistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RecieverProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RecieverPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeAcceptID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AcceptDate" Type="DateTime" Precision="0" />
+          <Property Name="AcceptTime" Type="DateTime" Precision="3" />
+          <Property Name="MailerTypeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Weight" Type="Double" />
+          <Property Name="ReWeight" Type="Double" />
+          <Property Name="PriceDefault" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PriceService" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="BefVATAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VATPercent" Type="Double" />
+          <Property Name="VATAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AmountBefDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PaymentMethodID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="MailerDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdpartyDocID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdpartyCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ThirdpartyPaymentMethodID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentStatusID" Type="Int32" />
+          <Property Name="CurrentPostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PriceType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="PriceIncludeVAT" Type="Boolean" />
+          <Property Name="CommissionAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CommissionPercent" Type="Double" />
+          <Property Name="CostAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SalesClosingDate" Type="DateTime" Precision="0" />
+          <Property Name="DiscountPercent" Type="Double" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MM_TroubleTickets">
+          <Key>
+            <PropertyRef Name="TicketID" />
+          </Key>
+          <Property Name="TicketID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TicketName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TicketDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UMS_GroupMenu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" />
+          <NavigationProperty Name="UMS_Menu" Relationship="Self.FK__UMS_Menu__GroupM__628FA481" FromRole="UMS_GroupMenu" ToRole="UMS_Menu" />
+          <Property Name="Icon" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UMS_Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="GroupMenuId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" />
+          <Property Name="Code" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UMS_GroupMenu" Relationship="Self.FK__UMS_Menu__GroupM__628FA481" FromRole="UMS_Menu" ToRole="UMS_GroupMenu" />
+        </EntityType>
+        <EntityType Name="UMS_UserGroups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UMS_Menu__GroupM__628FA481">
+          <End Role="UMS_GroupMenu" Type="Self.UMS_GroupMenu" Multiplicity="0..1" />
+          <End Role="UMS_Menu" Type="Self.UMS_Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMS_GroupMenu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UMS_Menu">
+              <PropertyRef Name="GroupMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MNPOSTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="BS_Contracts" EntityType="Self.BS_Contracts" />
+          <EntitySet Name="BS_Countries" EntityType="Self.BS_Countries" />
+          <EntitySet Name="BS_CustomerGroups" EntityType="Self.BS_CustomerGroups" />
+          <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" />
+          <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" />
+          <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" />
+          <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" />
+          <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" />
+          <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" />
+          <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" />
+          <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" />
+          <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" />
+          <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" />
+          <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" />
+          <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UMS_Menu__GroupM__628FA481" Association="Self.FK__UMS_Menu__GroupM__628FA481">
+            <End Role="UMS_GroupMenu" EntitySet="UMS_GroupMenu" />
+            <End Role="UMS_Menu" EntitySet="UMS_Menu" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="UMS_MenuGroupUser" EntityType="MNPOSTModel.UMS_MenuGroupUser" />
+          <FunctionImport Name="GROUPUSER_GETLISTMENU" ReturnType="Collection(MNPOSTModel.GROUPUSER_GETLISTMENU_Result)">
+          <Parameter Name="groupId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USER_CHECKACCESS" ReturnType="Collection(MNPOSTModel.USER_CHECKACCESS_Result)">
+            <Parameter Name="groupId" Mode="In" Type="String" />
+            <Parameter Name="menuCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USER_GETROLE" ReturnType="Collection(MNPOSTModel.USER_GETROLE_Result)">
+          <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USER_GETMENU" ReturnType="Collection(MNPOSTModel.USER_GETMENU_Result)">
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="UMS_MenuGroupUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MenuId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="GroupUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CanEdit" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="GROUPUSER_GETLISTMENU_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="String" Name="Link" Nullable="true" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="GroupMenuId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Position" Nullable="true" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="groupUserId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="canedit" Nullable="true" />
+          <Property Type="String" Name="groupName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USER_CHECKACCESS_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="MenuId" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="GroupUserId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="CanEdit" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USER_GETROLE_Result">
+          <Property Type="String" Name="UserName" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="GroupId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USER_GETMENU_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="String" Name="Link" Nullable="true" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="GroupMenuId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Position" Nullable="true" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="groupName" Nullable="true" />
+          <Property Type="String" Name="GroupIcon" Nullable="true" MaxLength="128" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MNPOSTModelStoreContainer" CdmEntityContainer="MNPOSTEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="MNPOSTModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="MNPOSTModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="MNPOSTModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="MNPOSTModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="MNPOSTModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="IsActivced" ColumnName="IsActivced" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Contracts">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Contracts">
+              <MappingFragment StoreEntitySet="BS_Contracts">
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="RepresentativeID" ColumnName="RepresentativeID" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="AppendDate" ColumnName="AppendDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="LastUpdUser" ColumnName="LastUpdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Countries">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Countries">
+              <MappingFragment StoreEntitySet="BS_Countries">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_CustomerGroups">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
+              <MappingFragment StoreEntitySet="BS_CustomerGroups">
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+                <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Customers">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Customers">
+              <MappingFragment StoreEntitySet="BS_Customers">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CompanyPhone" ColumnName="CompanyPhone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PersonalInfo" ColumnName="PersonalInfo" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="DebtDayInMonth" ColumnName="DebtDayInMonth" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="DebitObjectID" ColumnName="DebitObjectID" />
+                <ScalarProperty Name="CustomerPreID" ColumnName="CustomerPreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Districts">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Districts">
+              <MappingFragment StoreEntitySet="BS_Districts">
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Employees">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Employees">
+              <MappingFragment StoreEntitySet="BS_Employees">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
+                <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_PostOffices">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_PostOffices">
+              <MappingFragment StoreEntitySet="BS_PostOffices">
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsCollaborator" ColumnName="IsCollaborator" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="CustomerPre" ColumnName="CustomerPre" />
+                <ScalarProperty Name="SGPPostOfficeName" ColumnName="SGPPostOfficeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Provinces">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Provinces">
+              <MappingFragment StoreEntitySet="BS_Provinces">
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Wards">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Wards">
+              <MappingFragment StoreEntitySet="BS_Wards">
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="WardName" ColumnName="WardName" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Zones">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Zones">
+              <MappingFragment StoreEntitySet="BS_Zones">
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MM_Mailers">
+            <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
+              <MappingFragment StoreEntitySet="MM_Mailers">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+                <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
+                <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
+                <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="EmployeeAcceptID" ColumnName="EmployeeAcceptID" />
+                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
+                <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="BefVATAmount" ColumnName="BefVATAmount" />
+                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="AmountBefDiscount" ColumnName="AmountBefDiscount" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
+                <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
+                <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
+                <ScalarProperty Name="ThirdpartyPaymentMethodID" ColumnName="ThirdpartyPaymentMethodID" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
+                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+                <ScalarProperty Name="PriceIncludeVAT" ColumnName="PriceIncludeVAT" />
+                <ScalarProperty Name="CommissionAmt" ColumnName="CommissionAmt" />
+                <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
+                <ScalarProperty Name="CostAmt" ColumnName="CostAmt" />
+                <ScalarProperty Name="SalesClosingDate" ColumnName="SalesClosingDate" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MM_TroubleTickets">
+            <EntityTypeMapping TypeName="MNPOSTModel.MM_TroubleTickets">
+              <MappingFragment StoreEntitySet="MM_TroubleTickets">
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="TicketName" ColumnName="TicketName" />
+                <ScalarProperty Name="TicketDate" ColumnName="TicketDate" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UMS_GroupMenu">
+            <EntityTypeMapping TypeName="MNPOSTModel.UMS_GroupMenu">
+              <MappingFragment StoreEntitySet="UMS_GroupMenu">
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UMS_Menu">
+            <EntityTypeMapping TypeName="MNPOSTModel.UMS_Menu">
+              <MappingFragment StoreEntitySet="UMS_Menu">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UMS_UserGroups">
+            <EntityTypeMapping TypeName="MNPOSTModel.UMS_UserGroups">
+              <MappingFragment StoreEntitySet="UMS_UserGroups">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MNPOSTModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="UMS_MenuGroupUser">
+            <EntityTypeMapping TypeName="MNPOSTModel.UMS_MenuGroupUser">
+              <MappingFragment StoreEntitySet="UMS_MenuGroupUser">
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+                <ScalarProperty Name="GroupUserId" ColumnName="GroupUserId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="groupUserId" ColumnName="groupUserId" />
+                <ScalarProperty Name="canedit" ColumnName="canedit" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USER_CHECKACCESS" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="GroupUserId" ColumnName="GroupUserId" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USER_GETROLE" FunctionName="MNPOSTModel.Store.USER_GETROLE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USER_GETMENU" FunctionName="MNPOSTModel.Store.USER_GETMENU">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="GroupIcon" ColumnName="GroupIcon" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

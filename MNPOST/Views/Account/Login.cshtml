@@ -11,16 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Login</title>
+    <title>Đăng nhập</title>
 
     <!-- Bootstrap -->
     <link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="~/Content/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="~/Content/vendors/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="~/Content/build/css/custom.min.css" rel="stylesheet">
@@ -39,7 +35,7 @@
                             @Html.ValidationSummary(true)
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.UserName, new {placeholder="Username", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username", @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.UserName)
                                 </div>
                             </div>
@@ -55,9 +51,9 @@
                                         @Html.CheckBoxFor(m => m.RememberMe)
                                         @Html.LabelFor(m => m.RememberMe)
                                     </div>
-                                    <input type="submit" value="Log in" class="btn btn-default" />                 
+                                    <input type="submit" value="Log in" class="btn btn-default" />
                                 </div>
-                                </div>
+                            </div>
                         </form>
                     }
                 </section>
@@ -65,3 +61,8 @@
         </div>
     </div>
 </body>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

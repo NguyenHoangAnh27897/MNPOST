@@ -7,6 +7,7 @@ using MNPOST.Models;
 
 namespace MNPOST.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()

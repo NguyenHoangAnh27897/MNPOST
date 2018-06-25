@@ -161,85 +161,25 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\manage\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\BS_Contracts.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Countries.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_CustomerGroups.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Customers.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Districts.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Employees.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_PostOffices.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Provinces.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Wards.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BS_Zones.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\MM_Mailers.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MM_TroubleTickets.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MNPOSTModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MNPOSTModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MNPOSTModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MNPOSTModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MNPOSTModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UMS_Functions.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UMS_Permissions.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UMS_UserAccounts.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UMS_UserGroups.cs">
-      <DependentUpon>MNPOSTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\MenuInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\build\css\custom.css" />
     <Content Include="Content\build\css\custom.min.css" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
+    <Content Include="Content\loader.gif" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -3613,9 +3553,7 @@
     <Content Include="Content\vendors\validator\multifield.js" />
     <Content Include="Content\vendors\validator\validator.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\vendors\animate.css\.bower.json" />
@@ -4450,23 +4388,6 @@
     <Content Include="Content\vendors\validator\.bower.json" />
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
-    <EntityDeploy Include="Models\MNPOSTModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MNPOSTModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\MNPOSTModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MNPOSTModel.edmx</DependentUpon>
-      <LastGenOutput>MNPOSTModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\MNPOSTModel.edmx.diagram">
-      <DependentUpon>MNPOSTModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\MNPOSTModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MNPOSTModel.edmx</DependentUpon>
-      <LastGenOutput>MNPOSTModel.cs</LastGenOutput>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -4476,6 +4397,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\myscripts.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -4504,19 +4426,32 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Menu\Show.cshtml" />
+    <Content Include="Views\Menu\Group.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\Relogin.cshtml" />
+    <Content Include="Views\Menu\GrouUserMenu.cshtml" />
+    <Content Include="Views\Shared\_MenuUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MNPOSTCOMMON\MNPOSTCOMMON.csproj">
+      <Project>{86535a9f-fb29-4141-951a-30bcbedef8c0}</Project>
+      <Name>MNPOSTCOMMON</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
