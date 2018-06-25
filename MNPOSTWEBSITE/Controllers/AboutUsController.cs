@@ -6,11 +6,13 @@ using System.Web.Mvc;
 
 namespace MNPOSTWEBSITE.Controllers
 {
-    public class HomeController : Controller
+    public class AboutUsController : Controller
     {
-        public ActionResult Index()
+        //
+        // GET: /AboutUs/
+        public ActionResult Introduce()
         {
             return View();
         }
-    }
+	}
 }
