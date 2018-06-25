@@ -6,11 +6,13 @@ using System.Web.Mvc;
 
 namespace MNPOSTWEBSITE.Controllers
 {
-    public class HomeController : Controller
+    public class TransportController : Controller
     {
-        public ActionResult Index()
+        //
+        // GET: /Transport/
+        public ActionResult FastTransportation()
         {
             return View();
         }
-    }
+	}
 }

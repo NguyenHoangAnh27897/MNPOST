@@ -46,14 +46,25 @@ namespace MNPOSTWEBSITE.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                string username = model.UserName;
+                string pass = model.Password;
+                if (username.Equals("admin"))
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    if (pass.Equals("123456"))
+                    {
+                        await SignInAsync(user, model.RememberMe);
+                        Session["Username"] = model.UserName;
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Sai mật khẩu");
+                    }
+                  
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", "Tài khoản không tồn tại");
                 }
             }
 
@@ -285,10 +296,11 @@ namespace MNPOSTWEBSITE.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            Session["Username"] = null;
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
