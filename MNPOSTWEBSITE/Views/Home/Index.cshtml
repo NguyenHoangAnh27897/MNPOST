@@ -8,10 +8,12 @@
         <ol class="carousel-indicators">
             <li data-target="#osahanslider" data-slide-to="0" class="active"></li>
             <li data-target="#osahanslider" data-slide-to="1"></li>
+            <li data-target="#osahanslider" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active" style="background-image: url('img/slider/2.jpg')"><div class="overlay"></div></div>
-            <div class="carousel-item" style="background-image: url('img/slider/2.jpg')"><div class="overlay"></div></div>
+            <div class="carousel-item active" style="background-image: url('/Content/img/slider/2.jpg')"><div class="overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('/Content/img/slider/3.jpg')"><div class="overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('/Content/img/slider/4.jpg')"><div class="overlay"></div></div>
         </div>
         <a class="carousel-control-prev" href="#osahanslider" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -24,20 +26,14 @@
     </div>
     <div class="slider-form">
         <div class="container">
-            <h1 class="text-center text-white mb-5">Find Your Favorite Property</h1>
+            <h1 class="text-center text-white mb-5">Ước tính cước phí</h1>
             <form>
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <div class="input-group-addon"><i class="mdi mdi-map-marker-multiple"></i></div>
-                            <input class="form-control" placeholder="Enter Location, Project or Landmark" type="text">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group">
                             <div class="input-group-addon"><i class="mdi mdi-google-maps"></i></div>
                             <select class="form-control select2 no-radius">
-                                <option value="">Locations</option>
+                                <option value="">Nơi bắt đầu</option>
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AZ">Arizona</option>
@@ -92,11 +88,11 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="input-group">
                             <div class="input-group-addon"><i class="mdi mdi-security-home"></i></div>
                             <select class="form-control select2 no-radius">
-                                <option value="">Property Type</option>
+                                <option value="">Nơi kết thúc</option>
                                 <option value="">House/Villa</option>
                                 <option value="">Flat</option>
                                 <option value="">Plot/Land</option>
@@ -109,7 +105,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-success btn-block no-radius font-weight-bold">SEARCH</button>
+                        <button type="submit" class="btn btn-success btn-block no-radius font-weight-bold">Tìm Kiếm</button>
                     </div>
                 </div>
             </form>
@@ -120,21 +116,20 @@
 <!-- Properties List -->
 <section class="section-padding">
     <div class="section-title text-center mb-5">
-        <h2>Latest Properties</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <h2>Tuyến giao hàng nhiều nhất</h2>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="card card-list">
                     <a href="#">
-                        <span class="badge badge-success">For Sale</span>
-                        <img class="card-img-top" src="img/list/1.png" alt="Card image cap">
+                        <span class="badge badge-success">Hồ Chí Minh</span>
+                        <img class="card-img-top" src="/Content/img/list/1.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">House in Kent Street</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i> 127 Kent Sreet, Sydny, NEW 2000</h6>
+                            <h5 class="card-title">Hồ Chí Minh - Hà Nội</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
-                                $130,000 <small>/month</small>
+                                Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -148,13 +143,13 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card card-list">
                     <a href="#">
-                        <span class="badge badge-secondary">For Rent</span>
-                        <img class="card-img-top" src="img/list/2.png" alt="Card image cap">
+                        <span class="badge badge-secondary">Hà Nội</span>
+                        <img class="card-img-top" src="/Content/img/list/2.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Family House in Hudson</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i> Hoboken, NJ, USA</h6>
+                            <h5 class="card-title">Hà Nội - Đà Nẵng</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
-                                $127,000 <small>/month</small>
+                                Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -168,13 +163,13 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card card-list">
                     <a href="#">
-                        <span class="badge badge-success">For Sale</span>
-                        <img class="card-img-top" src="img/list/3.png" alt="Card image cap">
+                        <span class="badge badge-success">Đà Nẵng</span>
+                        <img class="card-img-top" src="/Content/img/list/3.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Loft Above The City</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i> Hope Street (Stop P), London SW11, UK</h6>
+                            <h5 class="card-title">Đà Nẵng - Cần Thơ</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
-                                $55,000 <small>/month</small>
+                                Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -190,13 +185,13 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card card-list">
                     <a href="#">
-                        <span class="badge badge-danger">For Sale</span>
-                        <img class="card-img-top" src="img/list/4.png" alt="Card image cap">
+                        <span class="badge badge-danger">Cần Thơ</span>
+                        <img class="card-img-top" src="/Content/img/list/4.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Store Space Greenville</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i> 250-260 3rd St, Hoboken, NJ 07030, USA</h6>
+                            <h5 class="card-title">Cần Thơ - Huế</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
-                                $25,000 <small>/month</small>
+                                Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -210,13 +205,13 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card card-list">
                     <a href="#">
-                        <span class="badge badge-warning">For Rent</span>
-                        <img class="card-img-top" src="img/list/5.png" alt="Card image cap">
+                        <span class="badge badge-warning">Huế</span>
+                        <img class="card-img-top" src="/Content/img/list/5.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Villa in Melbourne</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i> NJ 07305, USA</h6>
+                            <h5 class="card-title">Huế - Hà Tĩnh</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
-                                $12,000 <small>/month</small>
+                                Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -230,13 +225,13 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card card-list">
                     <a href="#">
-                        <span class="badge badge-info">For Rent</span>
-                        <img class="card-img-top" src="img/list/6.png" alt="Card image cap">
+                        <span class="badge badge-info">Hà Tĩnh</span>
+                        <img class="card-img-top" src="/Content/img/list/6.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Villa on Hollywood Boulev</h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i> The Village, Jersey City, NJ 07302, USA</h6>
+                            <h5 class="card-title">Hà Tĩnh - Hồ Chí Minh</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
-                                $356, 000 <small>/month</small>
+                                Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
                         <div class="card-footer">
@@ -254,18 +249,18 @@
 <!-- Properties by City -->
 <section class="section-padding bg-white">
     <div class="section-title text-center mb-5">
-        <h2>Property By City</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <h2>Chúng tôi có mặt trên kháp tỉnh thành</h2>
+        <p>Trải dài từ miền bắc vào miền nam</p>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8">
                 <div class="card bg-dark text-white card-overlay">
                     <a href="#">
-                        <img class="card-img" src="img/overlay/1.png" alt="Card image">
+                        <img class="card-img" src="/Content/img/overlay/hcm.jpg" alt="Card image">
                         <div class="card-img-overlay">
-                            <h3 class="card-title text-white">New York</h3>
-                            <p class="card-text text-white">16 Properties</p>
+                            <h3 class="card-title text-white">TP. Hồ Chí Minh</h3>
+                            <p class="card-text text-white">4 Chi nhánh</p>
                         </div>
                     </a>
                 </div>
@@ -273,10 +268,10 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card bg-dark text-white card-overlay">
                     <a href="#">
-                        <img class="card-img" src="img/overlay/2.png" alt="Card image">
+                        <img class="card-img" src="/Content/img/overlay/hn.jpg" alt="Card image">
                         <div class="card-img-overlay">
-                            <h3 class="card-title text-white">Los Angeles</h3>
-                            <p class="card-text text-white">265 Properties</p>
+                            <h3 class="card-title text-white">Hà Nội</h3>
+                            <p class="card-text text-white">3 Chi nhánh</p>
                         </div>
                     </a>
                 </div>
@@ -286,10 +281,10 @@
             <div class="col-lg-4 col-md-4">
                 <div class="card bg-dark text-white card-overlay">
                     <a href="#">
-                        <img class="card-img" src="img/overlay/3.png" alt="Card image">
+                        <img class="card-img" src="/Content/img/overlay/dn.jpg" alt="Card image">
                         <div class="card-img-overlay">
-                            <h3 class="card-title text-white">Chicago</h3>
-                            <p class="card-text text-white">620 Properties</p>
+                            <h3 class="card-title text-white">Đà Nẵng</h3>
+                            <p class="card-text text-white">2 Chi nhánh</p>
                         </div>
                     </a>
                     .
@@ -298,10 +293,10 @@
             <div class="col-lg-8 col-md-8">
                 <div class="card bg-dark text-white card-overlay">
                     <a href="#">
-                        <img class="card-img" src="img/overlay/4.png" alt="Card image">
+                        <img class="card-img" src="/Content/img/overlay/hue.jpg" alt="Card image">
                         <div class="card-img-overlay">
-                            <h3 class="card-title text-white">Philadelphia</h3>
-                            <p class="card-text text-white">28 Properties</p>
+                            <h3 class="card-title text-white">Huế</h3>
+                            <p class="card-text text-white">2 Chi nhánh</p>
                         </div>
                     </a>
                 </div>
@@ -313,33 +308,29 @@
 <!-- Trusted Agents -->
 <section class="section-padding">
     <div class="section-title text-center mb-5">
-        <h2>Trusted Agents</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        <h2>Vì sao nên tin tưởng chúng tôi?</h2>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="agents-card text-center">
-                    <img class="img-fluid mb-4" src="img/user/1.jpg" alt="">
-                    <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-                    <h6 class="mb-0 text-success">- Stave Martin</h6>
-                    <small>Buying Agent</small>
+                    <img class="img-fluid mb-4" src="/Content/img/icon/trust.png" alt="">
+                    <p class="mb-4">Đội ngũ giao hàng chuyên nghiệp.</p>
+                    <h6 class="mb-0 text-success">CHUYÊN NGHIỆP</h6>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4">
                 <div class="agents-card text-center">
-                    <img class="img-fluid mb-4" src="img/user/2.jpg" alt="">
-                    <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-                    <h6 class="mb-0 text-success">- Mark Smith</h6>
-                    <small>Selling Agent</small>
+                    <img class="img-fluid mb-4" src="/Content/img/icon/trust.png" alt="">
+                    <p class="mb-4">Thời gian giao hàng nhanh chóng và dễ dàng theo dõi lịch trình kiện hàng.</p>
+                    <h6 class="mb-0 text-success">NHANH CHÓNG</h6>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4">
                 <div class="agents-card text-center">
-                    <img class="img-fluid mb-4" src="img/user/3.jpg" alt="">
-                    <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-                    <h6 class="mb-0 text-success">- Ryan Printz</h6>
-                    <small>Real Estate Broker</small>
+                    <img class="img-fluid mb-4" src="/Content/img/icon/trust.png" alt="">
+                    <p class="mb-4">Kiện hàng được giao tới đúng thời gian và hoàn toàn không bị trầy xướt.</p>
+                    <h6 class="mb-0 text-success">ĐÁNG TIN CẬY</h6>
                 </div>
             </div>
         </div>
@@ -406,8 +397,8 @@
 <!-- End Blog -->
 <!-- Join Team -->
 <section class="section-padding bg-dark text-center">
-    <h2 class="text-white mt-0">Join our professional team & agents<br>to start selling your house</h2>
-    <p class="text-white mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-    <button type="button" class="btn btn-success">Contact Us</button> <button type="button" class="btn btn-outline-success">Read More</button>
+    <h2 class="text-white mt-0">Tham gia cùng bạn trên mọi chuyến hàng <br /> một cách nhanh chóng và chính xác</h2>
+    <p class="text-white mb-4">Đó chính là tiêu chí của chúng tôi</p>
+    <button type="button" class="btn btn-success">Liên hệ với chúng tôi</button>
 </section>
 <!-- End Join Team -->
