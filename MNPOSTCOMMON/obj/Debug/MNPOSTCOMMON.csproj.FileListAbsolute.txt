@@ -7,3 +7,18 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+<<<<<<< HEAD
+=======
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.pdb
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.xml
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.xml
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+>>>>>>> 4f2a1664938296a8b75c1b9cc86fc48e5fb88340
