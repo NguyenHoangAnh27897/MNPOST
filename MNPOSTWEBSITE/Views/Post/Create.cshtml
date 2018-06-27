@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+
+<!-- Properties List -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10">           
+                <div class="card padding-card" style="margin-left: 150px">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Create a post</h5>
+                        <form name="sentMessage">
+                            <div class="row">
+                                <div class="control-group form-group col-lg-6 col-md-6">
+                                    <div class="controls">
+                                        <label>Tiêu đề<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="control-group form-group col-lg-6 col-md-6">
+                                    <div class="controls">
+                                        <label>Đăng bởi <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    <label>Hình ảnh</label>
+                                    <input type="file" name="avatar" accept="image/*" />
+                                </div>
+                            </div>
+                            <div class="control-group form-group">
+                                <div class="controls">
+                                    <label>Nội dung <span class="text-danger">*</span></label>
+                                    <textarea rows="10" cols="100" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">ĐĂNG BÀI</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
