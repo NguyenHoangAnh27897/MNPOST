@@ -48,6 +48,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
         public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
         public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
+        public virtual DbSet<BS_Positions> BS_Positions { get; set; }
+        public virtual DbSet<GeneralCodeInfo> GeneralCodeInfoes { get; set; }
     
         public virtual ObjectResult<GROUPUSER_GETLISTMENU_Result> GROUPUSER_GETLISTMENU(string groupId)
         {
@@ -87,6 +89,19 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("user", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETMENU_Result>("USER_GETMENU", userParameter);
+        }
+    
+        public virtual ObjectResult<EMPLOYEE_GETALL_Result> EMPLOYEE_GETALL(string postId, string search)
+        {
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            var searchParameter = search != null ?
+                new ObjectParameter("search", search) :
+                new ObjectParameter("search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETALL_Result>("EMPLOYEE_GETALL", postIdParameter, searchParameter);
         }
     }
 }

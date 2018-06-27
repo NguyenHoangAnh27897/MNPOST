@@ -20,3 +20,20 @@ function showLoader(isShow) {
         $("#loader").css("display", "none");
     }
 }
+
+function fsubmit(msg) {
+    if (!confirm(msg)) {
+        return false;
+    } else {
+        showLoader(true);
+    }
+}
+
+function fsubmit(msg,id) {
+    if (!confirm(msg)) {
+        return false;
+    } else {
+        showLoader(true);
+        hideModel(id);
+    }
+}

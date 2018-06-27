@@ -10,25 +10,32 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class BS_PostOffices
+    public partial class EMPLOYEE_GETALL_Result
     {
+        public string EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+        public string DepartmentID { get; set; }
         public string PostOfficeID { get; set; }
-        public string PostOfficeName { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public bool IsActive { get; set; }
         public string Address { get; set; }
-        public string ZoneID { get; set; }
-        public string ProvinceID { get; set; }
         public string Phone { get; set; }
+        public string IdentifyCard { get; set; }
         public string FaxNo { get; set; }
         public string Email { get; set; }
-        public bool IsCollaborator { get; set; }
         public string Notes { get; set; }
         public Nullable<System.DateTime> LastEditDate { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
-        public string TaxCode { get; set; }
-        public string BankAccount { get; set; }
-        public string BankName { get; set; }
-        public Nullable<int> Type { get; set; }
+        public string MemberOf { get; set; }
+        public string ProvinceID { get; set; }
+        public Nullable<bool> IsCollaborators { get; set; }
+        public string SGPEmployeeID { get; set; }
+        public Nullable<bool> Sex { get; set; }
+        public Nullable<System.DateTime> ApproveDate { get; set; }
+        public string UserLogin { get; set; }
+        public string PositionID { get; set; }
+        public string PositionName { get; set; }
+        public string PostOfficeName { get; set; }
     }
 }

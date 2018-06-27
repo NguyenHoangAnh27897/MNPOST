@@ -1,3 +1,4 @@
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.dll
@@ -6,5 +7,3 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
-D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config

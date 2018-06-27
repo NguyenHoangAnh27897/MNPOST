@@ -63,7 +63,7 @@ namespace MNPOST.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize]
+         [Authorize(Roles = "admin")]
         public ActionResult Register()
         {
             return View();
@@ -72,7 +72,7 @@ namespace MNPOST.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

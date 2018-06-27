@@ -152,18 +152,18 @@
           <Key>
             <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="EmployeeID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DepartmentID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="EmployeeName" Type="nvarchar(max)" />
+          <Property Name="DepartmentID" Type="varchar" MaxLength="15" />
+          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
           <Property Name="Birthday" Type="datetime" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="25" />
-          <Property Name="IdentifyCard" Type="nvarchar" MaxLength="20" />
+          <Property Name="IdentifyCard" Type="nvarchar" MaxLength="128" />
           <Property Name="FaxNo" Type="nvarchar" MaxLength="25" />
-          <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="512" />
+          <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="LastEditDate" Type="datetime" />
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="MemberOf" Type="varchar" MaxLength="50" />
@@ -172,6 +172,16 @@
           <Property Name="SGPEmployeeID" Type="nvarchar" MaxLength="20" />
           <Property Name="Sex" Type="bit" />
           <Property Name="ApproveDate" Type="date" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="128" />
+          <Property Name="PositionID" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="BS_Positions">
+          <Key>
+            <PropertyRef Name="PositionID" />
+          </Key>
+          <Property Name="PositionID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PositionName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="BS_PostOffices">
           <Key>
@@ -192,9 +202,7 @@
           <Property Name="TaxCode" Type="varchar" MaxLength="50" />
           <Property Name="BankAccount" Type="varchar" MaxLength="50" />
           <Property Name="BankName" Type="nvarchar" MaxLength="100" />
-          <Property Name="MemberOf" Type="varchar" MaxLength="15" />
-          <Property Name="CustomerPre" Type="varchar" MaxLength="10" />
-          <Property Name="SGPPostOfficeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="BS_Provinces">
           <Key>
@@ -229,6 +237,14 @@
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GeneralCodeInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstChar" Type="varchar" MaxLength="5" />
+          <Property Name="PreNumber" Type="int" />
         </EntityType>
         <EntityType Name="MM_Mailers">
           <Key>
@@ -401,6 +417,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="postId" Type="nvarchar" Mode="In" />
+          <Parameter Name="search" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="nvarchar" Mode="In" />
         </Function>
@@ -427,10 +447,12 @@
           <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
@@ -607,18 +629,18 @@
           <Key>
             <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="EmployeeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepartmentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="IdentifyCard" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IdentifyCard" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="FaxNo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastEditDate" Type="DateTime" Precision="3" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -627,6 +649,8 @@
           <Property Name="SGPEmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Sex" Type="Boolean" />
           <Property Name="ApproveDate" Type="DateTime" Precision="0" />
+          <Property Name="UserLogin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PositionID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BS_PostOffices">
           <Key>
@@ -647,9 +671,7 @@
           <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MemberOf" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerPre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="SGPPostOfficeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
         </EntityType>
         <EntityType Name="BS_Provinces">
           <Key>
@@ -873,8 +895,14 @@
           <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USER_GETMENU" ReturnType="Collection(MNPOSTModel.USER_GETMENU_Result)">
-            <Parameter Name="user" Mode="In" Type="String" />
+          <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="BS_Positions" EntityType="MNPOSTModel.BS_Positions" />
+          <FunctionImport Name="EMPLOYEE_GETALL" ReturnType="Collection(MNPOSTModel.EMPLOYEE_GETALL_Result)">
+            <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="GeneralCodeInfoes" EntityType="MNPOSTModel.GeneralCodeInfo" />
         </EntityContainer>
         <EntityType Name="UMS_MenuGroupUser">
           <Key>
@@ -919,6 +947,48 @@
           <Property Type="String" Name="groupName" Nullable="true" />
           <Property Type="String" Name="GroupIcon" Nullable="true" MaxLength="128" />
         </ComplexType>
+        <EntityType Name="BS_Positions">
+          <Key>
+            <PropertyRef Name="PositionID" />
+          </Key>
+          <Property Name="PositionID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PositionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="EMPLOYEE_GETALL_Result">
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DepartmentID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="PostOfficeID" Nullable="false" MaxLength="15" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="IdentifyCard" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="MemberOf" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+          <Property Type="Boolean" Name="IsCollaborators" Nullable="true" />
+          <Property Type="String" Name="SGPEmployeeID" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="ApproveDate" Nullable="true" />
+          <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="PositionID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PositionName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PostOfficeName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="GeneralCodeInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FirstChar" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PreNumber" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1070,6 +1140,8 @@
           <EntitySetMapping Name="BS_Employees">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_Employees">
               <MappingFragment StoreEntitySet="BS_Employees">
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -1096,6 +1168,7 @@
           <EntitySetMapping Name="BS_PostOffices">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_PostOffices">
               <MappingFragment StoreEntitySet="BS_PostOffices">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
                 <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1111,10 +1184,7 @@
                 <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
                 <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
-                <ScalarProperty Name="CustomerPre" ColumnName="CustomerPre" />
-                <ScalarProperty Name="SGPPostOfficeName" ColumnName="SGPPostOfficeName" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BS_Provinces">
@@ -1320,6 +1390,54 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="BS_Positions">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Positions">
+              <MappingFragment StoreEntitySet="BS_Positions">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
+                <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="GeneralCodeInfoes">
+            <EntityTypeMapping TypeName="MNPOSTModel.GeneralCodeInfo">
+              <MappingFragment StoreEntitySet="GeneralCodeInfo">
+                <ScalarProperty Name="PreNumber" ColumnName="PreNumber" />
+                <ScalarProperty Name="FirstChar" ColumnName="FirstChar" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

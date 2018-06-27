@@ -78,6 +78,9 @@
     <Compile Include="BS_Employees.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="BS_Positions.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="BS_PostOffices.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -92,6 +95,12 @@
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EMPLOYEE_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralCodeInfo.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">

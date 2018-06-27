@@ -72,8 +72,11 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.OAuth.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Twitter.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Web.Infrastructure.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Newtonsoft.Json.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Owin.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.Mvc.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Mvc.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Optimization.dll
@@ -82,6 +85,9 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.Deployment.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.Razor.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\WebGrease.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.xml
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.Mvc.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Mvc.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Optimization.xml
@@ -108,5 +114,3 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
