@@ -163,5 +163,5 @@ C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\Microsoft
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
-D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll
-D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.pdb
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.pdb

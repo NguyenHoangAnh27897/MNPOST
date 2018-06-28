@@ -15,6 +15,7 @@ namespace MNPOSTWEBSITE.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -47,8 +48,8 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 string username = model.UserName;
-                string pass = model.Password;
-                if (username.Equals("admin"))
+                string pass = user.
+                if (username.Equals(user.UserName))
                 {
                     if (pass.Equals("123456"))
                     {

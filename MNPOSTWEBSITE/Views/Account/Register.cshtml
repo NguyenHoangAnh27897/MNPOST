@@ -87,13 +87,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Email <span class="text-danger">*</span></label>
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Nhập Email" })
                                 </div>
                                 <div class="form-group">
                                     <label>Mật khẩu <span class="text-danger">*</span></label>
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu" })
                                 </div>
                                 <div class="form-group">
+                                    <label>Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder= "Xác nhận mật khẩu" })
+                                </div>
+                                @*<div class="form-group">
 
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
@@ -101,7 +105,7 @@
                                     </div>
 
 
-                                </div>
+                                </div>*@
                                 <button type="submit" class="btn btn-success btn-block">ĐĂNG KÝ</button>
                             }
                         </div>

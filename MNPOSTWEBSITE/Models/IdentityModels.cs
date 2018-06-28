@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace MNPOSTWEBSITE.Models
 {
@@ -8,6 +9,7 @@ namespace MNPOSTWEBSITE.Models
         public string IsActive { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
+        public int IDRole { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -15,6 +17,7 @@ namespace MNPOSTWEBSITE.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
     }
 }

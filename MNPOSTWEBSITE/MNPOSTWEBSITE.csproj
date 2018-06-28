@@ -245,9 +245,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MNPOSTCOMMON\MNPOSTCOMMON.csproj">
-      <Project>{86535a9f-fb29-4141-951a-30bcbedef8c0}</Project>
-      <Name>MNPOSTCOMMON</Name>
+    <ProjectReference Include="..\MNPOSTWEBSITEMODEL\MNPOSTWEBSITEMODEL.csproj">
+      <Project>{1fd8ddc3-5702-462c-bac6-c9f3ea8fbb14}</Project>
+      <Name>MNPOSTWEBSITEMODEL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
