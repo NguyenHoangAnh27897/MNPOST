@@ -103,43 +103,40 @@ namespace MNPOST.Controllers.mnpostinfo
         [ValidateAntiForgeryToken]
         protected async Task<ActionResult> Register(string UserName, string Password, string GroupId, string StaffCode)
         {
-
-            var findStaff = db.BS_Employees.Find(StaffCode);
-
-            if (findStaff == null)
-                return Redirect("/error");
-
-            var user = new ApplicationUser()
+            if (ModelState.IsValid)
             {
-                UserName = UserName,
-                FullName = findStaff.EmployeeName,
-                GroupId = GroupId,
-                IsActivced = 1,
-                AccountType = "user"
-            };
+                var findStaff = db.BS_Employees.Find(StaffCode);
 
-          
+                if (findStaff == null)
+                    return Redirect("/error");
+
+                var user = new ApplicationUser()
+                {
+                    UserName = UserName,
+                    FullName = findStaff.EmployeeName,
+                    GroupId = GroupId,
+                    IsActivced = 1,
+                    AccountType = "user"
+                };
+
+                var result = await UserManager.CreateAsync(user, Password);
 
 
-            var result = await UserManager.CreateAsync(user, Password);
+                if (result.Succeeded)
+                {
 
+                    findStaff.UserLogin = UserName;
+                    db.Entry(findStaff).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
 
-            if (result.Succeeded)
-            {
+                    await UserManager.AddToRoleAsync(user.Id, "user");
 
-                findStaff.UserLogin = UserName;
-                db.Entry(findStaff).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                    return RedirectToAction("show", "staff", new { msg = "Da tao tai khoan " + UserName, search = "StaffCode" });
+                }
 
-                await UserManager.AddToRoleAsync(user.Id, "user");
-
-                return RedirectToAction("show", "staff", new { msg = "Da tao tai khoan " + UserName, search = "StaffCode"});
-            }
-            else
-            {
-                return RedirectToAction("show", "staff", new { msg = "Khong tao duoc tk " + UserName, search = "StaffCode" });
             }
 
+            return RedirectToAction("show", "staff", new { msg = "Khong tao duoc tk " + UserName, search = "StaffCode" });
         }
     }
 }
