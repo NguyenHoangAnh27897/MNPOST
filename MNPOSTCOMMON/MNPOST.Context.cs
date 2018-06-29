@@ -20,6 +20,7 @@ namespace MNPOSTCOMMON
         public MNPOSTEntities()
             : base("name=MNPOSTEntities")
         {
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

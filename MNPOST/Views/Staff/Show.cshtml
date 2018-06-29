@@ -5,7 +5,7 @@
     ViewBag.Title = "Show";
 }
 
-<div class="row">
+<div class="row" ng-app="myApp" ng-controller="myCtrl">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -65,27 +65,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.EmployeeID</td>
-                                    <td>@item.EmployeeName</td>
-                                    <td>@item.PostOfficeID</td>
-                                    <td>@item.PositionID</td>
-                                    <td>@item.Phone</td>
-                                    <td>@item.Email</td>
-                                    <td>
-                                        @if (String.IsNullOrEmpty(item.UserLogin))
-                                        {
-                                            <a href="">Tạo tài khoản</a>
-                                        }
-                                        else
-                                        {
-                                            @item.UserLogin
-                                        }
-                                    </td>
-                                </tr>
-                            }
+
+                            <tr ng-repeat="staff in listStaff">
+                                <td>{{staff.EmployeeID}}</td>
+                                <td>{{staff.EmployeeName}}</td>
+                                <td>{{staff.PostOfficeID}}</td>
+                                
+
+                            </tr>
                         </tbody>
                     </table>
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
@@ -183,9 +170,15 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Mã NV</label>
-                    <input type="text" value="" name="StaffCode" />
+                    <input type="text" value="" name="StaffCode" class="form-control" />
                 </div>
+
+                <div class="form-group">
+                    <label>Tên NV</label>
+                </div>
+
             </div>
+
             <div class="modal-footer">
                 <button type="submit" class="btn btn-default">Thêm</button>
             </div>
@@ -204,8 +197,20 @@
         @if (ViewBag.MSG != "")
         {
             @:alert('@ViewBag.MSG');
-                                                            }
 
+        }
+        var myArray =  '@Html.Raw(Json.Encode(Model))';
+        console.log(myArray);
+
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+
+            $scope.listStaff = JSON.parse(myArray);
+
+
+
+
+        });
 
     </script>
 }
