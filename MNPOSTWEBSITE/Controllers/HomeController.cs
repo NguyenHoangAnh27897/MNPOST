@@ -8,6 +8,7 @@ namespace MNPOSTWEBSITE.Controllers
 {
     public class HomeController : Controller
     {
+        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
         public ActionResult Index()
         {
             return View();

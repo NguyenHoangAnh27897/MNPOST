@@ -70,5 +70,17 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="WS_Post">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Post">
+        <MappingFragment StoreEntitySet="WS_Post">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="PostContent" ColumnName="PostContent" />
+          <ScalarProperty Name="Images" ColumnName="Images" />
+          <ScalarProperty Name="PostBy" ColumnName="PostBy" />
+          <ScalarProperty Name="PostName" ColumnName="PostName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

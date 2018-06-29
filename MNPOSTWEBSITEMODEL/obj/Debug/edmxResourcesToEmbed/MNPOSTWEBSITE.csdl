@@ -115,5 +115,17 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="WS_Post" EntityType="MNPOSTWEBSITEModel.WS_Post" />
   </EntityContainer>
+  <EntityType Name="WS_Post">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PostBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PostContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>

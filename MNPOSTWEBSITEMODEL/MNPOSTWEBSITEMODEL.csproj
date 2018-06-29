@@ -83,6 +83,9 @@
     <Compile Include="WS_Menu.cs">
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
+    <Compile Include="WS_Post.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MNPOSTWEBSITE.edmx">
@@ -91,7 +94,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="MNPOSTWEBSITE.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MNPOSTWEBSITE.edmx</DependentUpon>

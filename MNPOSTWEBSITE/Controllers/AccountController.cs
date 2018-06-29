@@ -48,7 +48,7 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 string username = model.UserName;
-                string pass = user.
+                string pass = model.Password;
                 if (username.Equals(user.UserName))
                 {
                     if (pass.Equals("123456"))
