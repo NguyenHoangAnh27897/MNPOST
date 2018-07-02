@@ -86,6 +86,9 @@
     <Compile Include="WS_Post.cs">
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
+    <Compile Include="WS_SubMenu.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MNPOSTWEBSITE.edmx">

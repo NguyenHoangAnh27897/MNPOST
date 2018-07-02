@@ -53,15 +53,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="WS_Menu">
-      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Menu">
-        <MappingFragment StoreEntitySet="WS_Menu">
-          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="AspNetUserRoles" TypeName="MNPOSTWEBSITEModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -79,6 +70,25 @@
           <ScalarProperty Name="PostBy" ColumnName="PostBy" />
           <ScalarProperty Name="PostName" ColumnName="PostName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WS_SubMenu">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_SubMenu">
+        <MappingFragment StoreEntitySet="WS_SubMenu">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SubmenuName" ColumnName="SubmenuName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WS_Menu">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Menu">
+        <MappingFragment StoreEntitySet="WS_Menu">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
