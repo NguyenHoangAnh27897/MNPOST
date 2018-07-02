@@ -165,3 +165,5 @@ C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNP
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.pdb
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.pdb
