@@ -24,6 +24,10 @@ namespace MNPOST.Controllers.mnpostinfo
 
             ViewBag.MSG = msg;
 
+            ViewBag.SearchText = search;
+
+            ViewBag.PostSearch = post;
+
             ViewBag.AllPosition = db.BS_Positions.ToList();
 
             ViewBag.AllPost = db.BS_PostOffices.ToList();
@@ -59,7 +63,48 @@ namespace MNPOST.Controllers.mnpostinfo
 
             db.SaveChanges();
 
-            return Json( new { error = 0, result = db.BS_Employees.Find(code)}, JsonRequestBehavior.AllowGet);
+            return Json(new { error = 0, result = db.EMPLOYEE_GETBYID(code).FirstOrDefault() }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult UpdateStaff(BS_Employees employee, string GroupId, string AccountType)
+        {
+            if (!checkAccess("staff", 1))
+                return Json(new { error = 1, msg = "you don't have permission for this" }, JsonRequestBehavior.AllowGet);
+
+
+            var checkStaff = db.BS_Employees.Find(employee.EmployeeID);
+
+            if (checkStaff == null)
+                return Json(new { error = 1, msg = "Infomation wrong" }, JsonRequestBehavior.AllowGet);
+
+            checkStaff.EmployeeName = employee.EmployeeName;
+            checkStaff.Phone = employee.Phone;
+            checkStaff.PositionID = employee.PositionID;
+            checkStaff.PostOfficeID = employee.PostOfficeID;
+            checkStaff.Email = employee.Email;
+            checkStaff.IdentifyCard = employee.IdentifyCard;
+
+            db.Entry(checkStaff).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            if (!String.IsNullOrEmpty(checkStaff.UserLogin))
+            {
+                var check = db.AspNetUsers.Where(p => p.UserName == checkStaff.UserLogin).FirstOrDefault();
+
+                if (check != null)
+                {
+                    check.GroupId = GroupId;
+                    check.FullName = employee.EmployeeName;
+                    check.AccountType = AccountType;
+
+                    db.Entry(checkStaff).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+
+            return Json(new { error = 0, result = db.EMPLOYEE_GETBYID(checkStaff.EmployeeID).FirstOrDefault() }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -131,12 +176,12 @@ namespace MNPOST.Controllers.mnpostinfo
 
                     await UserManager.AddToRoleAsync(user.Id, "user");
 
-                    return RedirectToAction("show", "staff", new { msg = "Da tao tai khoan " + UserName, search = StaffCode });
+                    return RedirectToAction("show", "staff", new { msg = "Da tao tai khoan " + UserName, search = findStaff.EmployeeID });
                 }
 
             }
 
-            return RedirectToAction("show", "staff", new { msg = "Khong tao duoc tk " + UserName, search = "StaffCode" });
+            return RedirectToAction("show", "staff", new { msg = "Khong tao duoc tk " + UserName, search = "" });
         }
 
 
@@ -159,7 +204,19 @@ namespace MNPOST.Controllers.mnpostinfo
 
             db.SaveChanges();
 
-            return Json(new { error = 0}, JsonRequestBehavior.AllowGet);
+            if (!String.IsNullOrEmpty(checkStaff.UserLogin))
+            {
+                var check = db.AspNetUsers.Where(p => p.UserName == checkStaff.UserLogin).FirstOrDefault();
+
+                if (check != null)
+                {
+                    check.IsActivced = IsActive ? 1 : 0;
+                    db.Entry(checkStaff).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+
+            return Json(new { error = 0 }, JsonRequestBehavior.AllowGet);
         }
 
         //

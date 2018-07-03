@@ -103,5 +103,19 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETALL_Result>("EMPLOYEE_GETALL", postIdParameter, searchParameter);
         }
+    
+        public virtual ObjectResult<EMPLOYEE_GETBYID_Result> EMPLOYEE_GETBYID(string employeeID)
+        {
+            var employeeIDParameter = employeeID != null ?
+                new ObjectParameter("employeeID", employeeID) :
+                new ObjectParameter("employeeID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETBYID_Result>("EMPLOYEE_GETBYID", employeeIDParameter);
+        }
+    
+        public virtual ObjectResult<POSTOFFICE_GETALL_Result> POSTOFFICE_GETALL()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<POSTOFFICE_GETALL_Result>("POSTOFFICE_GETALL");
+        }
     }
 }

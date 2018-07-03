@@ -416,9 +416,13 @@
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="search" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="EMPLOYEE_GETBYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeID" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
     <Parameter Name="menuCode" Type="nvarchar" Mode="In" />

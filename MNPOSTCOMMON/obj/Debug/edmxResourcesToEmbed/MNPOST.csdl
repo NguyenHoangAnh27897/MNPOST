@@ -419,6 +419,10 @@
       <Parameter Name="search" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="GeneralCodeInfoes" EntityType="MNPOSTModel.GeneralCodeInfo" />
+    <FunctionImport Name="EMPLOYEE_GETBYID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_GETBYID_Result)">
+      <Parameter Name="employeeID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="POSTOFFICE_GETALL" ReturnType="Collection(MNPOSTModel.POSTOFFICE_GETALL_Result)" />
   </EntityContainer>
   <EntityType Name="UMS_MenuGroupUser">
     <Key>
@@ -507,4 +511,51 @@
     <Property Name="FirstChar" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="PreNumber" Type="Int32" />
   </EntityType>
+  <ComplexType Name="EMPLOYEE_GETBYID_Result">
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" />
+    <Property Type="String" Name="DepartmentID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+    <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
+    <Property Type="String" Name="Address" Nullable="true" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="IdentifyCard" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="512" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="MemberOf" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+    <Property Type="Boolean" Name="IsCollaborators" Nullable="true" />
+    <Property Type="String" Name="SGPEmployeeID" Nullable="true" MaxLength="20" />
+    <Property Type="Boolean" Name="Sex" Nullable="true" />
+    <Property Type="DateTime" Name="ApproveDate" Nullable="true" />
+    <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="PositionID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PositionName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="PostOfficeName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="GroupId" Nullable="true" />
+    <Property Type="String" Name="AccountType" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="POSTOFFICE_GETALL_Result">
+    <Property Type="String" Name="PostOfficeID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="PostOfficeName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ZoneID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="ProvinceID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="IsCollaborator" Nullable="false" />
+    <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="TaxCode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BankAccount" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="BankName" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="Type" Nullable="true" />
+    <Property Type="String" Name="ZoneName" Nullable="true" MaxLength="100" />
+  </ComplexType>
 </Schema>

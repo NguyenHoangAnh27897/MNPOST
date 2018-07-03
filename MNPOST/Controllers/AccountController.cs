@@ -47,7 +47,7 @@ namespace MNPOST.Controllers
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
        
-                if (user != null)
+                if (user != null &&user.IsActivced == 1)
                 {
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);

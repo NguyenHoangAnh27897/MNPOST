@@ -39,11 +39,11 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.Mvc.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Mvc.xml
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Optimization.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Razor.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.Deployment.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.Razor.xml
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Optimization.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Newtonsoft.Json.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Antlr3.Runtime.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\EntityFramework.xml

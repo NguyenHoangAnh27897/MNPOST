@@ -35,11 +35,29 @@
                     <form class="form-label-left">
 
                         <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <select class="form-control" name="post">
+                                        <option value="">Tất cả</option>
+                                        @foreach (var item in ViewBag.AllPost as IEnumerable<MNPOSTCOMMON.BS_PostOffices>)
+                                        {
+                                            if (ViewBag.PostSearch == item.PostOfficeID)
+                                            {
+                                                <option value="@item.PostOfficeID" selected>@item.PostOfficeName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.PostOfficeID">@item.PostOfficeName</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <input type="text" value="@ViewBag.SearchText" class="form-control" placeholder="Search for...">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Go!</button>
+                                        <button class="btn btn-default" type="button">Tìm</button>
                                     </span>
                                 </div>
                             </div>
@@ -80,7 +98,7 @@
                         </table>
                         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                        @Html.PagedListPager(Model, page => Url.Action("Show", new { page }))
+                        @Html.PagedListPager(Model, page => Url.Action("Show", new { page, search = ViewBag.SearchText, post = ViewBag.PostSearch }))
                     </div>
                     <!--end table-->
 
@@ -116,7 +134,7 @@
 
                                 <div class="form-group" ng-show="ShowEmployeeID">
                                     <label>Mã nhân viên</label>
-                                    <input type="text" class="form-control"  value="{{EmployeeInfo.EmployeeID}}" />
+                                    <input type="text" class="form-control" value="{{EmployeeInfo.EmployeeID}}" />
                                 </div>
 
                                 <div class="form-group">
@@ -125,7 +143,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
-                                    <input type="text" class="form-control"  required ng-model="EmployeeInfo.Phone" ng-minlength="10" ng-maxlength="12" />
+                                    <input type="text" class="form-control" required ng-model="EmployeeInfo.Phone" ng-minlength="10" ng-maxlength="12" />
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
@@ -133,7 +151,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>CMND</label>
-                                    <input type="text" class="form-control"  ng-model="EmployeeInfo.IdentifyCard" ng-maxlength="20" />
+                                    <input type="text" class="form-control" ng-model="EmployeeInfo.IdentifyCard" ng-maxlength="20" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -198,7 +216,7 @@
                         <input type="hidden" value="{{EmployeeID}}" name="StaffCode" />
                         <div class="form-group">
                             <label>Mã NV</label>
-                            <input type="text" class="form-control" ng-model="EmployeeID" required disabled />
+                            <input type="text" class="form-control" value="{{EmployeeID}}" required disabled />
                         </div>
 
                         <div class="form-group">
@@ -219,20 +237,14 @@
                         <div class="form-group">
                             <label>Nhóm người dùng</label>
                             <select class="form-control" name="GroupId">
-                                @foreach (var item in ViewBag.GroupStaff)
-                                {
-                                    <option value="@item.GroupID">@item.GroupName</option>
-                                }
+                                <option ng-repeat="x in GroupStaff" value="{{x.GroupID}}">{{x.GroupName}}</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Nấc quyền</label>
-                            <select class="form-control" name="Level">
-                                <option value="0">Cá nhân</option>
-                                <option value="1">Công ty</option>
-                                <option value="2">Khu vực</option>
-                                <option value="3">Bưu cục</option>
+                            <select class="form-control">
+                                <option ng-repeat="x in StaffLevel" value="{{x.levelId}}">{{x.levelName}}</option>
                             </select>
                         </div>
 
@@ -354,6 +366,8 @@
                 // isValid : check form da require ok
                 // staff : thong tin nhan vien
                 // modelid : id of modal de hide
+                staff.PositionID = $('#Position').val();
+                staff.PostOfficeID = $('#PostOfficeID').val();
 
                 if (isValid) {
                     hideModel(modelid);
@@ -369,11 +383,46 @@
             }
 
 
+            function updateStaff(staff) {
+                showLoader(true);
+
+                $http({
+                    method: "POST",
+                    url: "/staff/updatestaff",
+                    data: staff
+                }).then(function mySuccess(response) {
+                    showLoader(false);
+                    var data = response.data;
+                    if (data.error === 0) {
+
+                        var index = getSelectedIndex(id);
+                        $scope.listStaff[index].EmployeeName = data.result.EmployeeName;
+                        $scope.listStaff[index].Phone = data.result.Phone;
+                        $scope.listStaff[index].Email = data.result.Email;
+                        $scope.listStaff[index].IdentifyCard = data.result.IdentifyCard;
+                        $scope.listStaff[index].PostOfficeID = data.result.PostOfficeID;
+                        $scope.listStaff[index].PositionID = data.result.PositionID;
+                        $scope.listStaff[index].PositionName = data.result.PositionName;
+                        $scope.listStaff[index].GroupId = data.result.GroupId;
+                        $scope.listStaff[index].AccountType = data.result.AccountType;
+
+                        alert(response.data.msg);
+
+                    } else {
+                        alert('Đã thay đổi nhân viên');
+                        console.log(response.data.result);
+                    }
+                }, function myError(response) {
+                    alert('Connect error');
+                    showLoader(false);
+                });
+
+            }
+
             function sendCreate(staff) {
 
                 showLoader(true);
-                staff.PositionID = $('#Position').val();
-                staff.PostOfficeId = $('#PostOfficeId').val();
+
 
                 $http({
                     method: "POST",
@@ -422,9 +471,6 @@
             }
 
             //
-
-
-
         });
 
 
