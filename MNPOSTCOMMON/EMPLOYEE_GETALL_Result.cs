@@ -18,7 +18,7 @@ namespace MNPOSTCOMMON
         public string DepartmentID { get; set; }
         public string PostOfficeID { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string IdentifyCard { get; set; }
@@ -37,5 +37,7 @@ namespace MNPOSTCOMMON
         public string PositionID { get; set; }
         public string PositionName { get; set; }
         public string PostOfficeName { get; set; }
+        public string GroupId { get; set; }
+        public string AccountType { get; set; }
     }
 }

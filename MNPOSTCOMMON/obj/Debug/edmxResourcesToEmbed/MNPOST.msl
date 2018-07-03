@@ -432,6 +432,8 @@
           <ScalarProperty Name="PositionID" ColumnName="PositionID" />
           <ScalarProperty Name="PositionName" ColumnName="PositionName" />
           <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="AccountType" ColumnName="AccountType" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
