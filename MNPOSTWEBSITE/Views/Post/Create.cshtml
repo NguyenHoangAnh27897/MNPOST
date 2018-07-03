@@ -219,13 +219,14 @@
     <script src="/Content/select2.min.js"></script>
     <!-- Custom -->
     <script src="/Content/custom.js"></script>
-    <script>
-        $(function () {
-            $("textarea").froalaEditor({
-                height: 300
-            })
-        });
-    </script>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert('@ViewBag.Message');
+            }
+        </script>
+    }
 </body>
 
 

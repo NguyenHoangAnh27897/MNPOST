@@ -107,6 +107,7 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="WS_Post" EntityType="MNPOSTWEBSITEModel.WS_Post" />
+    <EntitySet Name="WS_FacebookUser" EntityType="MNPOSTWEBSITEModel.WS_FacebookUser" />
   </EntityContainer>
   <EntityType Name="WS_Post">
     <Key>
@@ -119,5 +120,14 @@
     <Property Name="PostContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="Service" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="WS_FacebookUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PictureUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASPSnippets.FaceBookAPI">
+      <HintPath>C:\Users\MinhLC\Desktop\fb\FaceBook_Login_MVC\bin\ASPSnippets.FaceBookAPI.dll</HintPath>
+    </Reference>
     <Reference Include="GridMvc">
       <HintPath>..\..\SGP_bk\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
     </Reference>
