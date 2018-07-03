@@ -41,6 +41,7 @@ namespace MNPOSTWEBSITE.Controllers
             data.PostContent = Postcontent;
             db.WS_Post.Add(data);
             db.SaveChanges();
+            ViewBag.Message = "Đăng bài thành công";
             return RedirectToAction("Index","Home");
         }
 

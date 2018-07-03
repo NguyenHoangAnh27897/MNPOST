@@ -74,5 +74,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="WS_FacebookUser">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_FacebookUser">
+        <MappingFragment StoreEntitySet="WS_FacebookUser">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

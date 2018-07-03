@@ -63,6 +63,15 @@
           <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IDRole" Type="int" />
         </EntityType>
+        <EntityType Name="WS_FacebookUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="WS_Post">
           <Key>
             <PropertyRef Name="ID" />
@@ -138,6 +147,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -267,6 +277,7 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="WS_Post" EntityType="MNPOSTWEBSITEModel.WS_Post" />
+          <EntitySet Name="WS_FacebookUser" EntityType="MNPOSTWEBSITEModel.WS_FacebookUser" />
         </EntityContainer>
         <EntityType Name="WS_Post">
           <Key>
@@ -279,6 +290,15 @@
           <Property Name="PostContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="Service" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WS_FacebookUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PictureUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -355,6 +375,16 @@
                 <ScalarProperty Name="Images" ColumnName="Images" />
                 <ScalarProperty Name="PostBy" ColumnName="PostBy" />
                 <ScalarProperty Name="PostName" ColumnName="PostName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WS_FacebookUser">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_FacebookUser">
+              <MappingFragment StoreEntitySet="WS_FacebookUser">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

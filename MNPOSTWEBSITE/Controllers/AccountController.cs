@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
+using System.Web.Script.Serialization;
+using ASPSnippets.FaceBookAPI;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -34,7 +36,26 @@ namespace MNPOSTWEBSITE.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            FaceBookConnect.API_Key = "273429170069624";
+            FaceBookConnect.API_Secret = "6142993301cdcf70e4007c0925c3fc9f";
+
+            MNPOSTWEBSITEMODEL.WS_FacebookUser faceBookUser = new MNPOSTWEBSITEMODEL.WS_FacebookUser();
+            if (Request.QueryString["error"] == "access_denied")
+            {
+                ViewBag.Message = "User has denied access.";
+            }
+            else
+            {
+                string code = Request.QueryString["code"];
+                if (!string.IsNullOrEmpty(code))
+                {
+                    string data = FaceBookConnect.Fetch(code, "me?fields=id,name,email");
+                    faceBookUser = new JavaScriptSerializer().Deserialize<MNPOSTWEBSITEMODEL.WS_FacebookUser>(data);
+                    faceBookUser.PictureUrl = string.Format("https://graph.facebook.com/{0}/picture", faceBookUser.ID);
+                }
+            }
+            Session["Username"] = faceBookUser;
+            return View(faceBookUser);
         }
 
         //
@@ -71,6 +92,12 @@ namespace MNPOSTWEBSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        [HttpPost]
+        public EmptyResult LoginFacebook()
+        {
+            FaceBookConnect.Authorize("user_photos,email", string.Format("{0}://{1}/{2}", Request.Url.Scheme, Request.Url.Authority, "Home/Index/"));
+            return new EmptyResult();
         }
 
         //
