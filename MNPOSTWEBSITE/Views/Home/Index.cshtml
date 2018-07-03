@@ -355,7 +355,7 @@
                         <div class="card-body">
                             <span class="badge badge-success">Dịch vụ chuyển phát nhanh</span>
                             <h6>@item.PostName</h6>
-                            <p class="mb-0">@item.PostContent</p>
+                            <p class="mb-0">@Html.Raw(@item.PostContent)</p>
                         </div>
                         <div class="card-footer">
                             <p class="mb-0">Đăng bởi <strong>@item.PostBy</strong> vào @item.CreatedDate</p>
@@ -364,7 +364,7 @@
                 </div>
             </div>
             }
-            <div class="col-lg-4 col-md-4">
+            @*<div class="col-lg-4 col-md-4">
                 <div class="card blog-card">
                     <a href="#">
                         <img class="card-img-top" src="/Content/img/blog/news2.jpg" alt="Card image cap">
@@ -378,7 +378,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div>*@
             <div class="col-lg-4 col-md-4">
                 <div class="card blog-card">
                     <a href="#">

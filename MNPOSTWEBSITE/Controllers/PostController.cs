@@ -41,7 +41,7 @@ namespace MNPOSTWEBSITE.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        public ActionResult DetailPost()
+        public ActionResult DetailPost(int id)
         {
             return View();
         }

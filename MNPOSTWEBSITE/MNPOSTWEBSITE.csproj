@@ -173,6 +173,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.bundle.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact_me.js" />
@@ -185,6 +186,7 @@
     <Content Include="Content\img\list\6.png" />
     <Content Include="Content\img\slider\2.jpg" />
     <Content Include="Content\jqBootstrapValidation.js" />
+    <Content Include="Content\jquery.min.js" />
     <Content Include="Content\materialdesignicons.min.css" />
     <Content Include="Content\osahan.css" />
     <Content Include="Content\select2-bootstrap.css" />
@@ -238,6 +240,7 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Setting\Index.cshtml" />
     <Content Include="Views\Setting\AddMenu.cshtml" />
+    <Content Include="Views\Post\DetailPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
