@@ -58,13 +58,17 @@
     <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="IDRole" Type="int" />
   </EntityType>
-  <EntityType Name="WS_Menu">
+  <EntityType Name="WS_Post">
     <Key>
-      <PropertyRef Name="MenuID" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="MenuID" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="MenuName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Status" Type="bit" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostName" Type="nvarchar" MaxLength="500" />
+    <Property Name="PostBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="Images" Type="nvarchar" MaxLength="100" />
+    <Property Name="PostContent" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Service" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -129,7 +133,7 @@
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="WS_Menu" EntityType="Self.WS_Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />

@@ -6,12 +6,18 @@ using System.Web.Mvc;
 
 namespace MNPOSTWEBSITE.Controllers
 {
-    public class HomeController : Controller
+    public class SettingController : Controller
     {
-        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
+        //
+        // GET: /Setting/
         public ActionResult Index()
         {
             return View();
         }
-    }
+
+        public ActionResult AddMenu()
+        {
+            return View();
+        }
+	}
 }

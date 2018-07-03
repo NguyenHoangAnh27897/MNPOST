@@ -12,10 +12,14 @@ namespace MNPOSTWEBSITEMODEL
     using System;
     using System.Collections.Generic;
     
-    public partial class WS_Menu
+    public partial class WS_Post
     {
-        public string MenuID { get; set; }
-        public string MenuName { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public int ID { get; set; }
+        public string PostName { get; set; }
+        public string PostBy { get; set; }
+        public string Images { get; set; }
+        public string PostContent { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string Service { get; set; }
     }
 }
