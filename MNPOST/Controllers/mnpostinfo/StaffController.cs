@@ -43,12 +43,12 @@ namespace MNPOST.Controllers.mnpostinfo
         public ActionResult AddStaff(BS_Employees employee)
         {
             if (!checkAccess("staff", 1))
-                return Redirect("/error/relogin");
+                return Json(new { error = 1, msg = "you don't have permission for this" }, JsonRequestBehavior.AllowGet);
 
             var code = generalCode();
 
             if (code == "")
-                RedirectToAction("show", "staff", new { msg = "Loi tao nhan vien" });
+                return Json(new { error = 1, msg = "can't create the staff" }, JsonRequestBehavior.AllowGet);
 
             employee.EmployeeID = code;
             employee.IsActive = true;
@@ -59,7 +59,7 @@ namespace MNPOST.Controllers.mnpostinfo
 
             db.SaveChanges();
 
-            return RedirectToAction("show", "staff", new { msg = "Da tao nhan vien " + code , search = "StaffCode"});
+            return Json( new { error = 0, result = db.BS_Employees.Find(code)}, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -101,7 +101,7 @@ namespace MNPOST.Controllers.mnpostinfo
         [HttpPost]
         [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
-        protected async Task<ActionResult> Register(string UserName, string Password, string GroupId, string StaffCode)
+        public async Task<ActionResult> Register(string UserName, string Password, string GroupId, string StaffCode, int Level)
         {
             if (ModelState.IsValid)
             {
@@ -131,12 +131,47 @@ namespace MNPOST.Controllers.mnpostinfo
 
                     await UserManager.AddToRoleAsync(user.Id, "user");
 
-                    return RedirectToAction("show", "staff", new { msg = "Da tao tai khoan " + UserName, search = "StaffCode" });
+                    return RedirectToAction("show", "staff", new { msg = "Da tao tai khoan " + UserName, search = StaffCode });
                 }
 
             }
 
             return RedirectToAction("show", "staff", new { msg = "Khong tao duoc tk " + UserName, search = "StaffCode" });
+        }
+
+
+        [HttpPost]
+        public ActionResult Active(string EmployeeID, bool IsActive)
+        {
+            if (!checkAccess("staff", 1))
+                return Json(new { error = 1, msg = "you don't have permission for this" }, JsonRequestBehavior.AllowGet);
+
+
+            var checkStaff = db.BS_Employees.Find(EmployeeID);
+
+            if (checkStaff == null)
+                return Json(new { error = 1, msg = "Information wrong" }, JsonRequestBehavior.AllowGet);
+
+
+            checkStaff.IsActive = IsActive;
+
+            db.Entry(checkStaff).State = System.Data.Entity.EntityState.Modified;
+
+            db.SaveChanges();
+
+            return Json(new { error = 0}, JsonRequestBehavior.AllowGet);
+        }
+
+        //
+        [HttpGet]
+        public ActionResult ShowDetail(string id)
+        {
+            if (!checkAccess("staff"))
+                return Redirect("/error/relogin");
+
+
+
+            return View();
         }
     }
 }

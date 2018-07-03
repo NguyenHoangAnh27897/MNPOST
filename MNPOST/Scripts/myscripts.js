@@ -23,15 +23,16 @@ function showLoader(isShow) {
 
 function fsubmit(msg) {
     if (!confirm(msg)) {
-        return false;
+       
     } else {
         showLoader(true);
     }
 }
 
-function fsubmit(msg,id) {
+function fsubmit(msg, id) {
+    if (!confirm('Is the form filled out correctly?')) { return false; }
     if (!confirm(msg)) {
-        return false;
+   
     } else {
         showLoader(true);
         hideModel(id);

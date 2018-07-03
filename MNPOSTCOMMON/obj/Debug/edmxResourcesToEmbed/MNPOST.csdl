@@ -472,17 +472,17 @@
     <Property Name="IsActive" Type="Boolean" />
   </EntityType>
   <ComplexType Name="EMPLOYEE_GETALL_Result">
-    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="15" />
-    <Property Type="String" Name="EmployeeName" Nullable="false" MaxLength="50" />
-    <Property Type="String" Name="DepartmentID" Nullable="false" MaxLength="15" />
-    <Property Type="String" Name="PostOfficeID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DepartmentID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
     <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
-    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="Boolean" Name="IsActive" Nullable="true" />
     <Property Type="String" Name="Address" Nullable="true" MaxLength="150" />
     <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
-    <Property Type="String" Name="IdentifyCard" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="IdentifyCard" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
-    <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="512" />
     <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
     <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
     <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
@@ -496,6 +496,8 @@
     <Property Type="String" Name="PositionID" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="PositionName" Nullable="true" MaxLength="100" />
     <Property Type="String" Name="PostOfficeName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="GroupId" Nullable="true" />
+    <Property Type="String" Name="AccountType" Nullable="true" />
   </ComplexType>
   <EntityType Name="GeneralCodeInfo">
     <Key>
