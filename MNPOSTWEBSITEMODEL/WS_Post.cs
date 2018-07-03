@@ -20,5 +20,6 @@ namespace MNPOSTWEBSITEMODEL
         public string Images { get; set; }
         public string PostContent { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string Service { get; set; }
     }
 }

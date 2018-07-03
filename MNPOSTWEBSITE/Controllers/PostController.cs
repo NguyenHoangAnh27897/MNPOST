@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Net;
+using PagedList;
+using PagedList.Mvc;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -20,7 +22,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(string Title, string PostBy, HttpPostedFileBase picture, string Postcontent)
+        public ActionResult Create(string Title, string PostBy,string Service, HttpPostedFileBase picture, string Postcontent)
         {
             string pic = "";
             if (picture.ContentLength > 0)
@@ -33,6 +35,7 @@ namespace MNPOSTWEBSITE.Controllers
             MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
             data.PostName = Title;
             data.PostBy = PostBy;
+            data.Service = Service;
             data.Images = pic;
             data.CreatedDate = DateTime.Now;
             data.PostContent = Postcontent;
@@ -43,7 +46,16 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult DetailPost(int id)
         {
-            return View();
+            var pst = db.WS_Post.Where(s => s.ID == id);
+            return View(pst);
+        }
+
+        public ActionResult PostList(int? page = 1)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            var lst = db.WS_Post.ToList();
+            return View(lst.ToPagedList(pageNumber,pageSize));
         }
 	}
 }

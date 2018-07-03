@@ -1,7 +1,51 @@
-﻿
+﻿@using MNPOSTWEBSITEMODEL
+@model IQueryable<MNPOSTWEBSITEMODEL.WS_Post>
 @{
     ViewBag.Title = "DetailPost";
+    MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
+    var lstpost = db.WS_Post.ToList();
 }
 
-<h2>DetailPost</h2>
-
+<!-- Properties List -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="card blog-card padding-card">
+                    <img class="card-img-top" src="/images/post/@Model.FirstOrDefault().Images" alt="@Model.FirstOrDefault().Images">
+                    <div class="card-body">
+                        <span class="badge badge-success">@Model.FirstOrDefault().Service</span>
+                        <h2>@Model.FirstOrDefault().PostName</h2>
+                        <h6 class="mb-3"><i class="mdi mdi-calendar-text"></i> @Model.FirstOrDefault().CreatedDate</h6>
+                        <p>
+                            @Html.Raw(@Model.FirstOrDefault().PostContent)
+                        </p>  
+                    </div>
+                    <div class="card-footer">
+                        <div class="footer-social">
+                            <span>Share</span> : &nbsp;
+                            <a href="#"><i class="mdi mdi-facebook"></i></a>
+                            <a href="#"><i class="mdi mdi-twitter"></i></a>
+                            <a href="#"><i class="mdi mdi-instagram"></i></a>
+                            <a href="#"><i class="mdi mdi-google"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card sidebar-card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Các bài viết khác</h5>
+                        @foreach (var item in lstpost)
+                        {
+                            <a href="/post/detailpost/@item.ID"><h6>@item.PostName</h6></a>
+                            <p class="mb-0"><i class="mdi mdi-calendar-text"></i> @item.CreatedDate</p>
+                            <hr> 
+                        }                                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Properties List -->

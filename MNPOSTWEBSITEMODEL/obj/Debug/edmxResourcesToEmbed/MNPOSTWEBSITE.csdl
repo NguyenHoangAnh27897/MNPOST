@@ -107,8 +107,6 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="WS_Post" EntityType="MNPOSTWEBSITEModel.WS_Post" />
-    <EntitySet Name="WS_SubMenu" EntityType="MNPOSTWEBSITEModel.WS_SubMenu" />
-    <EntitySet Name="WS_Menu" EntityType="MNPOSTWEBSITEModel.WS_Menu" />
   </EntityContainer>
   <EntityType Name="WS_Post">
     <Key>
@@ -120,22 +118,6 @@
     <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="PostContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="WS_SubMenu">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SubmenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Boolean" />
-    <Property Name="MenuID" Type="Int32" />
-  </EntityType>
-  <EntityType Name="WS_Menu">
-    <Key>
-      <PropertyRef Name="MenuID" />
-    </Key>
-    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Boolean" />
+    <Property Name="Service" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>
