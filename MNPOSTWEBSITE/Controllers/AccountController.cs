@@ -74,6 +74,7 @@ namespace MNPOSTWEBSITE.Controllers
             return View(model);
         }
         [HttpPost]
+        [AllowAnonymous]
         public EmptyResult LoginFacebook()
         {
             FaceBookConnect.Authorize("user_photos,email", string.Format("{0}://{1}/{2}", Request.Url.Scheme, Request.Url.Authority, "Home/Index/"));
