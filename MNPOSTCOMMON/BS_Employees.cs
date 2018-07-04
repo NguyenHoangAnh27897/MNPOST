@@ -19,7 +19,7 @@ namespace MNPOSTCOMMON
         public string DepartmentID { get; set; }
         public string PostOfficeID { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string IdentifyCard { get; set; }
@@ -34,5 +34,7 @@ namespace MNPOSTCOMMON
         public string SGPEmployeeID { get; set; }
         public Nullable<bool> Sex { get; set; }
         public Nullable<System.DateTime> ApproveDate { get; set; }
+        public string UserLogin { get; set; }
+        public string PositionID { get; set; }
     }
 }

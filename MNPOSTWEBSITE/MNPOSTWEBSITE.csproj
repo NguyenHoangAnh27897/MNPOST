@@ -39,7 +39,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASPSnippets.FaceBookAPI">
+      <HintPath>C:\Users\MinhLC\Desktop\fb\FaceBook_Login_MVC\bin\ASPSnippets.FaceBookAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc">
+      <HintPath>..\..\SGP_bk\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\..\SGP_bk\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\..\SGP_bk\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -161,6 +173,8 @@
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\TransportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -171,6 +185,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.bundle.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact_me.js" />
@@ -183,6 +198,7 @@
     <Content Include="Content\img\list\6.png" />
     <Content Include="Content\img\slider\2.jpg" />
     <Content Include="Content\jqBootstrapValidation.js" />
+    <Content Include="Content\jquery.min.js" />
     <Content Include="Content\materialdesignicons.min.css" />
     <Content Include="Content\osahan.css" />
     <Content Include="Content\select2-bootstrap.css" />
@@ -206,7 +222,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -231,9 +249,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Transport\FastTransportation.cshtml" />
     <Content Include="Views\AboutUs\Introduce.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Setting\AddMenu.cshtml" />
+    <Content Include="Views\Post\DetailPost.cshtml" />
+    <Content Include="Views\Post\PostList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -241,6 +265,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MNPOSTWEBSITEMODEL\MNPOSTWEBSITEMODEL.csproj">
+      <Project>{1fd8ddc3-5702-462c-bac6-c9f3ea8fbb14}</Project>
+      <Name>MNPOSTWEBSITEMODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

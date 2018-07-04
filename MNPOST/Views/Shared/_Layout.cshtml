@@ -14,7 +14,8 @@
     <link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
+    <!-- Select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
     <!-- Custom Theme Style -->
     <link href="~/Content/build/css/custom.min.css" rel="stylesheet">
 
@@ -24,6 +25,15 @@
             position: absolute;
             top: 50%;
             left: 50%;
+            z-index: 99;
+        }
+
+        .css-form input.ng-invalid.ng-touched {
+            background-color: #FA787E;
+        }
+
+        .css-form input.ng-valid.ng-touched {
+            background-color: #78FA89;
         }
     </style>
 
@@ -119,10 +129,13 @@
     <!-- Bootstrap -->
     <script src="~/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
-
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/Content/build/js/custom.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    
     <script src="~/Scripts/myscripts.js"></script>
 
     @RenderSection("Scripts", false)

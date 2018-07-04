@@ -1,0 +1,243 @@
+﻿@model IEnumerable<MNPOSTCOMMON.POSTOFFICE_GETALL_Result>
+@{
+    ViewBag.Title = "Show";
+}
+
+<div class="row" ng-app="myApp" ng-controller="myCtrl">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Danh sách bưu cục</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" ng-click="addPostPrepare()">Thêm bưu cục</a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="">Thêm khu vực</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+
+            </div>
+
+            <div class="x_content">
+                <!--form search-->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <select class="form-control" ng-model="queryBy">
+                                <option value="$"></option>
+                                <option value="PostOfficeName">Tên bưu cục</option>
+                                <option value="PostOfficeID">Mã bưu cục</option>
+                                <option value="ZoneName">Khu vực</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" value="" class="form-control" placeholder="Search for..." ng-model="query[queryBy]">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- end form search-->
+                <!-- table-->
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th>Bưu cục</th>
+                                <th>Mã bưu cục</th>
+                                <th>Khu vực</th>
+                                <th>Điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="post in allPost  | filter:query">
+                                <td>{{post.PostOfficeName}}</td>
+                                <td>{{post.PostOfficeID}}</td>
+                                <td>{{post.ZoneName}}</td>
+                                <td>{{post.Phone}}</td>
+                                <td>{{post.Address}}</td>
+                                <td><a href="#">Chi tiết</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--end table-->
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- model-->
+    <div id="addzone" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{title}}</h4>
+                </div>
+
+
+                <form class="css-form" name="addpost" ng-submit="">
+
+                    <div class="modal-body">
+
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- model add-->
+    <div id="addpost" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{title}}</h4>
+                </div>
+                <form class="css-form" name="addpost" ng-submit="finishForm(addpost.$valid, 'addpost')">
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>Mã bưu cục</label>
+                            <input type="text" class="form-control" ng-model="PostInfo.PostOfficeID" required ng-disabled="ShowPostID" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tên bưu cục</label>
+                            <input type="text" class="form-control" ng-model="PostInfo.PostOfficeName" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" required ng-model="PostInfo.Address" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Điện thoại</label>
+                            <input type="text" class="form-control" required ng-model="PostInfo.Phone" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Khu vực</label>
+                            <select class="form-control" ng-model="PostInfo.ZoneID">
+                                <option ng-repeat="x in allZone" value="{{x.ZoneID}}">{{x.ZoneName}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Đồng ý</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!--model update-->
+@section scripts {
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+
+            $scope.title = "Thêm bưu cục";
+
+            $scope.allPost = JSON.parse('@Html.Raw(Json.Encode(Model))');
+
+            $scope.query = {};
+            $scope.queryBy = '$';
+
+            $scope.allZone = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Zones))');
+
+            // prepare for create staff --> resset empty
+            $scope.addPostPrepare = function () {
+
+                $scope.PostInfo = {
+                    "PostOfficeID": "", "PostOfficeName": "", "ZoneID": "", "Address": "", "Phone": ""
+                };
+                $scope.ShowPostID = false;
+                $scope.title = "Thêm bưu cục";
+                $scope.actionChoose = 1;
+                showModel("addpost");
+
+            };
+
+            //them nhan vien
+            $scope.finishForm = function (isValid, modelid) {
+
+                if (isValid) {
+                    hideModel(modelid);
+
+                    if ($scope.actionChoose === 1) {
+                        sendCreate($scope.PostInfo);
+                    } else if ($scope.actionChoose === 2) {
+                     
+                    }
+                } else {
+                    alert('our form is missing');
+                }
+            }
+
+
+            function sendCreate(info) {
+                showLoader(true);
+
+
+                $http({
+                    method: "POST",
+                    url: "/postoffice/Add",
+                    data: info
+                }).then(function mySuccess(response) {
+                    showLoader(false);
+
+                    if (response.data.error === 0) {
+                        alert(response.data.msg);
+                    } else {
+                        alert('Đã thêm bưu cục');
+
+                        $scope.allPost.push(info);
+                    }
+                }, function myError(response) {
+                    alert('Connect error');
+                    showLoader(false);
+                });
+            }
+        });
+    </script>
+
+}

@@ -9,12 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
+using System.Web.Script.Serialization;
+using ASPSnippets.FaceBookAPI;
 
 namespace MNPOSTWEBSITE.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -48,7 +51,7 @@ namespace MNPOSTWEBSITE.Controllers
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 string username = model.UserName;
                 string pass = model.Password;
-                if (username.Equals("admin"))
+                if (username.Equals(user.UserName))
                 {
                     if (pass.Equals("123456"))
                     {
@@ -70,6 +73,12 @@ namespace MNPOSTWEBSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        [HttpPost]
+        public EmptyResult LoginFacebook()
+        {
+            FaceBookConnect.Authorize("user_photos,email", string.Format("{0}://{1}/{2}", Request.Url.Scheme, Request.Url.Authority, "Home/Index/"));
+            return new EmptyResult();
         }
 
         //
@@ -302,7 +311,8 @@ namespace MNPOSTWEBSITE.Controllers
         {
             Session["Username"] = null;
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("Login", "Account");
         }
 
         //

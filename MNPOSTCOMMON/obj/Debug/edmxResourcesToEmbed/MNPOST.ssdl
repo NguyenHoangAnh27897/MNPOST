@@ -147,18 +147,18 @@
     <Key>
       <PropertyRef Name="EmployeeID" />
     </Key>
-    <Property Name="EmployeeID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DepartmentID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar(max)" />
+    <Property Name="DepartmentID" Type="varchar" MaxLength="15" />
+    <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
     <Property Name="Birthday" Type="datetime" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-    <Property Name="Address" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="Phone" Type="nvarchar" MaxLength="25" />
-    <Property Name="IdentifyCard" Type="nvarchar" MaxLength="20" />
+    <Property Name="IdentifyCard" Type="nvarchar" MaxLength="128" />
     <Property Name="FaxNo" Type="nvarchar" MaxLength="25" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+    <Property Name="Email" Type="nvarchar" MaxLength="512" />
+    <Property Name="Notes" Type="nvarchar(max)" />
     <Property Name="LastEditDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="MemberOf" Type="varchar" MaxLength="50" />
@@ -167,6 +167,16 @@
     <Property Name="SGPEmployeeID" Type="nvarchar" MaxLength="20" />
     <Property Name="Sex" Type="bit" />
     <Property Name="ApproveDate" Type="date" />
+    <Property Name="UserLogin" Type="nvarchar" MaxLength="128" />
+    <Property Name="PositionID" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="BS_Positions">
+    <Key>
+      <PropertyRef Name="PositionID" />
+    </Key>
+    <Property Name="PositionID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PositionName" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="BS_PostOffices">
     <Key>
@@ -187,9 +197,7 @@
     <Property Name="TaxCode" Type="varchar" MaxLength="50" />
     <Property Name="BankAccount" Type="varchar" MaxLength="50" />
     <Property Name="BankName" Type="nvarchar" MaxLength="100" />
-    <Property Name="MemberOf" Type="varchar" MaxLength="15" />
-    <Property Name="CustomerPre" Type="varchar" MaxLength="10" />
-    <Property Name="SGPPostOfficeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="int" />
   </EntityType>
   <EntityType Name="BS_Provinces">
     <Key>
@@ -224,6 +232,14 @@
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="GeneralCodeInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="FirstChar" Type="varchar" MaxLength="5" />
+    <Property Name="PreNumber" Type="int" />
   </EntityType>
   <EntityType Name="MM_Mailers">
     <Key>
@@ -396,9 +412,17 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+    <Parameter Name="search" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="EMPLOYEE_GETBYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeID" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
     <Parameter Name="menuCode" Type="nvarchar" Mode="In" />
@@ -422,10 +446,12 @@
     <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />

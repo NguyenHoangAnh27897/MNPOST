@@ -29,8 +29,6 @@ namespace MNPOSTCOMMON
         public string TaxCode { get; set; }
         public string BankAccount { get; set; }
         public string BankName { get; set; }
-        public string MemberOf { get; set; }
-        public string CustomerPre { get; set; }
-        public string SGPPostOfficeName { get; set; }
+        public Nullable<int> Type { get; set; }
     }
 }

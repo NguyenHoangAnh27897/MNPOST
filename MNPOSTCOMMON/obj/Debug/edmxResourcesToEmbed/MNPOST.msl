@@ -146,6 +146,8 @@
     <EntitySetMapping Name="BS_Employees">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Employees">
         <MappingFragment StoreEntitySet="BS_Employees">
+          <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -172,6 +174,7 @@
     <EntitySetMapping Name="BS_PostOffices">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_PostOffices">
         <MappingFragment StoreEntitySet="BS_PostOffices">
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -187,9 +190,6 @@
           <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
           <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
           <ScalarProperty Name="BankName" ColumnName="BankName" />
-          <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
-          <ScalarProperty Name="CustomerPre" ColumnName="CustomerPre" />
-          <ScalarProperty Name="SGPPostOfficeName" ColumnName="SGPPostOfficeName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -393,6 +393,111 @@
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="groupName" ColumnName="groupName" />
           <ScalarProperty Name="GroupIcon" ColumnName="GroupIcon" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="BS_Positions">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Positions">
+        <MappingFragment StoreEntitySet="BS_Positions">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+          <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
+          <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+          <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+          <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+          <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="GeneralCodeInfoes">
+      <EntityTypeMapping TypeName="MNPOSTModel.GeneralCodeInfo">
+        <MappingFragment StoreEntitySet="GeneralCodeInfo">
+          <ScalarProperty Name="PreNumber" ColumnName="PreNumber" />
+          <ScalarProperty Name="FirstChar" ColumnName="FirstChar" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
+          <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+          <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+          <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+          <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL_Result">
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IsCollaborator" ColumnName="IsCollaborator" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+          <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

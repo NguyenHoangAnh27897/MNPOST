@@ -20,3 +20,21 @@ function showLoader(isShow) {
         $("#loader").css("display", "none");
     }
 }
+
+function fsubmit(msg) {
+    if (!confirm(msg)) {
+       
+    } else {
+        showLoader(true);
+    }
+}
+
+function fsubmit(msg, id) {
+    if (!confirm('Is the form filled out correctly?')) { return false; }
+    if (!confirm(msg)) {
+   
+    } else {
+        showLoader(true);
+        hideModel(id);
+    }
+}

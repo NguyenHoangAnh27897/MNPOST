@@ -1,5 +1,4 @@
 ﻿@model MNPOSTWEBSITE.Models.LoginViewModel
-
 @{
     ViewBag.Title = "Log in";
     Layout = null;
@@ -55,13 +54,17 @@
                                             @Html.LabelFor(m => m.RememberMe)
                                         </div>
                                     </div>
-                                        @*<label class="custom-control-label" for="customControlAutosizing">Ghi nhớ tài khoản</label>*@
+                                    @*<label class="custom-control-label" for="customControlAutosizing">Ghi nhớ tài khoản</label>*@
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block">ĐĂNG NHẬP</button>
                             }
                             <div class="mt-4 text-center login-with-social">
-                                <button type="button" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Đăng nhập với Facebook</button>
-                                <button type="button" class="btn btn-google btn-block"><i class="mdi mdi-google-plus"></i> Đăng nhập với Google</button>
+                                @using (Html.BeginForm("LoginFacebook", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                {
+                                     @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Đăng nhập với Facebook</button>
+                                }
+                                <button type="submit" class="btn btn-google btn-block"><i class="mdi mdi-google-plus"></i> Đăng nhập với Google</button>
                             </div>
                             <div class="mt-4 text-center">
                                 <a href="forget.html">Quên mật khẩu?</a>

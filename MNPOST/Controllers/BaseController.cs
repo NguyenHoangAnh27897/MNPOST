@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using MNPOST.Models;
 using MNPOSTCOMMON;
 using MNPOST.Utils;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MNPOST.Controllers
 {
@@ -16,6 +19,15 @@ namespace MNPOST.Controllers
 
         protected MNPOSTEntities db = new MNPOSTEntities();
 
+        protected RoleManager<IdentityRole> RoleManager { get; private set; }
+
+        protected UserManager<ApplicationUser> UserManager { get; private set; }
+        private ApplicationDbContext sdb = new ApplicationDbContext();
+        public BaseController()
+        {
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(sdb));
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(sdb));
+        }
 
         protected bool checkAccess(string menu, int edit)
         {
@@ -75,6 +87,14 @@ namespace MNPOST.Controllers
             return false;
         }
 
+       
+        protected void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
 
         [HttpGet]
         public ActionResult Menus()
