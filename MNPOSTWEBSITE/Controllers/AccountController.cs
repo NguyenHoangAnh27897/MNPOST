@@ -311,7 +311,8 @@ namespace MNPOSTWEBSITE.Controllers
         {
             Session["Username"] = null;
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("Login", "Account");
         }
 
         //
