@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
-using System.Web.Script.Serialization;
 using ASPSnippets.FaceBookAPI;
 
 namespace MNPOSTWEBSITE.Controllers
@@ -55,8 +54,8 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     if (pass.Equals("123456"))
                     {
-                        await SignInAsync(user, model.RememberMe);
-                        Session["Username"] = model.UserName;
+                        Session["Username"] = user.FullName;
+                        //await SignInAsync(user, model.RememberMe);
                         return RedirectToLocal(returnUrl);
                     }
                     else
