@@ -59,9 +59,9 @@
                                 <button type="submit" class="btn btn-success btn-block">ĐĂNG NHẬP</button>
                             }
                             <div class="mt-4 text-center login-with-social">
-                                @using (Html.BeginForm("LoginFacebook", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                @using (Html.BeginForm("LoginFacebook", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                                 {
-                                    <button type="submit" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Đăng nhập với Facebook</button> 
+                                    <button type="submit" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Đăng nhập với Facebook</button>
                                 }
                                 <button type="submit" class="btn btn-google btn-block"><i class="mdi mdi-google-plus"></i> Đăng nhập với Google</button>
                             </div>
