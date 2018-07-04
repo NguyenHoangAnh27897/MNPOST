@@ -163,7 +163,6 @@ C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\Microsoft
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
-<<<<<<< HEAD
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.dll.config
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.dll
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.pdb
@@ -219,7 +218,6 @@ D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
-=======
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.pdb
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll
@@ -230,4 +228,3 @@ D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.dll
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\PagedList.xml
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\ASPSnippets.FaceBookAPI.dll
->>>>>>> f4671285c3ad154a2091ea6ccc6909996695597c

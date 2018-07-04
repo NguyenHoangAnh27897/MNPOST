@@ -63,7 +63,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
-<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\MNPOST.dll.config
@@ -123,7 +122,6 @@ D:\Laptrinh\Github\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xm
 D:\Laptrinh\Github\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\Laptrinh\Github\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\Laptrinh\Github\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
-=======
 D:\LAPTRINH\MNPOST\MNPOST\bin\MNPOST.dll.config
 D:\LAPTRINH\MNPOST\MNPOST\bin\MNPOST.dll
 D:\LAPTRINH\MNPOST\MNPOST\bin\MNPOST.pdb
@@ -187,4 +185,3 @@ D:\LAPTRINH\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\LAPTRINH\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\LAPTRINH\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
->>>>>>> f4671285c3ad154a2091ea6ccc6909996695597c
