@@ -4,7 +4,7 @@
     var data = db.WS_Post.ToList();
 }
 
- <!-- Main Slider With Form -->
+<!-- Main Slider With Form -->
 <section class="osahan-slider">
     <div id="osahanslider" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -348,22 +348,22 @@
         <div class="row">
             @foreach (var item in data)
             {
-                  <div class="col-lg-4 col-md-4">
-                <div class="card blog-card">
-                    <a href="/post/detailpost/@item.ID">
-                        <img class="card-img-top" src="/images/post/@item.Images" alt="Card image cap">
-                        <div class="card-body">
-                            <span class="badge badge-success">@item.Service</span>
-                            <h6>@item.PostName</h6>
-                            <p class="mb-0">@Html.Raw(@item.PostContent)</p>
-                        </div>
-                        <div class="card-footer">
-                            <p class="mb-0">Đăng bởi <strong>@item.PostBy</strong> vào @item.CreatedDate</p>
-                        </div>
-                    </a>
+                <div class="col-lg-4 col-md-4">
+                    <div class="card blog-card">
+                        <a href="/post/detailpost/@item.ID">
+                            <img class="card-img-top" src="/images/post/@item.Images" alt="Card image cap">
+                            <div class="card-body">
+                                <span class="badge badge-success">@item.Service</span>
+                                <h6>@item.PostName</h6>
+                                <p class="mb-0">@Html.Raw(@item.PostContent)</p>
+                            </div>
+                            <div class="card-footer">
+                                <p class="mb-0">Đăng bởi <strong>@item.PostBy</strong> vào @item.CreatedDate</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            }         
+            }
         </div>
     </div>
 </section>

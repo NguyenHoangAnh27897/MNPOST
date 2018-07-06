@@ -183,14 +183,14 @@
       <PropertyRef Name="PostOfficeID" />
     </Key>
     <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="PostOfficeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PostOfficeName" Type="nvarchar" MaxLength="50" />
     <Property Name="Address" Type="nvarchar" MaxLength="100" />
-    <Property Name="ZoneID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="ProvinceID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="ZoneID" Type="varchar" MaxLength="15" />
+    <Property Name="ProvinceID" Type="varchar" MaxLength="15" />
     <Property Name="Phone" Type="nvarchar" MaxLength="25" />
     <Property Name="FaxNo" Type="nvarchar" MaxLength="25" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="IsCollaborator" Type="bit" Nullable="false" />
+    <Property Name="IsCollaborator" Type="bit" />
     <Property Name="Notes" Type="nvarchar" MaxLength="200" />
     <Property Name="LastEditDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
@@ -241,12 +241,79 @@
     <Property Name="FirstChar" Type="varchar" MaxLength="5" />
     <Property Name="PreNumber" Type="int" />
   </EntityType>
+  <EntityType Name="MM_CustomerMoneyAdvances">
+    <Key>
+      <PropertyRef Name="AcceptID" />
+    </Key>
+    <Property Name="AcceptID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AcceptDate" Type="datetime" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="5" />
+    <Property Name="CustomerID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Total" Type="money" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Type" Type="int" />
+    <Property Name="StatusID" Type="bit" />
+    <Property Name="IsPercent" Type="bit" />
+  </EntityType>
+  <EntityType Name="MM_EmployeeMoneyAdvances">
+    <Key>
+      <PropertyRef Name="AcceptID" />
+    </Key>
+    <Property Name="AcceptID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AcceptDate" Type="datetime" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="5" />
+    <Property Name="Total" Type="money" />
+    <Property Name="StatusID" Type="bit" />
+    <Property Name="ReturnMoney" Type="money" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Type" Type="int" />
+  </EntityType>
+  <EntityType Name="MM_History">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StatusID" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="PostOfficeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" />
+    <Property Name="DateChange" Type="datetime" Nullable="false" />
+    <Property Name="UserGroupID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="MM_MailerDeliveryDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsDeliverOver" Type="bit" />
+    <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeliveryDate" Type="datetime" />
+    <Property Name="DeliveryStatus" Type="varchar" MaxLength="2" />
+    <Property Name="PaymentFinished" Type="bit" />
+    <Property Name="DeliveryNotes" Type="nvarchar" MaxLength="200" />
+    <Property Name="ConfirmDate" Type="datetime" />
+    <Property Name="ConfirmUserID" Type="varchar" MaxLength="20" />
+    <Property Name="ConfirmIndex" Type="varchar" MaxLength="30" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReturnReasonID" Type="varchar" MaxLength="15" />
+  </EntityType>
   <EntityType Name="MM_Mailers">
     <Key>
       <PropertyRef Name="MailerID" />
     </Key>
     <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="PostOfficeAcceptID" Type="nvarchar" MaxLength="10" />
+    <Property Name="SenderID" Type="nvarchar" MaxLength="20" />
     <Property Name="SenderName" Type="nvarchar" MaxLength="100" />
     <Property Name="SenderAddress" Type="nvarchar" MaxLength="200" />
     <Property Name="SenderWardID" Type="nvarchar" MaxLength="10" />
@@ -291,6 +358,46 @@
     <Property Name="DiscountPercent" Type="float" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="MM_PackingList">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="DocumentDate" Type="datetime" />
+    <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
+    <Property Name="PostOfficeIDAccept" Type="varchar" MaxLength="15" />
+    <Property Name="NumberOfPackage" Type="nvarchar" MaxLength="10" />
+    <Property Name="Weight" Type="float" />
+    <Property Name="TripNumber" Type="nvarchar" MaxLength="10" />
+    <Property Name="ArrivedDate" Type="datetime" />
+    <Property Name="TransportObjectID" Type="varchar" MaxLength="15" />
+    <Property Name="SendDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="AcceptDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="PackingListStatus" Type="int" />
+    <Property Name="MailerType" Type="varchar" MaxLength="1" />
+    <Property Name="UserGroupSend" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserGroupAccept" Type="nvarchar" MaxLength="20" />
+    <Property Name="AcceptDate" Type="datetime" />
+    <Property Name="EmployeeSend" Type="nvarchar" MaxLength="10" />
+    <Property Name="EmployeeAccept" Type="nvarchar" MaxLength="10" />
+    <Property Name="UserGroupLastModified" Type="nvarchar" MaxLength="20" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="MM_PackingListDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Accept" Type="bit" Nullable="false" />
+    <Property Name="SendNotes" Type="nvarchar" MaxLength="200" />
+    <Property Name="AcceptNotes" Type="nvarchar" MaxLength="200" />
+    <Property Name="AcceptDate" Type="datetime" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
   </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
@@ -452,7 +559,13 @@
     <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_EmployeeMoneyAdvances" EntityType="Self.MM_EmployeeMoneyAdvances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_History" EntityType="Self.MM_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_MailerDeliveryDetail" EntityType="Self.MM_MailerDeliveryDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_PackingList" EntityType="Self.MM_PackingList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_PackingListDetail" EntityType="Self.MM_PackingListDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />

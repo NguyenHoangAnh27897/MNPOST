@@ -16,6 +16,7 @@ namespace MNPOSTCOMMON
     {
         public string MailerID { get; set; }
         public string PostOfficeAcceptID { get; set; }
+        public string SenderID { get; set; }
         public string SenderName { get; set; }
         public string SenderAddress { get; set; }
         public string SenderWardID { get; set; }
