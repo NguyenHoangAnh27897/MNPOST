@@ -18,8 +18,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServe
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
-D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
 D:\Laptrinh\Github\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
 D:\Laptrinh\Github\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll
 D:\Laptrinh\Github\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.pdb
