@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
-using System.Web.Script.Serialization;
 using ASPSnippets.FaceBookAPI;
 
 namespace MNPOSTWEBSITE.Controllers
@@ -55,8 +54,8 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     if (pass.Equals("123456"))
                     {
-                        await SignInAsync(user, model.RememberMe);
-                        Session["Username"] = model.UserName;
+                        Session["Username"] = user.FullName;
+                        //await SignInAsync(user, model.RememberMe);
                         return RedirectToLocal(returnUrl);
                     }
                     else
@@ -75,6 +74,7 @@ namespace MNPOSTWEBSITE.Controllers
             return View(model);
         }
         [HttpPost]
+        [AllowAnonymous]
         public EmptyResult LoginFacebook()
         {
             FaceBookConnect.Authorize("user_photos,email", string.Format("{0}://{1}/{2}", Request.Url.Scheme, Request.Url.Authority, "Home/Index/"));
@@ -311,6 +311,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             Session["Username"] = null;
             AuthenticationManager.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 

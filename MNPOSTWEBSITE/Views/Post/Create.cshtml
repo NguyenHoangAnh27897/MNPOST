@@ -1,232 +1,241 @@
 ﻿@{
     ViewBag.Title = "Create";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
 }
 
-<head>
-    <!-- Include external CSS. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-
-    <!-- Include Editor style. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-    <!-- Material Design Icons -->
-    <link href="/Content/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
-    <!-- Select2 CSS -->
-    <link href="/Content/select2-bootstrap.css" rel="stylesheet" />
-    <link href="/Content/select2.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="/Content/osahan.css" rel="stylesheet">
-</head>
-
 <body>
-    <!-- Navbar -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand text-success logo" href="/home/index"><i class="mdi mdi-home-map-marker"></i> <strong>MN</strong> POST</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto">
-                        <a class="nav-link" href="/home/index" id="navbarDropdownPortfolio">
-                            Trang chủ
-                        </a>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dịch vụ
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="/transport/fasttransportation">Chuyển phát nhanh</a>
-                                <a class="dropdown-item" href="properties-list.html">Chuyển phát thường</a>
-                                <a class="dropdown-item" href="property-single-slider.html">DỊch vụ khác</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Bưu kiện
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="agency-list.html">Xem kiện hàng</a>
-                                <a class="dropdown-item" href="agency-profile.html">Theo dõi kiện hàng</a>
-                                <a class="dropdown-item" href="agents.html">Tính cước</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Tin tức
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="user-profile.html">Thông báo</a>
-                                <a class="dropdown-item" href="social-profiles.html">Bài viết</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Về chúng tôi
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="/aboutus/introduce">Giới thiệu</a>
-                                <a class="dropdown-item" href="faq.html">Liên hệ</a>
-                            </div>
-                        </li>
-                    </ul>
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @Session["Username"]
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                                    <a class="dropdown-item" href="/post/create">Đăng bài</a>
-                                    <a class="dropdown-item" href="/post/create">Chỉnh sửa trang</a>
-                                    <a class="dropdown-item" href="/Account/LogOff">Thoát</a>
-                                </div>
-                            </li>
-                        </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- End Navbar -->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <h3><i class="fa fa-angle-right"></i> Form Components</h3>
 
-    <!-- Properties List -->
-    <section class="section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="card padding-card" style="margin-left: 150px">
-                        <div class="card-body">
-                            <h5 class="card-title mb-4">Tạo bài đăng</h5>
-                            <form name="sentMessage" method="post" action="/post/create" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="control-group form-group col-lg-6 col-md-6">
-                                        <div class="controls">
-                                            <label>Tiêu đề<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="Title" name="Title" required>
-                                        </div>
-                                    </div>
-                                    <div class="control-group form-group col-lg-6 col-md-6">
-                                        <div class="controls">
-                                            <label>Đăng bởi <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="PosteBy" name="PostBy" required>
-                                        </div>
-                                    </div>
+            <!-- BASIC FORM ELELEMNTS -->
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Form Elements</h4>
+                        <form class="form-horizontal style-form" method="get">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Default</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control">
                                 </div>
-                                <div class="control-group form-group">
-                                    <div class="controls">
-                                        <label>Dịch vụ</label>
-                                        <input type="text" class="form-control" id="Service" name="Service" required>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Help text</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control">
+                                    <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
                                 </div>
-                                <div class="control-group form-group">
-                                    <div class="controls">
-                                        <label>Hình ảnh</label><br />
-                                        <input type="file" name="picture" accept="image/*" />
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control round-form">
                                 </div>
-                                <div class="control-group form-group">
-                                    <div class="controls">
-                                        <label>Nội dung <span class="text-danger">*</span></label>
-                                        <textarea rows="10" cols="100" id="Postcontent" name="Postcontent"></textarea>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Input focus</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="focusedInput" type="text" value="This is focused...">
                                 </div>
-                                <button type="submit" class="btn btn-success">ĐĂNG BÀI</button>
-                            </form>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Disabled</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Placeholder</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="placeholder">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 col-sm-2 control-label">Static control</label>
+                                <div class="col-lg-10">
+                                    <p class="form-control-static">email@example.com</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- col-lg-12-->
+            </div><!-- /row -->
+            <!-- INLINE FORM ELELEMNTS -->
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Inline Form</h4>
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-theme">Sign in</button>
+                        </form>
+                    </div><!-- /form-panel -->
+                </div><!-- /col-lg-12 -->
+            </div><!-- /row -->
+            <!-- INPUT MESSAGES -->
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Input Messages</h4>
+                        <form class="form-horizontal tasi-form" method="get">
+                            <div class="form-group has-success">
+                                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Input with success</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputSuccess">
+                                </div>
+                            </div>
+                            <div class="form-group has-warning">
+                                <label class="col-sm-2 control-label col-lg-2" for="inputWarning">Input with warning</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputWarning">
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="col-sm-2 control-label col-lg-2" for="inputError">Input with error</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputError">
+                                </div>
+                            </div>
+                        </form>
+                    </div><!-- /form-panel -->
+                </div><!-- /col-lg-12 -->
+            </div><!-- /row -->
+            <!-- INPUT MESSAGES -->
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Checkboxes, Radios & Selects</h4>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="">
+                                Option one is this and that&mdash;be sure to include why it's great
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                Option one is this and that&mdash;be sure to include why it's great
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                Option two can be something else and selecting it will deselect option one
+                            </label>
+                        </div>
+
+                        <hr>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                        </label>
+
+                        <hr>
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        <br>
+                        <select multiple class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div><!-- /form-panel -->
+                </div><!-- /col-lg-12 -->
+                <!-- CUSTOM TOGGLES -->
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Custom Toggles</h4>
+                        <div class="row mt">
+                            <div class="col-sm-6 text-center">
+                                <input type="checkbox" checked="" data-toggle="switch" />
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <input type="checkbox" data-toggle="switch" />
+                            </div>
+                        </div>
+                        <div class="row mt">
+                            <div class="col-sm-6 text-center">
+                                <div class="switch switch-square"
+                                     data-on-label="
+                                    <i class=' fa fa-check'></i>"
+                                    data-off-label="<i class='fa fa-times'></i>">
+                                    <input type="checkbox" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <div class="switch switch-square"
+                                     data-on-label="
+                                    <i class=' fa fa-check'></i>"
+                                    data-off-label="<i class='fa fa-times'></i>">
+                                    <input type="checkbox" checked="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt">
+                            <div class="col-sm-6 text-center">
+                                <input type="checkbox" disabled data-toggle="switch" />
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <input type="checkbox" checked disabled data-toggle="switch" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </div><!-- /row -->
 
-    <!-- Footer -->
-    <section class="section-padding footer bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-3">
-                    <h4 class="mb-5"><a class="text-success logo" href="index.html"><i class="mdi mdi-home-map-marker"></i> <strong>MN</strong>POST</a></h4>
-                    <p>86 Petersham town, New South wales<br>Waedll Steet, Australia PA 6550</p>
-                    <p class="mb-0"><a class="text-dark" href="#">+61 525 240 310</a></p>
-                    <p class="mb-0"><a class="text-success" href="#">iamosahan@gmail.com</a></p>
-                    <p class="mb-0"><a class="text-info" href="#">www.askbootstrap.com</a></p>
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <h6 class="mb-4">COMPANY</h6>
-                    <ul>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Properties</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <ul>
-                </div>
-                <div class="col-lg-2 col-md-2">
-                    <h6 class="mb-4">LEARN MORE</h6>
-                    <ul>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Account</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <ul>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <h6 class="mb-4">NEWSLETTER</h6>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Email Address..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button"><i class="mdi mdi-arrow-right"></i></button>
-                        </div>
-                    </div>
-                    <h6 class="mb-4 mt-5">GET IN TOUCH</h6>
-                    <div class="footer-social">
-                        <a href="#"><i class="mdi mdi-facebook"></i></a>
-                        <a href="#"><i class="mdi mdi-twitter"></i></a>
-                        <a href="#"><i class="mdi mdi-instagram"></i></a>
-                        <a href="#"><i class="mdi mdi-google"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Footer -->
 
-    <!-- Include external JS libs. -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+        </section><! --/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+    <!--main content end-->
 
-    <!-- Include Editor JS files. -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/js/froala_editor.pkgd.min.js"></script>
+    <!--script for this page-->
+    <script src="/Content/js/jquery-ui-1.9.2.custom.min.js"></script>
 
-    <!-- Initialize the editor. -->
-    <script> $(function () { $('textarea').froalaEditor() }); </script>
+    <!--custom switch-->
+    <script src="/Content/js/bootstrap-switch.js"></script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!--custom tagsinput-->
+    <script src="/Content/js/jquery.tagsinput.js"></script>
 
-    <!-- Contact form JavaScript -->
-    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-    <script src="/Content/jqBootstrapValidation.js"></script>
-    <script src="/Content/contact_me.js"></script>
-    <!-- select2 Js -->
-    <script src="/Content/select2.min.js"></script>
-    <!-- Custom -->
-    <script src="/Content/custom.js"></script>
-    @if (ViewBag.Message != null)
-    {
-        <script type="text/javascript">
-            window.onload = function () {
-                alert('@ViewBag.Message');
-            }
-        </script>
-    }
+    <!--custom checkbox & radio-->
+
+    <script type="text/javascript" src="/Content/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/Content/js/bootstrap-daterangepicker/date.js"></script>
+    <script type="text/javascript" src="/Content/js/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+
+
+    <script src="/Content/js/form-component.js"></script>
+
 </body>
 
 

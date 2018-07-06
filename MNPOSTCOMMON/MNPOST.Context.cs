@@ -42,7 +42,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<BS_Provinces> BS_Provinces { get; set; }
         public virtual DbSet<BS_Wards> BS_Wards { get; set; }
         public virtual DbSet<BS_Zones> BS_Zones { get; set; }
-        public virtual DbSet<MM_Mailers> MM_Mailers { get; set; }
         public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
         public virtual DbSet<UMS_GroupMenu> UMS_GroupMenu { get; set; }
         public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
@@ -50,6 +49,13 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
         public virtual DbSet<BS_Positions> BS_Positions { get; set; }
         public virtual DbSet<GeneralCodeInfo> GeneralCodeInfoes { get; set; }
+        public virtual DbSet<MM_CustomerMoneyAdvances> MM_CustomerMoneyAdvances { get; set; }
+        public virtual DbSet<MM_EmployeeMoneyAdvances> MM_EmployeeMoneyAdvances { get; set; }
+        public virtual DbSet<MM_History> MM_History { get; set; }
+        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
+        public virtual DbSet<MM_Mailers> MM_Mailers { get; set; }
+        public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
+        public virtual DbSet<MM_PackingListDetail> MM_PackingListDetail { get; set; }
     
         public virtual ObjectResult<GROUPUSER_GETLISTMENU_Result> GROUPUSER_GETLISTMENU(string groupId)
         {

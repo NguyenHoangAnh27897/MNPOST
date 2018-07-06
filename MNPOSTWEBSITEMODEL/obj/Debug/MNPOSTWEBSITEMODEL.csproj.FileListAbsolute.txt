@@ -18,6 +18,7 @@ C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITEMODEL\bin\Debu
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
@@ -28,3 +29,15 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.Sq
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+=======
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.dll
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.dll
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xml
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+>>>>>>> 41b6823573afde71f2fba5cee09405bc729d9ff3

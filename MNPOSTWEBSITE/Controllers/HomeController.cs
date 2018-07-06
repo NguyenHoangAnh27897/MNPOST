@@ -14,7 +14,7 @@ namespace MNPOSTWEBSITE.Controllers
         public ActionResult Index()
         {
             FaceBookConnect.API_Key = "273429170069624";
-            FaceBookConnect.API_Secret = "6142993301cdcf70e4007c0925c3fc9f";
+            FaceBookConnect.API_Secret = "01dda29a1052ab142ad14ca4d208d48b";
 
             MNPOSTWEBSITEMODEL.WS_FacebookUser faceBookUser = new MNPOSTWEBSITEMODEL.WS_FacebookUser();
             if (Request.QueryString["error"] == "access_denied")
@@ -31,7 +31,7 @@ namespace MNPOSTWEBSITE.Controllers
                     faceBookUser.PictureUrl = string.Format("https://graph.facebook.com/{0}/picture", faceBookUser.ID);
                 }
             }
-            Session["Username"] = faceBookUser.Name;
+            //Session["Username"] = faceBookUser.Name;
             return View();
         }
     }
