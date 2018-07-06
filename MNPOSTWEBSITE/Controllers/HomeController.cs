@@ -31,7 +31,7 @@ namespace MNPOSTWEBSITE.Controllers
                     faceBookUser.PictureUrl = string.Format("https://graph.facebook.com/{0}/picture", faceBookUser.ID);
                 }
             }
-            Session["Username"] = faceBookUser.Name;
+            //Session["Username"] = faceBookUser.Name;
             return View();
         }
     }
