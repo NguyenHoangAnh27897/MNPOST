@@ -14,6 +14,7 @@ namespace MNPOSTAPI.Controllers.web
     {
        
         [HttpGet]
+    
         public CustomerInfoResult GetCustomerInfo (string id)
         {
             CustomerInfoResult result = new CustomerInfoResult()
@@ -42,10 +43,6 @@ namespace MNPOSTAPI.Controllers.web
 
                 var jsonserializer = new JavaScriptSerializer();
                 var paser = jsonserializer.Deserialize<AddCustomerRequest>(requestContent);
-
-                // check token
-                if (!checkToken(paser.token))
-                    throw new Exception("Ban khong quyen tao");
 
                 var data = paser.customer;
 
@@ -85,11 +82,6 @@ namespace MNPOSTAPI.Controllers.web
                 var jsonserializer = new JavaScriptSerializer();
                 var paser = jsonserializer.Deserialize<AddCustomerRequest>(requestContent);
 
-                // check token
-                if (!checkToken(paser.token))
-                    throw new Exception("Khong the cap nhat");
-
-                
                 var data = paser.customer;
                 var checkcustomer = db.BS_Customers.Find(data.CustomerID);
                 if (data == null)

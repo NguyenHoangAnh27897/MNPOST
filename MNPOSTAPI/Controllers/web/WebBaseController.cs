@@ -8,19 +8,15 @@ using System.Web.Http;
 
 namespace MNPOSTAPI.Controllers.web
 {
+    [Authorize]
     public class WebBaseController : ApiController
     {
         protected MNPOSTEntities db = new MNPOSTEntities();
 
-
-        protected bool checkToken(string token)
-        {
-            return true;
-        }
         protected string generalCusCode()
         {
             return "customer" + DateTime.Now.Day + DateTime.Now.Hour + DateTime.Now.Minute;
         }
-        
+
     }
 }

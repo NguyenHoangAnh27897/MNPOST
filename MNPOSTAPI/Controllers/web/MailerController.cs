@@ -104,11 +104,6 @@ namespace MNPOSTAPI.Controllers.web
                 var jsonserializer = new JavaScriptSerializer();
                 var paser = jsonserializer.Deserialize<AddMailerRequest>(requestContent);
 
-                // check token
-                if (!checkToken(paser.token))
-                    throw new Exception("Khong the cap nhat");
-
-
                 var data = paser.mailer;
                 var checkmailer = db.MM_Mailers.Find(data.MailerID);
                 if (data == null)

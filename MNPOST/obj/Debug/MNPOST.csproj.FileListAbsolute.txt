@@ -63,8 +63,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\MNPOST.dll.config
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\MNPOST.dll
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\MNPOST.pdb
