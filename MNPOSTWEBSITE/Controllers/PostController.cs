@@ -171,5 +171,13 @@ namespace MNPOSTWEBSITE.Controllers
             var lst = db.WS_Post.ToList();
             return View(lst.ToPagedList(pageNumber,pageSize));
         }
+
+        public ActionResult AccountPost(int? page = 1)
+        {
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            var lst = db.WS_Post.ToList();
+            return View(lst.ToPagedList(pageNumber, pageSize));
+        }
 	}
 }

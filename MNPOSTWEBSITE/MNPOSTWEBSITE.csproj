@@ -635,6 +635,7 @@
     <Content Include="Views\AboutUs\Contact.cshtml" />
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Post\AccountPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
