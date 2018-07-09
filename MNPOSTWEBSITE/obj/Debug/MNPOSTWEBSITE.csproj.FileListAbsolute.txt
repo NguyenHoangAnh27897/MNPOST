@@ -354,3 +354,9 @@ C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\PagedList
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.dll
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.dll
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.dll
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml

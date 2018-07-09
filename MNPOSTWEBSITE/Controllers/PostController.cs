@@ -21,7 +21,7 @@ namespace MNPOSTWEBSITE.Controllers
             ViewBag.ThumbSize = ThumbSize;
             return View();
         }
-
+        public string picturename= "";
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(string Title, string PostBy,string Service, string Postcontent)
@@ -31,7 +31,7 @@ namespace MNPOSTWEBSITE.Controllers
             data.PostName = Title;
             data.PostBy = PostBy;
             data.Service = Service;
-            data.Images = picturename;
+            data.Images = Session["PictureName"].ToString();
             data.CreatedDate = DateTime.Now;
             data.PostContent = Postcontent;
             db.WS_Post.Add(data);
@@ -41,7 +41,7 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         private const int ThumbSize = 160;
-        public string picturename = "";
+  
         public ActionResult GetFile(string name, bool thumbnail = false)
         {
             var file = GetFile(name);
@@ -124,10 +124,10 @@ namespace MNPOSTWEBSITE.Controllers
                 SaveFileToDisk(file);
 
             var names = files.Select(f => f.FileName);
-            //picturename = Request.Files
-            //    .Cast<string>()
-            //    .Select(k => Request.Files[k])
-            //    .FirstOrDefault().FileName;
+            Session["PictureName"] = Request.Files
+                .Cast<string>()
+                .Select(k => Request.Files[k])
+                .FirstOrDefault().FileName;
             return Upload(names);
         }
 

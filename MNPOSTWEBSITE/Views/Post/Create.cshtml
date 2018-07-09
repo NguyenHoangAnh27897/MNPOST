@@ -223,7 +223,7 @@
                                         <textarea name="Postcontent" id="Postcontent"></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-round btn-primary" style="margin-left: 1530px;">Lưu bài viết</button>
+                                <button type="submit" class="btn btn-round btn-primary" >Lưu bài viết</button>
                             </form>
                         </div>
                     </div><!-- col-lg-12-->
@@ -445,7 +445,7 @@
     </script>
 
     <!-- Include external JS libs. -->
-    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
     <!-- CSS rules for styling the element inside the editor such as p, h1, h2, etc. -->
@@ -454,7 +454,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/js/froala_editor.pkgd.min.js"></script>
 
     <!-- Initialize the editor. -->
-    <script> $(function () { $('textarea').froalaEditor({ height: 200 }) });</script>
+
+    <script>
+        var $j = jQuery.noConflict();
+        $j(function () { $j('textarea').froalaEditor({ height: 200 }) });
+    </script>
 </body>
 </html>
 
