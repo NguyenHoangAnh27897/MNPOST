@@ -346,3 +346,11 @@ D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.MicrosoftAccoun
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\PagedList.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml

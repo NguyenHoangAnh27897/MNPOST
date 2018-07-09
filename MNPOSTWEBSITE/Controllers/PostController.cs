@@ -18,41 +18,34 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Post/
         public ActionResult Create()
         {
+            ViewBag.ThumbSize = ThumbSize;
             return View();
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(string Title, string PostBy,string Service, HttpPostedFileBase picture, string Postcontent)
+        public ActionResult Create(string Title, string PostBy,string Service, string Postcontent)
         {
-            string pic = picture.FileName;
           
             MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
             data.PostName = Title;
             data.PostBy = PostBy;
             data.Service = Service;
-            data.Images = pic;
+            data.Images = picturename;
             data.CreatedDate = DateTime.Now;
             data.PostContent = Postcontent;
             db.WS_Post.Add(data);
             db.SaveChanges();
             ViewBag.Message = "Đăng bài thành công";
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index","Manage");
         }
 
         private const int ThumbSize = 160;
-
-        public ActionResult Index()
-        {
-            ViewBag.ThumbSize = ThumbSize;
-            return View();
-        }
-
+        public string picturename = "";
         public ActionResult GetFile(string name, bool thumbnail = false)
         {
             var file = GetFile(name);
             var contentType = MimeMapping.GetMimeMapping(file.Name);
-
             return thumbnail
                 ? Thumb(file, contentType)
                 : File(file.FullName, contentType);
@@ -106,9 +99,9 @@ namespace MNPOSTWEBSITE.Controllers
                             deleteType = "POST",
                             name = file.Name,
                             size = file.Length,
-                            url = Url.Action("GetFile", "Home", new { file.Name }),
-                            thumbnailUrl = Url.Action("GetFile", "Home", new { file.Name, thumbnail = true }),
-                            deleteUrl = Url.Action("DeleteFile", "Home", new { file.Name }),
+                            url = Url.Action("GetFile", "Post", new { file.Name }),
+                            thumbnailUrl = Url.Action("GetFile", "Post", new { file.Name, thumbnail = true }),
+                            deleteUrl = Url.Action("DeleteFile", "Post", new { file.Name }),
                         };
 
             return Json(new
@@ -131,6 +124,10 @@ namespace MNPOSTWEBSITE.Controllers
                 SaveFileToDisk(file);
 
             var names = files.Select(f => f.FileName);
+            //picturename = Request.Files
+            //    .Cast<string>()
+            //    .Select(k => Request.Files[k])
+            //    .FirstOrDefault().FileName;
             return Upload(names);
         }
 
@@ -157,6 +154,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             var folder = GetUploadFolder();
             var file = folder.GetFiles(name).Single();
+            
             return file;
         }
 

@@ -37,7 +37,9 @@
         <link rel="stylesheet" href="/Content/js/file-uploader/css/jquery.fileupload-ui-noscript.css">
     </noscript>
 
-
+    <!-- Include Editor style. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.min.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -150,11 +152,11 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
 
-                    <p class="centered"><a href="/manage/index"><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
+                    <p class="centered"><a href=""><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
                     <h5 class="centered">@Session["Username"]</h5>
 
                     <li class="mt">
-                        <a class="active" href="index.html">
+                        <a class="active" href="/manage/index">
                             <i class="fa fa-dashboard"></i>
                             <span>Thông tin tài khoản</span>
                         </a>
@@ -167,7 +169,7 @@
                         </a>
                         <ul class="sub">
                             <li><a href="/post/create">Đăng bài mới</a></li>
-                            <li><a href="buttons.html">Danh sách bài đăng</a></li>
+                            <li><a href="/post/accountpost">Danh sách bài đăng</a></li>
                         </ul>
                     </li>
 
@@ -271,7 +273,7 @@
                     <div class="col-lg-12">
                         <div class="form-panel">
                             <h4 class="mb"><i class="fa fa-angle-right"></i> Bài đăng mới</h4>
-                            <form class="form-horizontal style-form" method="post" action="">
+                            <form class="form-horizontal style-form" method="post" action="/post/create">
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Tiêu đề</label>
                                     <div class="col-sm-10">
@@ -285,11 +287,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Default</label>
+                                    <label class="col-sm-2 col-sm-2 control-label">Loại dịch vụ</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="Title" placeholder="Nhập tiêu đề...">
+                                        <input type="text" class="form-control round-form" name="Service" placeholder="Nhập loại dịch vụ...">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Nội dung bài viết</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="Postcontent" id="Postcontent"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-round btn-primary" style="margin-left: 1530px;">Lưu bài viết</button>
                             </form>
                         </div>
                     </div><!-- col-lg-12-->
@@ -318,20 +327,20 @@
                                     <!-- The fileinput-button span is used to style the file input field as button -->
                                     <span class="btn btn-success fileinput-button">
                                         <i class="glyphicon glyphicon-plus"></i>
-                                        <span>Add files...</span>
+                                        <span>Chọn hình...</span>
                                         <input type="file" name="files[]" multiple>
                                     </span>
                                     <button type="submit" class="btn btn-theme start">
                                         <i class="glyphicon glyphicon-upload"></i>
-                                        <span>Start upload</span>
+                                        <span>Bắt đầu Upload</span>
                                     </button>
                                     <button type="reset" class="btn btn-theme02 cancel">
                                         <i class="glyphicon glyphicon-ban-circle"></i>
-                                        <span>Cancel upload</span>
+                                        <span>Hủy Upload</span>
                                     </button>
                                     <button type="button" class="btn btn-theme04 delete">
                                         <i class="glyphicon glyphicon-trash"></i>
-                                        <span>Delete</span>
+                                        <span>Xóa hình</span>
                                     </button>
                                     <input type="checkbox" class="toggle">
                                     <!-- The global file processing state -->
@@ -432,20 +441,20 @@
                 <strong class="error text-danger"></strong>
             </td>
             <td>
-                <p class="size">Processing...</p>
+                <p class="size">Đang Upload...</p>
                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
             </td>
             <td>
                 {% if (!i && !o.options.autoUpload) { %}
                 <button class="btn btn-primary start" disabled>
                     <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
+                    <span>Bắt đầu</span>
                 </button>
                 {% } %}
                 {% if (!i) { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span>Hủy</span>
                 </button>
                 {% } %}
             </td>
@@ -484,13 +493,13 @@
                 {% if (file.deleteUrl) { %}
                 <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
                     <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
+                    <span>Xóa</span>
                 </button>
                 <input type="checkbox" name="delete" value="1" class="toggle">
                 {% } else { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
+                    <span>Hủy</span>
                 </button>
                 {% } %}
             </td>
@@ -507,8 +516,20 @@
             $('select.styled').customSelect();
         });
 
+
     </script>
 
+    <!-- Include external JS libs. -->
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+    <!-- CSS rules for styling the element inside the editor such as p, h1, h2, etc. -->
+    <link href="~/Content/froala_style.min.css" rel="stylesheet" type="text/css" />
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/js/froala_editor.pkgd.min.js"></script>
+
+    <!-- Initialize the editor. -->
+    <script> $(function () { $('textarea').froalaEditor({ height: 200 }) });</script>
 </body>
 </html>
 
