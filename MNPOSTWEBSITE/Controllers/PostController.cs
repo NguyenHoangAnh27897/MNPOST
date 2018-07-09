@@ -76,7 +76,7 @@ namespace MNPOSTWEBSITE.Controllers
                 }
             }
 
-            return Redirect($"https://placehold.it/{ThumbSize}?text={Url.Encode(file.Extension)}");
+            return Redirect("https://placehold.it/{ThumbSize}?text={Url.Encode(file.Extension)}");
         }
 
         [HttpPost]
