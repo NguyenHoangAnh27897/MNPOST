@@ -55,7 +55,7 @@ namespace MNPOSTWEBSITE.Controllers
                     if (pass.Equals("123456"))
                     {
                         Session["Username"] = user.FullName;
-                        //await SignInAsync(user, model.RememberMe);
+                        await SignInAsync(user, model.RememberMe);
                         return RedirectToLocal(returnUrl);
                     }
                     else

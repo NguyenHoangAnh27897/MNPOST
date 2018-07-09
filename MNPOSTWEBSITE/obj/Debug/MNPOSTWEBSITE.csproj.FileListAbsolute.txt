@@ -228,7 +228,6 @@ D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.dll
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\PagedList.xml
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\ASPSnippets.FaceBookAPI.dll
-<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.pdb
@@ -288,7 +287,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.Micro
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
-=======
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.dll.config
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.dll
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITE.pdb
@@ -348,4 +346,11 @@ D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.MicrosoftAccoun
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
->>>>>>> 41b6823573afde71f2fba5cee09405bc729d9ff3
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\PagedList.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml
