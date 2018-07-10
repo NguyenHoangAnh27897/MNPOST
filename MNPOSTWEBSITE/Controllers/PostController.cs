@@ -131,17 +131,17 @@ namespace MNPOSTWEBSITE.Controllers
             return Upload(names);
         }
 
-        private static void SaveFileToDisk(HttpPostedFileBase file)
+        private void SaveFileToDisk(HttpPostedFileBase file)
         {
             var folder = GetUploadFolder();
             var targetPath = Path.Combine(folder.FullName, file.FileName);
             file.SaveAs(targetPath);
         }
 
-        private static DirectoryInfo GetUploadFolder()
+        private DirectoryInfo GetUploadFolder()
         {
-            var desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var upload = Path.Combine(desktop, "uploaded files");
+            //var desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var upload = Path.Combine(Server.MapPath("~/images/post"));
             var di = new DirectoryInfo(upload);
 
             if (!di.Exists)
@@ -150,7 +150,7 @@ namespace MNPOSTWEBSITE.Controllers
             return di;
         }
 
-        private static FileInfo GetFile(string name)
+        private FileInfo GetFile(string name)
         {
             var folder = GetUploadFolder();
             var file = folder.GetFiles(name).Single();

@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
 using ASPSnippets.FaceBookAPI;
+using System.Net.Mail;
+using System.Net;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -313,6 +315,38 @@ namespace MNPOSTWEBSITE.Controllers
             AuthenticationManager.SignOut();
             Session.Abandon();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Forget()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ForgetPassword(string email)
+        {
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(email));  // replace with valid value 
+            message.From = new MailAddress("hoanganh27897@gmail.com");  // replace with valid value
+            message.Subject = "Quên mật khẩu";
+            message.Body = string.Format(body, "MN POST", "hoanganh27897@gmail.com", "Mật khẩu mới của bạn đã được cập nhật lại: ");
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "hoanganh27897@gmail.com",  // replace with valid value
+                    Password = "pokemonblackwhite2"  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //

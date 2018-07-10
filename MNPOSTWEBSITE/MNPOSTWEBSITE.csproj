@@ -588,6 +588,7 @@
     <Content Include="Content\lineicons\fonts\linecons.eot" />
     <Content Include="Content\lineicons\fonts\linecons.ttf" />
     <Content Include="Content\lineicons\fonts\linecons.woff" />
+    <None Include="Properties\PublishProfiles\MNPOST.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -636,6 +637,7 @@
     <Content Include="Views\Shared\_LayoutAccount.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Post\AccountPost.cshtml" />
+    <Content Include="Views\Account\Forget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
