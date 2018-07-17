@@ -49,8 +49,8 @@ namespace MNPOSTWEBSITE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                string username = model.UserName;
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                string username = model.Email;
                 string pass = model.Password;
                 if (username.Equals(user.UserName))
                 {
@@ -96,7 +96,7 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string Fullname, string Phone)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +105,10 @@ namespace MNPOSTWEBSITE.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 1;
                     return RedirectToAction("Index", "Home");
                 }
                 else
