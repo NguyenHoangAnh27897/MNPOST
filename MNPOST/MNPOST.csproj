@@ -184,12 +184,19 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\customer\CustomerController.cs" />
+    <Compile Include="Controllers\customer\CustomerInitiateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\manage\AdminController.cs" />
+    <Compile Include="Controllers\manage\ManageController.cs" />
     <Compile Include="Controllers\manage\MenuController.cs" />
     <Compile Include="Controllers\mnpostinfo\PostOfficeController.cs" />
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
+    <Compile Include="Controllers\order\OrderController.cs" />
+    <Compile Include="Controllers\order\OrderInitiateController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
+    <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,7 +211,6 @@
     <Content Include="Content\build\css\custom.min.css" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
-    <Content Include="Content\loader.gif" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -4415,8 +4421,10 @@
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
     <Content Include="Report\test.rdl" />
+    <Content Include="Content\curved-bars.svg" />
     <None Include="Properties\PublishProfiles\mnpost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\customer\cus_initiate.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -4465,10 +4473,18 @@
     <Content Include="Views\Staff\Show.cshtml" />
     <Content Include="Views\PostOffice\Show.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\CustomerInitiate\Index.cshtml" />
+    <Content Include="Views\CustomerInitiate\Show.cshtml" />
+    <Content Include="Views\CustomerInitiate\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Customer\" />
+    <Folder Include="Views\OrderInitiate\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

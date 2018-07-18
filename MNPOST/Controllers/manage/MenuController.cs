@@ -8,8 +8,7 @@ using MNPOSTCOMMON;
 namespace MNPOST.Controllers.manage
 {
 
-    [Authorize(Roles = "admin")]
-    public class MenuController : BaseController
+    public class MenuController : AdminController
     {
         //
         // GET: /Menu/
