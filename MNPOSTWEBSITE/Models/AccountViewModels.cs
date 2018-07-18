@@ -30,9 +30,10 @@ namespace MNPOSTWEBSITE.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [Display(Name = "Email address")]
+        [Required(ErrorMessage = "The email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

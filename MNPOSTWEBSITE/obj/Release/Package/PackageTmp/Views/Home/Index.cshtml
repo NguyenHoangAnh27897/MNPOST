@@ -1,0 +1,377 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
+    var data = db.WS_Post.ToList();
+}
+
+<!-- Main Slider With Form -->
+<section class="osahan-slider">
+    <div id="osahanslider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#osahanslider" data-slide-to="0" class="active"></li>
+            <li data-target="#osahanslider" data-slide-to="1"></li>
+            <li data-target="#osahanslider" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active" style="background-image: url('/Content/img/slider/2.jpg')"><div class="overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('/Content/img/slider/3.jpg')"><div class="overlay"></div></div>
+            <div class="carousel-item" style="background-image: url('/Content/img/slider/4.jpg')"><div class="overlay"></div></div>
+        </div>
+        <a class="carousel-control-prev" href="#osahanslider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#osahanslider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="slider-form">
+        <div class="container">
+            <h1 class="text-center text-white mb-5">Ước tính cước phí</h1>
+            <form>
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="mdi mdi-google-maps"></i></div>
+                            <select class="form-control select2 no-radius">
+                                <option value="">Nơi bắt đầu</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="DC">District Of Columbia</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="mdi mdi-security-home"></i></div>
+                            <select class="form-control select2 no-radius">
+                                <option value="">Nơi kết thúc</option>
+                                <option value="">House/Villa</option>
+                                <option value="">Flat</option>
+                                <option value="">Plot/Land</option>
+                                <option value="">Office Space</option>
+                                <option value="">Shop/Showroom</option>
+                                <option value="">Commercial Land</option>
+                                <option value="">Warehouse/ Godown</option>
+                                <option value="">Industrial Building</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success btn-block no-radius font-weight-bold">Tìm Kiếm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- End Main Slider With Form -->
+<!-- Properties List -->
+<section class="section-padding">
+    <div class="section-title text-center mb-5">
+        <h2>Tuyến giao hàng nhiều nhất</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="card card-list">
+                    <a href="#">
+                        <span class="badge badge-success">Hồ Chí Minh</span>
+                        <img class="card-img-top" src="/Content/img/list/1.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Hồ Chí Minh - Hà Nội</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
+                            <h2 class="text-success mb-0 mt-3">
+                                Cước phí: <small>250.000 VND</small>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>3</strong></span>
+                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>2</strong></span>
+                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>587 sq ft</strong></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card card-list">
+                    <a href="#">
+                        <span class="badge badge-secondary">Hà Nội</span>
+                        <img class="card-img-top" src="/Content/img/list/2.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Hà Nội - Đà Nẵng</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
+                            <h2 class="text-success mb-0 mt-3">
+                                Cước phí: <small>250.000 VND</small>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>5</strong></span>
+                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>3</strong></span>
+                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>300 sq ft</strong></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card card-list">
+                    <a href="#">
+                        <span class="badge badge-success">Đà Nẵng</span>
+                        <img class="card-img-top" src="/Content/img/list/3.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Đà Nẵng - Cần Thơ</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
+                            <h2 class="text-success mb-0 mt-3">
+                                Cước phí: <small>250.000 VND</small>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>2</strong></span>
+                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>1</strong></span>
+                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>100 sq ft</strong></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="card card-list">
+                    <a href="#">
+                        <span class="badge badge-danger">Cần Thơ</span>
+                        <img class="card-img-top" src="/Content/img/list/4.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Cần Thơ - Huế</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
+                            <h2 class="text-success mb-0 mt-3">
+                                Cước phí: <small>250.000 VND</small>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>6</strong></span>
+                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>4</strong></span>
+                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>987 sq ft</strong></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card card-list">
+                    <a href="#">
+                        <span class="badge badge-warning">Huế</span>
+                        <img class="card-img-top" src="/Content/img/list/5.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Huế - Hà Tĩnh</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
+                            <h2 class="text-success mb-0 mt-3">
+                                Cước phí: <small>250.000 VND</small>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>8</strong></span>
+                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>4</strong></span>
+                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>120 sq ft</strong></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card card-list">
+                    <a href="#">
+                        <span class="badge badge-info">Hà Tĩnh</span>
+                        <img class="card-img-top" src="/Content/img/list/6.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Hà Tĩnh - Hồ Chí Minh</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
+                            <h2 class="text-success mb-0 mt-3">
+                                Cước phí: <small>250.000 VND</small>
+                            </h2>
+                        </div>
+                        <div class="card-footer">
+                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>1</strong></span>
+                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>3</strong></span>
+                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>187 sq ft</strong></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Properties List -->
+<!-- Properties by City -->
+<section class="section-padding bg-white">
+    <div class="section-title text-center mb-5">
+        <h2>Chúng tôi có mặt trên kháp tỉnh thành</h2>
+        <p>Trải dài từ miền bắc vào miền nam</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="card bg-dark text-white card-overlay">
+                    <a href="#">
+                        <img class="card-img" src="/Content/img/overlay/hcm.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h3 class="card-title text-white">TP. Hồ Chí Minh</h3>
+                            <p class="card-text text-white">4 Chi nhánh</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="card bg-dark text-white card-overlay">
+                    <a href="#">
+                        <img class="card-img" src="/Content/img/overlay/hn.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h3 class="card-title text-white">Hà Nội</h3>
+                            <p class="card-text text-white">3 Chi nhánh</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="card bg-dark text-white card-overlay">
+                    <a href="#">
+                        <img class="card-img" src="/Content/img/overlay/dn.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h3 class="card-title text-white">Đà Nẵng</h3>
+                            <p class="card-text text-white">2 Chi nhánh</p>
+                        </div>
+                    </a>
+                    .
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <div class="card bg-dark text-white card-overlay">
+                    <a href="#">
+                        <img class="card-img" src="/Content/img/overlay/hue.jpg" alt="Card image">
+                        <div class="card-img-overlay">
+                            <h3 class="card-title text-white">Huế</h3>
+                            <p class="card-text text-white">2 Chi nhánh</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Properties by City -->
+<!-- Trusted Agents -->
+<section class="section-padding">
+    <div class="section-title text-center mb-5">
+        <h2>Vì sao nên tin tưởng chúng tôi?</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="agents-card text-center">
+                    <img class="img-fluid mb-4" src="/Content/img/icon/trust.png" alt="">
+                    <p class="mb-4">Đội ngũ giao hàng chuyên nghiệp.</p>
+                    <h6 class="mb-0 text-success">CHUYÊN NGHIỆP</h6>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="agents-card text-center">
+                    <img class="img-fluid mb-4" src="/Content/img/icon/trust.png" alt="">
+                    <p class="mb-4">Thời gian giao hàng nhanh chóng và dễ dàng theo dõi lịch trình kiện hàng.</p>
+                    <h6 class="mb-0 text-success">NHANH CHÓNG</h6>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="agents-card text-center">
+                    <img class="img-fluid mb-4" src="/Content/img/icon/trust.png" alt="">
+                    <p class="mb-4">Kiện hàng được giao tới đúng thời gian và hoàn toàn không bị trầy xướt.</p>
+                    <h6 class="mb-0 text-success">ĐÁNG TIN CẬY</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Trusted Agents -->
+<!-- Blog -->
+<section class="section-padding border-top">
+    <div class="section-title text-center mb-5">
+        <h2>Tin mới nhất</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in data)
+            {
+                <div class="col-lg-4 col-md-4">
+                    <div class="card blog-card">
+                        <a href="/post/detailpost/@item.ID">
+                            <img class="card-img-top" src="/images/post/@item.Images" alt="Card image cap">
+                            <div class="card-body">
+                                <span class="badge badge-success">@item.Service</span>
+                                <h6>@item.PostName</h6>
+                                <p class="mb-0">@Html.Raw(@item.PostContent)</p>
+                            </div>
+                            <div class="card-footer">
+                                <p class="mb-0">Đăng bởi <strong>@item.PostBy</strong> vào @item.CreatedDate</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Blog -->
+<!-- Join Team -->
+<section class="section-padding bg-dark text-center">
+    <h2 class="text-white mt-0">Tham gia cùng bạn trên mọi chuyến hàng <br /> một cách nhanh chóng và chính xác</h2>
+    <p class="text-white mb-4">Đó chính là tiêu chí của chúng tôi</p>
+    <button type="button" class="btn btn-success">Liên hệ với chúng tôi</button>
+</section>
+<!-- End Join Team -->

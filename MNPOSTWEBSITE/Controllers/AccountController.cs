@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
 using ASPSnippets.FaceBookAPI;
+using System.Net.Mail;
+using System.Net;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -47,8 +49,8 @@ namespace MNPOSTWEBSITE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                string username = model.UserName;
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                string username = model.Email;
                 string pass = model.Password;
                 if (username.Equals(user.UserName))
                 {
@@ -94,7 +96,7 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, string Fullname, string Phone)
         {
             if (ModelState.IsValid)
             {
@@ -103,6 +105,10 @@ namespace MNPOSTWEBSITE.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 1;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -313,6 +319,38 @@ namespace MNPOSTWEBSITE.Controllers
             AuthenticationManager.SignOut();
             Session.Abandon();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Forget()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ForgetPassword(string email)
+        {
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(email));  // replace with valid value 
+            message.From = new MailAddress("hoanganh27897@gmail.com");  // replace with valid value
+            message.Subject = "Quên mật khẩu";
+            message.Body = string.Format(body, "MN POST", "hoanganh27897@gmail.com", "Mật khẩu mới của bạn đã được cập nhật lại: ");
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "hoanganh27897@gmail.com",  // replace with valid value
+                    Password = "pokemonblackwhite2"  // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                await smtp.SendMailAsync(message);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //
