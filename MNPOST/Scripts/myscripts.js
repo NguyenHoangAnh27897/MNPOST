@@ -104,3 +104,25 @@ function handleAutoCompleteAddress(place) {
 
     return result;
 }
+
+
+// show notify
+function showNotify(title, mesenger) {
+
+    $.notify({
+        title: title,
+        message: mesenger
+    }, {
+        type: 'success'
+    });
+
+}
+
+function showNotify( mesenger) {
+
+    $.notify(mesenger, {
+        type: 'success'
+    });
+
+}
+

@@ -15,7 +15,7 @@
                     <!-- search-->
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" ng-model="searchText" my-enter="GetData(1,searchText)" />
                         </div>
                     </div>
                     <!-- search-->
@@ -70,7 +70,7 @@
 
 
                 <!-- begin form-->
-                <form class="css-form" name="createForm" ng-submit="finishForm(createForm.$valid, 'insertmodal')">
+                <form class="css-form" name="createForm" ng-submit="finishForm(createForm.$valid)">
                     <!-- body-->
                     <div class="modal-body">
                         <div class="row">
@@ -78,7 +78,7 @@
 
                                 <div class="form-group">
                                     <label>Mã tỉnh thành</label>
-                                    <input type="text" maxlength="10" class="form-control" ng-model="ProviceInfo.ProvinceID" required ng-disabled="ProvinIDActive" />
+                                    <input type="text" maxlength="10" class="form-control" ng-model="ProviceInfo.ProvinceID" required ng-disabled="ProvinIDDisable" />
                                 </div>
 
                                 <div class="form-group">
@@ -126,6 +126,19 @@
 
         // tao controller
         var app = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+        app.directive('myEnter', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if (event.which === 13) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.myEnter);
+                        });
+
+                        event.preventDefault();
+                    }
+                });
+            };
+        });
         app.controller('myCtrl', function ($scope, $http) {
 
             // phan trang
@@ -141,11 +154,11 @@
 
             // lay du lieu
             $scope.allProvice = [];
-            $scope.GetData = function (page) {
+            $scope.GetData = function (page, search) {
                 showLoader(true);
                 $http({
                     method: "GET",
-                    url: "/province/getprovince?page=" + page
+                    url: "/province/getprovince?page=" + page + "&search=" + search
                 }).then(function mySuccess(response) {
                     showLoader(false);
 
@@ -160,14 +173,15 @@
 
                 }, function myError(response) {
                     showLoader(false);
-                    alert('Connect error');
+                    showNotify('Connect error');
                 });
             }
-            $scope.GetData($scope.currentPage);
+            $scope.GetData($scope.currentPage, "");
             //
             // khoi tao bien dung cho create va edit
             $scope.ProviceInfo = {};
-            $scope.ProvinIDDisable= false;
+            $scope.ProvinIDDisable = false;
+            $scope.IsAction = '';
 
             $scope.addNew = function () {
 
@@ -175,6 +189,7 @@
 
                 $scope.modaltitle = "Thêm tỉnh thành";
                 $scope.ProvinIDDisable = false;
+                $scope.IsAction = 'add';
                 showModel("insertmodal")
 
             };
@@ -186,6 +201,7 @@
 
                 $scope.modaltitle = "Chỉnh sửa tỉnh thành";
                 $scope.ProvinIDDisable = true;
+                $scope.IsAction = 'edit';
                 showModel("insertmodal")
             };
 
@@ -198,8 +214,98 @@
                 return -1;
             };
 
+            // action
+            $scope.finishForm = function (isValid) {
+                if (isValid) {
+                    if ($scope.IsAction === 'add') {
+                        $scope.sendCreate();
+                    } else if ($scope.IsAction === 'edit') {
+                        $scope.sendEdit();
+                    }
+
+                } else {
+                    showNotify('our form is missing');
+                }
+            }
 
 
+            // them tinh
+            $scope.sendCreate = function () {
+
+                showLoader(true);
+
+                $http({
+                    method: "POST",
+                    url: "/province/create",
+                    data: $scope.ProviceInfo
+                }).then(function success(response) {
+
+                    var result = response.data;
+
+                    if (result.error === 0) {
+
+                        $scope.allProvice.unshift(result.data);
+
+                        hideModel("insertmodal");
+
+                        showNotify("Đã thêm tỉnh thành");
+
+                    } else {
+
+                        alert(result.msg);
+
+                    }
+
+                    showLoader(false);
+
+                }
+                , function error(response) {
+                    showNotify("connect has disconnect");
+                    showLoader(false);
+                });
+
+            };
+
+            // cap nhat tinh
+            $scope.sendEdit = function () {
+
+                showLoader(true);
+
+                $http({
+                    method: "POST",
+                    url: "/province/edit",
+                    data: $scope.ProviceInfo
+                }).then(
+                    function success(response) {
+
+                        var result = response.data;
+
+                        if (result.error == 0) {
+
+                            var findIndex = getSelectedIndex(result.data.ProvinceID);
+
+                            if (findIndex !== -1) {
+                                $scope.allProvice[findIndex] = angular.copy(result.data);
+                            }
+
+                            showNotify("Đã cập nhật");
+                            hideModel("insertmodal");
+
+                        } else {
+
+                            alert(result.msg);
+
+                        }
+
+                        showLoader(false);
+
+                    },
+                    function errror(response) {
+                        showLoader(false);
+                        showNotify("connect has disconnect");
+                    }
+                );
+            }
 
         });
         //-- end controller

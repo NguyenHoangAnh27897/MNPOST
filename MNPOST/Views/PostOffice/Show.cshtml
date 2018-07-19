@@ -209,7 +209,7 @@
                      
                     }
                 } else {
-                    alert('our form is missing');
+                    showNotify('our form is missing');
                 }
             }
 
@@ -228,12 +228,12 @@
                     if (response.data.error === 0) {
                         alert(response.data.msg);
                     } else {
-                        alert('Đã thêm bưu cục');
+                        showNotify('Đã thêm bưu cục');
 
                         $scope.allPost.push(info);
                     }
                 }, function myError(response) {
-                    alert('Connect error');
+                    showNotify('Connect error');
                     showLoader(false);
                 });
             }

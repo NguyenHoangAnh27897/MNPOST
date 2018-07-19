@@ -3588,6 +3588,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ReportViewerWebForm.aspx" />
+    <Content Include="Scripts\bootstrap-notify.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\vendors\animate.css\.bower.json" />

@@ -17,6 +17,11 @@ namespace MNPOST.Models
 
         public Object data { get; set; }
 
+     
+    }
+
+    public class ResultWithPaging : ResultInfo
+    {
         public int page { get; set; }
 
         public int toltalSize { get; set; }
