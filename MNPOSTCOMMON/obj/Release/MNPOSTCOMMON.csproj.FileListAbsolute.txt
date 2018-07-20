@@ -7,3 +7,4 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojResolveAssemblyReference.cache

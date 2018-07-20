@@ -126,3 +126,6 @@ function showNotify( mesenger) {
 
 }
 
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
