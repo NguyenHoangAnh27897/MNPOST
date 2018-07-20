@@ -640,11 +640,12 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Post\AccountPost.cshtml" />
     <Content Include="Views\Account\Forget.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\post\" />
-    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

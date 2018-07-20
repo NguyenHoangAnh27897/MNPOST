@@ -36,8 +36,14 @@
                                     <td><span class="label label-info label-mini">@item.Service</span></td>
                                     <td>@item.CreatedDate</td>
                                     <td>
-                                        <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                                        <form action="/post/edit/@item.ID">
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                        </form>                                     
+                                    </td>
+                                    <td>
+                                        <form action="/post/delete/@item.ID">
+                                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             } 
@@ -45,7 +51,7 @@
                     </table>
                 </div><!-- /content-panel -->
             <br />
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
                 @Html.PagedListPager(Model, page => Url.Action("AccountPost", new { page }))
             </div><!-- /col-md-12 -->
         </div><!-- /row -->

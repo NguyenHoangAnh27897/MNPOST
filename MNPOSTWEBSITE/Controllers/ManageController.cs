@@ -8,11 +8,14 @@ namespace MNPOSTWEBSITE.Controllers
 {
     public class ManageController : Controller
     {
+        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
         //
         // GET: /Manage/
         public ActionResult Index()
         {
-            return View();
+            string id = Session["ID"].ToString();
+            var user = db.AspNetUsers.Where(s => s.Id == id);
+            return View(user);
         }
 
 	}
