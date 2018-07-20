@@ -190,6 +190,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\TransportController.cs" />
@@ -643,6 +644,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\post\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

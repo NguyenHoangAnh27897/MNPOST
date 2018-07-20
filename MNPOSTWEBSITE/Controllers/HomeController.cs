@@ -38,20 +38,20 @@ namespace MNPOSTWEBSITE.Controllers
             //    }
             //}
             //Session["Username"] = faceBookUser.Name;
-            List<Province> lst = new List<Province>();
+            //List<Province> lst = new List<Province>();
             string token = getToken().Result;
-            int count = getCount(token).Result;
-            for(int i = 0; i < count; i++)
-            {
-                lst.Add(new Province()
-                {
-                    ProvinceName = getDistrict(token, i).Result
-                });
-            }
-            return View(lst);
+            //int count = getCount(token).Result;
+            //for(int i = 0; i < count; i++)
+            //{
+            //    lst.Add(new Province()
+            //    {
+            //        ProvinceName = getDistrict(token, i).Result
+            //    });
+            //}
+            return View();
         }
 
-        async static Task<string> getDistrict(string tokenaccess, int i)
+        public async Task<string> getDistrict(string tokenaccess, int i)
         {
 
             string token = "";
@@ -74,7 +74,7 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
-        async static Task<int> getCount(string tokenaccess)
+        public async Task<int> getCount(string tokenaccess)
         {
 
             string token = "";
@@ -95,9 +95,10 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
-        async static Task<string> getToken()
+        public async Task<string> getToken()
         {
             string token = "";
+            string tokenstr = "";
             IEnumerable<KeyValuePair<string, string>> queries = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("username","mnwebsite"),
@@ -114,7 +115,7 @@ namespace MNPOSTWEBSITE.Controllers
                         token = await content.ReadAsStringAsync();
                         HttpContentHeaders headers = content.Headers;
                         var obj = JObject.Parse(token);
-                        var tokenstr = (string)obj["access_token"];
+                        tokenstr = (string)obj["access_token"];
                         return tokenstr;
                     }
                 }
