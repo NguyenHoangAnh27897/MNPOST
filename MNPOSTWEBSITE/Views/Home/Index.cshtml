@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MNPOSTWEBSITE.Models.Province>
+﻿
 @{
     ViewBag.Title = "Home Page";
     MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
@@ -36,10 +36,9 @@
                         <div class="input-group">
                             <div class="input-group-addon"><i class="mdi mdi-google-maps"></i></div>
                             <select class="form-control select2 no-radius">
-                                @foreach (var item in Model)
-                                {
-                                    <option value="">@item.ProvinceName</option>
-                                }
+
+                                    <option value="">Hồ Chí Minh</option>
+
                             </select>
                         </div>
                     </div>

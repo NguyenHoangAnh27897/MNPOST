@@ -6,14 +6,17 @@ using System.Web.Mvc;
 
 namespace MNPOSTWEBSITE.Controllers
 {
-    public class ManageController : Controller
+    public class OrderController : Controller
     {
-        //
-        // GET: /Manage/
-        public ActionResult Index()
+        // GET: Order
+        public ActionResult Create()
         {
             return View();
         }
 
-	}
+        public ActionResult OrderList()
+        {
+            return View();
+        }
+    }
 }

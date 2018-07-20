@@ -27,6 +27,7 @@ namespace MNPOSTWEBSITE.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
@@ -49,16 +50,23 @@ namespace MNPOSTWEBSITE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.Email, model.Password);
-                string username = model.Email;
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                string username = model.UserName;
                 string pass = model.Password;
                 if (username.Equals(user.UserName))
                 {
                     if (pass.Equals("123456"))
                     {
-                        Session["Username"] = user.FullName;
-                        await SignInAsync(user, model.RememberMe);
-                        return RedirectToLocal(returnUrl);
+                        if(db.AspNetUsers.Where(s=>s.UserName == model.UserName).FirstOrDefault().IsActive == true)
+                        {
+                            Session["Username"] = user.FullName;
+                            await SignInAsync(user, model.RememberMe);
+                            return RedirectToLocal(returnUrl);
+                        }else
+                        {
+                            ModelState.AddModelError("", "Tài khoản chưa được kích hoạt");
+                        }
+                        
                     }
                     else
                     {
@@ -109,6 +117,7 @@ namespace MNPOSTWEBSITE.Controllers
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 1;
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 else
