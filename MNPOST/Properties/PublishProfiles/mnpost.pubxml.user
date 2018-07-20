@@ -67,10 +67,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/26/2018 10:55:49</publishTime>
     </File>
     <File Include="bin/MNPOST.dll">
-      <publishTime>07/09/2018 15:08:29</publishTime>
+      <publishTime>07/20/2018 03:18:37</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>07/09/2018 13:59:36</publishTime>
+      <publishTime>07/20/2018 03:18:36</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>06/26/2018 10:55:49</publishTime>
@@ -122,6 +122,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/build/js/custom.min.js">
       <publishTime>06/26/2018 10:55:42</publishTime>
+    </File>
+    <File Include="Content/curved-bars.svg">
+      <publishTime>07/16/2018 10:59:12</publishTime>
     </File>
     <File Include="Content/loader.gif">
       <publishTime>06/26/2018 10:55:42</publishTime>
@@ -12753,11 +12756,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="ReportViewerWebForm.aspx">
       <publishTime>07/03/2018 16:04:21</publishTime>
     </File>
+    <File Include="Scripts/bootstrap-notify.min.js">
+      <publishTime>07/20/2018 02:28:43</publishTime>
+    </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
       <publishTime>06/26/2018 10:55:47</publishTime>
+    </File>
+    <File Include="Scripts/customer/cus_initiate.js">
+      <publishTime>07/19/2018 15:51:10</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>06/26/2018 10:55:47</publishTime>
@@ -12784,7 +12793,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
     <File Include="Scripts/myscripts.js">
-      <publishTime>07/02/2018 00:27:24</publishTime>
+      <publishTime>07/20/2018 02:36:14</publishTime>
     </File>
     <File Include="Scripts/respond.js">
       <publishTime>06/26/2018 10:55:47</publishTime>
@@ -12792,8 +12801,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/respond.min.js">
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
+    <File Include="Scripts/ui-bootstrap-tpls-2.5.0.min.js">
+      <publishTime>07/19/2018 14:35:15</publishTime>
+    </File>
     <File Include="Scripts/_references.js">
-      <publishTime>06/26/2018 10:55:47</publishTime>
+      <publishTime>07/20/2018 02:29:20</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
       <publishTime>06/26/2018 10:55:47</publishTime>
@@ -12822,6 +12834,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Account/_SetPasswordPartial.cshtml">
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
+    <File Include="Views/CustomerInitiate/Create.cshtml">
+      <publishTime>07/19/2018 15:50:11</publishTime>
+    </File>
+    <File Include="Views/CustomerInitiate/Index.cshtml">
+      <publishTime>07/16/2018 17:48:47</publishTime>
+    </File>
+    <File Include="Views/CustomerInitiate/Show.cshtml">
+      <publishTime>07/19/2018 17:17:22</publishTime>
+    </File>
     <File Include="Views/Error/Index.cshtml">
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
@@ -12837,6 +12858,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Index.cshtml">
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
+    <File Include="Views/Manage/Index.cshtml">
+      <publishTime>07/16/2018 10:48:06</publishTime>
+    </File>
     <File Include="Views/Menu/Group.cshtml">
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
@@ -12847,7 +12871,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
     <File Include="Views/PostOffice/Show.cshtml">
-      <publishTime>07/04/2018 02:02:46</publishTime>
+      <publishTime>07/20/2018 02:37:04</publishTime>
+    </File>
+    <File Include="Views/Province/Show.cshtml">
+      <publishTime>07/20/2018 03:01:33</publishTime>
     </File>
     <File Include="Views/Report/Index.cshtml">
       <publishTime>07/03/2018 16:18:59</publishTime>
@@ -12856,7 +12883,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/02/2018 00:28:55</publishTime>
+      <publishTime>07/20/2018 02:38:51</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>06/26/2018 10:55:47</publishTime>
@@ -12865,7 +12892,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/26/2018 10:55:47</publishTime>
     </File>
     <File Include="Views/Staff/Show.cshtml">
-      <publishTime>07/04/2018 00:44:58</publishTime>
+      <publishTime>07/16/2018 11:16:37</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>06/26/2018 10:55:47</publishTime>
