@@ -59,6 +59,7 @@ namespace MNPOSTWEBSITE.Controllers
                     {
                         if(db.AspNetUsers.Where(s=>s.UserName == model.UserName).FirstOrDefault().IsActive == true)
                         {
+                            Session["ID"] = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
                             Session["Username"] = user.FullName;
                             await SignInAsync(user, model.RememberMe);
                             return RedirectToLocal(returnUrl);

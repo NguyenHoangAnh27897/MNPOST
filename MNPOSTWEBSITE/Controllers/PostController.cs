@@ -179,5 +179,19 @@ namespace MNPOSTWEBSITE.Controllers
             var lst = db.WS_Post.ToList();
             return View(lst.ToPagedList(pageNumber, pageSize));
         }
+
+        public ActionResult Edit(int? id)
+        {
+            var pst = db.WS_Post.Where(s => s.ID == id);
+            return View(pst);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            var pst = db.WS_Post.Find(id);
+            db.WS_Post.Remove(pst);
+            db.SaveChanges();
+            return RedirectToAction("AccountPost","Post");
+        }
 	}
 }

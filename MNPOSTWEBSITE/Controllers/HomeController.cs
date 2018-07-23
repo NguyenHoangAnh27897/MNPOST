@@ -39,7 +39,7 @@ namespace MNPOSTWEBSITE.Controllers
             //}
             //Session["Username"] = faceBookUser.Name;
             //List<Province> lst = new List<Province>();
-            string token = getToken().Result;
+            //string token = getToken().Result;
             //int count = getCount(token).Result;
             //for(int i = 0; i < count; i++)
             //{
