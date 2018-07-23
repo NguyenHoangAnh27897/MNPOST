@@ -3,10 +3,12 @@
 }
 
 <div class="row" ng-app="myApp" ng-controller="myCtrl">
+    
+    
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Danh sách tỉnh thành&nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNew()" my-tool-tip="Thêm mới"><i class="fa fa-plus"></i></a></h2>
+                <h2>Danh sách tỉnh thành&nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNew()"><i my-tool-tip="Thêm mới" class="fa fa-plus"></i></a></h2>
                 <div class="clearfix"></div>
             </div>
             <!-- end x_title-->
@@ -34,6 +36,7 @@
                                 <th>#</th>
                             </tr>
                         </thead>
+     
                         <tbody>
                             <tr ng-repeat="item in allProvice">
                                 <td>{{$index + 1}}</td>
@@ -119,6 +122,8 @@
 
 
 </div>
+
+
 <!-- end content-->
 @section scripts {
 
@@ -164,7 +169,9 @@
                     showNotify('Connect error');
                 });
             }
-            $scope.GetData($scope.currentPage, "");
+            // goi lay du liẹu
+
+            $scope.GetData(1, "");
             //
             // khoi tao bien dung cho create va edit
             $scope.ProviceInfo = {};
