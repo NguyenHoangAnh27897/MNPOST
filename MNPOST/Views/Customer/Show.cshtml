@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Show";
 }
 
@@ -9,7 +8,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Danh sách bưu cục&nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNew()"><i my-tool-tip="Thêm mới" class="fa fa-plus"></i></a></h2>
+                <h2>Danh sách khách hàng&nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNew()"><i my-tool-tip="Thêm mới" class="fa fa-plus"></i></a></h2>
                 <div class="clearfix"></div>
             </div>
             <!-- end x_title-->
@@ -30,31 +29,25 @@
                         <thead>
                             <tr class="headings">
                                 <th>STT</th>
-                                <th>Mã bưu cục</th>
-                                <th>Tên bưu cục</th>
+                                <th>Mã khách hàng</th>
+                                <th>Tên khách hàng</th>
                                 <th>Địa chỉ</th>
-                                <th>Khu vực</th>
-                                <th>Tỉnh thành</th>
-                                <th>Điện thoại</th>
-                                <th>FaxnNo</th>
+                                <th>Số điện thoại</th>
                                 <th>Email</th>
-                                <th>CTV</th>                               
+                                <th>Kích hoạt</th>
                                 <th>#</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr ng-repeat="item in allPostOffice">
+                            <tr ng-repeat="item in allCustomer">
                                 <td>{{$index + 1}}</td>
-                                <td>{{item.PostOfficeID}}</td>
-                                <td>{{item.PostOfficeName}}</td>
+                                <td>{{item.CustomerCode}}</td>
+                                <td>{{item.CustomerName}}</td>
                                 <td>{{item.Address}}</td>
-                                <td>{{item.ZoneID}}</td>
-                                <td>{{item.ProvinceID}}</td>
-                                <td>{{item.Phone}}</td>
-                                <td>{{item.FaxNo}}</td>
+                                <td>{{item.Companyphone}}</td>
                                 <td>{{item.Email}}</td>
-                                <td>{{item.IsCollaborator}}</td>
+                                <td>{{item.IsActive}}</td>
                                 <td><a href="#" ng-click="edit($index)">Chi tiết</a></td>
                             </tr>
                         </tbody>
@@ -91,76 +84,97 @@
                             <div class="col-sm-6">
 
                                 <div class="form-group">
-                                    <label>Mã bưu cục</label>
-                                    <input type="text" maxlength="10" class="form-control" ng-model="PostOfficeInfo.PostOfficeID" required ng-disabled="PostOfficeIDDisable" />
+                                    <label>Mã khách hàng</label>
+                                    <input type="text" maxlength="10" class="form-control" ng-model="CustomerInfo.CustomerCode" required ng-disabled="CustomerCodeDisable" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tên bưu cục</label>
-                                    <input type="text" class="form-control" ng-model="PostOfficeInfo.PostOfficeName" required />
+                                    <label>Tên khách hàng</label>
+                                    <input type="text" class="form-control" ng-model="CustomerInfo.CustomerName" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Loại khách hàng {{CustomerInfo.CustomerType}}</label>
+                                    <select class="form-control" ng-model="CustomerInfo.CustomerType" required>
+                                        <option ng-repeat="x in cusTypes" value="{{x.CustomerType}}">{{x.name | uppercase}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nhóm khách hàng </label>
+                                    <select class="form-control" ng-model="CustomerInfo.CustomerGroupID" required>
+                                        <option ng-repeat="x in allCustomerGroup" value="{{x.CustomerGroupID}}">{{x.CustomerGroupName | uppercase}}</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Địa chỉ</label>
-                                    <input type="text" class="form-control" ng-model="PostOfficeInfo.Address" required />
+                                    <input type="text" class="form-control" ng-model="CustomerInfo.Address" required />
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Số điện thoại</label>
-                                    <input type="text" class="form-control" ng-model="PostOfficeInfo.Phone"/>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Số Fax</label>
-                                    <input type="text" class="form-control" ng-model="PostOfficeInfo.FaxNo" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" ng-model="PostOfficeInfo.Email" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Khu vực</label>
-                                    <select class="form-control" ng-model="PostOfficeInfo.ZoneID" required>
-                                        <option ng-repeat="x in allZone" value="{{x.ZoneID}}">{{x.ZoneName | uppercase}}</option>
+                                    <label>Quốc gia</label>
+                                    <select class="form-control" ng-model="CustomerInfo.CountryID" required>
+                                        <option ng-repeat="x in allCountry" value="{{x.CountryID}}">{{x.CountryName | uppercase}}</option>
                                     </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tỉnh thành</label>
+                                    <select class="form-control" ng-model="CustomerInfo.ProvinceID" required>
+                                        <option ng-repeat="x in allProvince" value="{{x.ProvinceID}}">{{x.ProvinceName | uppercase}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Số fax</label>
+                                    <input type="text" class="form-control" ng-model="CustomerInfo.FaxNo" required />
                                 </div>
 
                             </div>
 
-                            <div class="col-sm-6">                                                             
+                            <div class="col-sm-6">
 
                                 <div class="form-group">
-                                    <label>Tỉnh thành</label>
-                                    <select class="form-control" ng-model="PostOfficeInfo.ProvinceID" required>
-                                        <option ng-repeat="x in allProvince" value="{{x.ProvinceID}}">{{x.ProvinceName | uppercase}}</option>
-                                    </select>
+                                    <label>Người liên hệ</label>
+                                    <input type="text" ng-model="CustomerInfo.PersonalInfo" class="form-control" />
                                 </div>
-                               
+
                                 <div class="form-group">
-                                    <label>Mã số thuế</label>
-                                    <input type="text" ng-model="PostOfficeInfo.TaxCode" class="form-control" />
+                                    <label>Di động</label>
+                                    <input type="text" ng-model="CustomerInfo.Mobile" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>Ngân hàng</label>
-                                    <input type="text" ng-model="PostOfficeInfo.BankName" class="form-control" />
+                                    <input type="text" ng-model="CustomerInfo.BankName" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
                                     <label>Tài khoản</label>
-                                    <input type="text" ng-model="PostOfficeInfo.BankAccount" class="form-control" />
+                                    <input type="text" ng-model="CustomerInfo.BankAccount" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Ghi chú</label>
-                                    <input type="text" ng-model="PostOfficeInfo.Notes" class="form-control" />
+                                    <label>Mã số thuế</label>
+                                    <input type="text" ng-model="CustomerInfo.TaxCode" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Là CTV</label>
-                                    <input type="checkbox" ng-model="PostOfficeInfo.IsCollaborator" class="form-control" />
+                                    <label>Bưu cục</label>
+                                    <select class="form-control" ng-model="CustomerInfo.PostOfficeID" required>
+                                        <option ng-repeat="x in allPostOffice" value="{{x.PostOfficeID}}">{{x.PostOfficeName | uppercase}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" ng-model="CustomerInfo.Email" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>SĐT công ty</label>
+                                    <input type="text" class="form-control" ng-model="CustomerInfo.CompanyPhone" required />
                                 </div>
 
                             </div>
@@ -197,9 +211,12 @@
         app.controller('myCtrl', function ($scope, $http) {
 
             $scope.allProvince = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllProvince))');
-            $scope.allZone = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllZone))');
-
+            $scope.allCountry = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllCountry))');
+            $scope.allCustomerGroup = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllCustomerGroup))');
+            $scope.allPostOffice = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllPostOffice))');
+            $scope.cusTypes = [{ 'CustomerType': 0, 'name': 'Công ty' }, { 'CustomerType': 1, 'name': 'Cá nhân' }];
             // phan trang
+          
             $scope.numPages;
             $scope.itemPerPage;
             $scope.totalItems;
@@ -211,18 +228,18 @@
 
 
             // lay du lieu
-            $scope.allPostOffice = [];
+            $scope.allCustomer = [];
             $scope.GetData = function (page, search) {
                 showLoader(true);
                 $http({
                     method: "GET",
-                    url: "/postoffice/getpostoffice?page=" + page + "&search=" + search
+                    url: "/customer/getcustomer?page=" + page + "&search=" + search
                 }).then(function mySuccess(response) {
                     showLoader(false);
 
                     if (response.data.error === 0) {
 
-                        $scope.allPostOffice = response.data.data;
+                        $scope.allCustomer = response.data.data;
                         $scope.itemPerPage = response.data.pageSize;
                         $scope.totalItems = response.data.toltalSize;
                         $scope.numPages = Math.round($scope.totalItems / $scope.itemPerPage);
@@ -239,42 +256,44 @@
             $scope.GetData(1, "");
             //
             // khoi tao bien dung cho create va edit
-            $scope.PostOfficeInfo = {};
-            $scope.PostOfficeIDDisable = false;
+            $scope.CustomerInfo = {};
+
+            $scope.CustomerCodeDisable = false;
             $scope.IsAction = '';
 
             $scope.addNew = function () {
-
-                $scope.PostOfficeInfo = {
-                    "PostOfficeID": "",
-                    "PostOfficeName": "",
+                $scope.CustomerInfo = {
+                    "CustomerCode": "",
+                    "CustomerName": "",
+                    "CustomerType": 1,
+                    "CustomerGroupID": "",
                     "Address": "",
-                    "ZoneID": "",
                     "ProvinceID": "",
-                    "Phone": "",
+                    "CountryID": "",
                     "FaxNo": "",
                     "Email": "",
-                    "IsCollaborator": "",
-                    "Notes": "",
-                    "TaxCode": "",
+                    "CompanyPhone": "",
+                    "Mobile": "",
+                    "PersonalInfo": "",
                     "BankAccount": "",
-                    "BankName":""
+                    "BankName": "",
+                    "TaxCode": "",
+                    "PostOfficeID": ""
                 };
-
-                $scope.modaltitle = "Thêm bưu cục";
-                $scope.PostOfficeIDDisable = false;
+                $scope.modaltitle = "Thêm khách hàng";
+                $scope.CustomerCodeDisable = false;
                 $scope.IsAction = 'add';
                 showModel("insertmodal")
 
             };
 
             $scope.edit = function (index) {
-                var info = $scope.allPostOffice[index];
+                var info = $scope.allCustomer[index];
 
-                $scope.PostOfficeInfo = angular.copy(info);
-
-                $scope.modaltitle = "Chỉnh sửa bưu cục";
-                $scope.PostOfficeIDDisable = true;
+                $scope.CustomerInfo = angular.copy(info);
+                console.log($scope.CustomerInfo);
+                $scope.modaltitle = "Chỉnh sửa khách hàng";
+                $scope.CustomerCodeDisable = true;
                 $scope.IsAction = 'edit';
                 showModel("insertmodal")
             };
@@ -282,8 +301,8 @@
 
             // tim index theo ma tinh
             function getSelectedIndex(id) {
-                for (var i = 0; i < $scope.allPostOffice.length; i++)
-                    if ($scope.allPostOffice[i].PostOfficeID == id)
+                for (var i = 0; i < $scope.allCustomer.length; i++)
+                    if ($scope.allCustomer[i].CustomerCode == id)
                         return i;
                 return -1;
             };
@@ -310,19 +329,19 @@
 
                 $http({
                     method: "POST",
-                    url: "/postoffice/create",
-                    data: $scope.PostOfficeInfo
+                    url: "/customer/create",
+                    data: $scope.CustomerInfo
                 }).then(function success(response) {
 
                     var result = response.data;
 
                     if (result.error === 0) {
 
-                        $scope.allPostOffice.unshift(result.data);
+                        $scope.allCustomer.unshift(result.data);
 
                         hideModel("insertmodal");
 
-                        showNotify("Đã thêm bưu cục");
+                        showNotify("Đã thêm khách hàng");
 
                     } else {
 
@@ -347,8 +366,8 @@
 
                 $http({
                     method: "POST",
-                    url: "/postoffice/edit",
-                    data: $scope.PostOfficeInfo
+                    url: "/customer/edit",
+                    data: $scope.CustomerInfo
                 }).then(
                     function success(response) {
 
@@ -356,10 +375,10 @@
 
                         if (result.error == 0) {
 
-                            var findIndex = getSelectedIndex(result.data.PostOfficeID);
+                            var findIndex = getSelectedIndex(result.data.CustomerCode);
 
                             if (findIndex !== -1) {
-                                $scope.allPostOffice[findIndex] = angular.copy(result.data);
+                                $scope.allCustomer[findIndex] = angular.copy(result.data);
                             }
 
                             showNotify("Đã cập nhật");
@@ -386,3 +405,4 @@
 
     </script>
 }
+

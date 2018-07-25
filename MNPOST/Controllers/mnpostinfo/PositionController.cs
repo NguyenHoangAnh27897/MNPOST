@@ -7,31 +7,27 @@ using MNPOSTCOMMON;
 using MNPOST.Models;
 namespace MNPOST.Controllers.mnpostinfo
 {
-    // postoffice 
-    public class PostOfficeController : BaseController
+    public class PositionController : BaseController
     {
-
-        private string menuCode = "postoffice";
         //
-        // GET: /PostOffice/
-
+        // GET: /Position/
         public ActionResult Show()
         {
-            ViewBag.AllProvince = db.BS_Provinces.ToList();
-            ViewBag.AllZone = db.BS_Zones.ToList();
+
+
             return View();
         }
 
 
         [HttpGet]
-        public ActionResult GetPostOffice(int? page, string search = "")
+        public ActionResult GetPosition(int? page, string search = "")
         {
             int pageSize = 50;
 
             int pageNumber = (page ?? 1);
 
 
-            var data = db.BS_PostOffices.Where(p => p.PostOfficeID.Contains(search) || p.PostOfficeName.Contains(search)).ToList();
+            var data = db.BS_Positions.Where(p => p.PositionID.Contains(search) || p.PositionName.Contains(search)).ToList();
 
             ResultInfo result = new ResultWithPaging()
             {
@@ -48,52 +44,41 @@ namespace MNPOST.Controllers.mnpostinfo
         }
 
         [HttpPost]
-        public ActionResult create(BS_PostOffices post)
+        public ActionResult create(BS_Positions position)
         {
 
-            if (String.IsNullOrEmpty(post.PostOfficeID))
+            if (String.IsNullOrEmpty(position.PositionID))
                 return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
 
-            var check = db.BS_PostOffices.Find(post.ProvinceID);
+            var check = db.BS_Positions.Find(position.PositionID);
 
             if (check != null)
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
 
 
-            post.CreationDate = DateTime.Now;
-            db.BS_PostOffices.Add(post);
+            position.IsActive = true;
+            db.BS_Positions.Add(position);
 
             db.SaveChanges();
 
-            return Json(new ResultInfo() { error = 0, msg = "", data = post }, JsonRequestBehavior.AllowGet);
+            return Json(new ResultInfo() { error = 0, msg = "", data = position }, JsonRequestBehavior.AllowGet);
 
         }
 
+
         [HttpPost]
-        public ActionResult edit(BS_PostOffices post)
+        public ActionResult edit(BS_Positions position)
         {
-            if (String.IsNullOrEmpty(post.PostOfficeID))
+            if (String.IsNullOrEmpty(position.PositionID))
                 return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
 
-            var check = db.BS_PostOffices.Find(post.PostOfficeID);
+            var check = db.BS_Positions.Find(position.PositionID);
 
             if (check == null)
                 return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
 
-            check.PostOfficeName = post.PostOfficeName;
-            check.Address = post.Address;
-            check.ZoneID = post.ZoneID;
-            check.ProvinceID = post.ProvinceID;
-            check.Phone = post.Phone;
-            check.FaxNo = post.FaxNo;
-            check.Email = post.Email;
-            check.IsCollaborator = post.IsCollaborator;
-            check.Notes = post.Notes;
-            check.LastEditDate = DateTime.Now;
-            check.TaxCode = post.TaxCode;
-            check.BankAccount = post.BankAccount;
-            check.BankName = post.BankName;
-            check.Type = post.Type;
+            check.PositionName = position.PositionName;
+            check.IsActive = position.IsActive;
 
 
             db.Entry(check).State = System.Data.Entity.EntityState.Modified;
@@ -103,6 +88,5 @@ namespace MNPOST.Controllers.mnpostinfo
             return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
 
         }
-
 	}
 }
