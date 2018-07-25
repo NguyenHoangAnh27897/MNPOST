@@ -188,14 +188,14 @@
     <Compile Include="Controllers\customer\CustomerInitiateController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\mailer\MailerController.cs" />
+    <Compile Include="Controllers\mailer\MailerInitController.cs" />
     <Compile Include="Controllers\manage\AdminController.cs" />
     <Compile Include="Controllers\manage\ManageController.cs" />
     <Compile Include="Controllers\manage\MenuController.cs" />
     <Compile Include="Controllers\mnpostinfo\PostOfficeController.cs" />
     <Compile Include="Controllers\mnpostinfo\ProvinceController.cs" />
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
-    <Compile Include="Controllers\order\OrderController.cs" />
-    <Compile Include="Controllers\order\OrderInitiateController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
     <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -4483,14 +4483,14 @@
     <Content Include="Views\CustomerInitiate\Show.cshtml" />
     <Content Include="Views\CustomerInitiate\Create.cshtml" />
     <Content Include="Views\Province\Show.cshtml" />
+    <Content Include="Views\Mailer\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Customer\" />
-    <Folder Include="Views\OrderInitiate\" />
-    <Folder Include="Views\Order\" />
+    <Folder Include="Views\MailerInit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
