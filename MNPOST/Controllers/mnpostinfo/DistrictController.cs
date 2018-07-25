@@ -5,33 +5,29 @@ using System.Web;
 using System.Web.Mvc;
 using MNPOSTCOMMON;
 using MNPOST.Models;
+
 namespace MNPOST.Controllers.mnpostinfo
 {
-    // postoffice 
-    public class PostOfficeController : BaseController
+    public class DistrictController : BaseController
     {
-
-        private string menuCode = "postoffice";
         //
-        // GET: /PostOffice/
-
+        // GET: /District/
         public ActionResult Show()
         {
             ViewBag.AllProvince = db.BS_Provinces.ToList();
-            ViewBag.AllZone = db.BS_Zones.ToList();
             return View();
         }
 
 
         [HttpGet]
-        public ActionResult GetPostOffice(int? page, string search = "")
+        public ActionResult GetDistrict(int? page, string search = "")
         {
             int pageSize = 50;
 
             int pageNumber = (page ?? 1);
 
 
-            var data = db.BS_PostOffices.Where(p => p.PostOfficeID.Contains(search) || p.PostOfficeName.Contains(search)).ToList();
+            var data = db.BS_Districts.Where(p => p.DistrictID.Contains(search) || p.DistrictName.Contains(search)).ToList();
 
             ResultInfo result = new ResultWithPaging()
             {
@@ -47,54 +43,49 @@ namespace MNPOST.Controllers.mnpostinfo
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        
+
+
+
         [HttpPost]
-        public ActionResult create(BS_PostOffices post)
+        public ActionResult create(BS_Districts district)
         {
 
-            if (String.IsNullOrEmpty(post.PostOfficeID))
+            if (String.IsNullOrEmpty(district.DistrictID))
                 return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
 
-            var check = db.BS_PostOffices.Find(post.ProvinceID);
+            var check = db.BS_Districts.Find(district.DistrictID);
 
             if (check != null)
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
 
 
-            post.CreationDate = DateTime.Now;
-            db.BS_PostOffices.Add(post);
+            district.IsActive = true;
+            district.CreationDate = DateTime.Now;
+            db.BS_Districts.Add(district);
 
             db.SaveChanges();
 
-            return Json(new ResultInfo() { error = 0, msg = "", data = post }, JsonRequestBehavior.AllowGet);
+            return Json(new ResultInfo() { error = 0, msg = "", data = district }, JsonRequestBehavior.AllowGet);
 
         }
 
+
         [HttpPost]
-        public ActionResult edit(BS_PostOffices post)
+        public ActionResult edit(BS_Districts district)
         {
-            if (String.IsNullOrEmpty(post.PostOfficeID))
+            if (String.IsNullOrEmpty(district.DistrictID))
                 return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
 
-            var check = db.BS_PostOffices.Find(post.PostOfficeID);
+            var check = db.BS_Districts.Find(district.DistrictID);
 
             if (check == null)
                 return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
 
-            check.PostOfficeName = post.PostOfficeName;
-            check.Address = post.Address;
-            check.ZoneID = post.ZoneID;
-            check.ProvinceID = post.ProvinceID;
-            check.Phone = post.Phone;
-            check.FaxNo = post.FaxNo;
-            check.Email = post.Email;
-            check.IsCollaborator = post.IsCollaborator;
-            check.Notes = post.Notes;
-            check.LastEditDate = DateTime.Now;
-            check.TaxCode = post.TaxCode;
-            check.BankAccount = post.BankAccount;
-            check.BankName = post.BankName;
-            check.Type = post.Type;
-
+            check.DistrictName = district.DistrictName;
+            check.ProvinceID = district.ProvinceID;
+            check.IsActive = district.IsActive;
+            check.UpdateDate = DateTime.Now;
 
             db.Entry(check).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
@@ -103,6 +94,5 @@ namespace MNPOST.Controllers.mnpostinfo
             return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
 
         }
-
-	}
+    }
 }
