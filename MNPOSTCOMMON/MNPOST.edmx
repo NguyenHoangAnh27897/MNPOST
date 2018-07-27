@@ -136,6 +136,7 @@
           <Property Name="MemberOf" Type="varchar" MaxLength="50" />
           <Property Name="DebitObjectID" Type="varchar" MaxLength="20" />
           <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
+          <Property Name="WardID" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="BS_Districts">
           <Key>
@@ -730,6 +731,7 @@
           <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DebitObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CustomerPreID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="WardID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BS_Districts">
           <Key>
@@ -1378,6 +1380,7 @@
           <EntitySetMapping Name="BS_Customers">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_Customers">
               <MappingFragment StoreEntitySet="BS_Customers">
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />

@@ -1,0 +1,254 @@
+﻿@{
+    ViewBag.Title = "Init";
+}
+
+<div ng-app="myApp">
+
+    <!-- begin myCtrl-->
+    <div class="row" ng-controller="myCtrl">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Thêm mới vận đơn&nbsp;&nbsp;&nbsp;<a href="#"><i my-tool-tip="Thêm từ chi tiết" class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;<a href="#" ng-click=""><i my-tool-tip="Thêm từ excel" class="fa fa-file-excel-o"></i></a> &nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNewMailer()"><i my-tool-tip="Thêm dòng mới" class="fa fa-plus"></i></a></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <!-- table data-->
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action scrollmenu">
+                            <thead>
+                                <tr class="headings">
+                                    <th>STT</th>
+                                    <th>Mã vận đơn</th>
+                                    <th>Mã người gửi</th>
+                                    <th>Người gửi</th>
+                                    <th>Điện thoại</th>
+                                    <th>Địa chỉ gửi</th>
+                                    <th>Tỉnh thành gửi</th>
+                                    <th>Quận huyện gửi</th>
+                                    <th>Phường xã gửi</th>
+                                    <th>Người nhận</th>
+                                    <th>Điện thoại</th>
+                                    <th>Địa chỉ nhận</th>
+                                    <th>Tỉnh thành nhận</th>
+                                    <th>Quận huyện nhận</th>
+                                    <th>Phường xã nhận</th>
+                                    <th>Dịch vụ</th>
+                                    <th>Hình thức thanh toán</th>
+                                    <th>Trọng lượng</th>
+                                    <th>Số lượng</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="item in mailers">
+                                    <td class="tablestt">
+                                        {{$index + 1}}&nbsp;&nbsp;
+                                        <a href="#"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>&nbsp;&nbsp;
+                                        <a href="#" ng-click="removeMailer($index)"><i my-tool-tip="Xóa" class="fa fa-minus-square"></i></a>&nbsp;&nbsp;
+                                        <a href="#" ng-click="copyMailer($index)"><i my-tool-tip="Copy" class="fa fa-copy"></i></a>
+                                    </td>
+                                    <td><input type="text" ng-model="item.MailerID" class="tableinput" /></td>
+                                    <td>
+                                        <select ng-model="item.SenderID" class="tableinput" ng-change="changeCus($index)">
+                                            <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" ng-model="item.SenderName" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.SenderPhone" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.SenderAddress" class="tableinput" typeahead-on-select="onSelectAddress($item, $model, $label, $index)" typeahead-on-select="fillAddress()" uib-typeahead="address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" /></td>
+                                    <td><input type="text" ng-model="item.SenderProvinceID" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.SenderDistrictID" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.SenderWardID" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.RecieverName" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.RecieverPhone" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.RecieverAddress" class="tableinput" typeahead-on-select="onSelectAddress($item, $model, $label,$index)" uib-typeahead="address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" /></td>
+                                    <td><input type="text" ng-model="item.RecieverProvinceID" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.RecieverDistrictID" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.RecieverWardID" class="tableinput" /></td>
+                                    <td>
+                                        <select ng-model="item.MailerTypeID" class="tableinput">
+                                            <option ng-repeat="item in mailerTypes" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select ng-model="item.PaymentMethodID" class="tableinput">
+                                            <option ng-repeat="item in payments" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" ng-model="item.Weight" class="tableinput" /></td>
+                                    <td><input type="text" ng-model="item.Quantity" class="tableinput" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end myCtrl-->
+    <!-- begin ctrlAddDetail -->
+    <div ng-controller="ctrlAddDetail">
+
+    </div>
+    <!-- end ctrlAddDetail-->
+
+
+
+</div> <!-- end ng-app-->
+@section styles {
+
+    <style type="text/css">
+        .scrollmenu {
+            overflow: auto;
+            white-space: nowrap;
+        }
+
+        .tableinput {
+            text-align: left;
+            width: 200px;
+            height: 30px;
+        }
+
+        .tablestt {
+            text-align: center;
+            font-size: large;
+        }
+    </style>
+
+}
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        // tao controller
+        var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
+
+        app.service('mailerService', function () {
+            var mailerList = [];
+
+            var addMailer = function (newObj) {
+                mailerList.unshift(newObj);
+            };
+
+            var addNewMailer = function () {
+                mailerList.unshift({
+                    'MailerID': '', 'SenderID': '', 'SenderName': '', 'SenderAddress': '', 'SenderWardID': '', 'SenderDistrictID': '', 'SenderProvinceID': '', 'SenderPhone': '', 'RecieverName': ''
+                , 'RecieverAddress': '', 'RecieverWardID': '', 'RecieverDistrictID': '', 'RecieverProvinceID': '', 'RecieverPhone': '', 'Weight': '', 'Quantity': '', 'ServiceID': '', 'PaymentMethodID': '', 'MailerTypeID': ''
+                });
+            }
+
+            var getMailers = function () {
+                return mailerList;
+            };
+
+            var removeMailer = function (idx) {
+                mailerList.splice(idx, 1);
+            }
+
+            var customers = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Customers)));
+
+            var mailerTypes = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.MailerTypes)));
+
+            var payments = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Payments)));
+
+
+            var getCustomers = function () {
+                return customers;
+            };
+
+            var getMailerTypes = function () {
+                return mailerTypes;
+            }
+
+            var getPayments = function () {
+                return payments;
+            }
+
+            var findCustomer = function (code) {
+                for (var i = 0; i < customers.length; i++)
+                    if (customers[i].code == code)
+                        return customers[i];
+                return null;
+            }
+
+            return {
+                addMailer: addMailer,
+                getMailers: getMailers,
+                addNewMailer: addNewMailer,
+                removeMailer: removeMailer,
+                getCustomers: getCustomers,
+                getMailerTypes: getMailerTypes,
+                getPayments: getPayments,
+                findCustomer: findCustomer
+            };
+
+        });
+
+        app.controller('myCtrl', function ($scope, $http, mailerService) {
+
+            $scope.mailers = mailerService.getMailers();
+            $scope.customers = mailerService.getCustomers();
+            $scope.mailerTypes = mailerService.getMailerTypes();
+            $scope.payments = mailerService.getPayments();
+
+            mailerService.addNewMailer();
+
+            $scope.addNewMailer = function () {
+                mailerService.addNewMailer();
+            }
+
+            $scope.removeMailer = function (idx) {
+                mailerService.removeMailer(idx);
+            }
+
+            $scope.copyMailer = function (idx) {
+                var mailer = angular.copy($scope.mailers[idx]);
+                mailerService.addMailer(mailer);
+            }
+
+            $scope.changeCus = function (idx) {
+                var mailer = $scope.mailers[idx];
+         
+                var cus = mailerService.findCustomer(mailer.SenderID);
+
+                if (cus) {
+                    $scope.mailers[idx].SenderName = cus.name;
+                    $scope.mailers[idx].SenderPhone = cus.phone;
+                    $scope.mailers[idx].SenderProvinceID = cus.provinceId;
+                    $scope.mailers[idx].SenderAddress = cus.address;
+                    $scope.mailers[idx].SenderDistrictID = cus.districtId;
+                    $scope.mailers[idx].SenderWardID = cus.wardId;
+                }
+            }
+
+            $scope.getLocation = function (val) {
+                return $http.get('//maps.googleapis.com/maps/api/geocode/json?&components=country:VN', {
+                    params: {
+                        address: val,
+                        sensor: false
+                    }
+                }).then(function (response) {
+                    return response.data.results.map(function (item) {
+                        return item;
+                    });
+                });
+            };
+
+            $scope.onSelectAddress = function ($item, $model, $label, index) {
+                console.log($item);
+                console.log($model);
+                console.log(index);
+            };
+        });
+
+        app.controller('ctrlAddDetail', function ($scope, $http, mailerService) {
+
+
+
+        });
+
+
+    </script>
+}

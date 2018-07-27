@@ -199,13 +199,8 @@
     <Compile Include="Controllers\mnpostinfo\PostOfficeController.cs" />
     <Compile Include="Controllers\mnpostinfo\ProvinceController.cs" />
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
-    <Compile Include="Controllers\order\OrderController.cs" />
-    <Compile Include="Controllers\order\OrderInitiateController.cs" />
->>>>>>> 5eb76009a526c32eee53221332b004184139b721
     <Compile Include="Controllers\report\ReportController.cs" />
     <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -4446,6 +4441,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\mydirective.js" />
     <Content Include="Scripts\myscript.keypress.js" />
     <Content Include="Scripts\myscripts.js" />
     <Content Include="Scripts\respond.js" />
@@ -4493,9 +4489,7 @@
     <Content Include="Views\CustomerInitiate\Show.cshtml" />
     <Content Include="Views\CustomerInitiate\Create.cshtml" />
     <Content Include="Views\Province\Show.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Mailer\Show.cshtml" />
-=======
     <Content Include="Views\District\Show.cshtml" />
     <Content Include="Views\Position\Show.cshtml" />
     <Content Include="Views\Ward\Show.cshtml" />
@@ -4503,20 +4497,13 @@
     <Content Include="Views\Country\Show.cshtml" />
     <Content Include="Views\CustomerGroup\Show.cshtml" />
     <Content Include="Views\Customer\Show.cshtml" />
->>>>>>> 5eb76009a526c32eee53221332b004184139b721
+    <Content Include="Views\MailerInit\Init.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
-<<<<<<< HEAD
-    <Folder Include="Views\Customer\" />
-    <Folder Include="Views\MailerInit\" />
-=======
     <Folder Include="Views\Employee\" />
-    <Folder Include="Views\OrderInitiate\" />
-    <Folder Include="Views\Order\" />
->>>>>>> 5eb76009a526c32eee53221332b004184139b721
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

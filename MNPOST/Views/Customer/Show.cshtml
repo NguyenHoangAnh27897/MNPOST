@@ -94,8 +94,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Loại khách hàng {{CustomerInfo.CustomerType}}</label>
-                                    <select class="form-control" ng-model="CustomerInfo.CustomerType" required>
+                                    <label>Loại khách hàng </label>
+                                    <select class="form-control" ng-model="CustomerInfo.CustomerType" required convert-to-number>
                                         <option ng-repeat="x in cusTypes" value="{{x.CustomerType}}">{{x.name | uppercase}}</option>
                                     </select>
                                 </div>
@@ -206,7 +206,7 @@
     <script>
 
         // tao controller
-        var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
+        var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective']);
 
         app.controller('myCtrl', function ($scope, $http) {
 
@@ -216,7 +216,7 @@
             $scope.allPostOffice = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllPostOffice))');
             $scope.cusTypes = [{ 'CustomerType': 0, 'name': 'Công ty' }, { 'CustomerType': 1, 'name': 'Cá nhân' }];
             // phan trang
-          
+
             $scope.numPages;
             $scope.itemPerPage;
             $scope.totalItems;
@@ -243,7 +243,8 @@
                         $scope.itemPerPage = response.data.pageSize;
                         $scope.totalItems = response.data.toltalSize;
                         $scope.numPages = Math.round($scope.totalItems / $scope.itemPerPage);
-
+                        console.log($scope.allCustomer);
+                        console.log($scope.cusTypes);
                     }
 
                 }, function myError(response) {
