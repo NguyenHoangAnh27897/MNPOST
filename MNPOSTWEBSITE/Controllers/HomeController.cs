@@ -48,17 +48,30 @@ namespace MNPOSTWEBSITE.Controllers
             //        ProvinceName = getDistrict(token, i).Result
             //    });
             //}
-            return View();
+            string rs = getToken().Result;
+            int count = getCount(rs).Result;
+            List<Province> lstProvince = new List<Province>();
+            Province pro = new Province();
+            for (int i = 0; i < count; i++)
+            {
+                pro = new Province();
+                string res = getProvince(rs, i).Result.ToString();
+                string resid = getProvinceID(rs, i).Result.ToString();
+                pro.ProvinceName = res;
+                pro.ProvinceID = resid;
+                lstProvince.Add(pro);
+            }
+            return View(lstProvince);
         }
 
-        public async Task<string> getDistrict(string tokenaccess, int i)
+        public async Task<string> getProvince(string tokenaccess, int i)
         {
 
             string token = "";
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetProvince"))
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)
@@ -74,6 +87,29 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
+        public async Task<string> getProvinceID(string tokenaccess, int i)
+        {
+
+            string token = "";
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
+                {
+
+                    using (HttpContent content = response.Content)
+                    {
+                        token = await content.ReadAsStringAsync();
+                        var obj = JObject.Parse(token);
+                        var count = obj["provinces"].ToList();
+                        var tokenstr = (string)obj["provinces"][i]["ProvinceID"];
+                        return tokenstr;
+
+                    }
+                }
+            }
+        }
+
         public async Task<int> getCount(string tokenaccess)
         {
 
@@ -81,7 +117,7 @@ namespace MNPOSTWEBSITE.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetProvince"))
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)
@@ -108,7 +144,7 @@ namespace MNPOSTWEBSITE.Controllers
             HttpContent q = new FormUrlEncodedContent(queries);
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await client.PostAsync("http://35.231.147.186:89/mntoken", q))
+                using (HttpResponseMessage response = await client.PostAsync("http://35.231.147.186:89/mntoken", q).ConfigureAwait(continueOnCapturedContext: false))
                 {
                     using (HttpContent content = response.Content)
                     {
