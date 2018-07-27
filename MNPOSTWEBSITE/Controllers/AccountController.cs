@@ -53,10 +53,8 @@ namespace MNPOSTWEBSITE.Controllers
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 string username = model.UserName;
                 string pass = model.Password;
-                if (username.Equals(user.UserName))
+                if (user != null)
                 {
-                    if (pass.Equals("123456"))
-                    {
                         if(db.AspNetUsers.Where(s=>s.UserName == model.UserName).FirstOrDefault().IsActive == true)
                         {
                             Session["ID"] = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
@@ -67,17 +65,11 @@ namespace MNPOSTWEBSITE.Controllers
                         {
                             ModelState.AddModelError("", "Tài khoản chưa được kích hoạt");
                         }
-                        
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Sai mật khẩu");
-                    }
                   
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Tài khoản không tồn tại");
+                    ModelState.AddModelError("", "Tài khoản không tồn tại hoặc nhập sai mật khẩu");
                 }
             }
 
