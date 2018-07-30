@@ -42,7 +42,10 @@
         }
     </style>
 
+    @RenderSection("styles", false)
+
 </head>
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -129,6 +132,7 @@
 
         </div>
     </div>
+
     <div id="loader"></div>
 
     <!-- jQuery -->
@@ -147,6 +151,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-sanitize.min.js"></script>
     <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="~/Scripts/myscript.keypress.js"></script>
+    <script src="~/Scripts/mydirective.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMESJTjSQnZU8Q7J5AFDE2wP2wOm3hy1o&libraries=places"
             async defer></script>
 

@@ -41,5 +41,6 @@ namespace MNPOSTCOMMON
         public string MemberOf { get; set; }
         public string DebitObjectID { get; set; }
         public string CustomerPreID { get; set; }
+        public string WardID { get; set; }
     }
 }

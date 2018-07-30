@@ -101,6 +101,7 @@
     <EntitySetMapping Name="BS_Customers">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Customers">
         <MappingFragment StoreEntitySet="BS_Customers">
+          <ScalarProperty Name="WardID" ColumnName="WardID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
           <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />

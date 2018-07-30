@@ -28,4 +28,28 @@ namespace MNPOST.Models
 
         public int pageSize { get; set; }
     }
+
+    //
+    public class CustomerInfoResult
+    {
+        public string code { get; set; }
+        public string name { get; set; }
+
+        public string address { get; set; }
+
+        public string phone { get; set; }
+
+        public string provinceId { get; set; }
+
+        public string districtId { get; set; }
+
+        public string wardId { get; set; }
+    }
+
+    public class CommonData
+    {
+        public string code { get; set; }
+
+        public string name { get; set; }
+    }
 }
