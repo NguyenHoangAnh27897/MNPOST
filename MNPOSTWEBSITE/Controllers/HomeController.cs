@@ -48,26 +48,26 @@ namespace MNPOSTWEBSITE.Controllers
             //        ProvinceName = getDistrict(token, i).Result
             //    });
             //}
-            string rs = getToken().Result;
-            int count = getCount(rs).Result;
+            Session["token"] = getToken().Result;
             List<Province> lstProvince = new List<Province>();
             Province pro = new Province();
-            for (int i = 0; i < count; i++)
+            List<string> lstname = getProvince(Session["token"].ToString()).Result;
+            List<string> lstid = getProvince(Session["token"].ToString()).Result;
+            for(int i = 0; i < lstname.Count; i++)
             {
                 pro = new Province();
-                string res = getProvince(rs, i).Result.ToString();
-                string resid = getProvinceID(rs, i).Result.ToString();
-                pro.ProvinceName = res;
-                pro.ProvinceID = resid;
+                pro.ProvinceName = lstname[i];
+                pro.ProvinceID = lstid[i];
                 lstProvince.Add(pro);
             }
             return View(lstProvince);
         }
 
-        public async Task<string> getProvince(string tokenaccess, int i)
+        public async Task<List<string>> getProvince(string tokenaccess)
         {
 
             string token = "";
+            List<string> lst = new List<string>();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
@@ -79,18 +79,22 @@ namespace MNPOSTWEBSITE.Controllers
                         token = await content.ReadAsStringAsync();
                         var obj = JObject.Parse(token);
                         var count = obj["provinces"].ToList();
-                        var tokenstr = (string)obj["provinces"][i]["ProvinceName"];
-                        return tokenstr;
-
+                        for(int i = 0; i < count.Count; i++)
+                        {
+                            var tokenstr = (string)obj["provinces"][i]["ProvinceName"];
+                            lst.Add(tokenstr);
+                        }      
+                        return lst;
                     }
                 }
             }
         }
 
-        public async Task<string> getProvinceID(string tokenaccess, int i)
+        public async Task<List<string>> getProvinceID(string tokenaccess)
         {
 
             string token = "";
+            List<string> lst = new List<string>();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
@@ -102,30 +106,13 @@ namespace MNPOSTWEBSITE.Controllers
                         token = await content.ReadAsStringAsync();
                         var obj = JObject.Parse(token);
                         var count = obj["provinces"].ToList();
-                        var tokenstr = (string)obj["provinces"][i]["ProvinceID"];
-                        return tokenstr;
+                        for (int i = 0; i < count.Count; i++)
+                        {
+                            var tokenstr = (string)obj["provinces"][i]["ProvinceID"];
+                            lst.Add(tokenstr);
+                        }
+                        return lst;
 
-                    }
-                }
-            }
-        }
-
-        public async Task<int> getCount(string tokenaccess)
-        {
-
-            string token = "";
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
-                {
-
-                    using (HttpContent content = response.Content)
-                    {
-                        token = await content.ReadAsStringAsync();
-                        var obj = JObject.Parse(token);
-                        var count = obj["provinces"].ToList();
-                        return count.Count;
                     }
                 }
             }
