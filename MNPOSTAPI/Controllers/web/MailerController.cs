@@ -74,6 +74,7 @@ namespace MNPOSTAPI.Controllers.web
 
                 if (data == null)
                     throw new Exception("Sai du lieu gui len");
+
                 data.CurrentStatusID = 0;
                 data.CreationDate = DateTime.Now;
                 data.LastUpdateDate = DateTime.Now;

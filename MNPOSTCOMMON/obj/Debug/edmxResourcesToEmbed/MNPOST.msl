@@ -613,5 +613,55 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BS_PriceZones">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceZones">
+        <MappingFragment StoreEntitySet="BS_PriceZones">
+          <ScalarProperty Name="PriceTypeID" ColumnName="PriceTypeID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Routes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+        <MappingFragment StoreEntitySet="BS_Routes">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Services">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
+        <MappingFragment StoreEntitySet="BS_Services">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_ServiceTypes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_ServiceTypes">
+        <MappingFragment StoreEntitySet="BS_ServiceTypes">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_MailerServices">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerServices">
+        <MappingFragment StoreEntitySet="MM_MailerServices">
+          <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

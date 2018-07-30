@@ -17,4 +17,9 @@ namespace MNPOSTAPI.Models
     {
         public MM_Mailers mailer { get; set; }
     }
+
+    public class RequestData : RequestInfo
+    {
+        public Object data { get; set; }
+    }
 }

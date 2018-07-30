@@ -379,6 +379,11 @@
     <EntitySet Name="MM_Mailers" EntityType="MNPOSTModel.MM_Mailers" />
     <EntitySet Name="MM_PackingList" EntityType="MNPOSTModel.MM_PackingList" />
     <EntitySet Name="MM_PackingListDetail" EntityType="MNPOSTModel.MM_PackingListDetail" />
+    <EntitySet Name="BS_PriceZones" EntityType="MNPOSTModel.BS_PriceZones" />
+    <EntitySet Name="BS_Routes" EntityType="MNPOSTModel.BS_Routes" />
+    <EntitySet Name="BS_Services" EntityType="MNPOSTModel.BS_Services" />
+    <EntitySet Name="BS_ServiceTypes" EntityType="MNPOSTModel.BS_ServiceTypes" />
+    <EntitySet Name="MM_MailerServices" EntityType="MNPOSTModel.MM_MailerServices" />
   </EntityContainer>
   <EntityType Name="UMS_MenuGroupUser">
     <Key>
@@ -671,5 +676,54 @@
     <Property Name="AcceptDate" Type="DateTime" Precision="3" />
     <Property Name="LastEditDate" Type="DateTime" Precision="3" />
     <Property Name="CreationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="BS_PriceZones">
+    <Key>
+      <PropertyRef Name="ProvinceID" />
+      <PropertyRef Name="ZoneID" />
+      <PropertyRef Name="GroupID" />
+      <PropertyRef Name="PriceTypeID" />
+    </Key>
+    <Property Name="ProvinceID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="ZoneID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="GroupID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PriceTypeID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BS_Routes">
+    <Key>
+      <PropertyRef Name="RouteID" />
+    </Key>
+    <Property Name="RouteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="BS_Services">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="BS_ServiceTypes">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MM_MailerServices">
+    <Key>
+      <PropertyRef Name="MailerID" />
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="PriceDefault" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LastUpDate" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>
