@@ -142,6 +142,9 @@
     <Compile Include="MM_History.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MM_MailerDelivery.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_MailerDeliveryDetail.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -189,6 +190,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\mailer\MailerController.cs" />
+    <Compile Include="Controllers\mailer\MailerDeliveryController.cs" />
     <Compile Include="Controllers\mailer\MailerInitController.cs" />
     <Compile Include="Controllers\manage\AdminController.cs" />
     <Compile Include="Controllers\manage\ManageController.cs" />
@@ -4498,12 +4500,13 @@
     <Content Include="Views\CustomerGroup\Show.cshtml" />
     <Content Include="Views\Customer\Show.cshtml" />
     <Content Include="Views\MailerInit\Init.cshtml" />
+    <Content Include="Views\MailerDelivery\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\moneyadvance\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Employee\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
