@@ -53,7 +53,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_CustomerMoneyAdvances> MM_CustomerMoneyAdvances { get; set; }
         public virtual DbSet<MM_EmployeeMoneyAdvances> MM_EmployeeMoneyAdvances { get; set; }
         public virtual DbSet<MM_History> MM_History { get; set; }
-        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
         public virtual DbSet<MM_Mailers> MM_Mailers { get; set; }
         public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
@@ -63,6 +62,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
         public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
         public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
+        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
+        public virtual DbSet<MM_MailerDelivery> MM_MailerDelivery { get; set; }
     
         public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {

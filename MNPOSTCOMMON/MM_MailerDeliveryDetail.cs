@@ -16,8 +16,6 @@ namespace MNPOSTCOMMON
     {
         public string DocumentID { get; set; }
         public string MailerID { get; set; }
-        public string EmployeeID { get; set; }
-        public string Notes { get; set; }
         public Nullable<bool> IsDeliverOver { get; set; }
         public string DeliveryTo { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }

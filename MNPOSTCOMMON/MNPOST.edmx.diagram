@@ -29,11 +29,10 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_Zones" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.GeneralCodeInfo" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_CustomerMoneyAdvances" Width="1.5" PointX="13.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeMoneyAdvances" Width="1.5" PointX="8.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeMoneyAdvances" Width="1.5" PointX="7.375" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_History" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_Mailers" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerServices" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerServices" Width="2.25" PointX="14.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingList" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingListDetail" Width="1.5" PointX="4.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTickets" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
@@ -45,6 +44,8 @@
         <AssociationConnector Association="MNPOSTModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__628FA481" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="2" PointX="10.5" PointY="14.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDelivery" Width="1.5" PointX="15.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
