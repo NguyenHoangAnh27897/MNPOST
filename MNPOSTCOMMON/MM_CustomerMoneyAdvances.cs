@@ -14,6 +14,7 @@ namespace MNPOSTCOMMON
     
     public partial class MM_CustomerMoneyAdvances
     {
+        public string DocumentID { get; set; }
         public string AcceptID { get; set; }
         public Nullable<System.DateTime> AcceptDate { get; set; }
         public string EmployeeID { get; set; }

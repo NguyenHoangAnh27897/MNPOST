@@ -28,3 +28,13 @@ D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xm
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xml
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb

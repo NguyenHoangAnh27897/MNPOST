@@ -16,5 +16,6 @@ namespace MNPOSTCOMMON
     {
         public string GroupID { get; set; }
         public string GroupName { get; set; }
+        public Nullable<int> IsActive { get; set; }
     }
 }

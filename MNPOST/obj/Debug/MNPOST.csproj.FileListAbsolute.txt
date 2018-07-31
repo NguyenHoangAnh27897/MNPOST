@@ -311,3 +311,10 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\Microsoft.ReportViewer.Common.dll
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\Microsoft.ReportViewer.WebForms.DLL
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\ReportViewerForMvc.dll
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\PagedList.xml
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\PagedList.Mvc.xml
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll.config
