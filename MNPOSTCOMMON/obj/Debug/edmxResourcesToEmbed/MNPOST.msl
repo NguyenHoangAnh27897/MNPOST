@@ -613,5 +613,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BS_PriceZones">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceZones">
+        <MappingFragment StoreEntitySet="BS_PriceZones">
+          <ScalarProperty Name="PriceTypeID" ColumnName="PriceTypeID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Services">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
+        <MappingFragment StoreEntitySet="BS_Services">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_ServiceTypes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_ServiceTypes">
+        <MappingFragment StoreEntitySet="BS_ServiceTypes">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

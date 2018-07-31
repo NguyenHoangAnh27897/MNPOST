@@ -72,7 +72,15 @@ function handleAutoCompleteAddress(place) {
 
     //var place = autocomplete.getPlace();
 
-    var result = {};
+    var result = {
+        street_number: '',
+        route: '',
+        political: '',
+        administrative_area_level_1: '',
+        country: '',
+        postal_code: '',
+        administrative_area_level_2: ''
+    };
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
@@ -84,8 +92,11 @@ function handleAutoCompleteAddress(place) {
             case 'route':
                 result.route = place.address_components[i]['long_name'];
                 break;
-            case 'locality':
-                result.locality = place.address_components[i]['long_name'];
+            case 'political':
+                result.political = place.address_components[i]['long_name'];
+                break;
+            case 'sublocality_level_1':
+                result.sublocality_level_1 = place.address_components[i]['long_name'];
                 break;
             case 'administrative_area_level_1':
                 result.administrative_area_level_1 = place.address_components[i]['short_name'];

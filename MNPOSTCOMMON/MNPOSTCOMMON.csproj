@@ -84,7 +84,16 @@
     <Compile Include="BS_PostOffices.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="BS_PriceZones.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="BS_Provinces.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BS_Services.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BS_ServiceTypes.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="BS_Wards.cs">
