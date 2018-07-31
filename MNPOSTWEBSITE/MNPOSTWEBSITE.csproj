@@ -208,6 +208,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact_me.js" />
     <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\normalize.css" />
     <Content Include="Content\css\style-responsive.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\table-responsive.css" />
@@ -503,11 +505,14 @@
     <Content Include="Content\lineicons\fonts\linecons.svg" />
     <Content Include="Content\lineicons\lte-ie7.js" />
     <Content Include="Content\lineicons\style.css" />
+    <Content Include="Content\main.js" />
     <Content Include="Content\materialdesignicons.min.css" />
     <Content Include="Content\osahan.css" />
     <Content Include="Content\select2-bootstrap.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\select2.min.js" />
+    <Content Include="Content\vendor\jquery-1.9.1.min.js" />
+    <Content Include="Content\vendor\modernizr-2.6.2.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -589,6 +594,7 @@
     <Content Include="Content\lineicons\fonts\linecons.eot" />
     <Content Include="Content\lineicons\fonts\linecons.ttf" />
     <Content Include="Content\lineicons\fonts\linecons.woff" />
+    <Content Include="Content\vendor\.DS_Store" />
     <None Include="Properties\PublishProfiles\MNPOST.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -652,6 +658,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MNPOSTCOMMON\MNPOSTCOMMON.csproj">
+      <Project>{86535a9f-fb29-4141-951a-30bcbedef8c0}</Project>
+      <Name>MNPOSTCOMMON</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MNPOSTWEBSITEMODEL\MNPOSTWEBSITEMODEL.csproj">
       <Project>{1fd8ddc3-5702-462c-bac6-c9f3ea8fbb14}</Project>
       <Name>MNPOSTWEBSITEMODEL</Name>

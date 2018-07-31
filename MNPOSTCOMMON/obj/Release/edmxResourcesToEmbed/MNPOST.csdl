@@ -129,6 +129,7 @@
     <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="DebitObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="CustomerPreID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="WardID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="BS_Districts">
     <Key>

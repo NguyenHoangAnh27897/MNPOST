@@ -39,8 +39,15 @@
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingList" Width="1.5" PointX="16.75" PointY="0.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingListDetail" Width="1.5" PointX="0.75" PointY="16.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_PriceZones" Width="1.5" PointX="16.375" PointY="6.75" />
+<<<<<<< HEAD
         <EntityTypeShape EntityType="MNPOSTModel.BS_Services" Width="1.5" PointX="16.375" PointY="9.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_ServiceTypes" Width="1.5" PointX="12.375" PointY="16.75" />
+=======
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Routes" Width="1.5" PointX="16.375" PointY="9.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Services" Width="1.5" PointX="12.375" PointY="16.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_ServiceTypes" Width="1.5" PointX="14.375" PointY="16.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerServices" Width="1.5" PointX="16.375" PointY="16.75" />
+>>>>>>> d92e5b5c1ae7c488eb6673f8f2a4b6eca6f8ac00
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

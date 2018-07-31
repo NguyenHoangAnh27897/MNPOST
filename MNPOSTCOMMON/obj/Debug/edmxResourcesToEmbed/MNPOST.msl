@@ -623,6 +623,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
+    <EntitySetMapping Name="BS_Routes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+        <MappingFragment StoreEntitySet="BS_Routes">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> d92e5b5c1ae7c488eb6673f8f2a4b6eca6f8ac00
     <EntitySetMapping Name="BS_Services">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
         <MappingFragment StoreEntitySet="BS_Services">
@@ -643,5 +655,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
+    <EntitySetMapping Name="MM_MailerServices">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerServices">
+        <MappingFragment StoreEntitySet="MM_MailerServices">
+          <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> d92e5b5c1ae7c488eb6673f8f2a4b6eca6f8ac00
   </EntityContainerMapping>
 </Mapping>

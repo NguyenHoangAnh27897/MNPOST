@@ -131,6 +131,7 @@
     <Property Name="MemberOf" Type="varchar" MaxLength="50" />
     <Property Name="DebitObjectID" Type="varchar" MaxLength="20" />
     <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
+    <Property Name="WardID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_Districts">
     <Key>
