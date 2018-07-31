@@ -40,6 +40,31 @@
         .css-form input.ng-valid.ng-touched {
             background-color: #78FA89;
         }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+            /*google place*/
+        .pac-container {
+            z-index: 10000 !important;
+        }
     </style>
 
     @RenderSection("styles", false)
@@ -152,7 +177,7 @@
     <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="~/Scripts/myscript.keypress.js"></script>
     <script src="~/Scripts/mydirective.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMESJTjSQnZU8Q7J5AFDE2wP2wOm3hy1o&libraries=places"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMESJTjSQnZU8Q7J5AFDE2wP2wOm3hy1o&libraries=places&callback=init&language=vi"
             async defer></script>
 
     <script src="~/Scripts/myscripts.js"></script>

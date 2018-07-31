@@ -623,6 +623,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
     <EntitySetMapping Name="BS_Routes">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
         <MappingFragment StoreEntitySet="BS_Routes">
@@ -632,6 +634,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+>>>>>>> d92e5b5c1ae7c488eb6673f8f2a4b6eca6f8ac00
     <EntitySetMapping Name="BS_Services">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
         <MappingFragment StoreEntitySet="BS_Services">
@@ -652,6 +655,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
     <EntitySetMapping Name="MM_MailerServices">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerServices">
         <MappingFragment StoreEntitySet="MM_MailerServices">
@@ -663,5 +668,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+>>>>>>> d92e5b5c1ae7c488eb6673f8f2a4b6eca6f8ac00
   </EntityContainerMapping>
 </Mapping>
