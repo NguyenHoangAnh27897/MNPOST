@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using MNPOSTCOMMON;
 using System.Web.Script.Serialization;
+using MNPOSTWEBSITE.Models;
 
 namespace MNPOSTWEBSITE.Controllers
 {

@@ -12,6 +12,8 @@ using MNPOSTWEBSITE.Models;
 using ASPSnippets.FaceBookAPI;
 using System.Net.Mail;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -111,7 +113,11 @@ namespace MNPOSTWEBSITE.Controllers
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 1;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    if(AddCustomer(Fullname, Phone, false, model.UserName).Result)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    return View();
                 }
                 else
                 {
@@ -121,6 +127,27 @@ namespace MNPOSTWEBSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public async Task<bool> AddCustomer(string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
+        {
+            Customer cus = new Customer
+            {
+                CustomerName = Fullname,
+                Phone = Phone,
+                Email = Email,
+                IsActive = IsActive,
+                CreateDate = DateTime.Now
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://35.231.147.186:89/api/customer/addcustomer";
+            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;          
         }
 
         //
