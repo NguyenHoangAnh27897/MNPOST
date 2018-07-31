@@ -57,15 +57,10 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
         public virtual DbSet<MM_PackingListDetail> MM_PackingListDetail { get; set; }
         public virtual DbSet<BS_PriceZones> BS_PriceZones { get; set; }
-<<<<<<< HEAD
         public virtual DbSet<BS_Services> BS_Services { get; set; }
         public virtual DbSet<BS_ServiceTypes> BS_ServiceTypes { get; set; }
-=======
         public virtual DbSet<BS_Routes> BS_Routes { get; set; }
-        public virtual DbSet<BS_Services> BS_Services { get; set; }
-        public virtual DbSet<BS_ServiceTypes> BS_ServiceTypes { get; set; }
         public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
->>>>>>> d92e5b5c1ae7c488eb6673f8f2a4b6eca6f8ac00
     
         public virtual ObjectResult<GROUPUSER_GETLISTMENU_Result> GROUPUSER_GETLISTMENU(string groupId)
         {
