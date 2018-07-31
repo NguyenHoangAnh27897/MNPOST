@@ -306,3 +306,17 @@ D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.pdb
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll
 C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.pdb
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.dll
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.pdb
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll.config
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.pdb
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll.config
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\PagedList.xml
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml
+D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml

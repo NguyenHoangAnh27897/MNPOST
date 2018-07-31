@@ -10,12 +10,14 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UMS_UserGroups
+    public partial class COUNTRY_GETALL_Result
     {
-        public string GroupID { get; set; }
-        public string GroupName { get; set; }
-        public Nullable<int> IsActive { get; set; }
+        public string CountryID { get; set; }
+        public string CountryName { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string CountryCode { get; set; }
     }
 }

@@ -38,68 +38,40 @@ namespace MNPOSTCOMMON
         public virtual DbSet<BS_Customers> BS_Customers { get; set; }
         public virtual DbSet<BS_Districts> BS_Districts { get; set; }
         public virtual DbSet<BS_Employees> BS_Employees { get; set; }
+        public virtual DbSet<BS_MailerModeraters> BS_MailerModeraters { get; set; }
+        public virtual DbSet<BS_Positions> BS_Positions { get; set; }
         public virtual DbSet<BS_PostOffices> BS_PostOffices { get; set; }
+        public virtual DbSet<BS_PriceZones> BS_PriceZones { get; set; }
         public virtual DbSet<BS_Provinces> BS_Provinces { get; set; }
+        public virtual DbSet<BS_RouteDistricts> BS_RouteDistricts { get; set; }
+        public virtual DbSet<BS_Routes> BS_Routes { get; set; }
+        public virtual DbSet<BS_Services> BS_Services { get; set; }
+        public virtual DbSet<BS_ServiceTypes> BS_ServiceTypes { get; set; }
         public virtual DbSet<BS_Wards> BS_Wards { get; set; }
         public virtual DbSet<BS_Zones> BS_Zones { get; set; }
-        public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
-        public virtual DbSet<UMS_GroupMenu> UMS_GroupMenu { get; set; }
-        public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
-        public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
-        public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
-        public virtual DbSet<BS_Positions> BS_Positions { get; set; }
         public virtual DbSet<GeneralCodeInfo> GeneralCodeInfoes { get; set; }
         public virtual DbSet<MM_CustomerMoneyAdvances> MM_CustomerMoneyAdvances { get; set; }
         public virtual DbSet<MM_EmployeeMoneyAdvances> MM_EmployeeMoneyAdvances { get; set; }
         public virtual DbSet<MM_History> MM_History { get; set; }
         public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
         public virtual DbSet<MM_Mailers> MM_Mailers { get; set; }
+        public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
         public virtual DbSet<MM_PackingListDetail> MM_PackingListDetail { get; set; }
-        public virtual DbSet<BS_PriceZones> BS_PriceZones { get; set; }
-        public virtual DbSet<BS_Services> BS_Services { get; set; }
-        public virtual DbSet<BS_ServiceTypes> BS_ServiceTypes { get; set; }
-        public virtual DbSet<BS_Routes> BS_Routes { get; set; }
-        public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
+        public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
+        public virtual DbSet<UMS_GroupMenu> UMS_GroupMenu { get; set; }
+        public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
+        public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
+        public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
     
-        public virtual ObjectResult<GROUPUSER_GETLISTMENU_Result> GROUPUSER_GETLISTMENU(string groupId)
+        public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {
-            var groupIdParameter = groupId != null ?
-                new ObjectParameter("groupId", groupId) :
-                new ObjectParameter("groupId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GROUPUSER_GETLISTMENU_Result>("GROUPUSER_GETLISTMENU", groupIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<COUNTRY_GETALL_Result>("COUNTRY_GETALL");
         }
     
-        public virtual ObjectResult<USER_CHECKACCESS_Result> USER_CHECKACCESS(string groupId, string menuCode)
+        public virtual ObjectResult<DISTRICT_GETALL_Result> DISTRICT_GETALL()
         {
-            var groupIdParameter = groupId != null ?
-                new ObjectParameter("groupId", groupId) :
-                new ObjectParameter("groupId", typeof(string));
-    
-            var menuCodeParameter = menuCode != null ?
-                new ObjectParameter("menuCode", menuCode) :
-                new ObjectParameter("menuCode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_CHECKACCESS_Result>("USER_CHECKACCESS", groupIdParameter, menuCodeParameter);
-        }
-    
-        public virtual ObjectResult<USER_GETROLE_Result> USER_GETROLE(string user)
-        {
-            var userParameter = user != null ?
-                new ObjectParameter("user", user) :
-                new ObjectParameter("user", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETROLE_Result>("USER_GETROLE", userParameter);
-        }
-    
-        public virtual ObjectResult<USER_GETMENU_Result> USER_GETMENU(string user)
-        {
-            var userParameter = user != null ?
-                new ObjectParameter("user", user) :
-                new ObjectParameter("user", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETMENU_Result>("USER_GETMENU", userParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DISTRICT_GETALL_Result>("DISTRICT_GETALL");
         }
     
         public virtual ObjectResult<EMPLOYEE_GETALL_Result> EMPLOYEE_GETALL(string postId, string search)
@@ -124,9 +96,59 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETBYID_Result>("EMPLOYEE_GETBYID", employeeIDParameter);
         }
     
+        public virtual ObjectResult<GROUPUSER_GETLISTMENU_Result> GROUPUSER_GETLISTMENU(string groupId)
+        {
+            var groupIdParameter = groupId != null ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GROUPUSER_GETLISTMENU_Result>("GROUPUSER_GETLISTMENU", groupIdParameter);
+        }
+    
         public virtual ObjectResult<POSTOFFICE_GETALL_Result> POSTOFFICE_GETALL()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<POSTOFFICE_GETALL_Result>("POSTOFFICE_GETALL");
+        }
+    
+        public virtual ObjectResult<PROVINCE_GETALL_Result> PROVINCE_GETALL()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PROVINCE_GETALL_Result>("PROVINCE_GETALL");
+        }
+    
+        public virtual ObjectResult<USER_CHECKACCESS_Result> USER_CHECKACCESS(string groupId, string menuCode)
+        {
+            var groupIdParameter = groupId != null ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(string));
+    
+            var menuCodeParameter = menuCode != null ?
+                new ObjectParameter("menuCode", menuCode) :
+                new ObjectParameter("menuCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_CHECKACCESS_Result>("USER_CHECKACCESS", groupIdParameter, menuCodeParameter);
+        }
+    
+        public virtual ObjectResult<USER_GETMENU_Result> USER_GETMENU(string user)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETMENU_Result>("USER_GETMENU", userParameter);
+        }
+    
+        public virtual ObjectResult<USER_GETROLE_Result> USER_GETROLE(string user)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETROLE_Result>("USER_GETROLE", userParameter);
+        }
+    
+        public virtual ObjectResult<WARD_GETALL_Result> WARD_GETALL()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WARD_GETALL_Result>("WARD_GETALL");
         }
     }
 }

@@ -12,10 +12,9 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class UMS_UserGroups
+    public partial class BS_RouteDistricts
     {
-        public string GroupID { get; set; }
-        public string GroupName { get; set; }
-        public Nullable<int> IsActive { get; set; }
+        public string RouteID { get; set; }
+        public string DistrictID { get; set; }
     }
 }

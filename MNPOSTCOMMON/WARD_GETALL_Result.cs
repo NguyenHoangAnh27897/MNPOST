@@ -10,12 +10,14 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UMS_UserGroups
+    public partial class WARD_GETALL_Result
     {
-        public string GroupID { get; set; }
-        public string GroupName { get; set; }
-        public Nullable<int> IsActive { get; set; }
+        public string WardID { get; set; }
+        public string WardName { get; set; }
+        public string DistrictID { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     }
 }

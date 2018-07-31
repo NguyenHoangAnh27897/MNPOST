@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -171,6 +171,17 @@
     <Property Name="UserLogin" Type="nvarchar" MaxLength="128" />
     <Property Name="PositionID" Type="nvarchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="BS_MailerModeraters">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Price" Type="money" />
+  </EntityType>
   <EntityType Name="BS_Positions">
     <Key>
       <PropertyRef Name="PositionID" />
@@ -224,6 +235,14 @@
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="BS_RouteDistricts">
+    <Key>
+      <PropertyRef Name="RouteID" />
+      <PropertyRef Name="DistrictID" />
+    </Key>
+    <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="DistrictID" Type="nvarchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="BS_Routes">
     <Key>
@@ -282,8 +301,9 @@
   </EntityType>
   <EntityType Name="MM_CustomerMoneyAdvances">
     <Key>
-      <PropertyRef Name="AcceptID" />
+      <PropertyRef Name="DocumentID" />
     </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="AcceptID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="AcceptDate" Type="datetime" />
     <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
@@ -297,8 +317,9 @@
   </EntityType>
   <EntityType Name="MM_EmployeeMoneyAdvances">
     <Key>
-      <PropertyRef Name="AcceptID" />
+      <PropertyRef Name="DocumentID" />
     </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="AcceptID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="AcceptDate" Type="datetime" />
     <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
@@ -569,6 +590,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="COUNTRY_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="DISTRICT_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="search" Type="nvarchar" Mode="In" />
@@ -580,6 +603,7 @@
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
     <Parameter Name="menuCode" Type="nvarchar" Mode="In" />
@@ -590,6 +614,7 @@
   <Function Name="USER_GETROLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="user" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="WARD_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="MNPOSTModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -603,10 +628,12 @@
     <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Services" EntityType="Self.BS_Services" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" Schema="dbo" store:Type="Tables" />

@@ -21,7 +21,7 @@ namespace MNPOSTCOMMON
         public string Phone { get; set; }
         public string FaxNo { get; set; }
         public string Email { get; set; }
-        public bool IsCollaborator { get; set; }
+        public Nullable<bool> IsCollaborator { get; set; }
         public string Notes { get; set; }
         public Nullable<System.DateTime> LastEditDate { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }

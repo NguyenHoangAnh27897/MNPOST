@@ -12,18 +12,11 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class MM_CustomerMoneyAdvances
+    public partial class BS_MailerModeraters
     {
         public string DocumentID { get; set; }
-        public string AcceptID { get; set; }
-        public Nullable<System.DateTime> AcceptDate { get; set; }
         public string EmployeeID { get; set; }
-        public string PostOfficeID { get; set; }
-        public string CustomerID { get; set; }
-        public Nullable<decimal> Total { get; set; }
         public string MailerID { get; set; }
-        public Nullable<int> Type { get; set; }
-        public Nullable<bool> StatusID { get; set; }
-        public Nullable<bool> IsPercent { get; set; }
+        public Nullable<decimal> Price { get; set; }
     }
 }
