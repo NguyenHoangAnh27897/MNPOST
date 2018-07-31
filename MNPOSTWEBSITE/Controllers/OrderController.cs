@@ -39,11 +39,6 @@ namespace MNPOSTWEBSITE.Controllers
                 RecieverProvinceID = RecieverProvinceID,
                 RecieverWardID = RecieverWardID
             };
-            //var json = new JavaScriptSerializer().Serialize(mailers);
-            //IEnumerable<KeyValuePair<string, string>> queries = new List<KeyValuePair<string, string>>()
-            //{
-            //    new KeyValuePair<string, string>("data",json)
-            //};
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
             string api = "http://35.231.147.186:89/api/mailer/addmailer";

@@ -304,3 +304,5 @@ D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll
 D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.pdb
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.dll
+C:\Users\hoang\Downloads\Programs\PortableGit\MNPOST\MNPOSTWEBSITE\bin\MNPOSTCOMMON.pdb
