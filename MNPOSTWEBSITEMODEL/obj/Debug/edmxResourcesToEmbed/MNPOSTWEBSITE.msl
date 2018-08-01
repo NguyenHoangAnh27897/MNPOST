@@ -84,5 +84,59 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="WS_Mailer">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Mailer">
+        <MappingFragment StoreEntitySet="WS_Mailer">
+          <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="SalesClosingDate" ColumnName="SalesClosingDate" />
+          <ScalarProperty Name="CostAmt" ColumnName="CostAmt" />
+          <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
+          <ScalarProperty Name="CommissionAmt" ColumnName="CommissionAmt" />
+          <ScalarProperty Name="PriceIncludeVAT" ColumnName="PriceIncludeVAT" />
+          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+          <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
+          <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+          <ScalarProperty Name="ThirdpartyPaymentMethodID" ColumnName="ThirdpartyPaymentMethodID" />
+          <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
+          <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
+          <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="AmountBefDiscount" ColumnName="AmountBefDiscount" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+          <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+          <ScalarProperty Name="BefVATAmount" ColumnName="BefVATAmount" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+          <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+          <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+          <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+          <ScalarProperty Name="EmployeeAcceptID" ColumnName="EmployeeAcceptID" />
+          <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+          <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+          <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+          <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+          <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+          <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
+          <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+          <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
+          <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
+          <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
+          <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

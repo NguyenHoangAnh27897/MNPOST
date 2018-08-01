@@ -17,11 +17,13 @@ namespace MNPOSTWEBSITEMODEL
         public AspNetRoles()
         {
             this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.AspNetUsers1 = new HashSet<AspNetUsers>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers1 { get; set; }
     }
 }

@@ -66,13 +66,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="autocomplete" onFocus="geolocate()" class="form-control round-form" name="SenderAddress" placeholder="Nhập địa chỉ...">
+                                        <input type="text" class="form-control round-form" name="SenderAddress" placeholder="Nhập địa chỉ...">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Phường</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius">
+                                        <select class="form-control select2 no-radius" name="SenderWardID">
                                             <option value="">Chọn phường</option>
                                             @foreach (var item in lstWard)
                                             {
@@ -84,7 +84,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius">
+                                        <select class="form-control select2 no-radius" name="SenderDistrictID">
                                             <option value="">Chọn quận/huyện</option>
                                             @foreach (var item in lstDistrict)
                                             {
@@ -96,13 +96,25 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius">
+                                        <select class="form-control select2 no-radius" name="SenderProvinceID">
                                             <option value="">Chọn thành phố</option>
                                             @foreach (var item in lstProvince)
                                             {
                                                 <option value="@item.ProvinceID">@item.ProvinceName</option>
                                             }
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="Weight" placeholder="Nhập trọng lượng...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="Quantity" placeholder="Nhập số lượng...">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
@@ -118,19 +130,19 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="ReceiverPhone" placeholder="Người số điện thoại...">
+                                        <input type="text" class="form-control round-form" name="RecieverPhone" placeholder="Người số điện thoại...">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="ReceiverAddress" placeholder="Nhập địa chỉ...">
+                                        <input type="text" class="form-control round-form" name="RecieverAddress" placeholder="Nhập địa chỉ...">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Phường</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius">
+                                        <select class="form-control select2 no-radius" name="RecieverWardID">
                                             <option value="">Chọn phường</option>
                                             @foreach (var item in lstWard)
                                             {
@@ -142,7 +154,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius">
+                                        <select class="form-control select2 no-radius" name="RecieverDistrictID">
                                             <option value="">Chọn quận/huyện</option>
                                             @foreach (var item in lstDistrict)
                                             {
@@ -154,7 +166,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius">
+                                        <select class="form-control select2 no-radius" name="RecieverProvinceID">
                                             <option value="">Chọn thành phố</option>
                                             @foreach (var item in lstProvince)
                                             {
@@ -172,6 +184,10 @@
     </section>
 </section><!-- /MAIN CONTENT -->
 <!--main content end-->
+	<!--custom tagsinput-->
+<script src="/Content/js/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+
 <script>
     var placeSearch, autocomplete;
 

@@ -67,6 +67,59 @@
     <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="WS_Mailer">
+    <Key>
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PostOfficeAcceptID" Type="nvarchar" MaxLength="10" />
+    <Property Name="SenderID" Type="nvarchar" MaxLength="20" />
+    <Property Name="SenderName" Type="nvarchar" MaxLength="100" />
+    <Property Name="SenderAddress" Type="nvarchar" MaxLength="200" />
+    <Property Name="SenderWardID" Type="nvarchar" MaxLength="10" />
+    <Property Name="SenderDistrictID" Type="nvarchar" MaxLength="10" />
+    <Property Name="SenderProvinceID" Type="nvarchar" MaxLength="10" />
+    <Property Name="SenderPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="RecieverName" Type="nvarchar" MaxLength="100" />
+    <Property Name="RecieverAddress" Type="nvarchar" MaxLength="200" />
+    <Property Name="RecieverWardID" Type="nvarchar" MaxLength="10" />
+    <Property Name="RecieverDistrictID" Type="nvarchar" MaxLength="10" />
+    <Property Name="RecieverProvinceID" Type="nvarchar" MaxLength="10" />
+    <Property Name="RecieverPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="EmployeeAcceptID" Type="nvarchar" MaxLength="20" />
+    <Property Name="AcceptDate" Type="date" />
+    <Property Name="AcceptTime" Type="datetime" />
+    <Property Name="MailerTypeID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Weight" Type="float" />
+    <Property Name="ReWeight" Type="float" />
+    <Property Name="PriceDefault" Type="money" />
+    <Property Name="Price" Type="money" />
+    <Property Name="PriceService" Type="money" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="BefVATAmount" Type="money" />
+    <Property Name="VATPercent" Type="float" />
+    <Property Name="VATAmount" Type="money" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="AmountBefDiscount" Type="money" />
+    <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="5" />
+    <Property Name="MailerDescription" Type="nvarchar" MaxLength="200" />
+    <Property Name="ThirdpartyDocID" Type="nvarchar" MaxLength="20" />
+    <Property Name="ThirdpartyCost" Type="money" />
+    <Property Name="ThirdpartyPaymentMethodID" Type="nvarchar" MaxLength="5" />
+    <Property Name="CurrentStatusID" Type="int" />
+    <Property Name="CurrentPostOfficeID" Type="nvarchar" MaxLength="10" />
+    <Property Name="PriceType" Type="nvarchar" MaxLength="1" />
+    <Property Name="PriceIncludeVAT" Type="bit" />
+    <Property Name="CommissionAmt" Type="money" />
+    <Property Name="CommissionPercent" Type="float" />
+    <Property Name="CostAmt" Type="money" />
+    <Property Name="SalesClosingDate" Type="date" />
+    <Property Name="DiscountPercent" Type="float" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="LastUpdateDate" Type="datetime" />
+    <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
   <EntityType Name="WS_Post">
     <Key>
       <PropertyRef Name="ID" />
@@ -79,6 +132,18 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="Service" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK__AspNetUse__IDRol__398D8EEE">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="0..1" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUsers">
+        <PropertyRef Name="IDRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -143,7 +208,12 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WS_Mailer" EntityType="Self.WS_Mailer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AspNetUse__IDRol__398D8EEE" Association="Self.FK__AspNetUse__IDRol__398D8EEE">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
