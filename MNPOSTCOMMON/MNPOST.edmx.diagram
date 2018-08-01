@@ -46,6 +46,8 @@
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="2" PointX="10.5" PointY="14.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDelivery" Width="1.5" PointX="15.375" PointY="17.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Status" Width="1.5" PointX="17.375" PointY="17.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_ReturnReasons" Width="1.5" PointX="18.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
