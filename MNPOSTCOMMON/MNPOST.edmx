@@ -241,6 +241,14 @@
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="BS_ReturnReasons">
+          <Key>
+            <PropertyRef Name="ReasonID" />
+          </Key>
+          <Property Name="ReasonID" Type="int" Nullable="false" />
+          <Property Name="ReasonName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="BS_RouteDistricts">
           <Key>
             <PropertyRef Name="RouteID" />
@@ -274,6 +282,15 @@
           <Property Name="ServiceName" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="nvarchar" MaxLength="1" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="BS_Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Type" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="BS_Wards">
           <Key>
@@ -437,6 +454,7 @@
           <Property Name="DiscountPercent" Type="float" />
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="LastUpdateDate" Type="datetime" />
+          <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -652,10 +670,12 @@
           <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_ReturnReasons" EntityType="Self.BS_ReturnReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Services" EntityType="Self.BS_Services" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Status" EntityType="Self.BS_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
@@ -1091,6 +1111,7 @@
           <Property Name="DiscountPercent" Type="Double" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="MerchandiseID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -1320,6 +1341,8 @@
           <FunctionImport Name="WARD_GETALL" ReturnType="Collection(MNPOSTModel.WARD_GETALL_Result)" />
           <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
           <EntitySet Name="MM_MailerDelivery" EntityType="MNPOSTModel.MM_MailerDelivery" />
+          <EntitySet Name="BS_Status" EntityType="MNPOSTModel.BS_Status" />
+          <EntitySet Name="BS_ReturnReasons" EntityType="MNPOSTModel.BS_ReturnReasons" />
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
           <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -1500,6 +1523,23 @@
           <Property Name="StatusID" Type="Int32" />
           <Property Name="RouteID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NumberPlate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_ReturnReasons">
+          <Key>
+            <PropertyRef Name="ReasonID" />
+          </Key>
+          <Property Name="ReasonID" Type="Int32" Nullable="false" />
+          <Property Name="ReasonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1863,6 +1903,7 @@
           <EntitySetMapping Name="MM_Mailers">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
               <MappingFragment StoreEntitySet="MM_Mailers">
+                <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
                 <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -2252,6 +2293,25 @@
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Status">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Status">
+              <MappingFragment StoreEntitySet="BS_Status">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_ReturnReasons">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_ReturnReasons">
+              <MappingFragment StoreEntitySet="BS_ReturnReasons">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ReasonName" ColumnName="ReasonName" />
+                <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
