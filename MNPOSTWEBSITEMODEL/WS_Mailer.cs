@@ -62,5 +62,7 @@ namespace MNPOSTWEBSITEMODEL
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<System.DateTime> LastUpdateDate { get; set; }
         public string MerchandiseID { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public string CustomerAccount { get; set; }
     }
 }

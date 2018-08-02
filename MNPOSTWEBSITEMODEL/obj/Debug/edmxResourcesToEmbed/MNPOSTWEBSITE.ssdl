@@ -119,6 +119,8 @@
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
     <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CustomerAccount" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="WS_Post">
     <Key>

@@ -201,5 +201,7 @@
     <Property Name="CreationDate" Type="DateTime" Precision="3" />
     <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
     <Property Name="MerchandiseID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CustomerAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

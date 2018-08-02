@@ -124,6 +124,8 @@
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="LastUpdateDate" Type="datetime" />
           <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CustomerAccount" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="WS_Post">
           <Key>
@@ -441,6 +443,8 @@
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
           <Property Name="MerchandiseID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CustomerAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -534,6 +538,8 @@
           <EntitySetMapping Name="WS_Mailer">
             <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Mailer">
               <MappingFragment StoreEntitySet="WS_Mailer">
+                <ScalarProperty Name="CustomerAccount" ColumnName="CustomerAccount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
                 <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />

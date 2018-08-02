@@ -87,6 +87,8 @@
     <EntitySetMapping Name="WS_Mailer">
       <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Mailer">
         <MappingFragment StoreEntitySet="WS_Mailer">
+          <ScalarProperty Name="CustomerAccount" ColumnName="CustomerAccount" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
