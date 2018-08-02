@@ -206,6 +206,7 @@
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
+    <Compile Include="Controllers\troubleticket\TroubleController.cs" />
     <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -4505,6 +4506,7 @@
     <Content Include="Views\MailerDelivery\Show.cshtml" />
     <Content Include="Views\MailerDeliveryConfirm\Show.cshtml" />
     <Content Include="Views\ReturnReason\Show.cshtml" />
+    <Content Include="Views\Trouble\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
