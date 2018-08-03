@@ -647,6 +647,7 @@
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Order\OrderList.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
+    <Content Include="Views\Account\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

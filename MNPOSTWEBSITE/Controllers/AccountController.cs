@@ -114,9 +114,21 @@ namespace MNPOSTWEBSITE.Controllers
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 1;
+                    //db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 2;
                     db.SaveChanges();
-                    if(AddCustomer(Fullname, Phone, false, model.UserName).Result)
+                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                    new System.Net.Mail.MailAddress("shuu27897@gmail.com", "Đăng ký tài khoản"),
+                    new System.Net.Mail.MailAddress(user.UserName));
+                    m.Subject = "Đăng ký tài khoản";
+                    m.Body = string.Format("Dear {0} < BR /> Thank you for your registration, please click on the below link to complete your registration: < a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
+                    user.UserName, Url.Action("ConfirmEmail", "Account",
+                    new { Token = user.Id, Email = user.UserName }, Request.Url.Scheme)) ;
+                    m.IsBodyHtml = true;
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                    smtp.Credentials = new System.Net.NetworkCredential("hoanganh27897@gmail.com", "pokemonblackwhite2");
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);
+                    if (AddCustomer(Fullname, Phone, false, model.UserName).Result)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -130,6 +142,36 @@ namespace MNPOSTWEBSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string Token, string UserName)
+        {
+            ApplicationUser user = this.UserManager.FindById(Token);
+            if (user != null)
+            {
+                if (user.UserName == UserName)
+                {
+                    await UserManager.UpdateAsync(user);
+                    await SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Confirm", "Account", new { Email = user.UserName });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Confirm", "Account", new { Email = "" });
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult Confirm(string Email)
+        {
+            ViewBag.Email = Email;
+            return View();
         }
 
         public async Task<bool> AddCustomer(string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")

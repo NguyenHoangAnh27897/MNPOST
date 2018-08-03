@@ -134,18 +134,6 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="Service" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <Association Name="FK__AspNetUse__IDRol__398D8EEE">
-    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="0..1" />
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetRoles">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="AspNetUsers">
-        <PropertyRef Name="IDRole" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -212,10 +200,6 @@
     <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Mailer" EntityType="Self.WS_Mailer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__AspNetUse__IDRol__398D8EEE" Association="Self.FK__AspNetUse__IDRol__398D8EEE">
-      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
