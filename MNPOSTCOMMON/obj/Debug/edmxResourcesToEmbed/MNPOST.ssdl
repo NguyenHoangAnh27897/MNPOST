@@ -515,6 +515,7 @@
     <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="UMS_GroupMenu">
     <Key>

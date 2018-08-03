@@ -460,21 +460,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MM_TroubleTickets">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_TroubleTickets">
-        <MappingFragment StoreEntitySet="MM_TroubleTickets">
-          <ScalarProperty Name="TicketID" ColumnName="TicketID" />
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="TicketName" ColumnName="TicketName" />
-          <ScalarProperty Name="TicketDate" ColumnName="TicketDate" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="UMS_GroupMenu">
       <EntityTypeMapping TypeName="MNPOSTModel.UMS_GroupMenu">
         <MappingFragment StoreEntitySet="UMS_GroupMenu">
@@ -766,6 +751,22 @@
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ReasonName" ColumnName="ReasonName" />
           <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_TroubleTickets">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_TroubleTickets">
+        <MappingFragment StoreEntitySet="MM_TroubleTickets">
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="TicketDate" ColumnName="TicketDate" />
+          <ScalarProperty Name="TicketName" ColumnName="TicketName" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="TicketID" ColumnName="TicketID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
