@@ -23,5 +23,6 @@ namespace MNPOSTCOMMON
         public string PostOfficeID { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<System.DateTime> LastUpdateDate { get; set; }
+        public string Contact { get; set; }
     }
 }

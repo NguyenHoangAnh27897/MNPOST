@@ -32,9 +32,11 @@
                                 <th>STT</th>
                                 <th>Mã KN</th>
                                 <th>Ngày</th>
+                                <th>Khách hàng</th>
                                 <th>Nội dung</th>
                                 <th>Nhân viên</th>
                                 <th>Trạng thái</th>
+                                <th>#</th>
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -48,6 +50,7 @@
                                 <td>{{item.EmployeeID}}</td>
                                 <td>{{item.StatusID}}</td>
                                 <td><a href="#" ng-click="edit($index)">Chi tiết</a></td>
+                                <td><a href="#" ng-click="edit($index)">Xóa</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -84,32 +87,76 @@
 
                                 <div class="form-group">
                                     <label>Mã KN</label>
-                                    <input type="text" maxlength="10" class="form-control" ng-model="DistrictInfo.DistrictID" required ng-disabled="DistrictIDDisable" />
+                                    <input type="text" maxlength="10" class="form-control" ng-model="TroubleInfo.TicketID" required ng-disabled="TicketIDisable" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Ngày</label>
-                                    <input type="text" class="form-control" ng-model="DistrictInfo.DistrictName" required />
+                                    <label>Khách hàng</label>
+                                    <select class="form-control" ng-model="TroubleInfo.CustomerID" required>
+                                        <option ng-repeat="x in allCustomer" value="{{x.CustomerID}}">{{x.CustomerName | uppercase}}</option>
+                                    </select>
                                 </div>
+
 
                             </div>
 
                             <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Ngày KN</label>
+                                            <input type="text" maxlength="10" class="form-control" ng-model="TroubleInfo.TicketDate" required  />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Nhân viên</label>
+                                            <select class="form-control" ng-model="TroubleInfo.EmployeeID" required>
+                                                <option ng-repeat="x in allEmployee" value="{{x.EmployeeID}}">{{x.EmployeeName | uppercase}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                               <div class="row">
+                                   <div class="col-sm-6">
+                                       <div class="form-group">
+                                           <label>Bưu cục</label>
+                                           <select class="form-control" ng-model="TroubleInfo.PostOfficeID" required>
+                                               <option ng-repeat="x in allPostOffice" value="{{x.PostOfficeID}}">{{x.PostOfficeName | uppercase}}</option>
+                                           </select>
+                                       </div>
+                                   </div>
+
+                                   <div class="col-sm-6">
+                                       <div class="form-group">
+                                           <label>Trạng thái</label>
+                                           <select class="form-control" ng-model="TroubleInfo.StatusID" required>
+                                               <option ng-repeat="x in allStatus" value="{{x.StatusID}}">{{x.StatusName | uppercase}}</option>
+                                           </select>
+                                       </div>
+                                   </div>
+                               </div>
+
+                            </div>
+
+                            <div class="col-sm-12">
+
                                 <div class="form-group">
-                                    <label>Tỉnh thành</label>
-                                    <select class="form-control" ng-model="DistrictInfo.ProvinceID" required>
-                                        <option ng-repeat="x in allProvince" value="{{x.ProvinceID}}">{{x.ProvinceName | uppercase}}</option>
-                                    </select>
+                                    <label>Nội dung</label>
+                                    <textarea type="text" class="form-control" ng-model="TroubletInfo.TicketName" required rows="5"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- end body-->
-                    <!-- begin footer-->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default">Hoàn thành</button>
-                    </div>
-                    <!-- end footer-->
+                        <!-- end body-->
+                        <!-- begin footer-->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default">Hoàn thành</button>
+                        </div>
+                        <!-- end footer-->
                 </form>
                 <!-- end form-->
 
@@ -137,7 +184,10 @@
         app.controller('myCtrl', function ($scope, $http) {
 
 
-            $scope.allProvince = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllProvince))');
+            $scope.allEmployee = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllEmployee))');
+            $scope.allPostOffice = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllPostOffice))');
+            $scope.allStatus = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllStatus))');
+            $scope.allCustomer = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllCustomer))');
             //console.log($scope.allProvince);
             // phan trang
             $scope.numPages;
@@ -151,18 +201,18 @@
 
 
             // lay du lieu
-            $scope.allDistrict = [];
+            $scope.allTrouble = [];
             $scope.GetData = function (page, search) {
                 showLoader(true);
                 $http({
                     method: "GET",
-                    url: "/district/getdistrict?page=" + page + "&search=" + search
+                    url: "/trouble/gettrouble?page=" + page + "&search=" + search
                 }).then(function mySuccess(response) {
                     showLoader(false);
 
                     if (response.data.error === 0) {
 
-                        $scope.allDistrict = response.data.data;
+                        $scope.allTrouble = response.data.data;
                         $scope.itemPerPage = response.data.pageSize;
                         $scope.totalItems = response.data.toltalSize;
                         $scope.numPages = Math.round($scope.totalItems / $scope.itemPerPage);
@@ -179,28 +229,28 @@
             $scope.GetData(1, "");
             //
             // khoi tao bien dung cho create va edit
-            $scope.DistrictInfo = {};
-            $scope.DistrictIDDisable = false;
+            $scope.TroubleInfo = {};
+            $scope.TicketIDDisable = false;
             $scope.IsAction = '';
 
             $scope.addNew = function () {
 
-                $scope.DistrictInfo = { "DistrictID": "", "DistrictName": "", "ProvinceID": "HCM" };
+                $scope.TroubleInfo = { "TicketID": "", "TicketName": "","EmployeeID":"","StatusID":"","PostOfficeID":"" };
 
-                $scope.modaltitle = "Thêm quận huyện";
-                $scope.DistrictIDDisable = false;
+                $scope.modaltitle = "Thêm khiếu nại";
+                $scope.TicketIDDisable = false;
                 $scope.IsAction = 'add';
                 showModel("insertmodal")
 
             };
 
             $scope.edit = function (index) {
-                var info = $scope.allDistrict[index];
+                var info = $scope.allTrouble[index];
 
-                $scope.DistrictInfo = angular.copy(info);
+                $scope.TroubleInfo = angular.copy(info);
 
-                $scope.modaltitle = "Chỉnh sửa quận huyện";
-                $scope.DistrictIDDisable = true;
+                $scope.modaltitle = "Chỉnh sửa khiếu nại";
+                $scope.TicketIDDisable = true;
                 $scope.IsAction = 'edit';
                 showModel("insertmodal")
             };
@@ -208,8 +258,8 @@
 
             // tim index theo ma tinh
             function getSelectedIndex(id) {
-                for (var i = 0; i < $scope.allDistrict.length; i++)
-                    if ($scope.allDistrict[i].DistrictID == id)
+                for (var i = 0; i < $scope.allTrouble.length; i++)
+                    if ($scope.allTrouble[i].TicketID == id)
                         return i;
                 return -1;
             };
@@ -236,19 +286,19 @@
 
                 $http({
                     method: "POST",
-                    url: "/district/create",
-                    data: $scope.DistrictInfo
+                    url: "/trouble/create",
+                    data: $scope.TroubleInfo
                 }).then(function success(response) {
 
                     var result = response.data;
 
                     if (result.error === 0) {
 
-                        $scope.allDistrict.unshift(result.data);
+                        $scope.allTrouble.unshift(result.data);
 
                         hideModel("insertmodal");
 
-                        showNotify("Đã thêm quận huyện");
+                        showNotify("Đã thêm khiếu nại");
 
                     } else {
 
@@ -273,8 +323,8 @@
 
                 $http({
                     method: "POST",
-                    url: "/district/edit",
-                    data: $scope.DistrictInfo
+                    url: "/trouble/edit",
+                    data: $scope.TroubleInfo
                 }).then(
                     function success(response) {
 
@@ -282,10 +332,10 @@
 
                         if (result.error == 0) {
 
-                            var findIndex = getSelectedIndex(result.data.DistrictID);
+                            var findIndex = getSelectedIndex(result.data.TicketID);
 
                             if (findIndex !== -1) {
-                                $scope.allDistrict[findIndex] = angular.copy(result.data);
+                                $scope.allTrouble[findIndex] = angular.copy(result.data);
                             }
 
                             showNotify("Đã cập nhật");

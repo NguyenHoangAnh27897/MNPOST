@@ -446,20 +446,6 @@
     <Property Name="LastEditDate" Type="DateTime" Precision="3" />
     <Property Name="CreationDate" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="MM_TroubleTickets">
-    <Key>
-      <PropertyRef Name="TicketID" />
-    </Key>
-    <Property Name="TicketID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CustomerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="TicketName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="TicketDate" Type="DateTime" Precision="3" />
-    <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="StatusID" Type="Int32" />
-    <Property Name="PostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="CreationDate" Type="DateTime" Precision="3" />
-    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
-  </EntityType>
   <EntityType Name="UMS_GroupMenu">
     <Key>
       <PropertyRef Name="Id" />
@@ -575,7 +561,6 @@
     <EntitySet Name="MM_MailerServices" EntityType="Self.MM_MailerServices" />
     <EntitySet Name="MM_PackingList" EntityType="Self.MM_PackingList" />
     <EntitySet Name="MM_PackingListDetail" EntityType="Self.MM_PackingListDetail" />
-    <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" />
     <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" />
@@ -625,6 +610,7 @@
     <EntitySet Name="MM_MailerDelivery" EntityType="MNPOSTModel.MM_MailerDelivery" />
     <EntitySet Name="BS_Status" EntityType="MNPOSTModel.BS_Status" />
     <EntitySet Name="BS_ReturnReasons" EntityType="MNPOSTModel.BS_ReturnReasons" />
+    <EntitySet Name="MM_TroubleTickets" EntityType="MNPOSTModel.MM_TroubleTickets" />
   </EntityContainer>
   <ComplexType Name="COUNTRY_GETALL_Result">
     <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -822,5 +808,20 @@
     <Property Name="ReasonID" Type="Int32" Nullable="false" />
     <Property Name="ReasonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MM_TroubleTickets">
+    <Key>
+      <PropertyRef Name="TicketID" />
+    </Key>
+    <Property Name="TicketID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TicketName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TicketDate" Type="DateTime" Precision="3" />
+    <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="PostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="Contact" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>
