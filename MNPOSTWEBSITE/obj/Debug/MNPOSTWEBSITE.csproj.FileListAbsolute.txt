@@ -320,3 +320,8 @@ D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.Owin.xml
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\WebMatrix.Data.dll
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\WebMatrix.WebData.dll
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\WebMatrix.Data.xml
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\WebMatrix.WebData.xml
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Web.Helpers.dll

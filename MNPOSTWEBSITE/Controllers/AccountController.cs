@@ -114,13 +114,13 @@ namespace MNPOSTWEBSITE.Controllers
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
-                    //db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 2;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 2;
                     db.SaveChanges();
                     System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                    new System.Net.Mail.MailAddress("shuu27897@gmail.com", "Đăng ký tài khoản"),
+                    new System.Net.Mail.MailAddress("hoanganh27897@gmail.com", "Đăng ký tài khoản"),
                     new System.Net.Mail.MailAddress(user.UserName));
                     m.Subject = "Đăng ký tài khoản";
-                    m.Body = string.Format("Dear {0} < BR /> Thank you for your registration, please click on the below link to complete your registration: < a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
+                    m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin click vào link dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
                     user.UserName, Url.Action("ConfirmEmail", "Account",
                     new { Token = user.Id, Email = user.UserName }, Request.Url.Scheme)) ;
                     m.IsBodyHtml = true;
@@ -144,6 +144,7 @@ namespace MNPOSTWEBSITE.Controllers
             return View(model);
         }
 
+        //confirm email
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string Token, string UserName)
         {
@@ -158,6 +159,8 @@ namespace MNPOSTWEBSITE.Controllers
                 }
                 else
                 {
+                    db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IsActive = true;
+                    db.SaveChanges();
                     return RedirectToAction("Confirm", "Account", new { Email = user.UserName });
                 }
             }
@@ -167,6 +170,7 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
+        //confirm email view
         [AllowAnonymous]
         public ActionResult Confirm(string Email)
         {
@@ -394,7 +398,7 @@ namespace MNPOSTWEBSITE.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
-
+        [AllowAnonymous]
         public ActionResult Forget()
         {
             return View();
@@ -403,28 +407,76 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpPost]
         public async Task<ActionResult> ForgetPassword(string email)
         {
-            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-            var message = new MailMessage();
-            message.To.Add(new MailAddress(email));  // replace with valid value 
-            message.From = new MailAddress("hoanganh27897@gmail.com");  // replace with valid value
-            message.Subject = "Quên mật khẩu";
-            message.Body = string.Format(body, "MN POST", "hoanganh27897@gmail.com", "Mật khẩu mới của bạn đã được cập nhật lại: ");
-            message.IsBodyHtml = true;
+            //Verify Email ID
+            //Generate Reset password link 
+            //Send Email 
+            string message = "";
+            bool status = false;
 
-            using (var smtp = new SmtpClient())
+            using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
             {
-                var credential = new NetworkCredential
+                var account = dc.AspNetUsers.Where(a => a.UserName == email).FirstOrDefault();
+                if (account != null)
                 {
-                    UserName = "hoanganh27897@gmail.com",  // replace with valid value
-                    Password = "pokemonblackwhite2"  // replace with valid value
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
-                return RedirectToAction("Index", "Home");
+                    //Send email for reset password
+                    string resetCode = Guid.NewGuid().ToString();
+                    SendVerificationLinkEmail(account.UserName, resetCode, "ResetPassword");
+                    account.ResetPasswordCode = resetCode;
+                    //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
+                    //in our model class in part 1
+                    dc.Configuration.ValidateOnSaveEnabled = false;
+                    dc.SaveChanges();
+                    message = "Reset password link has been sent to your email id.";
+                }
+                else
+                {
+                    message = "Account not found";
+                }
             }
+            ViewBag.Message = message;
+            return View();
+        }
+
+        public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "ResetPassword")
+        {
+            var verifyUrl = "/User/" + emailFor + "/" + activationCode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+
+            var fromEmail = new MailAddress("hoanganh27897@gmail.com", "MNPOST");
+            var toEmail = new MailAddress(emailID);
+            var fromEmailPassword = "pokemonblackwhite2"; // Replace with actual password
+
+            string subject = "";
+            string body = "";
+            if (emailFor == "ResetPassword")
+            {
+                subject = "Reset Password";
+                body = "Hi,<br/>br/>We got request for reset your account password. Please click on the below link to reset your password" +
+                    "<br/><br/><a href=" + link + ">Reset Password link</a>";
+            }
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+                smtp.Send(message);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            return View();
         }
 
         //

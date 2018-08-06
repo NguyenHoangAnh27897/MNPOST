@@ -64,6 +64,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUsers">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
           <ScalarProperty Name="IDRole" ColumnName="IDRole" />
           <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />

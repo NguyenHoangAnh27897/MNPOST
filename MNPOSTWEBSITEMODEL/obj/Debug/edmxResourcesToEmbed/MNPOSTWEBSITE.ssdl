@@ -57,6 +57,7 @@
     <Property Name="Phone" Type="nvarchar(max)" />
     <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="IDRole" Type="int" />
+    <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="WS_FacebookUser">
     <Key>
