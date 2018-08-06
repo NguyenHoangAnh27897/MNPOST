@@ -193,6 +193,7 @@
     <Compile Include="Controllers\mailer\MailerDeliveryConfirmController.cs" />
     <Compile Include="Controllers\mailer\MailerDeliveryController.cs" />
     <Compile Include="Controllers\mailer\MailerInitController.cs" />
+    <Compile Include="Controllers\mailer\TrackingController.cs" />
     <Compile Include="Controllers\manage\AdminController.cs" />
     <Compile Include="Controllers\manage\ManageController.cs" />
     <Compile Include="Controllers\manage\MenuController.cs" />
@@ -4513,6 +4514,7 @@
     <Folder Include="Controllers\moneyadvance\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Tracking\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
