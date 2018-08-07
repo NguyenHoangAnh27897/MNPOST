@@ -14,6 +14,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Helpers;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -405,7 +406,9 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ForgetPassword(string email)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgetPassword(string email)
         {
             //Verify Email ID
             //Generate Reset password link 
@@ -434,12 +437,12 @@ namespace MNPOSTWEBSITE.Controllers
                 }
             }
             ViewBag.Message = message;
-            return View();
+            return RedirectToAction("Index","Home");
         }
 
         public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "ResetPassword")
         {
-            var verifyUrl = "/User/" + emailFor + "/" + activationCode;
+            var verifyUrl = "/Account/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("hoanganh27897@gmail.com", "MNPOST");
@@ -450,9 +453,9 @@ namespace MNPOSTWEBSITE.Controllers
             string body = "";
             if (emailFor == "ResetPassword")
             {
-                subject = "Reset Password";
-                body = "Hi,<br/>br/>We got request for reset your account password. Please click on the below link to reset your password" +
-                    "<br/><br/><a href=" + link + ">Reset Password link</a>";
+                subject = "Reset Mật khẩu";
+                body = "Xin chào,<br/>br/>Chúng tôi nhận được yêu cầu reset lại mật khẩu của bạn. Xin hãy click vào đường link dưới đây để thay đổi mật khẩu mới" +
+                    "<br/><br/><a href=" + link + ">Link Reset Mật khẩu</a>";
             }
             var smtp = new SmtpClient
             {
@@ -472,11 +475,59 @@ namespace MNPOSTWEBSITE.Controllers
             })
                 smtp.Send(message);
         }
-
         [AllowAnonymous]
-        public ActionResult ResetPassword()
+        public ActionResult ResetPassword(string id)
         {
-            return View();
+            //Verify the reset password link
+            //Find account associated with this link
+            //redirect to reset password page
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return HttpNotFound();
+            }
+
+            using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+            {
+                var user = dc.AspNetUsers.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
+                if (user != null)
+                {
+                    ResetPasswordModel model = new ResetPasswordModel();
+                    model.ResetCode = id;
+                    return View(model);
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+                {
+                    var user = dc.AspNetUsers.Where(s => s.ResetPasswordCode == model.ResetCode).FirstOrDefault();
+                    if (user != null)
+                    {
+                        user.PasswordHash = Crypto.Hash(model.NewPassword);
+                        user.ResetPasswordCode = "";
+                        dc.Configuration.ValidateOnSaveEnabled = false;
+                        dc.SaveChanges();
+                        message = "New password updated successfully";
+                    }
+                }
+            }
+            else
+            {
+                message = "Something invalid";
+            }
+            ViewBag.Message = message;
+            return View(model);
         }
 
         //
