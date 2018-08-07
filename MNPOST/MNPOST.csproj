@@ -203,6 +203,7 @@
     <Compile Include="Controllers\mnpostinfo\PostOfficeController.cs" />
     <Compile Include="Controllers\mnpostinfo\ProvinceController.cs" />
     <Compile Include="Controllers\mnpostinfo\ReturnReasonController.cs" />
+    <Compile Include="Controllers\mnpostinfo\RouteController.cs" />
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
@@ -4508,6 +4509,7 @@
     <Content Include="Views\MailerDeliveryConfirm\Show.cshtml" />
     <Content Include="Views\ReturnReason\Show.cshtml" />
     <Content Include="Views\Trouble\Show.cshtml" />
+    <Content Include="Views\Route\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

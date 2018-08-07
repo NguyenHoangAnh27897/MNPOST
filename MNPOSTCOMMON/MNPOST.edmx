@@ -264,6 +264,7 @@
           <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="Type" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="BS_Services">
           <Key>
@@ -455,6 +456,12 @@
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="LastUpdateDate" Type="datetime" />
           <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="COD" Type="money" />
+          <Property Name="LengthSize" Type="float" />
+          <Property Name="WidthSize" Type="float" />
+          <Property Name="HeightSize" Type="float" />
+          <Property Name="MerchandiseValue" Type="money" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -530,6 +537,7 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Position" Type="int" />
           <Property Name="Icon" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsActive" Type="int" />
         </EntityType>
         <EntityType Name="UMS_Menu">
           <Key>
@@ -961,14 +969,6 @@
           <Property Name="RouteID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="BS_Routes">
-          <Key>
-            <PropertyRef Name="RouteID" />
-          </Key>
-          <Property Name="RouteID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-        </EntityType>
         <EntityType Name="BS_Services">
           <Key>
             <PropertyRef Name="ServiceID" />
@@ -1113,6 +1113,12 @@
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
           <Property Name="MerchandiseID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="COD" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LengthSize" Type="Double" />
+          <Property Name="WidthSize" Type="Double" />
+          <Property Name="HeightSize" Type="Double" />
+          <Property Name="MerchandiseValue" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -1174,6 +1180,7 @@
           <Property Name="Position" Type="Int32" />
           <Property Name="Icon" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UMS_Menu" Relationship="Self.FK__UMS_Menu__GroupM__628FA481" FromRole="UMS_GroupMenu" ToRole="UMS_Menu" />
+          <Property Name="IsActive" Type="Int32" />
         </EntityType>
         <EntityType Name="UMS_Menu">
           <Key>
@@ -1267,7 +1274,6 @@
           <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" />
           <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" />
-          <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" />
           <EntitySet Name="BS_Services" EntityType="Self.BS_Services" />
           <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" />
           <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" />
@@ -1330,6 +1336,7 @@
           <EntitySet Name="BS_Status" EntityType="MNPOSTModel.BS_Status" />
           <EntitySet Name="BS_ReturnReasons" EntityType="MNPOSTModel.BS_ReturnReasons" />
           <EntitySet Name="MM_TroubleTickets" EntityType="MNPOSTModel.MM_TroubleTickets" />
+          <EntitySet Name="BS_Routes" EntityType="MNPOSTModel.BS_Routes" />
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
           <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -1542,6 +1549,15 @@
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
           <Property Name="Contact" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_Routes">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1793,15 +1809,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BS_Routes">
-            <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
-              <MappingFragment StoreEntitySet="BS_Routes">
-                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-                <ScalarProperty Name="RouteName" ColumnName="RouteName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BS_Services">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
               <MappingFragment StoreEntitySet="BS_Services">
@@ -1905,6 +1912,12 @@
           <EntitySetMapping Name="MM_Mailers">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
               <MappingFragment StoreEntitySet="MM_Mailers">
+                <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+                <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+                <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
+                <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
@@ -2011,6 +2024,7 @@
           <EntitySetMapping Name="UMS_GroupMenu">
             <EntityTypeMapping TypeName="MNPOSTModel.UMS_GroupMenu">
               <MappingFragment StoreEntitySet="UMS_GroupMenu">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
@@ -2315,6 +2329,16 @@
                 <ScalarProperty Name="TicketName" ColumnName="TicketName" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Routes">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+              <MappingFragment StoreEntitySet="BS_Routes">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

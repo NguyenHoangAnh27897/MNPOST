@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_PriceZones" Width="1.5" PointX="11.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Provinces" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_RouteDistricts" Width="1.5" PointX="11.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_Routes" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Services" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_ServiceTypes" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Wards" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
@@ -48,6 +47,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_Status" Width="1.5" PointX="17.375" PointY="17.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_ReturnReasons" Width="1.5" PointX="18.375" PointY="0.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTickets" Width="1.5" PointX="16.375" PointY="6.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Routes" Width="1.5" PointX="18.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

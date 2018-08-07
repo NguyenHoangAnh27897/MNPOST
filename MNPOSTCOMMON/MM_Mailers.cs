@@ -62,5 +62,11 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<System.DateTime> LastUpdateDate { get; set; }
         public string MerchandiseID { get; set; }
+        public string Notes { get; set; }
+        public Nullable<decimal> COD { get; set; }
+        public Nullable<double> LengthSize { get; set; }
+        public Nullable<double> WidthSize { get; set; }
+        public Nullable<double> HeightSize { get; set; }
+        public Nullable<decimal> MerchandiseValue { get; set; }
     }
 }

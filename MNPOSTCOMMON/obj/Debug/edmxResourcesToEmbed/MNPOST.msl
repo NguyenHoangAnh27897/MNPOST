@@ -245,15 +245,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="BS_Routes">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
-        <MappingFragment StoreEntitySet="BS_Routes">
-          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="BS_Services">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
         <MappingFragment StoreEntitySet="BS_Services">
@@ -357,6 +348,12 @@
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
+          <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+          <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+          <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
+          <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
           <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
@@ -463,6 +460,7 @@
     <EntitySetMapping Name="UMS_GroupMenu">
       <EntityTypeMapping TypeName="MNPOSTModel.UMS_GroupMenu">
         <MappingFragment StoreEntitySet="UMS_GroupMenu">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Position" ColumnName="Position" />
@@ -767,6 +765,16 @@
           <ScalarProperty Name="TicketName" ColumnName="TicketName" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Routes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+        <MappingFragment StoreEntitySet="BS_Routes">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

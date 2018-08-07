@@ -259,6 +259,7 @@
     <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="Type" Type="nvarchar" MaxLength="1" />
   </EntityType>
   <EntityType Name="BS_Services">
     <Key>
@@ -450,6 +451,12 @@
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
     <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="COD" Type="money" />
+    <Property Name="LengthSize" Type="float" />
+    <Property Name="WidthSize" Type="float" />
+    <Property Name="HeightSize" Type="float" />
+    <Property Name="MerchandiseValue" Type="money" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -525,6 +532,7 @@
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Position" Type="int" />
     <Property Name="Icon" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsActive" Type="int" />
   </EntityType>
   <EntityType Name="UMS_Menu">
     <Key>
