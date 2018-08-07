@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -57,6 +57,7 @@
     <Property Name="AccountType" Type="nvarchar(max)" />
     <Property Name="GroupId" Type="nvarchar(max)" />
     <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ULevel" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_Contracts">
     <Key>
@@ -236,6 +237,14 @@
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
   </EntityType>
+  <EntityType Name="BS_ReturnReasons">
+    <Key>
+      <PropertyRef Name="ReasonID" />
+    </Key>
+    <Property Name="ReasonID" Type="int" Nullable="false" />
+    <Property Name="ReasonName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
   <EntityType Name="BS_RouteDistricts">
     <Key>
       <PropertyRef Name="RouteID" />
@@ -251,6 +260,7 @@
     <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="Type" Type="nvarchar" MaxLength="1" />
   </EntityType>
   <EntityType Name="BS_Services">
     <Key>
@@ -269,6 +279,15 @@
     <Property Name="ServiceName" Type="nvarchar" MaxLength="50" />
     <Property Name="Type" Type="nvarchar" MaxLength="1" />
     <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="BS_Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" Nullable="false" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="Type" Type="nvarchar" MaxLength="1" />
   </EntityType>
   <EntityType Name="BS_Wards">
     <Key>
@@ -344,6 +363,22 @@
     <Property Name="LastEditDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="MM_MailerDelivery">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DocumentDate" Type="datetime" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Weight" Type="float" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="RouteID" Type="nvarchar" MaxLength="20" />
+    <Property Name="NumberPlate" Type="nvarchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="MM_MailerDeliveryDetail">
     <Key>
       <PropertyRef Name="DocumentID" />
@@ -351,8 +386,6 @@
     </Key>
     <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
     <Property Name="IsDeliverOver" Type="bit" />
     <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
     <Property Name="DeliveryDate" Type="datetime" />
@@ -418,6 +451,13 @@
     <Property Name="DiscountPercent" Type="float" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
+    <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="COD" Type="money" />
+    <Property Name="LengthSize" Type="float" />
+    <Property Name="WidthSize" Type="float" />
+    <Property Name="HeightSize" Type="float" />
+    <Property Name="MerchandiseValue" Type="money" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -483,6 +523,7 @@
     <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="UMS_GroupMenu">
     <Key>
@@ -492,6 +533,7 @@
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Position" Type="int" />
     <Property Name="Icon" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsActive" Type="int" />
   </EntityType>
   <EntityType Name="UMS_Menu">
     <Key>
@@ -521,6 +563,22 @@
     <Property Name="GroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="GroupName" Type="nvarchar" MaxLength="200" />
     <Property Name="IsActive" Type="int" />
+  </EntityType>
+  <EntityType Name="UserLevel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Describes" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserPostOption">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="TUser" Type="nvarchar" MaxLength="128" />
+    <Property Name="TPostId" Type="nvarchar" MaxLength="129" />
   </EntityType>
   <Association Name="FK__UMS_Menu__GroupM__628FA481">
     <End Role="UMS_GroupMenu" Type="Self.UMS_GroupMenu" Multiplicity="0..1" />
@@ -633,16 +691,19 @@
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_ReturnReasons" EntityType="Self.BS_ReturnReasons" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Services" EntityType="Self.BS_Services" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_Status" EntityType="Self.BS_Status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeMoneyAdvances" EntityType="Self.MM_EmployeeMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_History" EntityType="Self.MM_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_MailerDelivery" EntityType="Self.MM_MailerDelivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDeliveryDetail" EntityType="Self.MM_MailerDeliveryDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerServices" EntityType="Self.MM_MailerServices" Schema="dbo" store:Type="Tables" />
@@ -653,6 +714,8 @@
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__UMS_Menu__GroupM__628FA481" Association="Self.FK__UMS_Menu__GroupM__628FA481">
       <End Role="UMS_GroupMenu" EntitySet="UMS_GroupMenu" />
       <End Role="UMS_Menu" EntitySet="UMS_Menu" />

@@ -41,6 +41,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="MNPOSTModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="ULevel" ColumnName="ULevel" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -248,6 +249,7 @@
     <EntitySetMapping Name="BS_Routes">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
         <MappingFragment StoreEntitySet="BS_Routes">
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="RouteID" ColumnName="RouteID" />
           <ScalarProperty Name="RouteName" ColumnName="RouteName" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -354,32 +356,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MM_MailerDeliveryDetail">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDeliveryDetail">
-        <MappingFragment StoreEntitySet="MM_MailerDeliveryDetail">
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="IsDeliverOver" ColumnName="IsDeliverOver" />
-          <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
-          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-          <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
-          <ScalarProperty Name="PaymentFinished" ColumnName="PaymentFinished" />
-          <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
-          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
-          <ScalarProperty Name="ConfirmUserID" ColumnName="ConfirmUserID" />
-          <ScalarProperty Name="ConfirmIndex" ColumnName="ConfirmIndex" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
+          <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+          <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+          <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
+          <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -485,6 +471,7 @@
     <EntitySetMapping Name="MM_TroubleTickets">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_TroubleTickets">
         <MappingFragment StoreEntitySet="MM_TroubleTickets">
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
           <ScalarProperty Name="TicketID" ColumnName="TicketID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="TicketName" ColumnName="TicketName" />
@@ -500,6 +487,7 @@
     <EntitySetMapping Name="UMS_GroupMenu">
       <EntityTypeMapping TypeName="MNPOSTModel.UMS_GroupMenu">
         <MappingFragment StoreEntitySet="UMS_GroupMenu">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Position" ColumnName="Position" />
@@ -734,5 +722,80 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="BS_ReturnReasons">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_ReturnReasons">
+        <MappingFragment StoreEntitySet="BS_ReturnReasons">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ReasonName" ColumnName="ReasonName" />
+          <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Status">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Status">
+        <MappingFragment StoreEntitySet="BS_Status">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_MailerDelivery">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDelivery">
+        <MappingFragment StoreEntitySet="MM_MailerDelivery">
+          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLevels">
+      <EntityTypeMapping TypeName="MNPOSTModel.UserLevel">
+        <MappingFragment StoreEntitySet="UserLevel">
+          <ScalarProperty Name="Describes" ColumnName="Describes" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_MailerDeliveryDetail">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDeliveryDetail">
+        <MappingFragment StoreEntitySet="MM_MailerDeliveryDetail">
+          <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="ConfirmIndex" ColumnName="ConfirmIndex" />
+          <ScalarProperty Name="ConfirmUserID" ColumnName="ConfirmUserID" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+          <ScalarProperty Name="PaymentFinished" ColumnName="PaymentFinished" />
+          <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+          <ScalarProperty Name="IsDeliverOver" ColumnName="IsDeliverOver" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPostOptions">
+      <EntityTypeMapping TypeName="MNPOSTModel.UserPostOption">
+        <MappingFragment StoreEntitySet="UserPostOption">
+          <ScalarProperty Name="TPostId" ColumnName="TPostId" />
+          <ScalarProperty Name="TUser" ColumnName="TUser" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

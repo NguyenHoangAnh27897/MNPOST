@@ -30,6 +30,7 @@ namespace MNPOSTCOMMON
         public string AccountType { get; set; }
         public string GroupId { get; set; }
         public string Discriminator { get; set; }
+        public string ULevel { get; set; }
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
