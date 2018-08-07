@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<section id="main-content">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Danh sách bài viết</h3>
+        <div class="row">
+
+            <div class="row mt">
+                <div class="col-md-12">
+                    <div class="content-panel">
+                        <table class="table table-striped table-advance table-hover">
+                            <h4><i class="fa fa-angle-right"></i> Bài viết</h4>
+                            <hr>
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-bullhorn"></i> Tiêu đề</th>
+                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i> Người đăng</th>
+                                    <th><i class="fa fa-bookmark"></i> Dịch vụ</th>
+                                    <th><i class="fa fa-edit"></i> Ngày đăng</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><a href="basic_table.html#">@item.PostName</a></td>
+                                        <td class="hidden-phone">@item.PostBy</td>
+                                        <td><span class="label label-info label-mini">@item.Service</span></td>
+                                        <td>@item.CreatedDate</td>
+                                        <td>
+                                            <form action="/post/edit/@item.ID">
+                                                <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="/post/delete/@item.ID">
+                                                <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- /content-panel -->
+                    <br />
+                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, page => Url.Action("AccountPost", new { page }))
+                </div><!-- /col-md-12 -->
+            </div><!-- /row -->
+        </div>
+    </section><! --/wrapper -->
+</section><!-- /MAIN CONTENT -->
+

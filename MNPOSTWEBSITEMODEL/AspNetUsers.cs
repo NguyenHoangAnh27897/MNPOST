@@ -30,9 +30,11 @@ namespace MNPOSTWEBSITEMODEL
         public string Phone { get; set; }
         public string Discriminator { get; set; }
         public Nullable<int> IDRole { get; set; }
+        public string ResetPasswordCode { get; set; }
     
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+        public virtual AspNetRoles AspNetRoles1 { get; set; }
     }
 }

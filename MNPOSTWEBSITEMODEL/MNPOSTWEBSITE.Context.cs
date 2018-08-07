@@ -32,5 +32,6 @@ namespace MNPOSTWEBSITEMODEL
         public virtual DbSet<WS_Post> WS_Post { get; set; }
         public virtual DbSet<WS_FacebookUser> WS_FacebookUser { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<WS_Mailer> WS_Mailer { get; set; }
     }
 }

@@ -190,7 +190,10 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\mailer\MailerController.cs" />
+    <Compile Include="Controllers\mailer\MailerDeliveryConfirmController.cs" />
+    <Compile Include="Controllers\mailer\MailerDeliveryController.cs" />
     <Compile Include="Controllers\mailer\MailerInitController.cs" />
+    <Compile Include="Controllers\mailer\TrackingController.cs" />
     <Compile Include="Controllers\manage\AdminController.cs" />
     <Compile Include="Controllers\manage\ManageController.cs" />
     <Compile Include="Controllers\manage\MenuController.cs" />
@@ -199,10 +202,13 @@
     <Compile Include="Controllers\mnpostinfo\PositionController.cs" />
     <Compile Include="Controllers\mnpostinfo\PostOfficeController.cs" />
     <Compile Include="Controllers\mnpostinfo\ProvinceController.cs" />
+    <Compile Include="Controllers\mnpostinfo\ReturnReasonController.cs" />
+    <Compile Include="Controllers\mnpostinfo\RouteController.cs" />
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
+    <Compile Include="Controllers\troubleticket\TroubleController.cs" />
     <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -4501,12 +4507,18 @@
     <Content Include="Views\CustomerGroup\Show.cshtml" />
     <Content Include="Views\Customer\Show.cshtml" />
     <Content Include="Views\MailerInit\Init.cshtml" />
+    <Content Include="Views\MailerDelivery\Show.cshtml" />
+    <Content Include="Views\MailerDeliveryConfirm\Show.cshtml" />
+    <Content Include="Views\ReturnReason\Show.cshtml" />
+    <Content Include="Views\Trouble\Show.cshtml" />
+    <Content Include="Views\Route\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\moneyadvance\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Employee\" />
+    <Folder Include="Views\Tracking\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

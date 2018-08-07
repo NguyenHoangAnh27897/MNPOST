@@ -52,7 +52,7 @@ namespace MNPOSTWEBSITE.Controllers
             List<Province> lstProvince = new List<Province>();
             Province pro = new Province();
             List<string> lstname = getProvince(Session["token"].ToString()).Result;
-            List<string> lstid = getProvince(Session["token"].ToString()).Result;
+            List<string> lstid = getProvinceID(Session["token"].ToString()).Result;
             for(int i = 0; i < lstname.Count; i++)
             {
                 pro = new Province();
@@ -109,6 +109,116 @@ namespace MNPOSTWEBSITE.Controllers
                         for (int i = 0; i < count.Count; i++)
                         {
                             var tokenstr = (string)obj["provinces"][i]["ProvinceID"];
+                            lst.Add(tokenstr);
+                        }
+                        return lst;
+
+                    }
+                }
+            }
+        }
+
+        public async Task<List<string>> getDistrict(string tokenaccess)
+        {
+
+            string token = "";
+            List<string> lst = new List<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetDistrict").ConfigureAwait(continueOnCapturedContext: false))
+                {
+
+                    using (HttpContent content = response.Content)
+                    {
+                        token = await content.ReadAsStringAsync();
+                        var obj = JObject.Parse(token);
+                        var count = obj["districts"].ToList();
+                        for (int i = 0; i < count.Count; i++)
+                        {
+                            var tokenstr = (string)obj["districts"][i]["DistrictName"];
+                            lst.Add(tokenstr);
+                        }
+                        return lst;
+                    }
+                }
+            }
+        }
+
+        public async Task<List<string>> getDistrictID(string tokenaccess)
+        {
+
+            string token = "";
+            List<string> lst = new List<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetDistrict").ConfigureAwait(continueOnCapturedContext: false))
+                {
+
+                    using (HttpContent content = response.Content)
+                    {
+                        token = await content.ReadAsStringAsync();
+                        var obj = JObject.Parse(token);
+                        var count = obj["districts"].ToList();
+                        for (int i = 0; i < count.Count; i++)
+                        {
+                            var tokenstr = (string)obj["districts"][i]["DistrictID"];
+                            lst.Add(tokenstr);
+                        }
+                        return lst;
+
+                    }
+                }
+            }
+        }
+
+        public async Task<List<string>> getWard(string tokenaccess)
+        {
+
+            string token = "";
+            List<string> lst = new List<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetWard").ConfigureAwait(continueOnCapturedContext: false))
+                {
+
+                    using (HttpContent content = response.Content)
+                    {
+                        token = await content.ReadAsStringAsync();
+                        var obj = JObject.Parse(token);
+                        var count = obj["wards"].ToList();
+                        for (int i = 0; i < count.Count; i++)
+                        {
+                            var tokenstr = (string)obj["wards"][i]["WardName"];
+                            lst.Add(tokenstr);
+                        }
+                        return lst;
+                    }
+                }
+            }
+        }
+
+        public async Task<List<string>> getWardID(string tokenaccess)
+        {
+
+            string token = "";
+            List<string> lst = new List<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
+                using (HttpResponseMessage response = await client.GetAsync("http://35.231.147.186:89/api/catalog/GetWard").ConfigureAwait(continueOnCapturedContext: false))
+                {
+
+                    using (HttpContent content = response.Content)
+                    {
+                        token = await content.ReadAsStringAsync();
+                        var obj = JObject.Parse(token);
+                        var count = obj["wards"].ToList();
+                        for (int i = 0; i < count.Count; i++)
+                        {
+                            var tokenstr = (string)obj["wards"][i]["WardID"];
                             lst.Add(tokenstr);
                         }
                         return lst;

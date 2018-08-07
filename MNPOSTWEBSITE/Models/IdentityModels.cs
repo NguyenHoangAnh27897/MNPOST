@@ -10,6 +10,7 @@ namespace MNPOSTWEBSITE.Models
         public string FullName { get; set; }
         public string Phone { get; set; }
         public int IDRole { get; set; }
+        public string ResetPasswordCode { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -12,6 +12,9 @@ using MNPOSTWEBSITE.Models;
 using ASPSnippets.FaceBookAPI;
 using System.Net.Mail;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web.Helpers;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -59,6 +62,9 @@ namespace MNPOSTWEBSITE.Controllers
                         {
                             Session["ID"] = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
                             Session["Username"] = user.FullName;
+                            Session["Email"] = username;
+                            int? idrole = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole;
+                            Session["RoleID"] = db.AspNetRoles.Where(s => s.Id == idrole).FirstOrDefault().Name;
                             await SignInAsync(user, model.RememberMe);
                             return RedirectToLocal(returnUrl);
                         }else
@@ -109,9 +115,25 @@ namespace MNPOSTWEBSITE.Controllers
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 1;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = 2;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                    new System.Net.Mail.MailAddress("hoanganh27897@gmail.com", "Đăng ký tài khoản"),
+                    new System.Net.Mail.MailAddress(user.UserName));
+                    m.Subject = "Đăng ký tài khoản";
+                    m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin click vào link dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
+                    user.UserName, Url.Action("ConfirmEmail", "Account",
+                    new { Token = user.Id, Email = user.UserName }, Request.Url.Scheme)) ;
+                    m.IsBodyHtml = true;
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                    smtp.Credentials = new System.Net.NetworkCredential("hoanganh27897@gmail.com", "pokemonblackwhite2");
+                    smtp.EnableSsl = true;
+                    smtp.Send(m);
+                    if (AddCustomer(Fullname, Phone, false, model.UserName).Result)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    return View();
                 }
                 else
                 {
@@ -121,6 +143,61 @@ namespace MNPOSTWEBSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //confirm email
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string Token, string UserName)
+        {
+            ApplicationUser user = this.UserManager.FindById(Token);
+            if (user != null)
+            {
+                if (user.UserName == UserName)
+                {
+                    await UserManager.UpdateAsync(user);
+                    await SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IsActive = true;
+                    db.SaveChanges();
+                    return RedirectToAction("Confirm", "Account", new { Email = user.UserName });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Confirm", "Account", new { Email = "" });
+            }
+        }
+
+        //confirm email view
+        [AllowAnonymous]
+        public ActionResult Confirm(string Email)
+        {
+            ViewBag.Email = Email;
+            return View();
+        }
+
+        public async Task<bool> AddCustomer(string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
+        {
+            Customer cus = new Customer
+            {
+                CustomerName = Fullname,
+                Phone = Phone,
+                Email = Email,
+                IsActive = IsActive,
+                CreateDate = DateTime.Now
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://35.231.147.186:89/api/customer/addcustomer";
+            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;          
         }
 
         //
@@ -322,37 +399,135 @@ namespace MNPOSTWEBSITE.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
-
+        [AllowAnonymous]
         public ActionResult Forget()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> ForgetPassword(string email)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgetPassword(string email)
         {
-            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
-            var message = new MailMessage();
-            message.To.Add(new MailAddress(email));  // replace with valid value 
-            message.From = new MailAddress("hoanganh27897@gmail.com");  // replace with valid value
-            message.Subject = "Quên mật khẩu";
-            message.Body = string.Format(body, "MN POST", "hoanganh27897@gmail.com", "Mật khẩu mới của bạn đã được cập nhật lại: ");
-            message.IsBodyHtml = true;
+            //Verify Email ID
+            //Generate Reset password link 
+            //Send Email 
+            string message = "";
+            bool status = false;
 
-            using (var smtp = new SmtpClient())
+            using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
             {
-                var credential = new NetworkCredential
+                var account = dc.AspNetUsers.Where(a => a.UserName == email).FirstOrDefault();
+                if (account != null)
                 {
-                    UserName = "hoanganh27897@gmail.com",  // replace with valid value
-                    Password = "pokemonblackwhite2"  // replace with valid value
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
-                return RedirectToAction("Index", "Home");
+                    //Send email for reset password
+                    string resetCode = Guid.NewGuid().ToString();
+                    SendVerificationLinkEmail(account.UserName, resetCode, "ResetPassword");
+                    account.ResetPasswordCode = resetCode;
+                    //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
+                    //in our model class in part 1
+                    dc.Configuration.ValidateOnSaveEnabled = false;
+                    dc.SaveChanges();
+                    message = "Reset password link has been sent to your email id.";
+                }
+                else
+                {
+                    message = "Account not found";
+                }
             }
+            ViewBag.Message = message;
+            return RedirectToAction("Index","Home");
+        }
+
+        public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "ResetPassword")
+        {
+            var verifyUrl = "/Account/" + emailFor + "/" + activationCode;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
+
+            var fromEmail = new MailAddress("hoanganh27897@gmail.com", "MNPOST");
+            var toEmail = new MailAddress(emailID);
+            var fromEmailPassword = "pokemonblackwhite2"; // Replace with actual password
+
+            string subject = "";
+            string body = "";
+            if (emailFor == "ResetPassword")
+            {
+                subject = "Reset Mật khẩu";
+                body = "Xin chào,<br/>br/>Chúng tôi nhận được yêu cầu reset lại mật khẩu của bạn. Xin hãy click vào đường link dưới đây để thay đổi mật khẩu mới" +
+                    "<br/><br/><a href=" + link + ">Link Reset Mật khẩu</a>";
+            }
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+                smtp.Send(message);
+        }
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string id)
+        {
+            //Verify the reset password link
+            //Find account associated with this link
+            //redirect to reset password page
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return HttpNotFound();
+            }
+
+            using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+            {
+                var user = dc.AspNetUsers.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
+                if (user != null)
+                {
+                    ResetPasswordModel model = new ResetPasswordModel();
+                    model.ResetCode = id;
+                    return View(model);
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+                {
+                    var user = dc.AspNetUsers.Where(s => s.ResetPasswordCode == model.ResetCode).FirstOrDefault();
+                    if (user != null)
+                    {
+                        user.PasswordHash = Crypto.Hash(model.NewPassword);
+                        user.ResetPasswordCode = "";
+                        dc.Configuration.ValidateOnSaveEnabled = false;
+                        dc.SaveChanges();
+                        message = "New password updated successfully";
+                    }
+                }
+            }
+            else
+            {
+                message = "Something invalid";
+            }
+            ViewBag.Message = message;
+            return View(model);
         }
 
         //

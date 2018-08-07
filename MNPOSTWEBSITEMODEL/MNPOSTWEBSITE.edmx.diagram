@@ -15,6 +15,8 @@
         <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" />
         <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="MNPOSTWEBSITEModel.AspNetUserRoles" />
+        <AssociationConnector Association="MNPOSTWEBSITEModel.FK__AspNetUse__IDRol__398D8EEE" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_Mailer" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
