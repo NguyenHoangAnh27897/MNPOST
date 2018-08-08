@@ -12,11 +12,8 @@ namespace MNPOST.Controllers.mailer
     {
 
         [HttpGet]
-        public ActionResult Show(int? page)
+        public ActionResult ShowMailer(int? page)
         {
-
-
-
             return View();
         }
 
@@ -104,5 +101,23 @@ namespace MNPOST.Controllers.mailer
             return Json(new { price = 10000, codPrice = 10000 }, JsonRequestBehavior.AllowGet);
         }
 
+
+        protected bool CheckPostOffice(string postId)
+        {
+            var check = db.BS_PostOffices.Find(postId);
+
+            return check == null ? false : true;
+        }
+
+        protected List<EmployeeInfoCommon> GetEmployeeByPost(string postId)
+        {
+            return db.BS_Employees.Where(p => p.PostOfficeID == postId && p.IsActive == true).Select(p => new EmployeeInfoCommon()
+            {
+                code = p.EmployeeID,
+                name = p.EmployeeName,
+                email = p.Email,
+                phone = p.Phone
+            }).ToList();
+        }
     }
 }

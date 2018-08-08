@@ -10,9 +10,8 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MM_MailerDelivery
+    public partial class MAILER_GET_ALL_DELIVERY_Result
     {
         public string DocumentID { get; set; }
         public Nullable<System.DateTime> DocumentDate { get; set; }
@@ -25,8 +24,9 @@ namespace MNPOSTCOMMON
         public Nullable<int> StatusID { get; set; }
         public string RouteID { get; set; }
         public string NumberPlate { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmployeePhone { get; set; }
+        public string EmployeeEmail { get; set; }
         public string DocumentCode { get; set; }
-    
-        public virtual BS_Employees BS_Employees { get; set; }
     }
 }

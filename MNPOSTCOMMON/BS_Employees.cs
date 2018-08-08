@@ -14,6 +14,11 @@ namespace MNPOSTCOMMON
     
     public partial class BS_Employees
     {
+        public BS_Employees()
+        {
+            this.MM_MailerDelivery = new HashSet<MM_MailerDelivery>();
+        }
+    
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string DepartmentID { get; set; }
@@ -36,5 +41,7 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> ApproveDate { get; set; }
         public string UserLogin { get; set; }
         public string PositionID { get; set; }
+    
+        public virtual ICollection<MM_MailerDelivery> MM_MailerDelivery { get; set; }
     }
 }

@@ -744,6 +744,7 @@
     <EntitySetMapping Name="MM_MailerDelivery">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDelivery">
         <MappingFragment StoreEntitySet="MM_MailerDelivery">
+          <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
           <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
           <ScalarProperty Name="RouteID" ColumnName="RouteID" />
           <ScalarProperty Name="StatusID" ColumnName="StatusID" />
@@ -797,5 +798,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+          <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+          <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+          <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+          <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+          <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

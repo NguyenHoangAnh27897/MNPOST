@@ -50,6 +50,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.UserLevel" Width="1.5" PointX="18.375" PointY="0.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="1.5" PointX="18.375" PointY="3.75" />
         <EntityTypeShape EntityType="MNPOSTModel.UserPostOption" Width="1.5" PointX="7.375" PointY="18.75" />
+        <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

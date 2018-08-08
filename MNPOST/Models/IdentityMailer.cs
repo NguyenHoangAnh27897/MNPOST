@@ -52,6 +52,34 @@ namespace MNPOST.Models
 
     }
 
+
+
+    public class MailerDeliveryIdentity
+    {
+        public string DocumentID { get; set; }
+
+        public string DocumentCode { get; set; }
+
+        public string DocumentDate { get; set; }
+
+        public string EmployeeID { get; set; }
+
+        public string EmployeeName { get; set; }
+
+        public string Notes { get; set; }
+
+        public int? Quantity { get; set; }
+
+        public double? Weight { get; set; }
+
+        public int? StatusID { get; set; }
+
+        public string RouteID { get; set; }
+
+        public string NumberPlate { get; set; }
+
+        public string PostOfficeId { get; set; }
+    }
 }
  
  

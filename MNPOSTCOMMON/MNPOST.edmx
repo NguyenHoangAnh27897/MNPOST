@@ -372,10 +372,10 @@
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
-          <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="DocumentDate" Type="datetime" />
-          <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Weight" Type="float" />
           <Property Name="CreateDate" Type="datetime" />
@@ -383,14 +383,15 @@
           <Property Name="StatusID" Type="int" />
           <Property Name="RouteID" Type="nvarchar" MaxLength="20" />
           <Property Name="NumberPlate" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentCode" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="MM_MailerDeliveryDetail">
           <Key>
             <PropertyRef Name="DocumentID" />
             <PropertyRef Name="MailerID" />
           </Key>
-          <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DocumentID" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="MailerID" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="IsDeliverOver" Type="bit" />
           <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
           <Property Name="DeliveryDate" Type="datetime" />
@@ -585,6 +586,18 @@
           <Property Name="TUser" Type="nvarchar" MaxLength="128" />
           <Property Name="TPostId" Type="nvarchar" MaxLength="129" />
         </EntityType>
+        <Association Name="FK__MM_Mailer__Emplo__5BAD9CC8">
+          <End Role="BS_Employees" Type="Self.BS_Employees" Multiplicity="0..1" />
+          <End Role="MM_MailerDelivery" Type="Self.MM_MailerDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BS_Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="MM_MailerDelivery">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UMS_Menu__GroupM__628FA481">
           <End Role="UMS_GroupMenu" Type="Self.UMS_GroupMenu" Multiplicity="0..1" />
           <End Role="UMS_Menu" Type="Self.UMS_Menu" Multiplicity="*" />
@@ -665,6 +678,13 @@
         <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="MAILER_GET_ALL_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="varchar" Mode="In" />
+          <Parameter Name="tdate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documentID" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -721,6 +741,10 @@
           <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MM_Mailer__Emplo__5BAD9CC8" Association="Self.FK__MM_Mailer__Emplo__5BAD9CC8">
+            <End Role="BS_Employees" EntitySet="BS_Employees" />
+            <End Role="MM_MailerDelivery" EntitySet="MM_MailerDelivery" />
+          </AssociationSet>
           <AssociationSet Name="FK__UMS_Menu__GroupM__628FA481" Association="Self.FK__UMS_Menu__GroupM__628FA481">
             <End Role="UMS_GroupMenu" EntitySet="UMS_GroupMenu" />
             <End Role="UMS_Menu" EntitySet="UMS_Menu" />
@@ -915,6 +939,7 @@
           <Property Name="ApproveDate" Type="DateTime" Precision="0" />
           <Property Name="UserLogin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PositionID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MM_MailerDelivery" Relationship="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" FromRole="BS_Employees" ToRole="MM_MailerDelivery" />
         </EntityType>
         <EntityType Name="BS_MailerModeraters">
           <Key>
@@ -1383,6 +1408,17 @@
           <EntitySet Name="UserLevels" EntityType="MNPOSTModel.UserLevel" />
           <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
           <EntitySet Name="UserPostOptions" EntityType="MNPOSTModel.UserPostOption" />
+          <FunctionImport Name="MAILER_GET_ALL_DELIVERY" ReturnType="Collection(MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result)">
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <AssociationSet Name="FK__MM_Mailer__Emplo__5BAD9CC8" Association="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8">
+            <End Role="BS_Employees" EntitySet="BS_Employees" />
+            <End Role="MM_MailerDelivery" EntitySet="MM_MailerDelivery" />
+          </AssociationSet>
+          <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
+            <Parameter Name="documentID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
           <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -1548,10 +1584,10 @@
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
-          <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DocumentDate" Type="DateTime" Precision="3" />
-          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="Weight" Type="Double" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
@@ -1559,6 +1595,8 @@
           <Property Name="StatusID" Type="Int32" />
           <Property Name="RouteID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NumberPlate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BS_Employees" Relationship="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" FromRole="MM_MailerDelivery" ToRole="BS_Employees" />
         </EntityType>
         <EntityType Name="UserLevel">
           <Key>
@@ -1573,8 +1611,8 @@
             <PropertyRef Name="DocumentID" />
             <PropertyRef Name="MailerID" />
           </Key>
-          <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="MailerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="IsDeliverOver" Type="Boolean" />
           <Property Name="DeliveryTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
@@ -1597,6 +1635,48 @@
           <Property Name="TUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="TPostId" Type="String" MaxLength="129" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="MAILER_GET_ALL_DELIVERY_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="DateTime" Name="DocumentDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="String" Name="RouteID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NumberPlate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="EmployeePhone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="EmployeeEmail" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+        </ComplexType>
+        <Association Name="FK__MM_Mailer__Emplo__5BAD9CC8">
+          <End Type="MNPOSTModel.BS_Employees" Role="BS_Employees" Multiplicity="0..1" />
+          <End Type="MNPOSTModel.MM_MailerDelivery" Role="MM_MailerDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BS_Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="MM_MailerDelivery">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="MAILERDELIVERY_GETMAILER_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2346,6 +2426,7 @@
           <EntitySetMapping Name="MM_MailerDelivery">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDelivery">
               <MappingFragment StoreEntitySet="MM_MailerDelivery">
+                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
                 <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
                 <ScalarProperty Name="RouteID" ColumnName="RouteID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
@@ -2399,6 +2480,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

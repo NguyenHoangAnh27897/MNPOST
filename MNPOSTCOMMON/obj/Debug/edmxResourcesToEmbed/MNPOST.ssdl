@@ -367,10 +367,10 @@
     <Key>
       <PropertyRef Name="DocumentID" />
     </Key>
-    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="DocumentDate" Type="datetime" />
-    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Notes" Type="nvarchar(max)" />
     <Property Name="Quantity" Type="int" />
     <Property Name="Weight" Type="float" />
     <Property Name="CreateDate" Type="datetime" />
@@ -378,14 +378,15 @@
     <Property Name="StatusID" Type="int" />
     <Property Name="RouteID" Type="nvarchar" MaxLength="20" />
     <Property Name="NumberPlate" Type="nvarchar" MaxLength="20" />
+    <Property Name="DocumentCode" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="MM_MailerDeliveryDetail">
     <Key>
       <PropertyRef Name="DocumentID" />
       <PropertyRef Name="MailerID" />
     </Key>
-    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DocumentID" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="varchar" MaxLength="128" Nullable="false" />
     <Property Name="IsDeliverOver" Type="bit" />
     <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
     <Property Name="DeliveryDate" Type="datetime" />
@@ -580,6 +581,18 @@
     <Property Name="TUser" Type="nvarchar" MaxLength="128" />
     <Property Name="TPostId" Type="nvarchar" MaxLength="129" />
   </EntityType>
+  <Association Name="FK__MM_Mailer__Emplo__5BAD9CC8">
+    <End Role="BS_Employees" Type="Self.BS_Employees" Multiplicity="0..1" />
+    <End Role="MM_MailerDelivery" Type="Self.MM_MailerDelivery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BS_Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="MM_MailerDelivery">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__UMS_Menu__GroupM__628FA481">
     <End Role="UMS_GroupMenu" Type="Self.UMS_GroupMenu" Multiplicity="0..1" />
     <End Role="UMS_Menu" Type="Self.UMS_Menu" Multiplicity="*" />
@@ -660,6 +673,13 @@
   <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_GET_ALL_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fdate" Type="varchar" Mode="In" />
+    <Parameter Name="tdate" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="documentID" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -716,6 +736,10 @@
     <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__MM_Mailer__Emplo__5BAD9CC8" Association="Self.FK__MM_Mailer__Emplo__5BAD9CC8">
+      <End Role="BS_Employees" EntitySet="BS_Employees" />
+      <End Role="MM_MailerDelivery" EntitySet="MM_MailerDelivery" />
+    </AssociationSet>
     <AssociationSet Name="FK__UMS_Menu__GroupM__628FA481" Association="Self.FK__UMS_Menu__GroupM__628FA481">
       <End Role="UMS_GroupMenu" EntitySet="UMS_GroupMenu" />
       <End Role="UMS_Menu" EntitySet="UMS_Menu" />

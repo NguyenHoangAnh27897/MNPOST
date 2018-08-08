@@ -60,6 +60,17 @@ namespace MNPOST.Models
         public bool choose { get; set; }
     }
 
+    public class EmployeeInfoCommon
+    {
+        public string code { get; set; }
+
+        public string name { get; set; }
+
+        public string phone { get; set; }
+
+        public string email { get; set; }
+    }
+
     //
     public class UserInfo
     {

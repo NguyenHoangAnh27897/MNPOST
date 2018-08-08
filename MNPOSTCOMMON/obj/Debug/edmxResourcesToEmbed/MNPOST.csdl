@@ -169,6 +169,7 @@
     <Property Name="ApproveDate" Type="DateTime" Precision="0" />
     <Property Name="UserLogin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="PositionID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MM_MailerDelivery" Relationship="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" FromRole="BS_Employees" ToRole="MM_MailerDelivery" />
   </EntityType>
   <EntityType Name="BS_MailerModeraters">
     <Key>
@@ -637,6 +638,17 @@
     <EntitySet Name="UserLevels" EntityType="MNPOSTModel.UserLevel" />
     <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
     <EntitySet Name="UserPostOptions" EntityType="MNPOSTModel.UserPostOption" />
+    <FunctionImport Name="MAILER_GET_ALL_DELIVERY" ReturnType="Collection(MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result)">
+      <Parameter Name="fdate" Mode="In" Type="String" />
+      <Parameter Name="tdate" Mode="In" Type="String" />
+    </FunctionImport>
+    <AssociationSet Name="FK__MM_Mailer__Emplo__5BAD9CC8" Association="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8">
+      <End Role="BS_Employees" EntitySet="BS_Employees" />
+      <End Role="MM_MailerDelivery" EntitySet="MM_MailerDelivery" />
+    </AssociationSet>
+    <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
+      <Parameter Name="documentID" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="COUNTRY_GETALL_Result">
     <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -802,10 +814,10 @@
     <Key>
       <PropertyRef Name="DocumentID" />
     </Key>
-    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="DocumentDate" Type="DateTime" Precision="3" />
-    <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Quantity" Type="Int32" />
     <Property Name="Weight" Type="Double" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
@@ -813,6 +825,8 @@
     <Property Name="StatusID" Type="Int32" />
     <Property Name="RouteID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="NumberPlate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DocumentCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BS_Employees" Relationship="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" FromRole="MM_MailerDelivery" ToRole="BS_Employees" />
   </EntityType>
   <EntityType Name="UserLevel">
     <Key>
@@ -827,8 +841,8 @@
       <PropertyRef Name="DocumentID" />
       <PropertyRef Name="MailerID" />
     </Key>
-    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
     <Property Name="IsDeliverOver" Type="Boolean" />
     <Property Name="DeliveryTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
@@ -851,4 +865,46 @@
     <Property Name="TUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="TPostId" Type="String" MaxLength="129" FixedLength="false" Unicode="true" />
   </EntityType>
+  <ComplexType Name="MAILER_GET_ALL_DELIVERY_Result">
+    <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+    <Property Type="DateTime" Name="DocumentDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Double" Name="Weight" Nullable="true" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="StatusID" Nullable="true" />
+    <Property Type="String" Name="RouteID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NumberPlate" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" />
+    <Property Type="String" Name="EmployeePhone" Nullable="true" MaxLength="25" />
+    <Property Type="String" Name="EmployeeEmail" Nullable="true" MaxLength="512" />
+    <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+  </ComplexType>
+  <Association Name="FK__MM_Mailer__Emplo__5BAD9CC8">
+    <End Type="MNPOSTModel.BS_Employees" Role="BS_Employees" Multiplicity="0..1" />
+    <End Type="MNPOSTModel.MM_MailerDelivery" Role="MM_MailerDelivery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BS_Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="MM_MailerDelivery">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="MAILERDELIVERY_GETMAILER_Result">
+    <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+    <Property Type="Double" Name="Weight" Nullable="true" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+    <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+  </ComplexType>
 </Schema>

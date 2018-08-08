@@ -155,5 +155,27 @@ namespace MNPOSTCOMMON
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WARD_GETALL_Result>("WARD_GETALL");
         }
+    
+        public virtual ObjectResult<MAILER_GET_ALL_DELIVERY_Result> MAILER_GET_ALL_DELIVERY(string fdate, string tdate)
+        {
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_ALL_DELIVERY_Result>("MAILER_GET_ALL_DELIVERY", fdateParameter, tdateParameter);
+        }
+    
+        public virtual ObjectResult<MAILERDELIVERY_GETMAILER_Result> MAILERDELIVERY_GETMAILER(string documentID)
+        {
+            var documentIDParameter = documentID != null ?
+                new ObjectParameter("documentID", documentID) :
+                new ObjectParameter("documentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_Result>("MAILERDELIVERY_GETMAILER", documentIDParameter);
+        }
     }
 }
