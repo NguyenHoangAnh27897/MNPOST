@@ -17,5 +17,6 @@ namespace MNPOSTCOMMON
         public string RouteID { get; set; }
         public string RouteName { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string Type { get; set; }
     }
 }

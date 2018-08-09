@@ -203,6 +203,7 @@
     <Compile Include="Controllers\mnpostinfo\PostOfficeController.cs" />
     <Compile Include="Controllers\mnpostinfo\ProvinceController.cs" />
     <Compile Include="Controllers\mnpostinfo\ReturnReasonController.cs" />
+    <Compile Include="Controllers\mnpostinfo\RouteController.cs" />
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
@@ -214,6 +215,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityCommon.cs" />
+    <Compile Include="Models\IdentityMailer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -4450,6 +4452,8 @@
     <Content Include="Scripts\mydirective.js" />
     <Content Include="Scripts\myscript.keypress.js" />
     <Content Include="Scripts\myscripts.js" />
+    <Content Include="Scripts\order\mailerdelivery.js" />
+    <Content Include="Scripts\order\orderinit.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
@@ -4508,6 +4512,7 @@
     <Content Include="Views\MailerDeliveryConfirm\Show.cshtml" />
     <Content Include="Views\ReturnReason\Show.cshtml" />
     <Content Include="Views\Trouble\Show.cshtml" />
+    <Content Include="Views\Route\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

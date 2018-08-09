@@ -41,7 +41,7 @@ namespace MNPOST.Filters
                     AntiForgery.Validate();
                 }
             }
-            catch (HttpAntiForgeryException e)
+            catch
             {
                 throw new HttpAntiForgeryException("Anti forgery token cookie not found");
             }

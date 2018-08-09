@@ -59,4 +59,33 @@ namespace MNPOST.Models
 
         public bool choose { get; set; }
     }
+
+    public class EmployeeInfoCommon
+    {
+        public string code { get; set; }
+
+        public string name { get; set; }
+
+        public string phone { get; set; }
+
+        public string email { get; set; }
+    }
+
+    //
+    public class UserInfo
+    {
+        public string user { get; set; }
+
+        public string level { get; set; }
+
+        public string groupId { get; set; }
+
+        public List<string> postOffices { get; set; }
+
+        public string employeeId { get; set; }
+
+        public string fullName { get; set; }
+
+        public string currentPost { get; set; }
+    }
 }

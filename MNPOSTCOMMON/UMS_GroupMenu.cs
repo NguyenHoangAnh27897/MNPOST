@@ -23,6 +23,7 @@ namespace MNPOSTCOMMON
         public string Name { get; set; }
         public Nullable<int> Position { get; set; }
         public string Icon { get; set; }
+        public Nullable<int> IsActive { get; set; }
     
         public virtual ICollection<UMS_Menu> UMS_Menu { get; set; }
     }

@@ -17,16 +17,46 @@ namespace MNPOST.Controllers
     public class BaseController : Controller
     {
 
+        protected UserInfo EmployeeInfo;
+
         protected MNPOSTEntities db = new MNPOSTEntities();
 
         protected RoleManager<IdentityRole> RoleManager { get; private set; }
 
         protected UserManager<ApplicationUser> UserManager { get; private set; }
         private ApplicationDbContext sdb = new ApplicationDbContext();
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+
+            if (requestContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                var checkUser = db.AspNetUsers.Where(p => p.UserName == requestContext.HttpContext.User.Identity.Name).FirstOrDefault();
+                EmployeeInfo = new UserInfo()
+                {
+                    user = checkUser.UserName,
+                    groupId = checkUser.GroupId,
+                    level = checkUser.ULevel,
+                    postOffices = new List<string>()
+                };
+
+                var checkStaff = db.BS_Employees.Where(p => p.UserLogin == checkUser.UserName).FirstOrDefault();
+
+                if (checkStaff != null)
+                {
+                    EmployeeInfo.currentPost = checkStaff.PostOfficeID;
+                    EmployeeInfo.employeeId = checkStaff.EmployeeID;
+                    EmployeeInfo.fullName = checkStaff.EmployeeName;
+                    EmployeeInfo.postOffices = GetPostPermit(EmployeeInfo.level, EmployeeInfo.currentPost);
+                }
+            }
+        }
         public BaseController()
         {
             RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(sdb));
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(sdb));
+         
         }
 
         protected bool checkAccess(string menu, int edit)
@@ -87,7 +117,7 @@ namespace MNPOST.Controllers
             return false;
         }
 
-       
+
         protected void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -134,6 +164,27 @@ namespace MNPOST.Controllers
 
             return PartialView("_MenuUser", groupMenus);
         }
-        
-    }  
+
+
+        private List<string> GetPostPermit(string lv, string currentPost)
+        {
+            List<string> result = new List<string>();
+
+            // toan
+            if (lv == "HOST")
+                return db.BS_PostOffices.Select(p => p.PostOfficeID).ToList();
+
+
+            // local
+            if (lv == "LOCAL")
+            {
+                result.Add(currentPost);
+                return result;
+            }
+
+            // option
+            return db.UserPostOptions.Where(p => p.TUser == User.Identity.Name).Select(p => p.TPostId).ToList();
+        }
+
+    }
 }

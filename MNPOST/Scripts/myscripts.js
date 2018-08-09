@@ -1,7 +1,14 @@
 ﻿function showModel(id) {
+
     $('#' + id).modal('show');
 }
-
+function showModelFix(id) {
+    $('#' + id).modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $('#' + id).modal('show');
+}
 function hideModel(id) {
     $('#' + id).modal('hide');
 }

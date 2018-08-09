@@ -41,7 +41,7 @@ app.directive('myKeyCltrK', function () {
             if (event.which in map) {
                 map[event.which] = false;
             }
-            console.log(map);
+
         });
     };
 });

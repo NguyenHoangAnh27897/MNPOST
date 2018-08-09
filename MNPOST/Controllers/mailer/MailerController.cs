@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MNPOST.Models;
 
 namespace MNPOST.Controllers.mailer
 {
@@ -11,11 +12,8 @@ namespace MNPOST.Controllers.mailer
     {
 
         [HttpGet]
-        public ActionResult Show(int? page)
+        public ActionResult ShowMailer(int? page)
         {
-
-
-
             return View();
         }
 
@@ -65,5 +63,61 @@ namespace MNPOST.Controllers.mailer
 
         }
 
-	}
+
+        public List<CommonData> GetProvinceDatas(string parentId, string type)
+        {
+            if (type == "district")
+            {
+                return db.BS_Districts.Where(p => p.ProvinceID == parentId).Select(p => new CommonData()
+                {
+                    code = p.DistrictID,
+                    name = p.DistrictName
+                }).ToList();
+            } else if (type == "ward")
+            {
+                return db.BS_Wards.Where(p => p.DistrictID == parentId).Select(p => new CommonData()
+                {
+                    code = p.WardID,
+                    name = p.WardName
+                }).ToList();
+            } else if (type == "province")
+            {
+                return db.BS_Provinces.Select(p => new CommonData()
+                {
+                    code = p.ProvinceID,
+                    name = p.ProvinceName
+                }).ToList();
+            }
+            else
+            {
+                return new List<CommonData>();
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult CalBillPrice(float weight = 0, float width = 0, float length = 0, float height = 0, float cod = 0, float goodValue = 0) 
+        {
+            return Json(new { price = 10000, codPrice = 10000 }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        protected bool CheckPostOffice(string postId)
+        {
+            var check = db.BS_PostOffices.Find(postId);
+
+            return check == null ? false : true;
+        }
+
+        protected List<EmployeeInfoCommon> GetEmployeeByPost(string postId)
+        {
+            return db.BS_Employees.Where(p => p.PostOfficeID == postId && p.IsActive == true).Select(p => new EmployeeInfoCommon()
+            {
+                code = p.EmployeeID,
+                name = p.EmployeeName,
+                email = p.Email,
+                phone = p.Phone
+            }).ToList();
+        }
+    }
 }

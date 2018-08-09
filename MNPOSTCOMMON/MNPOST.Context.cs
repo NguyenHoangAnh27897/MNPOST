@@ -57,15 +57,17 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
         public virtual DbSet<MM_PackingListDetail> MM_PackingListDetail { get; set; }
+        public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
         public virtual DbSet<UMS_GroupMenu> UMS_GroupMenu { get; set; }
         public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
         public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
         public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
-        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
-        public virtual DbSet<MM_MailerDelivery> MM_MailerDelivery { get; set; }
-        public virtual DbSet<BS_Status> BS_Status { get; set; }
         public virtual DbSet<BS_ReturnReasons> BS_ReturnReasons { get; set; }
-        public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
+        public virtual DbSet<BS_Status> BS_Status { get; set; }
+        public virtual DbSet<MM_MailerDelivery> MM_MailerDelivery { get; set; }
+        public virtual DbSet<UserLevel> UserLevels { get; set; }
+        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
+        public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
     
         public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {
@@ -152,6 +154,28 @@ namespace MNPOSTCOMMON
         public virtual ObjectResult<WARD_GETALL_Result> WARD_GETALL()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WARD_GETALL_Result>("WARD_GETALL");
+        }
+    
+        public virtual ObjectResult<MAILER_GET_ALL_DELIVERY_Result> MAILER_GET_ALL_DELIVERY(string fdate, string tdate)
+        {
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_ALL_DELIVERY_Result>("MAILER_GET_ALL_DELIVERY", fdateParameter, tdateParameter);
+        }
+    
+        public virtual ObjectResult<MAILERDELIVERY_GETMAILER_Result> MAILERDELIVERY_GETMAILER(string documentID)
+        {
+            var documentIDParameter = documentID != null ?
+                new ObjectParameter("documentID", documentID) :
+                new ObjectParameter("documentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_Result>("MAILERDELIVERY_GETMAILER", documentIDParameter);
         }
     }
 }

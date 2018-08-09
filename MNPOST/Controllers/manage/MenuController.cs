@@ -12,8 +12,10 @@ namespace MNPOST.Controllers.manage
     {
         //
         // GET: /Menu/
-        public ActionResult Show(string search = "", string group = "all", string msg = "")
+        public ActionResult Show()
         {
+
+            /*
 
             ViewBag.GroupMenu = db.UMS_GroupMenu.OrderBy(p => p.Position).ToList();
 
@@ -28,31 +30,65 @@ namespace MNPOST.Controllers.manage
             }
 
             return View(db.UMS_Menu.Where(p => p.Name.Contains(search) && p.GroupMenuId == group).OrderBy(p => p.GroupMenuId).OrderBy(p => p.Position).ToList());
+            */
+
+            ViewBag.GroupMenu = db.UMS_GroupMenu.Where(p=> p.IsActive == 1).Select(p=> new { Id = p.Id, Name = p.Name, Position = p.Position, Icon = p.Icon}).OrderBy(p => p.Position).ToList();
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult GetMenus(string groupId)
+        {
+
+            var result = db.UMS_Menu.Where(p => p.GroupMenuId == groupId).OrderBy(p => p.Position).Select(p=> new { Id = p.Id, Name = p.Name, Position = p.Position, Code = p.Code , Link = p.Link, GroupMenuId = p.GroupMenuId}).ToList();
+
+            return Json(new { data = result }, JsonRequestBehavior.AllowGet);
 
         }
 
 
         [HttpPost]
-        public ActionResult AddMenu(string name, string code, string link, string group, int? position)
+        public ActionResult AddMenu(UMS_Menu menu)
         {
+            menu.Id = Guid.NewGuid().ToString();
 
-            if (String.IsNullOrEmpty(code))
-                return Redirect("/error");
+            var checkGroup = db.UMS_GroupMenu.Find(menu.GroupMenuId);
 
-            code = code.Trim();
-            var menu = new UMS_Menu()
-            {
-                Id = Guid.NewGuid().ToString(),
-                GroupMenuId = group,
-                Link = link,
-                Name = name,
-                Code = code,
-                Position = position
-            };
+            if(checkGroup == null)
+                return Json(new { error = 1, msg = "Sai thông tin" }, JsonRequestBehavior.AllowGet);
 
             db.UMS_Menu.Add(menu);
+            db.SaveChanges();
 
-            return RedirectToAction("show", "menu", new { msg = "Đã thêm menu" });
+            return Json(new {error = 0, data = new { Id = menu.Id, Name = menu.Name, Position = menu.Position, Code = menu.Code, Link = menu.Link, GroupMenuId = menu.GroupMenuId } }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult EditMenu(UMS_Menu menu)
+        {
+            var check = db.UMS_Menu.Find(menu.Id);
+
+            if (check == null)
+                return Json(new {error= 1, msg="Sai thông tin" }, JsonRequestBehavior.AllowGet);
+
+            var checkGroup = db.UMS_GroupMenu.Find(menu.GroupMenuId);
+
+            if (checkGroup == null)
+                return Json(new { error = 1, msg = "Sai thông tin" }, JsonRequestBehavior.AllowGet);
+
+            check.Code = menu.Code;
+            check.Name = menu.Name;
+            check.Link = menu.Link;
+            check.Position = menu.Position;
+            check.GroupMenuId = menu.GroupMenuId;
+
+            db.Entry(check).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(new { error = 0 }, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult Group()
@@ -60,6 +96,7 @@ namespace MNPOST.Controllers.manage
             return View(db.UMS_GroupMenu.ToList());
         }
 
+        /*
         [HttpPost]
         public ActionResult AddGroup(string name, string icon, int? position)
         {
@@ -94,7 +131,7 @@ namespace MNPOST.Controllers.manage
             return RedirectToAction("group", "menu");
         }
 
-
+    */
 
         //
         public ActionResult GrouUserMenu(string id = "")
