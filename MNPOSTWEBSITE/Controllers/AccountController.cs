@@ -425,8 +425,6 @@ namespace MNPOSTWEBSITE.Controllers
                     string resetCode = Guid.NewGuid().ToString();
                     SendVerificationLinkEmail(account.UserName, resetCode, "ResetPassword");
                     account.ResetPasswordCode = resetCode;
-                    //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
-                    //in our model class in part 1
                     dc.Configuration.ValidateOnSaveEnabled = false;
                     dc.SaveChanges();
                     message = "Reset password link has been sent to your email id.";
@@ -447,14 +445,14 @@ namespace MNPOSTWEBSITE.Controllers
 
             var fromEmail = new MailAddress("hoanganh27897@gmail.com", "MNPOST");
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "pokemonblackwhite2"; // Replace with actual password
+            var fromEmailPassword = "pokemonblackwhite2";
 
             string subject = "";
             string body = "";
             if (emailFor == "ResetPassword")
             {
                 subject = "Reset Mật khẩu";
-                body = "Xin chào,<br/>br/>Chúng tôi nhận được yêu cầu reset lại mật khẩu của bạn. Xin hãy click vào đường link dưới đây để thay đổi mật khẩu mới" +
+                body = "Xin chào,<br/><br/>Chúng tôi nhận được yêu cầu reset lại mật khẩu của bạn. Xin hãy click vào đường link dưới đây để thay đổi mật khẩu mới" +
                     "<br/><br/><a href=" + link + ">Link Reset Mật khẩu</a>";
             }
             var smtp = new SmtpClient
@@ -503,6 +501,7 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ResetPassword(ResetPasswordModel model)
         {
@@ -514,7 +513,7 @@ namespace MNPOSTWEBSITE.Controllers
                     var user = dc.AspNetUsers.Where(s => s.ResetPasswordCode == model.ResetCode).FirstOrDefault();
                     if (user != null)
                     {
-                        user.PasswordHash = Crypto.Hash(model.NewPassword);
+                        user.PasswordHash = Crypto.Hash(model.NewPassword);  
                         user.ResetPasswordCode = "";
                         dc.Configuration.ValidateOnSaveEnabled = false;
                         dc.SaveChanges();
@@ -527,7 +526,7 @@ namespace MNPOSTWEBSITE.Controllers
                 message = "Something invalid";
             }
             ViewBag.Message = message;
-            return View(model);
+            return RedirectToAction("Login","Account");
         }
 
         //
