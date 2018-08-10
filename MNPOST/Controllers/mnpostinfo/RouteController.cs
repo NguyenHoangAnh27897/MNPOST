@@ -14,6 +14,7 @@ namespace MNPOST.Controllers.mnpostinfo
         {
             ViewBag.AllProvince = db.BS_Provinces.ToList();
             ViewBag.AllDistrict = db.BS_Districts.ToList();
+            ViewBag.AllWard = db.BS_Wards.ToList();
             return View();
         }
 
