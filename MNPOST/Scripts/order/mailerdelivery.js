@@ -151,6 +151,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     // xu ly chi tiet
     $scope.currentDocument = {};
     $scope.mailers = [];
+    $scope.mailerId = '';
     $scope.showDocumentDetail = function (idx) {
         $scope.mailers = [];
         $scope.showEdit = true;
@@ -164,5 +165,24 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
                 $scope.mailers = anglar.copy(response.data);
             }
         );
+    };
+
+    $scope.addMailer = function (valid) {
+        if ($scope.currentDocument.DocumentID === '') {
+            alert("Không thể thêm");
+        } else {
+            $http({
+                method: "POST",
+                url: "/mailerdelivery/AddMailer",
+                data: {
+                    documentId: $scope.currentDocument.DocumentID,
+                    mailerId: $scope.mailerId
+                }
+            }).then(function sucess(response) {
+                    
+                }, function error() {
+
+                });
+        }
     };
 });

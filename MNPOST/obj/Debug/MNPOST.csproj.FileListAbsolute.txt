@@ -280,7 +280,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.Deployment.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.WebPages.Razor.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\WebGrease.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.SqlServer.Types.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.xml
@@ -308,7 +307,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.OAuth.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Google.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Twitter.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\Microsoft.ReportViewer.Common.dll
@@ -318,3 +316,6 @@ D:\Laptrinh\Github\MNPOST\MNPOST\bin\ReportViewerForMvc.dll
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\PagedList.xml
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\PagedList.Mvc.xml
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll.config
+D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csproj.CoreCompileInputs.cache
+D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csproj.CopyComplete
