@@ -245,13 +245,13 @@
     <Property Name="ReasonName" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
-  <EntityType Name="BS_RouteDistricts">
+  <EntityType Name="BS_RouteDetails">
     <Key>
       <PropertyRef Name="RouteID" />
-      <PropertyRef Name="DistrictID" />
+      <PropertyRef Name="WardID" />
     </Key>
     <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="DistrictID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="WardID" Type="nvarchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="BS_Routes">
     <Key>
@@ -259,8 +259,13 @@
     </Key>
     <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="Type" Type="nvarchar" MaxLength="1" />
+    <Property Name="ProvinceID" Type="nvarchar" MaxLength="10" />
+    <Property Name="DistrictID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Filter" Type="nvarchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="BS_Services">
     <Key>
@@ -682,6 +687,9 @@
   </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ROUTE_GETDETAIL_BYROUTEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="routeId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
     <Parameter Name="menuCode" Type="nvarchar" Mode="In" />
@@ -712,7 +720,7 @@
     <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_ReturnReasons" EntityType="Self.BS_ReturnReasons" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_RouteDetails" EntityType="Self.BS_RouteDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Services" EntityType="Self.BS_Services" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" Schema="dbo" store:Type="Tables" />

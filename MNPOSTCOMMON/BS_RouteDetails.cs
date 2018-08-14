@@ -12,9 +12,9 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class BS_RouteDistricts
+    public partial class BS_RouteDetails
     {
         public string RouteID { get; set; }
-        public string DistrictID { get; set; }
+        public string WardID { get; set; }
     }
 }
