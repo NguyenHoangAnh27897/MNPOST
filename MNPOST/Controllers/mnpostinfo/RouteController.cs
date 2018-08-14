@@ -44,6 +44,37 @@ namespace MNPOST.Controllers.mnpostinfo
         }
 
         [HttpPost]
+        public ActionResult AddRouteDetail(string RouteID, string WardID)
+        {
+            var check = db.BS_RouteDetails.Where(p => p.RouteID == RouteID && p.WardID == WardID).FirstOrDefault();
+            if (check != null)
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Da tao"
+                }, JsonRequestBehavior.AllowGet);
+
+
+            // check ward da co nhan vien nao dung
+
+            var dataIns = new BS_RouteDetails()
+            {
+                RouteID = RouteID,
+                WardID = WardID
+            };
+
+            db.BS_RouteDetails.Add(dataIns);
+            db.SaveChanges();
+
+
+            return Json(new ResultInfo() {
+                error = 0,
+                msg = "",
+                data = db.ROUTE_GETDETAIL_BYROUTEID(RouteID).ToList()
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult create(BS_Routes route)
         {
 

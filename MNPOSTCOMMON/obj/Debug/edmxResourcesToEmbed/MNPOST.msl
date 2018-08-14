@@ -238,24 +238,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="BS_RouteDistricts">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDistricts">
-        <MappingFragment StoreEntitySet="BS_RouteDistricts">
-          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_Routes">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
-        <MappingFragment StoreEntitySet="BS_Routes">
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="BS_Services">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Services">
         <MappingFragment StoreEntitySet="BS_Services">
@@ -833,6 +815,40 @@
           <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
           <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
           <ScalarProperty Name="COD" ColumnName="COD" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="BS_RouteDetails">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDetails">
+        <MappingFragment StoreEntitySet="BS_RouteDetails">
+          <ScalarProperty Name="WardID" ColumnName="WardID" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Routes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+        <MappingFragment StoreEntitySet="BS_Routes">
+          <ScalarProperty Name="Filter" ColumnName="Filter" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result">
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="WardID" ColumnName="WardID" />
+          <ScalarProperty Name="WardName" ColumnName="WardName" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

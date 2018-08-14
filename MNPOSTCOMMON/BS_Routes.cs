@@ -16,7 +16,12 @@ namespace MNPOSTCOMMON
     {
         public string RouteID { get; set; }
         public string RouteName { get; set; }
+        public string PostOfficeID { get; set; }
+        public string EmployeeID { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string Type { get; set; }
+        public string ProvinceID { get; set; }
+        public string DistrictID { get; set; }
+        public string Filter { get; set; }
     }
 }

@@ -250,13 +250,13 @@
           <Property Name="ReasonName" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <EntityType Name="BS_RouteDistricts">
+        <EntityType Name="BS_RouteDetails">
           <Key>
             <PropertyRef Name="RouteID" />
-            <PropertyRef Name="DistrictID" />
+            <PropertyRef Name="WardID" />
           </Key>
           <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="DistrictID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="WardID" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="BS_Routes">
           <Key>
@@ -264,8 +264,13 @@
           </Key>
           <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Type" Type="nvarchar" MaxLength="1" />
+          <Property Name="ProvinceID" Type="nvarchar" MaxLength="10" />
+          <Property Name="DistrictID" Type="nvarchar" MaxLength="10" />
+          <Property Name="Filter" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="BS_Services">
           <Key>
@@ -687,6 +692,9 @@
         </Function>
         <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ROUTE_GETDETAIL_BYROUTEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="routeId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="nvarchar" Mode="In" />
           <Parameter Name="menuCode" Type="nvarchar" Mode="In" />
@@ -717,7 +725,7 @@
           <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_ReturnReasons" EntityType="Self.BS_ReturnReasons" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_RouteDetails" EntityType="Self.BS_RouteDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Services" EntityType="Self.BS_Services" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" Schema="dbo" store:Type="Tables" />
@@ -1005,23 +1013,6 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="ZoneID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="BS_RouteDistricts">
-          <Key>
-            <PropertyRef Name="RouteID" />
-            <PropertyRef Name="DistrictID" />
-          </Key>
-          <Property Name="RouteID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="BS_Routes">
-          <Key>
-            <PropertyRef Name="RouteID" />
-          </Key>
-          <Property Name="RouteID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BS_Services">
           <Key>
@@ -1342,8 +1333,6 @@
           <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" />
           <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" />
-          <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" />
-          <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" />
           <EntitySet Name="BS_Services" EntityType="Self.BS_Services" />
           <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" />
           <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" />
@@ -1417,7 +1406,12 @@
             <End Role="MM_MailerDelivery" EntitySet="MM_MailerDelivery" />
           </AssociationSet>
           <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
-            <Parameter Name="documentID" Mode="In" Type="String" />
+          <Parameter Name="documentID" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="BS_RouteDetails" EntityType="MNPOSTModel.BS_RouteDetails" />
+          <EntitySet Name="BS_Routes" EntityType="MNPOSTModel.BS_Routes" />
+          <FunctionImport Name="ROUTE_GETDETAIL_BYROUTEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result)">
+            <Parameter Name="routeId" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
@@ -1677,6 +1671,35 @@
           <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
         </ComplexType>
+        <EntityType Name="BS_RouteDetails">
+          <Key>
+            <PropertyRef Name="RouteID" />
+            <PropertyRef Name="WardID" />
+          </Key>
+          <Property Name="RouteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="WardID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_Routes">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Filter" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="ROUTE_GETDETAIL_BYROUTEID_Result">
+          <Property Type="String" Name="RouteID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="WardID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="WardName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DistrictID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="DistrictName" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1917,24 +1940,6 @@
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BS_RouteDistricts">
-            <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDistricts">
-              <MappingFragment StoreEntitySet="BS_RouteDistricts">
-                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BS_Routes">
-            <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
-              <MappingFragment StoreEntitySet="BS_Routes">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-                <ScalarProperty Name="RouteName" ColumnName="RouteName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2515,6 +2520,40 @@
                 <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
                 <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="BS_RouteDetails">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDetails">
+              <MappingFragment StoreEntitySet="BS_RouteDetails">
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_Routes">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+              <MappingFragment StoreEntitySet="BS_Routes">
+                <ScalarProperty Name="Filter" ColumnName="Filter" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result">
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="WardName" ColumnName="WardName" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

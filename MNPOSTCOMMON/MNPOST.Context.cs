@@ -43,8 +43,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<BS_PostOffices> BS_PostOffices { get; set; }
         public virtual DbSet<BS_PriceZones> BS_PriceZones { get; set; }
         public virtual DbSet<BS_Provinces> BS_Provinces { get; set; }
-        public virtual DbSet<BS_RouteDistricts> BS_RouteDistricts { get; set; }
-        public virtual DbSet<BS_Routes> BS_Routes { get; set; }
         public virtual DbSet<BS_Services> BS_Services { get; set; }
         public virtual DbSet<BS_ServiceTypes> BS_ServiceTypes { get; set; }
         public virtual DbSet<BS_Wards> BS_Wards { get; set; }
@@ -68,6 +66,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
+        public virtual DbSet<BS_RouteDetails> BS_RouteDetails { get; set; }
+        public virtual DbSet<BS_Routes> BS_Routes { get; set; }
     
         public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {
@@ -176,6 +176,15 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("documentID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_Result>("MAILERDELIVERY_GETMAILER", documentIDParameter);
+        }
+    
+        public virtual ObjectResult<ROUTE_GETDETAIL_BYROUTEID_Result> ROUTE_GETDETAIL_BYROUTEID(string routeId)
+        {
+            var routeIdParameter = routeId != null ?
+                new ObjectParameter("routeId", routeId) :
+                new ObjectParameter("routeId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GETDETAIL_BYROUTEID_Result>("ROUTE_GETDETAIL_BYROUTEID", routeIdParameter);
         }
     }
 }

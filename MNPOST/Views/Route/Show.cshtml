@@ -96,18 +96,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Tỉnh thành</label>
-                                        <select class="form-control" ng-model="RouteInfo.Province" required>
+                                        <select class="form-control" ng-model="RouteInfo.Province" required ng-change="provinceChange('district')">
                                             <option ng-repeat="x in allProvince" value="{{x.ProvinceID}}">{{x.ProvinceName | uppercase}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Phường/xã</label>
-                                        <select class="form-control" ng-model="RouteInfo.Ward" required aria-describedby="basic-addon2">
-                                            <option ng-repeat="x in allWard" value="{{x.WardID}}">{{x.WardName | uppercase}}</option>
-                                        </select>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-danger" type="button">*</button>
-                                        </span>
+                                       <div class="input-group">
+                                           <select class="form-control" ng-model="RouteInfo.Ward" required aria-describedby="basic-addon2">
+                                               <option ng-repeat="x in allWard" value="{{x.code}}">{{x.name | uppercase}}</option>
+                                           </select>
+                                           <span class="input-group-btn">
+                                               <button class="btn btn-danger" type="button" ng-click="addDetail()">*</button>
+                                           </span>
+                                       </div>
                                     </div>                                 
                                 </div> 
                                 <div class="col-sm-6">
@@ -121,10 +123,17 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Quận/huyện</label>
-                                        <select class="form-control" ng-model="RouteInfo.District" required>
-                                            <option ng-repeat="x in allDistrict" value="{{x.DistrictID}}">{{x.DistrictName | uppercase}}</option>
+                                        <select class="form-control" ng-model="RouteInfo.District" required ng-change="provinceChange('ward')">
+                                            <option ng-repeat="x in allDistrict" value="{{x.code}}">{{x.name | uppercase}}</option>
                                         </select>
-                                    </div>                                  
+                                    </div>   
+                                    <div class="form-group">
+                                        <label>Lọc</label>
+                                        <select class="form-control" ng-model="RouteInfo.Filter" required>
+                                            <option value="Root">Toàn quận</option>
+                                            <option value="Detail">Theo phường</option>
+                                        </select>
+                                    </div>
                                 </div> 
                                 </div>
                             <div class="col-sm-12">
@@ -144,9 +153,9 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr ng-repeat="item in allDistrictList">
+                                                <tr ng-repeat="item in allRouteDetail">
                                                     <td>{{$index + 1}}</td>
-                                                    <td>{{item.DisitrctID}}</td>
+                                                    <td>{{item.DistrictID}}</td>
                                                     <td>{{item.DistrictName}}</td>
                                                     <td>{{item.WardID}}</td>
                                                     <td>{{item.WardName}}</td>
@@ -195,8 +204,9 @@
 
 
             $scope.allProvince = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllProvince))');
-            $scope.allDistrict = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllDistrict))');
-            $scope.allWard = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.AllWard))');
+            $scope.allDistrict = [];
+            $scope.allWard = [];
+
             //console.log($scope.allWard);
             // phan trang
             $scope.numPages;
@@ -210,6 +220,10 @@
 
 
             // lay du lieu
+            $scope.allRouteDetail = [];
+            /*
+           
+            */
             $scope.allRoute = [];
             $scope.GetData = function (page, search) {
                 showLoader(true);
@@ -244,7 +258,7 @@
 
             $scope.addNew = function () {
 
-                $scope.RouteInfo = { "RouteID": "", "RouteName": "", "Type": "","IsActive":"" };
+                $scope.RouteInfo = { "RouteID": "", "RouteName": "", "Type": "", "IsActive": "" };
 
                 $scope.modaltitle = "Thêm tuyến";
                 $scope.RouteIDDisable = false;
@@ -289,7 +303,64 @@
                     showNotify('our form is missing');
                 }
             }
+            //
+            $scope.provinceChange = function (pType) {
 
+                var url = '/mailerinit/GetProvinces?';
+
+                if (pType === "district") {
+                    url = url + "parentId=" + $scope.RouteInfo.Province + "&type=district";
+                }
+
+                if (pType === "ward") {
+                    url = url + "parentId=" + $scope.RouteInfo.District + "&type=ward";
+                }
+
+                $http.get(url).then(function (response) {
+
+                    if (pType === "district") {
+                        $scope.allDistrict = angular.copy(response.data);
+                    }
+
+                    if (pType === "ward") {
+                        $scope.allWard = angular.copy(response.data);
+                    }
+
+                });
+
+            }
+
+            // them chi tiet
+            $scope.addDetail = function () {
+
+                var routeID = $scope.RouteInfo.RouteID;
+
+                var wardID = $scope.RouteInfo.Ward;
+                showLoader(true);
+                $http({
+                    method: "POST",
+                    url: "/route/addroutedetail",
+                    data: {
+                        "RouteID": routeID,
+                        "WardID": wardID
+                    }
+                }).then(
+                    function sucess(response) {
+                        showLoader(false);
+                        var result = response.data;
+                        if (result.error == 0) {
+                            $scope.allRouteDetail = angular.copy(result.data);
+                        } else {
+                            alert(result.msg);
+                        }
+                    },
+                    function error(response) {
+                        showLoader(false);
+                        alert("disconnect internet");
+                    }
+               );
+
+            }
 
             // them tinh
             $scope.sendCreate = function () {
