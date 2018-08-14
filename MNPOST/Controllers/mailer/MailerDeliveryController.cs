@@ -99,9 +99,59 @@ namespace MNPOST.Controllers.mailer
             return Json(new { employees = data, licensePlates = licensePlates }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult AddMailer(string mailerId, string documentId)
+        {
+            var mailer = db.MM_Mailers.Find(mailerId);
+            if (mailer == null)
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+
+            var delivery = db.MM_MailerDelivery.Find(documentId);
+
+            if (delivery == null)
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                var insData = new MM_MailerDeliveryDetail()
+                {
+                    DocumentID = documentId,
+                    MailerID = mailerId,
+                    CreationDate = DateTime.Now
+                };
+
+                db.MM_MailerDeliveryDetail.Add(insData);
+
+                db.SaveChanges();
+
+                return Json(new ResultInfo()
+                {
+                    error = 0,
+                    msg = ""
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         [HttpPost]
-        public ActionResult create(string employeeId, string deliveryDate, string licensePlate, string notes, string postId)
+        public ActionResult Create(string employeeId, string deliveryDate, string licensePlate, string notes, string postId)
         {
 
             if (!CheckPostOffice(postId))
@@ -166,6 +216,9 @@ namespace MNPOST.Controllers.mailer
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        /*
         [HttpPost]
         public ActionResult edit(MM_MailerDelivery mailer)
         {
@@ -190,7 +243,8 @@ namespace MNPOST.Controllers.mailer
 
             return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
 
-        }
+        }*/
+        /*
         [HttpPost]
         public ActionResult delete(string DocumentID)
         {
@@ -209,6 +263,6 @@ namespace MNPOST.Controllers.mailer
 
 
             return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
-        }
+        }*/
     }
 }

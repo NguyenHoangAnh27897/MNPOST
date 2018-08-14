@@ -11,9 +11,9 @@
                 <h2>QUẢN LÝ SỔ PHÁT {{postHandle}}</h2>
                 <div class="nav navbar-right">
                     <button type="button" class="btn btn-primary" ng-click="createDelivery()" ng-hide="showEdit">Tạo bảng kê</button>
-                    <button type="button" class="btn btn-warning"  ng-hide="showEdit">Tạo từ chia tuyến</button>
+                    <button type="button" class="btn btn-warning" ng-hide="showEdit">Tạo từ chia tuyến</button>
                     <button type="button" class="btn btn-primary" ng-click="createDelivery()" ng-show="showEdit">Cập nhật bảng kê</button>
-                    <button type="button" class="btn btn-warning"  ng-show="showEdit">Đổ danh từ chia tuyến</button>
+                    <button type="button" class="btn btn-warning" ng-show="showEdit">Đổ danh từ chia tuyến</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -112,8 +112,8 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                         <label>Mã bảng kê</label>
-                                         <input type="text" class="form-control" disabled value="{{currentDocument.DocumentCode}}" />
+                                        <label>Mã bảng kê</label>
+                                        <input type="text" class="form-control" disabled value="{{currentDocument.DocumentCode}}" />
                                     </div>
                                     <div class="form-group">
                                         <label>Nhân viên</label>
@@ -132,6 +132,47 @@
                                     <div class="form-group">
                                         <label>Chuyến xe</label>
                                         <input type="text" class="form-control" disabled value="{{currentDocument.NumberPlate}}" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12">
+                                    <hr />
+                                   <form ng-submit="addMailer(addMailer.$valid)" name="addMailer">
+                                       <div class="row">
+                                           <div class="col-sm-4">
+                                               <input type="text" class="form-control" ng-model="mailerId" required/>
+                                           </div>
+                                           <div class="col-sm-2">
+                                               <button class="btn btn-primary" type="submit">Thêm</button>
+                                           </div>
+                                       </div>
+                                   </form>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped jambo_table bulk_action">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th>STT</th>
+                                                    <th>Vận đơn</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Dịch vụ</th>
+                                                    <th>Nơi đến</th>
+                                                    <th>Thụ hộ</th>
+                                                    <th>Ghi chú</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in mailers">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{item.MailerID}}</td>
+                                                    <td>{{item.Weight}}</td>
+                                                    <td>{{item.MailerTypeID}}</td>
+                                                    <td>{{item.ReceiverAddress}}</td>
+                                                    <td>{{item.COD}}</td>
+                                                    <td>{{item.Notes}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -165,46 +206,45 @@
         </div>
     </div>
     <!-- end chon buu cuc-->
-
     <!-- tao bang ke-->
     <div id="createDelivery" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
-              <form name="createDeliveryForm" ng-submit="finishCreateDelivery(createDeliveryForm.$valid)">
-                  <div class="modal-body">
-                      <div class="row">
-                          <div class="col-sm-6">
-                              <div class="form-group">
-                                  <label>Nhân viên phát</label>
-                                  <select class="form-control selectpicker" data-live-search="true" required id="chooseEmployeeSelect">
-                                      <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
-                                  </select>
-                              </div>
-                              <div class="form-group">
-                                  <label>Xe vận chuyển</label>
-                                  <select class="form-control selectpicker" data-live-search="true" required id="licenseplateChoose" >
-                                      <option ng-repeat="x in licensePlates" value="{{x.code}}">{{x.code}}</option>
-                                  </select>
-                              </div>
-                              <div class="form-group">
-                                  <label>Ghi chú</label>
-                                  <textarea rows="3" required class="form-control" id="deliveryNotes"></textarea>
-                              </div>
-                          </div>
-                          <div class="col-sm-6">
-                              <div class="form-group">
-                                  <label>Thời gian phát</label>
-                                  <input type="text" id="deliveryDate" required class="form-control" data-inputmask="'mask': '99/99/9999'" value="@ViewBag.FromDate">
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-default" >Hoàn thành</button>
-                  </div>
-              </form>
+                <form name="createDeliveryForm" ng-submit="finishCreateDelivery(createDeliveryForm.$valid)">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Nhân viên phát</label>
+                                    <select class="form-control selectpicker" data-live-search="true" required id="chooseEmployeeSelect">
+                                        <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Xe vận chuyển</label>
+                                    <select class="form-control selectpicker" data-live-search="true" required id="licenseplateChoose">
+                                        <option ng-repeat="x in licensePlates" value="{{x.code}}">{{x.code}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ghi chú</label>
+                                    <textarea rows="3" required class="form-control" id="deliveryNotes"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Thời gian phát</label>
+                                    <input type="text" id="deliveryDate" required class="form-control" data-inputmask="'mask': '99/99/9999'" value="@ViewBag.FromDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Hoàn thành</button>
+                    </div>
+                </form>
             </div>
 
         </div>
@@ -229,7 +269,7 @@
 
         showModelFix('choosePostOfficeModal');
 
-    </script> 
+    </script>
     <script src="~/Scripts/order/mailerdelivery.js"></script>
 }
 
