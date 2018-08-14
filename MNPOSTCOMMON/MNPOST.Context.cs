@@ -186,5 +186,14 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GETDETAIL_BYROUTEID_Result>("ROUTE_GETDETAIL_BYROUTEID", routeIdParameter);
         }
+    
+        public virtual ObjectResult<ROUTE_GET_ALLEMPLOYEE_ROUTE_Result> ROUTE_GET_ALLEMPLOYEE_ROUTE(string postId)
+        {
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GET_ALLEMPLOYEE_ROUTE_Result>("ROUTE_GET_ALLEMPLOYEE_ROUTE", postIdParameter);
+        }
     }
 }

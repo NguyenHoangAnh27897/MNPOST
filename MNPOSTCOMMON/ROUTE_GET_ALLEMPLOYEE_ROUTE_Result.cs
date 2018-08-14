@@ -10,15 +10,13 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class BS_Routes
+    public partial class ROUTE_GET_ALLEMPLOYEE_ROUTE_Result
     {
-        public string RouteID { get; set; }
         public string EmployeeID { get; set; }
-        public string Type { get; set; }
-        public string ProvinceID { get; set; }
-        public string DistrictID { get; set; }
-        public Nullable<bool> IsDetail { get; set; }
+        public string EmployeeName { get; set; }
+        public string PostOfficeID { get; set; }
+        public Nullable<int> DistrictDelivery { get; set; }
+        public Nullable<int> DistrictReceive { get; set; }
     }
 }

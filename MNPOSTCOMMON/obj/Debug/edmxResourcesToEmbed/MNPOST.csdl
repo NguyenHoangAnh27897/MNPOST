@@ -635,6 +635,9 @@
     <FunctionImport Name="ROUTE_GETDETAIL_BYROUTEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result)">
       <Parameter Name="routeId" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" ReturnType="Collection(MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result)">
+      <Parameter Name="postId" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="COUNTRY_GETALL_Result">
     <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -905,15 +908,12 @@
     <Key>
       <PropertyRef Name="RouteID" />
     </Key>
-    <Property Name="RouteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="RouteID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
     <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
     <Property Name="ProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="DistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-    <Property Name="Filter" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsDetail" Type="Boolean" />
   </EntityType>
   <ComplexType Name="ROUTE_GETDETAIL_BYROUTEID_Result">
     <Property Type="String" Name="RouteID" Nullable="false" MaxLength="10" />
@@ -921,5 +921,12 @@
     <Property Type="String" Name="WardName" Nullable="false" MaxLength="50" />
     <Property Type="String" Name="DistrictID" Nullable="false" MaxLength="15" />
     <Property Type="String" Name="DistrictName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ROUTE_GET_ALLEMPLOYEE_ROUTE_Result">
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" />
+    <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="DistrictDelivery" Nullable="true" />
+    <Property Type="Int32" Name="DistrictReceive" Nullable="true" />
   </ComplexType>
 </Schema>

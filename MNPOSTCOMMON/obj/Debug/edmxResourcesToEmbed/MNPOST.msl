@@ -829,14 +829,11 @@
     <EntitySetMapping Name="BS_Routes">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
         <MappingFragment StoreEntitySet="BS_Routes">
-          <ScalarProperty Name="Filter" ColumnName="Filter" />
+          <ScalarProperty Name="IsDetail" ColumnName="IsDetail" />
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
           <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="RouteName" ColumnName="RouteName" />
           <ScalarProperty Name="RouteID" ColumnName="RouteID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -849,6 +846,17 @@
           <ScalarProperty Name="WardName" ColumnName="WardName" />
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
           <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="DistrictDelivery" ColumnName="DistrictDelivery" />
+          <ScalarProperty Name="DistrictReceive" ColumnName="DistrictReceive" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

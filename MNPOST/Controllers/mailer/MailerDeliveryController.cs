@@ -19,9 +19,6 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
-
-
-
         [HttpPost]
         public ActionResult GetMailerDelivery(int? page, string search, string fromDate, string toDate, string optionSeach, string postId)
         {
@@ -215,54 +212,6 @@ namespace MNPOST.Controllers.mailer
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
-
-        /*
-        [HttpPost]
-        public ActionResult edit(MM_MailerDelivery mailer)
-        {
-            if (String.IsNullOrEmpty(mailer.DocumentID))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
-            var check = db.MM_MailerDelivery.Find(mailer.DocumentID);
-
-            if (check == null)
-                return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
-
-            check.DocumentDate = mailer.DocumentDate;
-            check.EmployeeID = mailer.EmployeeID;
-            check.Notes = mailer.Notes;
-            check.Quantity = mailer.Quantity;
-            check.LastEditDate = mailer.LastEditDate;
-            check.StatusID = mailer.StatusID;
-
-            db.Entry(check).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-
-            return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
-
-        }*/
-        /*
-        [HttpPost]
-        public ActionResult delete(string DocumentID)
-        {
-            if (String.IsNullOrEmpty(DocumentID))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
-            var check = db.MM_MailerDelivery.Find(DocumentID);
-
-            if (check == null)
-                return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
-            var detail = db.MM_MailerDeliveryDetail.Find(DocumentID);
-
-            db.Entry(check).State = System.Data.Entity.EntityState.Deleted;
-            db.Entry(detail).State = System.Data.Entity.EntityState.Deleted;
-            db.SaveChanges();
-
-
-            return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
-        }*/
+   
     }
 }

@@ -257,15 +257,12 @@
     <Key>
       <PropertyRef Name="RouteID" />
     </Key>
-    <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="RouteName" Type="nvarchar" MaxLength="50" />
-    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
+    <Property Name="RouteID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="IsActive" Type="bit" />
     <Property Name="Type" Type="nvarchar" MaxLength="1" />
     <Property Name="ProvinceID" Type="nvarchar" MaxLength="10" />
     <Property Name="DistrictID" Type="nvarchar" MaxLength="10" />
-    <Property Name="Filter" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsDetail" Type="bit" />
   </EntityType>
   <EntityType Name="BS_Services">
     <Key>
@@ -687,6 +684,9 @@
   </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="ROUTE_GETDETAIL_BYROUTEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="routeId" Type="nvarchar" Mode="In" />
   </Function>
