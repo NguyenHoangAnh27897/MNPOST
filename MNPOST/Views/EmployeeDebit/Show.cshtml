@@ -28,7 +28,7 @@
                         <div role="tabpanel" class="tab-pane active in" id="tab_danhmuc" aria-labelledby="home-tab">
                             <!-- begin tab-->
                             <div class="row">
-                                <form name="formSearch" >
+                                <form name="formSearch">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Thời gian</label>
@@ -64,8 +64,6 @@
                                                     <th>Tổng tiền</th>
                                                     <th>Bưu cục</th>
                                                     <th>#</th>
-                                                    <th>#</th>
-                                                    <th>#</th>
                                                 </tr>
                                             </thead>
 
@@ -81,8 +79,6 @@
                                                     <td>{{item.TotalMoney}}</td>
                                                     <td>{{item.PostOfficeID}}</td>
                                                     <td><a href="#" ng-click="edit($index)">Chi tiết</a></td>
-                                                    <td><a href="#" ng-click="sendDelete($index)">Xóa</a></td>
-                                                    <td><a href="#" ng-click="sendDelete($index)">In</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -106,7 +102,7 @@
                                     <div class="form-group">
                                         <label>Ngày lập bảng</label>
                                         <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentDate" />
-                                    </div>                                  
+                                    </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -126,9 +122,9 @@
                                     <div class="form-group">
                                         <label>Người nộp</label>
                                         <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.EmployeeID" />
-                                    </div>                                   
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">                                   
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Số đơn hàng</label>
                                         <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.MailerAccount" />
@@ -167,7 +163,7 @@
                                                     <td>{{$index + 1}}</td>
                                                     <td>{{item.MailerID}}</td>
                                                     <td>{{item.COD}}</td>
-                                                    <td>{{item.ReciveCOD}}</td>
+                                                    <td><input type="number" width="20" class="form-control" ng-model="item.ReciveCOD" ng-change="totalMoney()"/> </td>
 
                                                 </tr>
                                             </tbody>
@@ -185,7 +181,7 @@
 
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 
@@ -225,7 +221,7 @@
                 showLoader(true);
                 $http({
                     method: "GET",
-                    url: "/CODReturn/GetCODReturn?page=" + page + "&search=" + search + "&fromDate=" + fromDate + "&toDate=" + toDate
+                    url: "/EmployeeDebit/getEmployeeDebit?page=" + page + "&search=" + search + "&fromDate=" + fromDate + "&toDate=" + toDate
                 }).then(function mySuccess(response) {
                     showLoader(false);
 
@@ -259,7 +255,7 @@
                 showLoader(true);
                 $http({
                     method: "GET",
-                    url: "/CODReturn/getCODDetail?DocumentID=" + $scope.CODInfo.DocumentID
+                    url: "/EmployeeDebit/getDebitdetail?DocumentID=" + $scope.CODInfo.DocumentID
                 }).then(function mySuccess(response) {
                     showLoader(false);
                     console.log(response.data);
@@ -280,9 +276,19 @@
                 $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
             };
 
+
+            //
+            $scope.totalMoney = function () {
+                var total = 0;
+                for (var i = 0; i < $scope.mailers.length; i++) {
+                    total += $scope.mailers[i].ReciveCOD;
+                }
+                $scope.CODInfo.TotalMoney = total;
+            };
+
         });
 
-       
+
 
     </script>
 

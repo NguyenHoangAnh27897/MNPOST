@@ -12,7 +12,7 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class MM_RecieveMoney
+    public partial class MM_EmployeeDebitVoucher
     {
         public string DocumentID { get; set; }
         public string DocumentNumber { get; set; }

@@ -154,6 +154,12 @@
     <Compile Include="MM_CustomerMoneyAdvances.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MM_EmployeeDebitVoucher.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_EmployeeDebitVoucherDetails.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_EmployeeMoneyAdvances.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -176,12 +182,6 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_PackingListDetail.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MM_RecieveMoney.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MM_RecieveMoneyDetails.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_TroubleTickets.cs">

@@ -12,11 +12,12 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class MM_RecieveMoneyDetails
+    public partial class MM_EmployeeDebitVoucherDetails
     {
         public string DocumentID { get; set; }
         public string MailerID { get; set; }
-        public Nullable<decimal> COD { get; set; }
+        public Nullable<decimal> ReciveCOD { get; set; }
         public Nullable<System.DateTime> LastUpDate { get; set; }
+        public Nullable<decimal> COD { get; set; }
     }
 }
