@@ -14,5 +14,10 @@ namespace MNPOSTWEBSITE.Controllers
         {
             return View();
         }
-	}
+
+        public ActionResult NormalTransportation()
+        {
+            return View();
+        }
+    }
 }

@@ -503,7 +503,7 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ResetPasswordModel model)
+        public async Task<ActionResult> ResetPassword(ResetPasswordModel model)
         {
             var message = "";
             if (ModelState.IsValid)
@@ -513,10 +513,12 @@ namespace MNPOSTWEBSITE.Controllers
                     var user = dc.AspNetUsers.Where(s => s.ResetPasswordCode == model.ResetCode).FirstOrDefault();
                     if (user != null)
                     {
-                        user.PasswordHash = Crypto.Hash(model.NewPassword);  
+                        user.PasswordHash = null;
+                        //user.PasswordHash = Crypto.Hash(model.NewPassword);  
                         user.ResetPasswordCode = "";
                         dc.Configuration.ValidateOnSaveEnabled = false;
                         dc.SaveChanges();
+                        var rs = await UserManager.AddPasswordAsync(user.Id, model.NewPassword);
                         message = "New password updated successfully";
                     }
                 }

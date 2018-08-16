@@ -238,6 +238,12 @@
     <Content Include="Content\img\list\4.png" />
     <Content Include="Content\img\list\5.png" />
     <Content Include="Content\img\list\6.png" />
+    <Content Include="Content\img\list\ct.jpg" />
+    <Content Include="Content\img\list\dn.jpg" />
+    <Content Include="Content\img\list\hcm.jpg" />
+    <Content Include="Content\img\list\hn.jpg" />
+    <Content Include="Content\img\list\ht.jpg" />
+    <Content Include="Content\img\list\hue.jpg" />
     <Content Include="Content\img\slider\2.jpg" />
     <Content Include="Content\img\user.jpg" />
     <Content Include="Content\jqBootstrapValidation.js" />
@@ -661,6 +667,7 @@
     <Content Include="Views\Order\List.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Transport\NormalTransportation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
