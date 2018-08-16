@@ -15,8 +15,10 @@ namespace MNPOSTCOMMON
     public partial class BS_Routes
     {
         public string RouteID { get; set; }
-        public string RouteName { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public string EmployeeID { get; set; }
         public string Type { get; set; }
+        public string ProvinceID { get; set; }
+        public string DistrictID { get; set; }
+        public Nullable<bool> IsDetail { get; set; }
     }
 }

@@ -236,23 +236,6 @@
     <Property Name="CreationDate" Type="DateTime" Precision="3" />
     <Property Name="ZoneID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="BS_RouteDistricts">
-    <Key>
-      <PropertyRef Name="RouteID" />
-      <PropertyRef Name="DistrictID" />
-    </Key>
-    <Property Name="RouteID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="DistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-  </EntityType>
-  <EntityType Name="BS_Routes">
-    <Key>
-      <PropertyRef Name="RouteID" />
-    </Key>
-    <Property Name="RouteID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="RouteName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="IsActive" Type="Boolean" />
-    <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-  </EntityType>
   <EntityType Name="BS_Services">
     <Key>
       <PropertyRef Name="ServiceID" />
@@ -572,8 +555,6 @@
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" />
     <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" />
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" />
-    <EntitySet Name="BS_RouteDistricts" EntityType="Self.BS_RouteDistricts" />
-    <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" />
     <EntitySet Name="BS_Services" EntityType="Self.BS_Services" />
     <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" />
     <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" />
@@ -649,6 +630,18 @@
     <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
       <Parameter Name="documentID" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="BS_RouteDetails" EntityType="MNPOSTModel.BS_RouteDetails" />
+    <EntitySet Name="BS_Routes" EntityType="MNPOSTModel.BS_Routes" />
+    <FunctionImport Name="ROUTE_GETDETAIL_BYROUTEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result)">
+      <Parameter Name="routeId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" ReturnType="Collection(MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result)">
+      <Parameter Name="postId" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="AC_CustomerDebitVoucher" EntityType="MNPOSTModel.AC_CustomerDebitVoucher" />
+    <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" />
+    <EntitySet Name="MM_RecieveMoney" EntityType="MNPOSTModel.MM_RecieveMoney" />
+    <EntitySet Name="MM_RecieveMoneyDetails" EntityType="MNPOSTModel.MM_RecieveMoneyDetails" />
   </EntityContainer>
   <ComplexType Name="COUNTRY_GETALL_Result">
     <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -907,4 +900,112 @@
     <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
     <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
   </ComplexType>
+  <EntityType Name="BS_RouteDetails">
+    <Key>
+      <PropertyRef Name="RouteID" />
+      <PropertyRef Name="WardID" />
+    </Key>
+    <Property Name="RouteID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="WardID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BS_Routes">
+    <Key>
+      <PropertyRef Name="RouteID" />
+    </Key>
+    <Property Name="RouteID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsDetail" Type="Boolean" />
+  </EntityType>
+  <ComplexType Name="ROUTE_GETDETAIL_BYROUTEID_Result">
+    <Property Type="String" Name="RouteID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="WardID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="WardName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DistrictID" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="DistrictName" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ROUTE_GET_ALLEMPLOYEE_ROUTE_Result">
+    <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" />
+    <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+    <Property Type="Int32" Name="DistrictDelivery" Nullable="true" />
+    <Property Type="Int32" Name="DistrictReceive" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="AC_CustomerDebitVoucher">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentDate" Type="DateTime" Precision="3" />
+    <Property Name="DocumentTime" Type="DateTime" Precision="3" />
+    <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="UserAccountID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="RepresentativeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="FromDate" Type="DateTime" Precision="3" />
+    <Property Name="ToDate" Type="DateTime" Precision="3" />
+    <Property Name="TotalAmount" Type="Double" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentMethodID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="IsPayComplete" Type="Boolean" Nullable="false" />
+    <Property Name="PayDocumentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PayDate" Type="DateTime" Precision="3" />
+    <Property Name="PayNotes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DebtMonth" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdDate" Type="DateTime" Precision="0" />
+    <Property Name="RecordState" Type="Int32" Nullable="false" />
+    <Property Name="SyncFlag" Type="Boolean" Nullable="false" />
+    <Property Name="LastSyncDate" Type="DateTime" Precision="3" />
+    <Property Name="Invoiced" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AC_CustomerDebitVoucherDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="Double" />
+    <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="PriceService" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="DiscountPercent" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+    <Property Name="Discount" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="VATpercent" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+    <Property Name="BfVATamount" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="VATamount" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="AfVATamount" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+    <Property Name="AcceptDate" Type="DateTime" Precision="0" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+  </EntityType>
+  <EntityType Name="MM_RecieveMoney">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DocumentNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DocumentDate" Type="DateTime" Precision="3" />
+    <Property Name="MoneyColector" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MailerAccount" Type="Int32" />
+    <Property Name="TotalMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MM_RecieveMoneyDetails">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MailerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="COD" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LastUpDate" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>

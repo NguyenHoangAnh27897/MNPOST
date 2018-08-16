@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -185,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\codmanage\CODReturnController.cs" />
     <Compile Include="Controllers\customer\CustomerController.cs" />
     <Compile Include="Controllers\customer\CustomerGroupController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="Models\IdentityCommon.cs" />
     <Compile Include="Models\IdentityMailer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IdentityRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\MenuInfo.cs" />
@@ -4513,6 +4516,7 @@
     <Content Include="Views\ReturnReason\Show.cshtml" />
     <Content Include="Views\Trouble\Show.cshtml" />
     <Content Include="Views\Route\Show.cshtml" />
+    <Content Include="Views\CODReturn\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
