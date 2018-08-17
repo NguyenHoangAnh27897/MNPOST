@@ -22,5 +22,6 @@ namespace MNPOSTCOMMON
         public Nullable<int> MailerAccount { get; set; }
         public Nullable<decimal> TotalMoney { get; set; }
         public string PostOfficeID { get; set; }
+        public string Status { get; set; }
     }
 }
