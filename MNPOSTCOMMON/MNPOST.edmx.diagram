@@ -51,6 +51,10 @@
         <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_RouteDetails" Width="1.5" PointX="9.75" PointY="18.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Routes" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucher" Width="1.5" PointX="3.375" PointY="19.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" Width="1.5" PointX="19.375" PointY="8.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" Width="1.5" PointX="19.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" Width="1.5" PointX="19.375" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -43,11 +43,13 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string SenderID = "", string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0)
+        public async Task<ActionResult> Create(string SenderID = "", string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0, string Purchase="",string MerchandiseValue="",string COD="",string Note="", string MailerDescription="",int? Length=0,int? Width=0,int? Height=0)
         {
-            MNPOSTWEBSITEMODEL.WS_Mailer miler = new MNPOSTWEBSITEMODEL.WS_Mailer
+            decimal? cod = decimal.Parse(COD);
+            decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
+            MM_Mailers mailers = new MM_Mailers
             {
-                MailerID = "0007",
+                MailerID = "007",
                 SenderName = SenderName,
                 SenderAddress = SenderAddress,
                 SenderPhone = SenderPhone,
@@ -62,14 +64,24 @@ namespace MNPOSTWEBSITE.Controllers
                 RecieverWardID = RecieverWardID,
                 Weight = Weight,
                 Quantity = Quantity,
-                CreationDate = DateTime.Now,
-                LastUpdateDate = DateTime.Now,
-                IsActive = true,
-                CustomerAccount = Session["Email"].ToString()
+                PaymentMethodID = Purchase,
+                MerchandiseValue = MerchandiseVal,
+                COD = cod,
+                Notes = Note,
+                MailerDescription = MailerDescription,
+                LengthSize = Length,
+                HeightSize = Height,
+                WidthSize = Width
             };
-            db.WS_Mailer.Add(miler);
-            db.SaveChanges();
-            return RedirectToAction("List","Order");
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://35.231.147.186:89/api/mailer/addmailer";
+            var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Manage");
+            }
+            return View();
         }
 
 
@@ -89,32 +101,32 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpPost]
         public async Task<ActionResult> List(string SenderID = "", string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0)
         {
-            MM_Mailers mailers = new MM_Mailers
-            {
-                MailerID = "007",
-                SenderName = SenderName,
-                SenderAddress = SenderAddress,
-                SenderPhone = SenderPhone,
-                SenderDistrictID = SenderDistrictID,
-                SenderProvinceID = SenderProvinceID,
-                SenderWardID = SenderWardID,
-                RecieverName = RecieverName,
-                RecieverAddress = RecieverAddress,
-                RecieverPhone = RecieverPhone,
-                RecieverDistrictID = RecieverDistrictID,
-                RecieverProvinceID = RecieverProvinceID,
-                RecieverWardID = RecieverWardID,
-                Weight = Weight,
-                Quantity = Quantity
-            };
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://35.231.147.186:89/api/mailer/addmailer";
-            var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
+            //MM_Mailers mailers = new MM_Mailers
+            //{
+            //    MailerID = "007",
+            //    SenderName = SenderName,
+            //    SenderAddress = SenderAddress,
+            //    SenderPhone = SenderPhone,
+            //    SenderDistrictID = SenderDistrictID,
+            //    SenderProvinceID = SenderProvinceID,
+            //    SenderWardID = SenderWardID,
+            //    RecieverName = RecieverName,
+            //    RecieverAddress = RecieverAddress,
+            //    RecieverPhone = RecieverPhone,
+            //    RecieverDistrictID = RecieverDistrictID,
+            //    RecieverProvinceID = RecieverProvinceID,
+            //    RecieverWardID = RecieverWardID,
+            //    Weight = Weight,
+            //    Quantity = Quantity
+            //};
+            //var client = new HttpClient();
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            //string api = "http://35.231.147.186:89/api/mailer/addmailer";
+            //var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    return RedirectToAction("Index", "Manage");
+            //}
             return View();
         }
     }

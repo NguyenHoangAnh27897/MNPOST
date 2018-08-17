@@ -10,6 +10,59 @@
     <Property Name="Model" Type="varbinary(max)" Nullable="false" />
     <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
   </EntityType>
+  <EntityType Name="AC_CustomerDebitVoucher">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="DocumentDate" Type="datetime" />
+    <Property Name="DocumentTime" Type="datetime" />
+    <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
+    <Property Name="UserAccountID" Type="varchar" MaxLength="15" />
+    <Property Name="CustomerID" Type="varchar" MaxLength="15" />
+    <Property Name="RepresentativeID" Type="varchar" MaxLength="15" />
+    <Property Name="FromDate" Type="datetime" />
+    <Property Name="ToDate" Type="datetime" />
+    <Property Name="TotalAmount" Type="float" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="PaymentMethodID" Type="varchar" MaxLength="15" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="IsPayComplete" Type="bit" Nullable="false" />
+    <Property Name="PayDocumentID" Type="varchar" MaxLength="50" />
+    <Property Name="PayDate" Type="datetime" />
+    <Property Name="PayNotes" Type="nvarchar" MaxLength="500" />
+    <Property Name="InvoiceID" Type="varchar" MaxLength="20" />
+    <Property Name="DebtMonth" Type="datetime" />
+    <Property Name="LastUpdDate" Type="date" />
+    <Property Name="RecordState" Type="int" Nullable="false" />
+    <Property Name="SyncFlag" Type="bit" Nullable="false" />
+    <Property Name="LastSyncDate" Type="datetime" />
+    <Property Name="Invoiced" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AC_CustomerDebitVoucherDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="PriceService" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="DiscountPercent" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="Discount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="VATpercent" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="BfVATamount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="VATamount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="AfVATamount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="AcceptDate" Type="date" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Weight" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+  </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
       <PropertyRef Name="Id" />
@@ -335,6 +388,30 @@
     <Property Name="Type" Type="int" />
     <Property Name="StatusID" Type="bit" />
     <Property Name="IsPercent" Type="bit" />
+  </EntityType>
+  <EntityType Name="MM_EmployeeDebitVoucher">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="DocumentDate" Type="datetime" />
+    <Property Name="MoneyColector" Type="nvarchar" MaxLength="20" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="MailerAccount" Type="int" />
+    <Property Name="TotalMoney" Type="money" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="MM_EmployeeDebitVoucherDetails">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ReciveCOD" Type="money" />
+    <Property Name="LastUpDate" Type="datetime" />
+    <Property Name="COD" Type="money" />
   </EntityType>
   <EntityType Name="MM_EmployeeMoneyAdvances">
     <Key>
@@ -703,6 +780,8 @@
   <Function Name="WARD_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="MNPOSTModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AC_CustomerDebitVoucher" EntityType="Self.AC_CustomerDebitVoucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="Self.AC_CustomerDebitVoucherDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -729,6 +808,8 @@
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeMoneyAdvances" EntityType="Self.MM_EmployeeMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_History" EntityType="Self.MM_History" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDelivery" EntityType="Self.MM_MailerDelivery" Schema="dbo" store:Type="Tables" />
