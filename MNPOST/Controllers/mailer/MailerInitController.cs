@@ -5,6 +5,9 @@ using System.Web;
 using MNPOST.Models;
 using System.Web.Mvc;
 using MNPOSTCOMMON;
+using System.IO;
+using OfficeOpenXml;
+using System.Text.RegularExpressions;
 
 namespace MNPOST.Controllers.mailer
 {
@@ -35,7 +38,7 @@ namespace MNPOST.Controllers.mailer
             ViewBag.Customers = cusResult;
 
             //
-            List<CommonData> allMailerType = db.BS_ServiceTypes.Select(p=> new CommonData()
+            List<CommonData> allMailerType = db.BS_ServiceTypes.Select(p => new CommonData()
             {
                 code = p.ServiceID,
                 name = p.ServiceName
@@ -84,24 +87,221 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
+
+        #region
+        [HttpPost]
+        public ActionResult InsertByExcel(HttpPostedFileBase files, string name)
+        {
+            List<MailerIdentity> mailers = new List<MailerIdentity>();
+            var result = new ResultInfo()
+            {
+                error = 0,
+                msg = "Đã tải",
+                data = mailers
+            };
+           
+            try
+            {
+                if (files == null || files.ContentLength <= 0)
+                    throw new Exception("Thiếu file Excel");
+
+                string extension = System.IO.Path.GetExtension(files.FileName);
+
+                if (extension.Equals(".xlsx") || extension.Equals(".xls"))
+                {
+                    string fileSave = "mailersupload" + DateTime.Now.ToString("ddMMyyyyhhmmss") + extension;
+                    string path = Server.MapPath("~/Temps/" + fileSave);
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+
+                    files.SaveAs(path);
+                    FileInfo newFile = new FileInfo(path);
+                    var package = new ExcelPackage(newFile);
+
+                    ExcelWorksheet sheet = package.Workbook.Worksheets[1];
+
+                    int totalRows = sheet.Dimension.End.Row;
+                    int totalCols = sheet.Dimension.End.Column;
+
+                    // 
+                    int mailerCodeIdx = -1;
+                    int receiverIdx = -1;
+                    int receiPhoneIdx = -1;
+                    int receiAddressIdx = -1;
+                    int receiProvinceIdx = -1;
+                    int receiDistrictIdx = -1;
+                    int receiWardIdx = -1;
+                    int mailerTypeIdx = -1;
+                    int payTypeIdx = -1;
+                    int codIdx = -1;
+                    int merchandiseIdx = -1;
+                    int weigthIdx = -1;
+                    int quantityIdx = -1;
+                    int lengthIdx = -1;
+                    int widthIdx = -1;
+                    int heightIdx = -1;
+                    int notesIdx = -1;
+                    int desIdx = -1;
+                    int servicePriceIdx = -1;
+
+                    // lay index col tren excel
+                    for (int i = 0; i < totalCols; i++)
+                    {
+                        var colValue = Convert.ToString(sheet.Cells[1, i + 1].Value).Trim();
+
+                        Regex regex = new Regex(@"\((.*?)\)");
+                        Match match = regex.Match(colValue);
+
+                        if (match.Success)
+                        {
+                            string key = match.Groups[1].Value;
+
+                            switch (key)
+                            {
+                                case "1":
+                                    mailerCodeIdx = i + 1;
+                                    break;
+                                case "2":
+                                    receiverIdx = i + 1;
+                                    break;
+                                case "3":
+                                    receiPhoneIdx = i + 1;
+                                    break;
+                                case "4":
+                                    receiAddressIdx = i + 1;
+                                    break;
+                                case "5":
+                                    receiProvinceIdx = i + 1;
+                                    break;
+                                case "6":
+                                    receiDistrictIdx = i + 1;
+                                    break;
+                                case "7":
+                                    receiWardIdx = i + 1;
+                                    break;
+                                case "8":
+                                    mailerTypeIdx = i + 1;
+                                    break;
+                                case "9":
+                                    payTypeIdx = i + 1;
+                                    break;
+                                case "10":
+                                    codIdx = i + 1;
+                                    break;
+                                case "11":
+                                    merchandiseIdx = i + 1;
+                                    break;
+                                case "12":
+                                    weigthIdx = i + 1;
+                                    break;
+                                case "13":
+                                    quantityIdx = i + 1;
+                                    break;
+                                case "14":
+                                    lengthIdx = i + 1;
+                                    break;
+                                case "15":
+                                    widthIdx = i + 1;
+                                    break;
+                                case "16":
+                                    heightIdx = i + 1;
+                                    break;
+                                case "17":
+                                    notesIdx = i + 1;
+                                    break;
+                                case "18":
+                                    desIdx = i + 1;
+                                    break;
+                                case "19":
+                                    servicePriceIdx = i + 1;
+                                    break;
+                            }
+
+                        }
+                    }
+
+                    // check cac gia tri can
+                    if (receiverIdx == -1 || receiAddressIdx == -1 || receiPhoneIdx == -1 || receiDistrictIdx == -1 || receiProvinceIdx == -1 || mailerTypeIdx == 1 ||
+                        merchandiseIdx == -1 || weigthIdx == -1)
+                        throw new Exception("Thiếu các cột cần thiết");
+
+                    //
+                    
+                    for (int i = 0; i < totalRows; i++)
+                    {
+                        string mailerId = mailerCodeIdx == -1 ? GeneralMailerCode("") : Convert.ToString(sheet.Cells[i + 2, mailerCodeIdx].Value);
+
+                        //
+                        string receiver = Convert.ToString(sheet.Cells[i + 2, receiverIdx].Value);
+                        if (String.IsNullOrEmpty(receiver))
+                            throw new Exception("Dòng " + (i + 2) + " cột " + receiverIdx + " : thiếu thông tin");
+                        //
+                        string receiverAddress = Convert.ToString(sheet.Cells[i + 2, receiAddressIdx].Value);
+                        if (String.IsNullOrEmpty(receiverAddress))
+                            throw new Exception("Dòng " + (i + 2) + " cột " + receiAddressIdx + " : thiếu thông tin");
+                        // 
+                        string receiverProvince = Convert.ToString(sheet.Cells[i + 2, receiProvinceIdx].Value);
+                        var checkProvince = db.BS_Provinces.Find(receiverProvince);
+                        if(checkProvince == null)
+                            throw new Exception("Dòng " + (i + 2) + " cột " + receiProvinceIdx + " : sai thông tin");
+
+                        //
+                        string receiverDistrict = Convert.ToString(sheet.Cells[i + 2, receiDistrictIdx].Value);
+                        var checkDistrict = db.BS_Districts.Find(receiverDistrict);
+                        if (checkDistrict == null)
+                            throw new Exception("Dòng " + (i + 2) + " cột " + receiDistrictIdx + " : sai thông tin");
+
+                        //
+                        string receiverWard = Convert.ToString(sheet.Cells[i + 2, receiWardIdx].Value);
+                        var checkWard = db.BS_Wards.Find(receiverWard);
+                        if (checkWard == null)
+                            throw new Exception("Dòng " + (i + 2) + " cột " + receiWardIdx + " : sai thông tin");
+
+                        //
+                        string mailerType = Convert.ToString(sheet.Cells[i + 2, mailerTypeIdx].Value);
+                        var checkMailerType = db.BS_ServiceTypes.Find(mailerType);
+                        if (checkMailerType == null)
+                            throw new Exception("Dòng " + (i + 2) + " cột " + mailerTypeIdx + " : sai thông tin");
+
+                    }
+
+
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                result.error = 1;
+                result.msg = e.Message;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
+
         [HttpPost]
         public ActionResult InsertMailers(List<MailerIdentity> mailers, string postId)
         {
-            
-            if(mailers == null)
+
+            if (mailers == null)
                 return Json(new { error = 1, msg = "Hoàn thành" }, JsonRequestBehavior.AllowGet);
 
             if (mailers.Count() > 100)
-                return Json(new {error = 1, msg = "Để đảm bảo hệ thống chỉ update 100/1 lần"}, JsonRequestBehavior.AllowGet);
+                return Json(new { error = 1, msg = "Để đảm bảo hệ thống chỉ update 100/1 lần" }, JsonRequestBehavior.AllowGet);
 
             var checkPost = db.BS_PostOffices.Find(postId);
 
             if (checkPost == null)
-                return Json(new {error = 1, msg = "chọn bưu cục" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = 1, msg = "chọn bưu cục" }, JsonRequestBehavior.AllowGet);
 
             List<MailerIdentity> insertFail = new List<MailerIdentity>();
 
-            foreach(var item in mailers)
+            foreach (var item in mailers)
             {
                 // checkMailer
                 if (String.IsNullOrEmpty(item.MailerID))
@@ -165,7 +365,7 @@ namespace MNPOST.Controllers.mailer
             }
 
 
-            return Json(new { error = 0, data = insertFail}, JsonRequestBehavior.AllowGet);
+            return Json(new { error = 0, data = insertFail }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -178,7 +378,7 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GetDistrictAndWard(string provinceId, string districtId)
         {
-            return Json(new { districts = GetProvinceDatas(provinceId, "district"), wards = GetProvinceDatas(districtId, "ward")}, JsonRequestBehavior.AllowGet);
+            return Json(new { districts = GetProvinceDatas(provinceId, "district"), wards = GetProvinceDatas(districtId, "ward") }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -186,7 +386,7 @@ namespace MNPOST.Controllers.mailer
         {
             var code = GeneralMailerCode(cusId);
 
-            return Json(new {error = 0, code = code}, JsonRequestBehavior.AllowGet);
+            return Json(new { error = 0, code = code }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -215,5 +415,5 @@ namespace MNPOST.Controllers.mailer
 
 
 
-	}
+    }
 }

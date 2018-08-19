@@ -382,3 +382,4 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Microso
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\EPPlus.dll

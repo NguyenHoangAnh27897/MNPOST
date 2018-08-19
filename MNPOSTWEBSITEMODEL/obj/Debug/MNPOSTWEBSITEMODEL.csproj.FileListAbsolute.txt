@@ -45,6 +45,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.dl
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CoreCompileInputs.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CopyComplete
