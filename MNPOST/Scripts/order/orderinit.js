@@ -215,7 +215,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService) {
 
             if ($scope.postchoose === '') {
                 alert('Chọn bưu cục xử lý');
-            } else {
+            } else if ($scope.mailers.length === 0) {
+                alert("Không có đơn nào để cập nhật");
+            }else {
                 showLoader(true);
 
                 $http({

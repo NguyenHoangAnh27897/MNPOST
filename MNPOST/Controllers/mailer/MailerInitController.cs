@@ -88,11 +88,11 @@ namespace MNPOST.Controllers.mailer
         public ActionResult InsertMailers(List<MailerIdentity> mailers, string postId)
         {
             
+            if(mailers == null)
+                return Json(new { error = 1, msg = "Hoàn thành" }, JsonRequestBehavior.AllowGet);
 
             if (mailers.Count() > 100)
-            {
                 return Json(new {error = 1, msg = "Để đảm bảo hệ thống chỉ update 100/1 lần"}, JsonRequestBehavior.AllowGet);
-            }
 
             var checkPost = db.BS_PostOffices.Find(postId);
 
@@ -184,7 +184,7 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GeneralCode(string cusId)
         {
-            var code = generalMailerCode(cusId);
+            var code = GeneralMailerCode(cusId);
 
             return Json(new {error = 0, code = code}, JsonRequestBehavior.AllowGet);
         }

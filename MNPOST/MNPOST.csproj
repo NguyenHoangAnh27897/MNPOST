@@ -212,6 +212,7 @@
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
     <Compile Include="Controllers\troubleticket\TroubleController.cs" />
+    <Compile Include="Filters\MyValidateAccess.cs" />
     <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
