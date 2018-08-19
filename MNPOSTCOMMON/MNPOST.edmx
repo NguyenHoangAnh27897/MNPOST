@@ -406,6 +406,7 @@
           <Property Name="MailerAccount" Type="int" />
           <Property Name="TotalMoney" Type="money" />
           <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="MM_EmployeeDebitVoucherDetails">
           <Key>
@@ -1499,8 +1500,8 @@
           </FunctionImport>
           <EntitySet Name="AC_CustomerDebitVoucher" EntityType="MNPOSTModel.AC_CustomerDebitVoucher" />
           <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" />
-          <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" />
           <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" />
+          <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" />
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
           <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -1845,6 +1846,17 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
         </EntityType>
+        <EntityType Name="MM_EmployeeDebitVoucherDetails">
+          <Key>
+            <PropertyRef Name="DocumentID" />
+            <PropertyRef Name="MailerID" />
+          </Key>
+          <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReciveCOD" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LastUpDate" Type="DateTime" Precision="3" />
+          <Property Name="COD" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
         <EntityType Name="MM_EmployeeDebitVoucher">
           <Key>
             <PropertyRef Name="DocumentID" />
@@ -1857,17 +1869,7 @@
           <Property Name="MailerAccount" Type="Int32" />
           <Property Name="TotalMoney" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="MM_EmployeeDebitVoucherDetails">
-          <Key>
-            <PropertyRef Name="DocumentID" />
-            <PropertyRef Name="MailerID" />
-          </Key>
-          <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ReciveCOD" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="LastUpDate" Type="DateTime" Precision="3" />
-          <Property Name="COD" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2788,20 +2790,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MM_EmployeeDebitVoucher">
-            <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
-              <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
-                <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="MoneyColector" ColumnName="MoneyColector" />
-                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MM_EmployeeDebitVoucherDetails">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucherDetails">
               <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucherDetails">
@@ -2809,6 +2797,21 @@
                 <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
                 <ScalarProperty Name="ReciveCOD" ColumnName="ReciveCOD" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MM_EmployeeDebitVoucher">
+            <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
+              <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="MoneyColector" ColumnName="MoneyColector" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
               </MappingFragment>
             </EntityTypeMapping>
