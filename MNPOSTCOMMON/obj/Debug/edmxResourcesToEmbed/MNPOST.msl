@@ -914,20 +914,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MM_EmployeeDebitVoucher">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
-        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
-          <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="MoneyColector" ColumnName="MoneyColector" />
-          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-          <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MM_EmployeeDebitVoucherDetails">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucherDetails">
         <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucherDetails">
@@ -935,6 +921,21 @@
           <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
           <ScalarProperty Name="ReciveCOD" ColumnName="ReciveCOD" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_EmployeeDebitVoucher">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
+        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+          <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="MoneyColector" ColumnName="MoneyColector" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
         </MappingFragment>
       </EntityTypeMapping>

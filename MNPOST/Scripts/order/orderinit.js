@@ -1,6 +1,6 @@
 ﻿
 // tao controller
-var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
+var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'ui.uploader']);
 
 app.service('mailerService', function () {
     var mailerList = [];
@@ -102,14 +102,14 @@ app.service('mailerService', function () {
 
 });
 
-app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService) {
+app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.mailers = mailerService.getMailers();
     $scope.customers = mailerService.getCustomers();
     $scope.mailerTypes = mailerService.getMailerTypes();
     $scope.payments = mailerService.getPayments();
     $scope.merchandises = mailerService.getMerchandises();
-
+   
     $scope.postoffices = postOfficesData;
 
     $scope.postchoose = '';
@@ -215,7 +215,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService) {
 
             if ($scope.postchoose === '') {
                 alert('Chọn bưu cục xử lý');
-            } else {
+            } else if ($scope.mailers.length === 0) {
+                alert("Không có đơn nào để cập nhật");
+            }else {
                 showLoader(true);
 
                 $http({
@@ -262,6 +264,42 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService) {
 
         $scope.mailers[$scope.currentIdx] = angular.copy(mailer);
     });
+
+
+    $scope.addByExcelFile = function () {
+        showModel('insertbyexcel');
+    };
+
+    // upload file
+    $scope.files = [];
+    var inserByExcelElement = document.getElementById('insertByExcel');
+    inserByExcelElement.addEventListener('change', function (e) {
+        uiUploader.removeAll();
+        var files = e.target.files;
+        uiUploader.addFiles(files);
+        $scope.files = uiUploader.getFiles();
+        $scope.$apply();
+    });
+
+    $scope.insertByExcel = function () {
+        console.log('uploading...');
+        console.log($scope.files);
+        uiUploader.startUpload({
+            url: '/mailerinit/insertbyexcel',
+            concurrency: 2,
+            paramName: 'files',
+            data: {
+                name : 'hoai nam'
+            },
+            onProgress: function (file) {
+                $scope.$apply();
+            },
+            onCompleted: function (file, response) {
+                console.log(file + 'response' + response);
+                uiUploader.removeAll();
+            }
+        });
+    };
 
 });
 

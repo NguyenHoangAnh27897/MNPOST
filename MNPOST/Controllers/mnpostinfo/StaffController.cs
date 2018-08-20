@@ -7,6 +7,7 @@ using PagedList;
 using MNPOSTCOMMON;
 using MNPOST.Models;
 using System.Threading.Tasks;
+using MNPOST.Filters;
 
 namespace MNPOST.Controllers.mnpostinfo
 {
@@ -14,10 +15,9 @@ namespace MNPOST.Controllers.mnpostinfo
     {
 
         // code : staff
+        [MyValidateAccess(code = "staff", edit = 0)]
         public ActionResult Show(int? page, string search = "", string post = "", string msg = "")
         {
-            if (!checkAccess("staff"))
-                return Redirect("/error/relogin");
 
             int pageSize = 50;
             int pageNumber = (page ?? 1);
@@ -37,17 +37,14 @@ namespace MNPOST.Controllers.mnpostinfo
 
             var data = db.EMPLOYEE_GETALL("%" + post + "%", "%" + search + "%").ToList();
 
-
-
             return View(data.ToPagedList(pageNumber, pageSize));
         }
 
 
         [HttpPost]
+        [MyValidateAccess(code = "staff", edit = 1)]
         public ActionResult AddStaff(BS_Employees employee)
         {
-            if (!checkAccess("staff", 1))
-                return Json(new { error = 1, msg = "you don't have permission for this" }, JsonRequestBehavior.AllowGet);
 
             var code = generalCode();
 
@@ -68,11 +65,9 @@ namespace MNPOST.Controllers.mnpostinfo
         }
 
         [HttpPost]
+        [MyValidateAccess(code = "staff", edit = 1)]
         public ActionResult UpdateStaff(BS_Employees employee, string GroupId, string AccountType)
         {
-            if (!checkAccess("staff", 1))
-                return Json(new { error = 1, msg = "you don't have permission for this" }, JsonRequestBehavior.AllowGet);
-
 
             var checkStaff = db.BS_Employees.Find(employee.EmployeeID);
 

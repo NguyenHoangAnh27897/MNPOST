@@ -12,10 +12,7 @@ namespace MNPOST.Controllers.mnpostinfo
     {
         //
         // GET: /Province/
-        public ActionResult Show()
-        {
-            return View();
-        }
+        public ActionResult Show() => View();
 
 
         [HttpGet]

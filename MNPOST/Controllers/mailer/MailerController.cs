@@ -12,13 +12,9 @@ namespace MNPOST.Controllers.mailer
     {
 
         [HttpGet]
-        public ActionResult ShowMailer(int? page)
-        {
-            return View();
-        }
+        public ActionResult ShowMailer(int? page) => View();
 
-
-        public string generalMailerCode(string cusId)
+        public string GeneralMailerCode(string cusId)
         {
 
             var find = db.GeneralCodeInfoes.Where(p=> p.Id == "mailer" && p.FirstChar == "MN").FirstOrDefault();
@@ -34,7 +30,7 @@ namespace MNPOST.Controllers.mailer
                 db.GeneralCodeInfoes.Add(generalCode);
                 db.SaveChanges();
 
-                return generalMailerCode(cusId);
+                return GeneralMailerCode(cusId);
             }
 
             var number = find.PreNumber + 1;

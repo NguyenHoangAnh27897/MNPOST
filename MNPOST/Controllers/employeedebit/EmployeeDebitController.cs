@@ -77,6 +77,30 @@ namespace MNPOST.Controllers.employeedebit
             }
             return Json(new ResultInfo() { error = 0, msg = "", data = codInfos }, JsonRequestBehavior.AllowGet);
         }
+
+        // update detail
+        [HttpPost]
+        public ActionResult UpdateDebitDetail(List<IdentityCOD> detail, string documentID)
+        {
+            foreach (var item in detail)
+            {
+                if (String.IsNullOrEmpty(item.MailerID))
+                    return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
+
+                var check = db.MM_EmployeeDebitVoucherDetails.Where(p => p.DocumentID == documentID && p.MailerID == item.MailerID).FirstOrDefault();
+
+                if (check == null)
+                    return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
+
+                check.ReciveCOD = item.ReciveCOD;
+                db.Entry(check).State = System.Data.Entity.EntityState.Modified;
+            }
+           
+            db.SaveChanges();
+            return Json(new ResultInfo() { }, JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpPost]
         public ActionResult edit(MM_EmployeeDebitVoucher remon)
         {

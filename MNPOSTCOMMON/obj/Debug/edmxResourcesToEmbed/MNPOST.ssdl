@@ -401,6 +401,7 @@
     <Property Name="MailerAccount" Type="int" />
     <Property Name="TotalMoney" Type="money" />
     <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="MM_EmployeeDebitVoucherDetails">
     <Key>
