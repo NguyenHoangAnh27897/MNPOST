@@ -145,6 +145,7 @@
                                                     <th>Vận đơn</th>
                                                     <th>COD</th>
                                                     <th>Thực thu</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -152,8 +153,7 @@
                                                     <td>{{$index + 1}}</td>
                                                     <td>{{item.MailerID}}</td>
                                                     <td>{{item.COD}}</td>
-                                                    <td><input type="number" width="20" class="form-control" ng-model="item.ReciveCOD" ng-change="totalMoney()"/> </td>
-
+                                                    <td><input type="number" class="form-control" ng-init="item.ReciveCOD = item.COD"  ng-model="item.ReciveCOD" ng-change="totalMoney()" /> </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -162,7 +162,7 @@
                             </div>
                             <!--foter-->
                             <div class="nav navbar-right">
-                                <button type="button" class="btn btn-primary" ng-click="addnew()">Lưu thông tin</button>
+                                <button type="button" class="btn btn-primary" ng-click="updateDetail()">Lưu thông tin</button>
                             </div>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
 
         showModelFix('choosePostOfficeModal');
 
-        var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
+        var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'ui.mask']);
 
         app.controller('myCtrl', function ($scope, $http) {
             //mo tab moi khi bam nut tao bang ke
@@ -250,7 +250,7 @@
                     console.log(response.data);
                    // if (response.error === 0) {
 
-                       // console.log(response.error);
+                    console.log(response.data.data);
                         $scope.mailers = response.data.data;
                         console.log(response.data);
                     //}
@@ -273,6 +273,29 @@
                     total += $scope.mailers[i].ReciveCOD;
                 }
                 $scope.CODInfo.TotalMoney = total;
+            };
+
+            $scope.updateDetail = function () {
+
+                showLoader(true);
+
+                $http({
+                    method: "POST",
+                    url: "/employeedebit/UpdateDebitDetail",
+                    data: {
+                        detail: $scope.mailers,
+                        documentID: $scope.CODInfo.DocumentID
+                    }
+                }).then(
+                    function sucess(response) {
+                        showLoader(false);
+
+                        alert('Da cap nhat');
+
+                    }, function error(response) {
+                        showLoader(false);
+                        alert('disconnect internet');
+                    });
             };
 
         });
