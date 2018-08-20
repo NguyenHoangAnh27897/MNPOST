@@ -183,11 +183,17 @@
                                     <label class="col-sm-2 col-sm-2 control-la                                                    
                                            bel">Dịch vụ</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="Service">
+                                        <select class="form-control select2 no-radius" name="MailerTypeID">
                                             <option value="">Chọn dịch vụ</option>
                                             <option value="">Dịch vụ chuyển phát nhanh</option>
                                             <option value="">Dịch vụ chuyển phát thường</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Dịch vụ cộng thêm</label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" onclick="myFunction()" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -199,8 +205,8 @@
                                             <option value="">Người nhận thanh toán</option>
                                         </select>
                                     </div>
-                                </div>
-                                <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
+                                </div>    
+                                @*<button type="submit" class="btn btn-round btn-success">Gói hàng</button>*@
                             </div>
                             <div class="col-lg-7" style="float:right; margin-right:100px;">
                                 <div class="form-group">
@@ -262,6 +268,36 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
                                             <div class="col-sm-10">
+                                                <select class="form-control select2 no-radius" name="MerchandiseID">
+                                                    <option value="">Chọn loại hàng</option>
+                                                    <option value="">Hàng hóa</option>
+                                                    <option value="">Thư từ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="myDIV" style="display:none;">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control round-form" name="Weight" placeholder="Nhập trọng lượng..." step="any">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control round-form" name="Quantity" placeholder="Nhập số lượng..." step="any">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
+                                            <div class="col-sm-10">
                                                 <select class="form-control select2 no-radius" name="Purchase">
                                                     <option value="">Chọn loại hàng</option>
                                                     <option value="">Hàng hóa</option>
@@ -272,7 +308,35 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+                        <div class="row">
+                            <h4 class="mb" style="margin-left:50px;"><i class="fa fa-angle-right"></i> Thành tiền</h4>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Cước chính</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập cước...">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
+                            </div>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Cước CoD</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập cước...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Tổng cước</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập cước...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                       
                     </form>
                 </div>
             </div><!-- col-lg-12-->
@@ -281,6 +345,16 @@
 </section><!-- /MAIN CONTENT -->
 <!--main content end-->
 <!--custom tagsinput-->
+<script>
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
 <script src="/Content/js/jquery.tagsinput.js"></script>
 <script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
