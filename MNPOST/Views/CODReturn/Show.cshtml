@@ -1,306 +1,290 @@
 ﻿@{
-    ViewBag.Title = "Show COD";
+    ViewBag.Title = "Quản lý thu tiền";
 }
-<div ng-app="myApp" ng-controller="myCtrl">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>Theo dõi tiền COD&nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNew()"><i my-tool-tip="Thêm mới" class="fa fa-plus"></i></a></h2>
-                    <div class="clearfix"></div>
+
+<div ng-app="myApp" class="row" ng-controller="myCtrl">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>QUẢN LÝ COD {{postHandle}}</h2>
+                <div class="nav navbar-right">
+                    <button type="button" class="btn btn-primary" ng-click="addnew()">Tạo bảng kê</button>
                 </div>
-                <!-- end x_title-->
-                <div class="x_content">
-                    <div class="row">
-                        <div class="form-inline">
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>Từ ngày</label>
-                                    <input type="date" ng-model="FromDate" class="form-control" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_danhmuc" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=false">Danh mục</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=true">Chi tiết</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active in" id="tab_danhmuc" aria-labelledby="home-tab">
+                            <!-- begin tab-->
+                            <div class="row">
+                                <form name="formSearch" >
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Thời gian</label>
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <input type="text" id="fromDate" my-tool-tip="Từ ngày" required class="form-control" data-inputmask="'mask': '99/99/9999'" ng-model="searchInfo.FromDate" value="@ViewBag.FromDate">
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="text" id="toDate" my-tool-tip="Đến ngày" required class="form-control" data-inputmask="'mask': '99/99/9999'" ng-model="searchInfo.ToDate" value="@ViewBag.ToDate">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="btn btn-primary" type="button" ng-click="GetData()">Xem thông tin</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- thong tin-->
+                                <div class="col-md-12">
+                                    <!-- table data-->
+                                    <div class="table-responsive">
+                                        <table class="table table-striped jambo_table bulk_action">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th>STT</th>
+                                                    <th>Mã bảng kê</th>
+                                                    <th>Ngày lập</th>
+                                                    <th>Số phiếu</th>
+                                                    <th>Người thu</th>
+                                                    <th>Người nộp tiền</th>
+                                                    <th>Tổng đơn hàng</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Bưu cục</th>
+                                                    <th>#</th>
+                                                    <th>#</th>
+                                                    <th>#</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="item in allCODMaster">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{item.DocumentID}}</td>
+                                                    <td>{{convertDate(item.DocumentDate) | date:'dd/MM/yyyy' }}</td>
+                                                    <td>{{item.DocumentNumber}}</td>
+                                                    <td>{{item.MoneyColector}}</td>
+                                                    <td>{{item.EmployeeID}}</td>
+                                                    <td>{{item.MailerAccount}}</td>
+                                                    <td>{{item.TotalMoney}}</td>
+                                                    <td>{{item.PostOfficeID}}</td>
+                                                    <td><a href="#" ng-click="edit($index)">Chi tiết</a></td>
+                                                    <td><a href="#" ng-click="sendDelete($index)">Xóa</a></td>
+                                                    <td><a href="#" ng-click="sendDelete($index)">In</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--phan trang-->
+                                    <ul items-per-page="itemPerPage" uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" boundary-link-numbers="true" rotate="false" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                                    <!-- end phan trang-->
+
+                                </div>
+
+                            </div>
+                            <!-- end tab-->
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tab_chitiet" aria-labelledby="profile-tab">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Mã bảng kê</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentID" required ng-disabled="DocumentIDDisable" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ngày lập bảng</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentDate" />
+                                    </div>                                  
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Phiếu thu</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentNumber" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Bưu cục</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.PostOfficeID" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Người thu</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.MoneyColector" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Người nộp</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.EmployeeID" />
+                                    </div>                                   
+                                </div>
+                                <div class="col-sm-3">                                   
+                                    <div class="form-group">
+                                        <label>Số đơn hàng</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.MailerAccount" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Số tiền</label>
+                                        <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.TotalMoney" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-12">
+                                    <hr />
+                                    <form ng-submit="addMailer(addMailer.$valid)" name="addMailer">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" ng-model="mailerId" required />
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button class="btn btn-primary" type="submit">Thêm</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped jambo_table bulk_action">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th>STT</th>
+                                                    <th>Vận đơn</th>
+                                                    <th>COD</th>
+                                                    <th>Thực thu</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in mailers">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{item.MailerID}}</td>
+                                                    <td>{{item.COD}}</td>
+                                                    <td>{{item.ReciveCOD}}</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label>Đến ngày</label>
-                                    <input type="date" ng-model="ToDate" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-primary" ng-click="getCODMaster(FromDate,ToDate)">Lấy danh sách</button>
+                            <!--foter-->
+                            <div class="nav navbar-right">
+                                <button type="button" class="btn btn-primary" ng-click="addnew()">Lưu thông tin</button>
                             </div>
                         </div>
                     </div>
-
-                    <!-- table data-->
-                    <div class="table-responsive">
-                        <table class="table table-striped jambo_table bulk_action">
-                            <thead>
-                                <tr class="headings">
-                                    <th>STT</th>
-                                    <th>Mã chứng từ</th>
-                                    <th>Số chứng từ</th>
-                                    <th>Ngày lập</th>
-                                    <th>Người lập</th>
-                                    <th>Người nộp</th>
-                                    <th>Tổng phiếu</th>
-                                    <th>Tổng tiền</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr ng-repeat="item in codmaster">
-                                    <td>{{$index + 1}}</td>
-                                    <td>{{item.DocumentID}}</td>
-                                    <td>{{item.DocumentNumber}}</td>
-                                    <td>{{item.DocumentDate}}</td>
-                                    <td>{{item.MoneyColector}}</td>
-                                    <td>{{item.EmployeeID}}</td>
-                                    <td>{{item.MailerAccount}}</td>
-                                    <td>{{item.TotalMoney}}</td>
-                                    <td>{{item.PostOfficeID}}</td>
-                                    <td><a href="#" ng-click="edit($index)">Chi tiết</a></td>
-                                    <td><a href="#" ng-click="sendDelete($index)">Xóa</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- end table data-->
                 </div>
-                <!-- end x_content-->
+
             </div>
-            <!-- end x_pannel-->
         </div>
-    </div>
-
-    <!-- quan ly tuyen-->
-    <div id="insertmodal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">{{modaltitle}}</h4>
-                </div>
-
-                <!-- body-->
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Mã chứng từ</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentID" required ng-disabled="DocumentIDDisable" />
-                            </div>
-                            <div class="form-group">
-                                <label>Ngày chứng từ</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentDate" />
-                            </div>
-                            <div class="form-group">
-                                <label>Bưu cục</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.PostOfficeID" />
-                            </div>
-                            <div class="form-group">
-                                <label>Số thu</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.DocumentNumber" />
-                            </div>
-
-                        </div>
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label>Người thu</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.MoneyColector" />
-                            </div>
-                            <div class="form-group">
-                                <label>Người nộp</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.EmployeeID" />
-                            </div>
-                            <div class="form-group">
-                                <label>Số đơn hàng</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.MailerAccount" />
-                            </div>
-                            <div class="form-group">
-                                <label>Số tiền thu</label>
-                                <input type="text" maxlength="10" class="form-control" ng-model="CODInfo.TotalMoney" />
-                            </div>
-
-                        </div>
-
-                        <div class="col-sm-12">
-
-                            <div class="x_title">
-                                <h2><i class="fa fa-align-left"></i> Danh sách phiếu gửi</h2>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                    <tr class="headings">
-                                        <th>STT</th>
-                                        <th>Số phiếu</th>
-                                        <th>COD</th>
-                                        <th>Thực thu</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in districtRoutes">
-                                        <td>{{$index + 1}}&nbsp;&nbsp;<a href="#" ng-click="removeMailer($index)"><i my-tool-tip="Xóa" class="fa fa-minus-square"></i></a></td>
-                                        <td>{{item.DistrictName}}</td>
-                                        <td><input type="checkbox" ng-model="item.IsDetail" />&nbsp;<button ng-show="item.IsDetail" class="btn btn-danger btn-xs" ng-click="showWardRoute($index)">Chọn phường</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- end body-->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-default">Hoàn thành</button>
-                </div>
-            </div>
-            <!-- end modal content-->
-        </div>
-    </div>
-    <!-- #end quan ly tuyen-->
-
+    </div>    
 </div>
 
-@section styles {
 
-    <style type="text/css">
-        .scrollmenu {
-            overflow: auto;
-            white-space: nowrap;
-            height: 300px;
-        }
-    </style>
-
-
-}
 
 <!-- end content-->
 @section scripts {
+    <script src="~/Content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 
     <script>
+        $(":input").inputmask();
 
         // tao controller
-        var app = angular.module('myApp', ['ui.bootstrap']);
+        var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
+        var fromDate = '@Html.Raw(ViewBag.FromDate)';
+        var toDate = '@Html.Raw(ViewBag.ToDate)';
+
+        showModelFix('choosePostOfficeModal');
+
+        var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
 
         app.controller('myCtrl', function ($scope, $http) {
-
-            $scope.postOffices = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllPost)));
-            $scope.provinces = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllProvince)));
-            $scope.employeeRoutes = [];
-            $scope.modaltitle = '';
-            $scope.eRoute = {};
-            $scope.provinceChoose = '';
-            $scope.districts = [];
-            $scope.districtRoutes = [];
-            $scope.districtChoose = '';
-
-            $scope.addNew = function () {
-
-                $scope.CountryInfo = { "CountryID": "", "CountryName": "", "CountryCode": "" };
-
-                $scope.modaltitle = "Thêm mới thu tiền";
-                $scope.ZoneIDDisable = false;
-                $scope.IsAction = 'add';
-                showModel("insertmodal")
-
+            //mo tab moi khi bam nut tao bang ke
+            $scope.addnew = function () {
+                console.log('mo tab chi tiet');
+                $scope.mailers = [];
+                $scope.CODInfo = [];
+                $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
             };
 
-            $scope.getEmployeeRoutes = function (post) {
-                console.log(post);
-                if (post === '') {
-                    alert('Chọn bưu cục');
-                } else {
-                    showLoader(true);
-                    $http.get("/route/GetEmployeeRoutes?postId=" + post).then(function (response) {
-                        showLoader(false);
-                        $scope.employeeRoutes = angular.copy(response.data);
-                    });
+            // lay du lieu
+            $scope.allCODMaster = [];
+            $scope.GetData = function (page, search) {
 
-                }
+                var fromDate = $('#fromDate').val();
+                var toDate = $('#toDate').val();
+                console.log(fromDate + '  ' + toDate);
+                showLoader(true);
+                $http({
+                    method: "GET",
+                    url: "/CODReturn/GetCODReturn?page=" + page + "&search=" + search + "&fromDate=" + fromDate + "&toDate=" + toDate
+                }).then(function mySuccess(response) {
+                    showLoader(false);
 
+                    if (response.data.error === 0) {
+
+                        $scope.allCODMaster = response.data.data;
+                        $scope.itemPerPage = response.data.pageSize;
+                        $scope.totalItems = response.data.toltalSize;
+                        $scope.numPages = Math.round($scope.totalItems / $scope.itemPerPage);
+
+                    }
+
+                }, function myError(response) {
+                    showLoader(false);
+                    showNotify('Connect error');
+                });
+            };
+            // goi lay du liẹu
+
+            $scope.convertDate = function (jsonDate) {
+                var date = new Date(parseInt(jsonDate.substr(6)));
+                return date;
             };
 
-            $scope.showRouteManage = function (rType, idx) {
-                $scope.provinceChoose = '';
-                var employee = $scope.employeeRoutes[idx];
-                $scope.eRoute = { EmployeeID: employee.EmployeeID, EmployeeName: employee.EmployeeName, Routetype: rType };
-                $scope.modaltitle = (rType === 'N' ? 'Quản lý tuyến nhận nhân viên ' : 'Quản lý tuyến phát nhân viên ') + $scope.eRoute.EmployeeName;
+            //get chi tiet
+            $scope.edit = function (index) {
+                var info = $scope.allCODMaster[index];
+                $scope.CODInfo = angular.copy(info);
+                //load danh sach cg chi tiet
 
-                showModel('routemodal');
+                showLoader(true);
+                $http({
+                    method: "GET",
+                    url: "/CODReturn/getCODDetail?DocumentID=" + $scope.CODInfo.DocumentID
+                }).then(function mySuccess(response) {
+                    showLoader(false);
+                    console.log(response.data);
+                   // if (response.error === 0) {
 
-            };
+                       // console.log(response.error);
+                        $scope.mailers = response.data.data;
+                        console.log(response.data);
+                    //}
 
-            $scope.getDistrictRoutes = function () {
-                if ($scope.provinceChoose !== '') {
-                    showLoader(true);
-                    $http.get("/route/GetDistrictRoutes?provinceId=" + $scope.provinceChoose + "&employeeId=" + $scope.eRoute.EmployeeID + "&type=" + $scope.eRoute.Routetype).then(function (response) {
-                        $scope.districts = angular.copy(response.data.districts);
-
-                        $scope.districtRoutes = angular.copy(response.data.routes);
-
-                        showLoader(false);
-
-                    });
-                }
-            };
-
-            // tim index theo ma tinh
-            function getDistrictIndex(id) {
-                for (var i = 0; i < $scope.districts.length; i++)
-                    if ($scope.districts[i].code == id)
-                        return i;
-                return -1;
-            };
-
-            $scope.addDistrictRoute = function () {
-
-                if ($scope.provinceChoose === '' || $scope.districtChoose === '') {
-                    alert('Thiếu thông tin');
-                } else {
-
-                    showLoader(true);
-
-                    $http(
-                        {
-                            method: "POST",
-                            url: "/route/AddDistrictRoutes",
-                            data: {
-                                provinceId: $scope.provinceChoose,
-                                employeeId: $scope.eRoute.EmployeeID,
-                                type: $scope.eRoute.Routetype,
-                                district: $scope.districtChoose
-                            }
-                        }
-                    ).then(function sucess(response) {
-
-                        showLoader(false);
-
-                        var data = response.data.data;
-
-                        var districtIdx = getDistrictIndex($scope.districtChoose);
-
-                        data.DistrictName = $scope.districts[districtIdx].name;
-
-                        $scope.districtRoutes.push(data);
-
-                        $scope.districts.splice(districtIdx, 1);
-                        $scope.districtChoose = '';
-                    }, function error(response) {
-                        showLoader(false);
-                        alert('disconnect internet')
-                    });
-
-                }
-
+                }, function myError(response) {
+                    showLoader(false);
+                    showNotify('Connect error');
+                });
+                //ket thuc load chi tiet
+                $scope.CountryIDDisable = true;
+                $scope.IsAction = 'edit';
+                $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
             };
 
         });
-        //-- end controller
+
+       
 
     </script>
+
 }
 

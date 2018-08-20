@@ -640,8 +640,8 @@
     </FunctionImport>
     <EntitySet Name="AC_CustomerDebitVoucher" EntityType="MNPOSTModel.AC_CustomerDebitVoucher" />
     <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" />
-    <EntitySet Name="MM_RecieveMoney" EntityType="MNPOSTModel.MM_RecieveMoney" />
-    <EntitySet Name="MM_RecieveMoneyDetails" EntityType="MNPOSTModel.MM_RecieveMoneyDetails" />
+    <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" />
+    <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" />
   </EntityContainer>
   <ComplexType Name="COUNTRY_GETALL_Result">
     <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -986,7 +986,7 @@
     <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
   </EntityType>
-  <EntityType Name="MM_RecieveMoney">
+  <EntityType Name="MM_EmployeeDebitVoucher">
     <Key>
       <PropertyRef Name="DocumentID" />
     </Key>
@@ -999,13 +999,15 @@
     <Property Name="TotalMoney" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="MM_RecieveMoneyDetails">
+  <EntityType Name="MM_EmployeeDebitVoucherDetails">
     <Key>
       <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
     </Key>
     <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="MailerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="COD" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ReciveCOD" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="LastUpDate" Type="DateTime" Precision="3" />
+    <Property Name="COD" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
 </Schema>

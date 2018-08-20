@@ -914,9 +914,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MM_RecieveMoney">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_RecieveMoney">
-        <MappingFragment StoreEntitySet="MM_RecieveMoney">
+    <EntitySetMapping Name="MM_EmployeeDebitVoucher">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
+        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
           <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
@@ -928,11 +928,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MM_RecieveMoneyDetails">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_RecieveMoneyDetails">
-        <MappingFragment StoreEntitySet="MM_RecieveMoneyDetails">
-          <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
+    <EntitySetMapping Name="MM_EmployeeDebitVoucherDetails">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucherDetails">
+        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucherDetails">
           <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
+          <ScalarProperty Name="ReciveCOD" ColumnName="ReciveCOD" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
         </MappingFragment>

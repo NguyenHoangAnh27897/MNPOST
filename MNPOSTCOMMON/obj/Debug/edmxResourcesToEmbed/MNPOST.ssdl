@@ -389,6 +389,30 @@
     <Property Name="StatusID" Type="bit" />
     <Property Name="IsPercent" Type="bit" />
   </EntityType>
+  <EntityType Name="MM_EmployeeDebitVoucher">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="DocumentDate" Type="datetime" />
+    <Property Name="MoneyColector" Type="nvarchar" MaxLength="20" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="MailerAccount" Type="int" />
+    <Property Name="TotalMoney" Type="money" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="MM_EmployeeDebitVoucherDetails">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ReciveCOD" Type="money" />
+    <Property Name="LastUpDate" Type="datetime" />
+    <Property Name="COD" Type="money" />
+  </EntityType>
   <EntityType Name="MM_EmployeeMoneyAdvances">
     <Key>
       <PropertyRef Name="DocumentID" />
@@ -565,28 +589,6 @@
     <Property Name="AcceptDate" Type="datetime" />
     <Property Name="LastEditDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
-  </EntityType>
-  <EntityType Name="MM_RecieveMoney">
-    <Key>
-      <PropertyRef Name="DocumentID" />
-    </Key>
-    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
-    <Property Name="DocumentDate" Type="datetime" />
-    <Property Name="MoneyColector" Type="nvarchar" MaxLength="20" />
-    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="MailerAccount" Type="int" />
-    <Property Name="TotalMoney" Type="money" />
-    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
-  </EntityType>
-  <EntityType Name="MM_RecieveMoneyDetails">
-    <Key>
-      <PropertyRef Name="DocumentID" />
-    </Key>
-    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MailerID" Type="nvarchar" MaxLength="20" />
-    <Property Name="COD" Type="money" />
-    <Property Name="LastUpDate" Type="datetime" />
   </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
@@ -806,6 +808,8 @@
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeMoneyAdvances" EntityType="Self.MM_EmployeeMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_History" EntityType="Self.MM_History" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDelivery" EntityType="Self.MM_MailerDelivery" Schema="dbo" store:Type="Tables" />
@@ -814,8 +818,6 @@
     <EntitySet Name="MM_MailerServices" EntityType="Self.MM_MailerServices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_PackingList" EntityType="Self.MM_PackingList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_PackingListDetail" EntityType="Self.MM_PackingListDetail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MM_RecieveMoney" EntityType="Self.MM_RecieveMoney" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MM_RecieveMoneyDetails" EntityType="Self.MM_RecieveMoneyDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />

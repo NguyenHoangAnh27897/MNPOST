@@ -70,8 +70,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<BS_Routes> BS_Routes { get; set; }
         public virtual DbSet<AC_CustomerDebitVoucher> AC_CustomerDebitVoucher { get; set; }
         public virtual DbSet<AC_CustomerDebitVoucherDetail> AC_CustomerDebitVoucherDetail { get; set; }
-        public virtual DbSet<MM_RecieveMoney> MM_RecieveMoney { get; set; }
-        public virtual DbSet<MM_RecieveMoneyDetails> MM_RecieveMoneyDetails { get; set; }
+        public virtual DbSet<MM_EmployeeDebitVoucher> MM_EmployeeDebitVoucher { get; set; }
+        public virtual DbSet<MM_EmployeeDebitVoucherDetails> MM_EmployeeDebitVoucherDetails { get; set; }
     
         public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {
