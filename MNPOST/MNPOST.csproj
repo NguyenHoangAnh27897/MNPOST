@@ -4464,6 +4464,7 @@
     <Content Include="Scripts\myscript.keypress.js" />
     <Content Include="Scripts\myscripts.js" />
     <Content Include="Scripts\order\mailerdelivery.js" />
+    <Content Include="Scripts\order\mailershow.js" />
     <Content Include="Scripts\order\orderinit.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -4528,6 +4529,7 @@
     <Content Include="Views\CODReturn\Show.cshtml" />
     <Content Include="Views\EmployeeDebit\Show.cshtml" />
     <Content Include="Templates\mailer.template.xlsx" />
+    <Content Include="Views\Mailer\ShowMailer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

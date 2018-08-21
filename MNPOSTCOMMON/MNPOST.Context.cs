@@ -200,5 +200,26 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GET_ALLEMPLOYEE_ROUTE_Result>("ROUTE_GET_ALLEMPLOYEE_ROUTE", postIdParameter);
         }
+    
+        public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string fdate, string tdate, string postId, string customerId)
+        {
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            var customerIdParameter = customerId != null ?
+                new ObjectParameter("customerId", customerId) :
+                new ObjectParameter("customerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETALL_Result>("MAILER_GETALL", fdateParameter, tdateParameter, postIdParameter, customerIdParameter);
+        }
     }
 }

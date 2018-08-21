@@ -12,7 +12,70 @@ namespace MNPOST.Controllers.mailer
     {
 
         [HttpGet]
-        public ActionResult ShowMailer(int? page) => View();
+        public ActionResult ShowMailer()
+        {
+            ViewBag.PostOffices = EmployeeInfo.postOffices;
+
+            ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
+            ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetMailers(int? page, string search, string fromDate, string toDate, string customer, string postId)
+        {
+            int pageSize = 50;
+
+            int pageNumber = (page ?? 1);
+
+            if (!CheckPostOffice(postId))
+                return Json(new { error = 1, msg = "Không phải bưu cục" }, JsonRequestBehavior.AllowGet);
+
+            if (String.IsNullOrEmpty(fromDate) || String.IsNullOrEmpty(toDate))
+            {
+                fromDate = DateTime.Now.ToString("dd/MM/yyyy");
+                toDate = DateTime.Now.ToString("dd/MM/yyyy");
+            }
+
+            DateTime paserFromDate = DateTime.Now;
+            DateTime paserToDate = DateTime.Now;
+
+            try
+            {
+                paserFromDate = DateTime.ParseExact(fromDate, "dd/MM/yyyy", null);
+                paserToDate = DateTime.ParseExact(toDate, "dd/MM/yyyy", null);
+            }
+            catch
+            {
+                paserFromDate = DateTime.Now;
+                paserToDate = DateTime.Now;
+            }
+
+            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + customer + "%").ToList();
+
+            ResultInfo result = new ResultWithPaging()
+            {
+                error = 0,
+                msg = "",
+                page = pageNumber,
+                pageSize = pageSize,
+                toltalSize = data.Count(),
+                data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+            };
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult GetCustomers(string postId)
+        {
+            var data = db.BS_Customers.Where(p => p.PostOfficeID == postId).Select(p => new CommonData() { name = p.CustomerName, code = p.CustomerCode }).ToList();
+
+            return Json(new ResultInfo() { error = 0, msg = "", data = data }, JsonRequestBehavior.AllowGet);
+
+        }
 
         public string GeneralMailerCode(string cusId)
         {
