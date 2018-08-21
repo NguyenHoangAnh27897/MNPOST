@@ -59,15 +59,11 @@ namespace MNPOST.Controllers.mailer
 
         }
 
-
-       
-
         [HttpPost]
-        public ActionResult CalBillPrice(float weight = 0, float width = 0, float length = 0, float height = 0, float cod = 0, float goodValue = 0) 
+        public ActionResult CalBillPrice(float weight = 0, float volume = 0, float cod = 0, float merchandiseValue = 0) 
         {
-            return Json(new { price = 10000, codPrice = 10000 }, JsonRequestBehavior.AllowGet);
+            return Json(new { price =0, codPrice = 0 }, JsonRequestBehavior.AllowGet);
         }
-
 
         protected bool CheckPostOffice(string postId)
         {

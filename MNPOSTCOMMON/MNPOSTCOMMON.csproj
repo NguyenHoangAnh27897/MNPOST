@@ -123,6 +123,9 @@
     <Compile Include="BS_Zones.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="CData.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="COUNTRY_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>

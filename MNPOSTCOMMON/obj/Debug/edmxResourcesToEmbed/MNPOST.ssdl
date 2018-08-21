@@ -365,6 +365,17 @@
     <Property Name="IsActive" Type="bit" />
     <Property Name="CreateDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="CData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="128" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="CType" Type="nvarchar" MaxLength="128" />
+    <Property Name="CNotes" Type="nvarchar(max)" />
+    <Property Name="Active" Type="int" />
+  </EntityType>
   <EntityType Name="GeneralCodeInfo">
     <Key>
       <PropertyRef Name="Id" />
@@ -807,6 +818,7 @@
     <EntitySet Name="BS_Status" EntityType="Self.BS_Status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />

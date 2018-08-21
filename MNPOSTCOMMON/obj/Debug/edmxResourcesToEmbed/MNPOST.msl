@@ -940,5 +940,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CDatas">
+      <EntityTypeMapping TypeName="MNPOSTModel.CData">
+        <MappingFragment StoreEntitySet="CData">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CNotes" ColumnName="CNotes" />
+          <ScalarProperty Name="CType" ColumnName="CType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

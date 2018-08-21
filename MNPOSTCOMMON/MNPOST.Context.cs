@@ -72,6 +72,7 @@ namespace MNPOSTCOMMON
         public virtual DbSet<AC_CustomerDebitVoucherDetail> AC_CustomerDebitVoucherDetail { get; set; }
         public virtual DbSet<MM_EmployeeDebitVoucherDetails> MM_EmployeeDebitVoucherDetails { get; set; }
         public virtual DbSet<MM_EmployeeDebitVoucher> MM_EmployeeDebitVoucher { get; set; }
+        public virtual DbSet<CData> CDatas { get; set; }
     
         public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {

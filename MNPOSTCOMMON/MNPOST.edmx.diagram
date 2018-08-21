@@ -55,6 +55,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" Width="1.5" PointX="19.375" PointY="8.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" Width="1.5" PointX="19.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.CData" Width="1.5" PointX="20.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

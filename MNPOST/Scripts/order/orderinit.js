@@ -102,6 +102,8 @@ app.service('mailerService', function () {
 
 });
 
+
+// controller main --> gird mailer
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.mailers = mailerService.getMailers();
@@ -109,7 +111,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     $scope.mailerTypes = mailerService.getMailerTypes();
     $scope.payments = mailerService.getPayments();
     $scope.merchandises = mailerService.getMerchandises();
-   
+
     $scope.postoffices = postOfficesData;
 
     $scope.postchoose = '';
@@ -153,6 +155,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     }
 
+    // 
     $scope.getLocation = function (val) {
         return $http.get('//maps.googleapis.com/maps/api/geocode/json?components=country:VN', {
             params: {
@@ -211,42 +214,36 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     $scope.finishForm = function (valid) {
 
-        if (valid) {
-
-            if ($scope.postchoose === '') {
-                alert('Chọn bưu cục xử lý');
-            } else if ($scope.mailers.length === 0) {
-                alert("Không có đơn nào để cập nhật");
-            }else {
-                showLoader(true);
-
-                $http({
-                    method: "POST",
-                    url: "/mailerinit/InsertMailers",
-                    data: {
-                        mailers: $scope.mailers,
-                        postId: $scope.postchoose
-                    }
-                }).then(function mySuccess(response) {
-
-                    mailerService.resetMailers();
-                    $scope.mailers = mailerService.getMailers();
-                    for (var i = 0; i < response.data.data.length; i++) {
-                        mailerService.addMailer(response.data.data[i]);
-                    }
-
-                    showLoader(false);
-
-                    alert('Đã thêm hoàn thành');
-
-                }, function myError(response) {
-                    alert('Connect error');
-                    showLoader(false);
-                });
-            }
-
+        if ($scope.postchoose === '') {
+            alert('Chọn bưu cục xử lý');
+        } else if ($scope.mailers.length === 0) {
+            alert("Không có đơn nào để cập nhật");
         } else {
-            alert('you miss a few field');
+            showLoader(true);
+
+            $http({
+                method: "POST",
+                url: "/mailerinit/InsertMailers",
+                data: {
+                    mailers: $scope.mailers,
+                    postId: $scope.postchoose
+                }
+            }).then(function mySuccess(response) {
+
+                mailerService.resetMailers();
+                $scope.mailers = mailerService.getMailers();
+                for (var i = 0; i < response.data.data.length; i++) {
+                    mailerService.addMailer(response.data.data[i]);
+                }
+
+                showLoader(false);
+
+                alert('Đã thêm hoàn thành');
+
+            }, function myError(response) {
+                alert('Connect error');
+                showLoader(false);
+            });
         }
 
     };
@@ -265,9 +262,52 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         $scope.mailers[$scope.currentIdx] = angular.copy(mailer);
     });
 
-
+    $scope.senderExcelInfo = {};
+    $scope.provinceSend = provinceSendGet;
+    $scope.districtSend = [];
+    $scope.wardSend = [];
     $scope.addByExcelFile = function () {
         showModel('insertbyexcel');
+    };
+
+
+    $scope.changeExcelCus = function (idx) {
+
+        var cus = mailerService.findCustomer($scope.senderExcelInfo.senderID);
+
+        if (cus) {
+            $scope.senderExcelInfo.senderName = cus.name;
+            $scope.senderExcelInfo.senderPhone = cus.phone;
+            $scope.senderExcelInfo.senderProvince = cus.provinceId;
+            $scope.senderExcelInfo.senderAddress = cus.address;
+            $scope.senderExcelInfo.senderDistrict = cus.districtId;
+            $scope.senderExcelInfo.senderWard = cus.wardId;
+        }
+    }
+
+    $scope.provinceExcelChange = function (pType, type) {
+
+        var url = '/mailerinit/GetProvinces?';
+
+        if (pType === "district") {
+            url = url + "parentId=" + $scope.senderExcelInfo.senderProvince + "&type=district";
+        }
+
+        if (pType === "ward") {
+            url = url + "parentId=" + $scope.senderExcelInfo.senderDistrict + "&type=ward";
+        }
+
+        $http.get(url).then(function (response) {
+
+            if (pType === "district") {
+                $scope.districtSend = angular.copy(response.data);
+            }
+
+            if (pType === "ward") {
+                $scope.wardSend = angular.copy(response.data);
+            }
+
+        });
     };
 
     // upload file
@@ -282,28 +322,45 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     });
 
     $scope.insertByExcel = function () {
-        console.log('uploading...');
-        console.log($scope.files);
-        uiUploader.startUpload({
-            url: '/mailerinit/insertbyexcel',
-            concurrency: 2,
-            paramName: 'files',
-            data: {
-                name : 'hoai nam'
-            },
-            onProgress: function (file) {
-                $scope.$apply();
-            },
-            onCompleted: function (file, response) {
-                console.log(file + 'response' + response);
-                uiUploader.removeAll();
-            }
-        });
+
+        if ($scope.senderExcelInfo.senderProvince === null || $scope.senderExcelInfo.senderDistrict === null || $scope.senderExcelInfo.senderWard === null) {
+            alert('Thiếu thông tin tỉnh thành');
+        } else {
+            showLoader(true);
+            uiUploader.startUpload({
+                url: '/mailerinit/insertbyexcel',
+                concurrency: 2,
+                paramName: 'files',
+                data: $scope.senderExcelInfo,
+                onProgress: function (file) {
+                    $scope.$apply();
+                },
+                onCompleted: function (file, response) {
+
+                    showLoader(false);
+                    var result = angular.fromJson(response);
+                    console.log(result);
+                    if (result.error === 1) {
+                        alert(result.msg);
+                    } else {
+                        uiUploader.removeAll();
+                        inserByExcelElement.value = "";
+                        hideModel('insertbyexcel');
+                        for (var i = 0; i < result.data.length; i++) {
+                            mailerService.addMailer(result.data[i]);
+                        }
+                        $scope.$apply();
+                    }
+                }
+            });
+        }
+
+
     };
 
 });
 
-
+// controller detail --> create, edit mailer
 app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerService) {
 
     $scope.customers = mailerService.getCustomers();
@@ -336,10 +393,10 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     });
 
 
-    $scope.provinceSend = provinceSendGet;
+
 
     $scope.provinceRecei = angular.copy($scope.provinceSend);
-
+    $scope.provinceSend = provinceSendGet;
     $scope.districtSend = [];
     $scope.wardSend = [];
 

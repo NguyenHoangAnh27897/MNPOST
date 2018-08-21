@@ -78,13 +78,13 @@
                                                 </select>
                                             </td>
                                             <td><input type="text" ng-model="item.SenderName" class="tableinput" required /></td>
-                                            <td><input type="text" ng-model="item.SenderPhone" class="tableinput" required /></td>
+                                            <td><input type="tel" ng-model="item.SenderPhone" class="tableinput" required /></td>
                                             <td><input type="text" ng-model="item.SenderAddress" required class="tableinput" typeahead-on-select="onSelectAddress($item, $model, $label, $index, 'send')" typeahead-on-select="fillAddress()" uib-typeahead="address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" /></td>
                                             <td><input type="text" ng-model="item.SenderProvinceID" required class="tableinput" disabled /></td>
                                             <td><input type="text" ng-model="item.SenderDistrictID" required class="tableinput" disabled /></td>
                                             <td><input type="text" ng-model="item.SenderWardID" class="tableinput" disabled /></td>
                                             <td><input type="text" ng-model="item.RecieverName" required class="tableinput" /></td>
-                                            <td><input type="text" ng-model="item.RecieverPhone" class="tableinput" required /></td>
+                                            <td><input type="tel" ng-model="item.RecieverPhone" class="tableinput" required /></td>
                                             <td><input type="text" ng-model="item.RecieverAddress" required class="tableinput" typeahead-on-select="onSelectAddress($item, $model, $label,$index, 'receive')" uib-typeahead="address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" /></td>
                                             <td><input type="text" ng-model="item.RecieverProvinceID" class="tableinput" disabled required /></td>
                                             <td><input type="text" ng-model="item.RecieverDistrictID" class="tableinput" disabled required /></td>
@@ -136,16 +136,52 @@
                     <form class="css-form" name="insertbyexcel" ng-submit="insertByExcel(insertbyexcel.$valid)">
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="x_title">
-                                        <h2><i class="fa fa-align-left"></i> Thông tin người gửi</h2>
-                                        <div class="clearfix"></div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Mã người gửi</label>
+                                        <select ng-model="senderExcelInfo.senderID" class="form-control" ng-change="changeExcelCus()" required>
+                                            <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tên người gửi</label>
+                                        <input type="text" class="form-control" ng-model="senderExcelInfo.senderName" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Điện thoại</label>
+                                        <input type="tel" class="form-control" ng-model="senderExcelInfo.senderPhone" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Địa chỉ</label>
+                                        <input type="text" class="form-control" ng-model="senderExcelInfo.senderAddress" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Tỉnh thành</label>
+                                        <select class="form-control" ng-model="senderExcelInfo.senderProvince" ng-change="provinceExcelChange('district', 'send')" required>
+                                            <option ng-repeat="item in provinceSend" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quận huyện</label>
+                                        <select class="form-control" ng-model="senderExcelInfo.senderDistrict" ng-change="provinceExcelChange('ward', 'send')" required>
+                                            <option ng-repeat="item in districtSend" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phường xã</label>
+                                        <select class="form-control" ng-model="senderExcelInfo.senderWard" required>
+                                            <option ng-repeat="item in wardSend" value="{{item.code}}">{{item.name}}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Upload file Excel</label>
-                                        <input type="file" id="insertByExcel" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control" required/>
+                                        <input type="file" id="insertByExcel" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control" required />
+                                        <a href="~/Templates/mailer.template.xlsx" target="_blank">Tải file mẫu</a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -207,7 +243,7 @@
 
                                     <div class="form-group">
                                         <label>Điện thoại</label>
-                                        <input type="text" class="form-control" ng-model="mailer.SenderPhone" required />
+                                        <input type="tel" class="form-control" ng-model="mailer.SenderPhone" required />
                                     </div>
 
                                     <div class="form-group">
@@ -246,7 +282,7 @@
 
                                     <div class="form-group">
                                         <label>Điện thoại</label>
-                                        <input type="text" class="form-control" ng-model="mailer.RecieverPhone" required />
+                                        <input type="tel" class="form-control" ng-model="mailer.RecieverPhone" required />
                                     </div>
 
                                     <div class="form-group">
