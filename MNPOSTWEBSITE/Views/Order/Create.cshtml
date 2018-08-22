@@ -315,7 +315,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Cước chính</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập cước...">
+                                        <input type="number" id="PriceMain" class="form-control round-form" name="PriceMain" placeholder="Nhập cước..." step="any" onclick="sum()">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
@@ -324,7 +324,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Cước CoD</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập cước...">
+                                        <input type="number" id="CODPrice" class="form-control round-form" name="CODPrice" placeholder="Nhập cước..." step="any" onclick="sum()">
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +332,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Tổng cước</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập cước...">
+                                        <input type="number" id="PriceDefault" class="form-control round-form" name="PriceDefault" placeholder="Tổng cước..." step="any">
                                     </div>
                                 </div>
                             </div>
@@ -344,6 +344,7 @@
     </section>
 </section><!-- /MAIN CONTENT -->
 <!--main content end-->
+<a href="~/Controllers/ManageController.cs">~/Controllers/ManageController.cs</a>
 <!--custom tagsinput-->
 <script>
 function myFunction() {
@@ -353,6 +354,13 @@ function myFunction() {
     } else {
         x.style.display = "none";
     }
+}
+function sum() {
+    var pricemain = document.getElementById("PriceMain").value;
+    var codprice = document.getElementById("CODPrice").value;
+    var total = 0;
+    total = parseInt(pricemain) + parseInt(codprice);
+    document.getElementById("PriceDefault").value = total;
 }
 </script>
 <script src="/Content/js/jquery.tagsinput.js"></script>

@@ -43,7 +43,7 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(string SenderID = "", string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0, string Purchase="",string MerchandiseValue="",string COD="",string Note="", string MailerDescription="",int? Length=0,int? Width=0,int? Height=0,string MailerTypeID="",string MerchandiseID="")
+        public async Task<ActionResult> Create(string SenderID = "", string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0, string Purchase="",string MerchandiseValue="",string COD="",string Note="", string MailerDescription="",int? Length=0,int? Width=0,int? Height=0,string MailerTypeID="",string MerchandiseID="",int? PriceMain=0,int? CODPrice=0,int? PriceDefault=0)
         {
             decimal? cod = decimal.Parse(COD);
             decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
@@ -73,7 +73,10 @@ namespace MNPOSTWEBSITE.Controllers
                 HeightSize = Height,
                 WidthSize = Width,
                 MailerTypeID = MailerTypeID,
-                MerchandiseID = MerchandiseID
+                MerchandiseID = MerchandiseID,
+                PriceDefault = PriceDefault,
+                
+                
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
