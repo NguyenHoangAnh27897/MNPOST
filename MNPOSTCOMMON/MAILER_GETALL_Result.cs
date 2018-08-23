@@ -28,6 +28,8 @@ namespace MNPOSTCOMMON
         public string RecieverDistrictID { get; set; }
         public string RecieverProvinceID { get; set; }
         public string RecieverPhone { get; set; }
+        public string AcceptDate { get; set; }
+        public string AcceptTime { get; set; }
         public string MailerTypeID { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<double> Weight { get; set; }
@@ -44,7 +46,5 @@ namespace MNPOSTCOMMON
         public string Notes { get; set; }
         public Nullable<decimal> COD { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
-        public string AcceptDate { get; set; }
-        public string AcceptTime { get; set; }
     }
 }

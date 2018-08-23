@@ -14,7 +14,7 @@ namespace MNPOST.Controllers.troubleticket
         {
             ViewBag.AllEmployee = db.BS_Employees.Where(p=> p.IsActive == true).ToList();
             ViewBag.AllPostOffice = db.BS_PostOffices.ToList();
-            ViewBag.AllStatus = db.BS_Status.Where(p => p.Type == "T");
+          
             ViewBag.AllCustomer = db.BS_Customers.Where(p => p.IsActive == true).ToList();
             return View();
         }

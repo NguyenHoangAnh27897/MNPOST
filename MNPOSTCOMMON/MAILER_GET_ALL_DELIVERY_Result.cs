@@ -24,9 +24,9 @@ namespace MNPOSTCOMMON
         public Nullable<int> StatusID { get; set; }
         public string RouteID { get; set; }
         public string NumberPlate { get; set; }
+        public string DocumentCode { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeePhone { get; set; }
         public string EmployeeEmail { get; set; }
-        public string DocumentCode { get; set; }
     }
 }
