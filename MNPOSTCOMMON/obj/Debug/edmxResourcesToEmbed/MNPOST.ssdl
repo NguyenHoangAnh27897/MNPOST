@@ -187,6 +187,15 @@
     <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
     <Property Name="WardID" Type="nvarchar" MaxLength="128" />
   </EntityType>
+  <EntityType Name="BS_Distants">
+    <Key>
+      <PropertyRef Name="GroupID" />
+      <PropertyRef Name="ProvinceID" />
+    </Key>
+    <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ProvinceID" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="ZoneID" Type="nvarchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="BS_Districts">
     <Key>
       <PropertyRef Name="DistrictID" />
@@ -265,6 +274,35 @@
     <Property Name="BankName" Type="nvarchar" MaxLength="100" />
     <Property Name="Type" Type="int" />
   </EntityType>
+<<<<<<< HEAD
+=======
+  <EntityType Name="BS_PriceGroups">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ZoneNumber" Type="int" />
+    <Property Name="WeightNumber" Type="int" />
+  </EntityType>
+  <EntityType Name="BS_PriceMaTrixs">
+    <Key>
+      <PropertyRef Name="PriceMatrixID" />
+    </Key>
+    <Property Name="PriceMatrixID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
+    <Property Name="GroupID" Type="nvarchar" MaxLength="20" />
+    <Property Name="PriceType" Type="nvarchar" MaxLength="2" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="ApplyAllCustomer" Type="bit" />
+    <Property Name="ApplyAllZone" Type="nvarchar" MaxLength="5" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Service" Type="bit" />
+  </EntityType>
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
   <EntityType Name="BS_Provinces">
     <Key>
       <PropertyRef Name="ProvinceID" />
@@ -277,6 +315,38 @@
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="BS_RangeValues">
+    <Key>
+      <PropertyRef Name="PriceMatrixID" />
+      <PropertyRef Name="RowIndex" />
+      <PropertyRef Name="ColIndex" />
+    </Key>
+    <Property Name="PriceMatrixID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+    <Property Name="ColIndex" Type="int" Nullable="false" />
+    <Property Name="Value" Type="float" />
+  </EntityType>
+  <EntityType Name="BS_RangeWeights">
+    <Key>
+      <PropertyRef Name="GroupID" />
+      <PropertyRef Name="FromWeight" />
+      <PropertyRef Name="ToWeight" />
+    </Key>
+    <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="FromWeight" Type="float" Nullable="false" />
+    <Property Name="ToWeight" Type="float" Nullable="false" />
+    <Property Name="IsNextWeight" Type="bit" />
+    <Property Name="No" Type="int" />
+  </EntityType>
+  <EntityType Name="BS_RangeZones">
+    <Key>
+      <PropertyRef Name="GroupID" />
+      <PropertyRef Name="ZoneID" />
+    </Key>
+    <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ZoneID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="No" Type="int" />
   </EntityType>
   <EntityType Name="BS_ReturnReasons">
     <Key>
@@ -788,12 +858,21 @@
     <EntitySet Name="BS_Countries" EntityType="Self.BS_Countries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_CustomerGroups" EntityType="Self.BS_CustomerGroups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_Distants" EntityType="Self.BS_Distants" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
+<<<<<<< HEAD
+=======
+    <EntitySet Name="BS_PriceGroups" EntityType="Self.BS_PriceGroups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_PriceMaTrixs" EntityType="Self.BS_PriceMaTrixs" Schema="dbo" store:Type="Tables" />
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_RangeValues" EntityType="Self.BS_RangeValues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_RangeWeights" EntityType="Self.BS_RangeWeights" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_RangeZones" EntityType="Self.BS_RangeZones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_ReturnReasons" EntityType="Self.BS_ReturnReasons" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_RouteDetails" EntityType="Self.BS_RouteDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />

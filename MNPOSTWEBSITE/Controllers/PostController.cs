@@ -193,5 +193,10 @@ namespace MNPOSTWEBSITE.Controllers
             db.SaveChanges();
             return RedirectToAction("AccountPost","Post");
         }
+
+        public ActionResult Recruitment()
+        {
+            return View();
+        }
 	}
 }

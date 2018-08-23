@@ -673,6 +673,76 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+=======
+    <EntitySetMapping Name="BS_Distants">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Distants">
+        <MappingFragment StoreEntitySet="BS_Distants">
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_PriceGroups">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceGroups">
+        <MappingFragment StoreEntitySet="BS_PriceGroups">
+          <ScalarProperty Name="WeightNumber" ColumnName="WeightNumber" />
+          <ScalarProperty Name="ZoneNumber" ColumnName="ZoneNumber" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_PriceMaTrixs">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceMaTrixs">
+        <MappingFragment StoreEntitySet="BS_PriceMaTrixs">
+          <ScalarProperty Name="Service" ColumnName="Service" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ApplyAllZone" ColumnName="ApplyAllZone" />
+          <ScalarProperty Name="ApplyAllCustomer" ColumnName="ApplyAllCustomer" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RangeValues">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeValues">
+        <MappingFragment StoreEntitySet="BS_RangeValues">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RangeWeights">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeWeights">
+        <MappingFragment StoreEntitySet="BS_RangeWeights">
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="IsNextWeight" ColumnName="IsNextWeight" />
+          <ScalarProperty Name="ToWeight" ColumnName="ToWeight" />
+          <ScalarProperty Name="FromWeight" ColumnName="FromWeight" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RangeZones">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeZones">
+        <MappingFragment StoreEntitySet="BS_RangeZones">
+          <ScalarProperty Name="No" ColumnName="No" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
     <EntitySetMapping Name="CDatas">
       <EntityTypeMapping TypeName="MNPOSTModel.CData">
         <MappingFragment StoreEntitySet="CData">
@@ -685,9 +755,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="COUNTRY_GETALL" FunctionName="MNPOSTModel.Store.COUNTRY_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.COUNTRY_GETALL_Result">
+=======
+    <FunctionImportMapping FunctionImportName="COUNTRY_GETALL1" FunctionName="MNPOSTModel.Store.COUNTRY_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.COUNTRY_GETALL1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="CountryID" ColumnName="CountryID" />
           <ScalarProperty Name="CountryName" ColumnName="CountryName" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -697,9 +773,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="DISTRICT_GETALL" FunctionName="MNPOSTModel.Store.DISTRICT_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.DISTRICT_GETALL_Result">
+=======
+    <FunctionImportMapping FunctionImportName="DISTRICT_GETALL1" FunctionName="MNPOSTModel.Store.DISTRICT_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.DISTRICT_GETALL1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
           <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
@@ -709,9 +791,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL_Result">
+=======
+    <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL1" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -741,9 +829,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID_Result">
+=======
+    <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID1" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -773,9 +867,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU_Result">
+=======
+    <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU1" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Link" ColumnName="Link" />
@@ -789,9 +889,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result">
+=======
+    <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY1" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -849,9 +955,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
+=======
+    <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER1" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -866,9 +978,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL_Result">
+=======
+    <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL1" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -889,9 +1007,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="PROVINCE_GETALL" FunctionName="MNPOSTModel.Store.PROVINCE_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.PROVINCE_GETALL_Result">
+=======
+    <FunctionImportMapping FunctionImportName="PROVINCE_GETALL1" FunctionName="MNPOSTModel.Store.PROVINCE_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.PROVINCE_GETALL1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
           <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
           <ScalarProperty Name="CountryID" ColumnName="CountryID" />
@@ -903,9 +1027,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result">
+=======
+    <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE1" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
@@ -914,9 +1044,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result">
+=======
+    <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID1" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="RouteID" ColumnName="RouteID" />
           <ScalarProperty Name="WardID" ColumnName="WardID" />
           <ScalarProperty Name="WardName" ColumnName="WardName" />
@@ -925,9 +1061,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="USER_CHECKACCESS" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS_Result">
+=======
+    <FunctionImportMapping FunctionImportName="USER_CHECKACCESS1" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="MenuId" ColumnName="MenuId" />
           <ScalarProperty Name="GroupUserId" ColumnName="GroupUserId" />
@@ -935,9 +1077,15 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="USER_GETMENU" FunctionName="MNPOSTModel.Store.USER_GETMENU">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU_Result">
+=======
+    <FunctionImportMapping FunctionImportName="USER_GETMENU1" FunctionName="MNPOSTModel.Store.USER_GETMENU">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Link" ColumnName="Link" />
@@ -950,18 +1098,30 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="USER_GETROLE" FunctionName="MNPOSTModel.Store.USER_GETROLE">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE_Result">
+=======
+    <FunctionImportMapping FunctionImportName="USER_GETROLE1" FunctionName="MNPOSTModel.Store.USER_GETROLE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="GroupId" ColumnName="GroupId" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="WARD_GETALL" FunctionName="MNPOSTModel.Store.WARD_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.WARD_GETALL_Result">
+=======
+    <FunctionImportMapping FunctionImportName="WARD_GETALL1" FunctionName="MNPOSTModel.Store.WARD_GETALL">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.WARD_GETALL1_Result">
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="WardID" ColumnName="WardID" />
           <ScalarProperty Name="WardName" ColumnName="WardName" />
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />

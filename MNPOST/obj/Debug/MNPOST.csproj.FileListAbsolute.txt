@@ -383,3 +383,4 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssem
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\EPPlus.dll
+D:\Laptrinh\Github\MNPOST\MNPOST\bin\EPPlus.dll
