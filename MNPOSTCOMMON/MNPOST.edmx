@@ -192,6 +192,15 @@
           <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
           <Property Name="WardID" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="BS_Distants">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProvinceID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ZoneID" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="BS_Districts">
           <Key>
             <PropertyRef Name="DistrictID" />
@@ -270,17 +279,31 @@
           <Property Name="BankName" Type="nvarchar" MaxLength="100" />
           <Property Name="Type" Type="int" />
         </EntityType>
-        <EntityType Name="BS_PriceZones">
+        <EntityType Name="BS_PriceGroups">
           <Key>
-            <PropertyRef Name="ProvinceID" />
-            <PropertyRef Name="ZoneID" />
             <PropertyRef Name="GroupID" />
-            <PropertyRef Name="PriceTypeID" />
           </Key>
-          <Property Name="ProvinceID" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="ZoneID" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="GroupID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PriceTypeID" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZoneNumber" Type="int" />
+          <Property Name="WeightNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="BS_PriceMaTrixs">
+          <Key>
+            <PropertyRef Name="PriceMatrixID" />
+          </Key>
+          <Property Name="PriceMatrixID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateDate" Type="date" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="PostOfficeID" Type="nvarchar" MaxLength="10" />
+          <Property Name="GroupID" Type="nvarchar" MaxLength="20" />
+          <Property Name="PriceType" Type="nvarchar" MaxLength="2" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="ApplyAllCustomer" Type="bit" />
+          <Property Name="ApplyAllZone" Type="nvarchar" MaxLength="5" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Service" Type="bit" />
         </EntityType>
         <EntityType Name="BS_Provinces">
           <Key>
@@ -294,6 +317,38 @@
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="BS_RangeValues">
+          <Key>
+            <PropertyRef Name="PriceMatrixID" />
+            <PropertyRef Name="RowIndex" />
+            <PropertyRef Name="ColIndex" />
+          </Key>
+          <Property Name="PriceMatrixID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="RowIndex" Type="int" Nullable="false" />
+          <Property Name="ColIndex" Type="int" Nullable="false" />
+          <Property Name="Value" Type="float" />
+        </EntityType>
+        <EntityType Name="BS_RangeWeights">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="FromWeight" />
+            <PropertyRef Name="ToWeight" />
+          </Key>
+          <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FromWeight" Type="float" Nullable="false" />
+          <Property Name="ToWeight" Type="float" Nullable="false" />
+          <Property Name="IsNextWeight" Type="bit" />
+          <Property Name="No" Type="int" />
+        </EntityType>
+        <EntityType Name="BS_RangeZones">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="GroupID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ZoneID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="No" Type="int" />
         </EntityType>
         <EntityType Name="BS_ReturnReasons">
           <Key>
@@ -340,15 +395,6 @@
           <Property Name="Type" Type="nvarchar" MaxLength="1" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <EntityType Name="BS_Status">
-          <Key>
-            <PropertyRef Name="StatusID" />
-          </Key>
-          <Property Name="StatusID" Type="int" Nullable="false" />
-          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="Type" Type="nvarchar" MaxLength="1" />
-        </EntityType>
         <EntityType Name="BS_Wards">
           <Key>
             <PropertyRef Name="WardID" />
@@ -369,6 +415,17 @@
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="128" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="CType" Type="nvarchar" MaxLength="128" />
+          <Property Name="CNotes" Type="nvarchar(max)" />
+          <Property Name="Active" Type="int" />
         </EntityType>
         <EntityType Name="GeneralCodeInfo">
           <Key>
@@ -762,6 +819,12 @@
           <Parameter Name="fdate" Type="varchar" Mode="In" />
           <Parameter Name="tdate" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="MAILER_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="varchar" Mode="In" />
+          <Parameter Name="tdate" Type="varchar" Mode="In" />
+          <Parameter Name="postId" Type="nvarchar" Mode="In" />
+          <Parameter Name="customerId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documentID" Type="nvarchar" Mode="In" />
         </Function>
@@ -797,21 +860,26 @@
           <EntitySet Name="BS_Countries" EntityType="Self.BS_Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_CustomerGroups" EntityType="Self.BS_CustomerGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Customers" EntityType="Self.BS_Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_Distants" EntityType="Self.BS_Distants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_PriceGroups" EntityType="Self.BS_PriceGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_PriceMaTrixs" EntityType="Self.BS_PriceMaTrixs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_RangeValues" EntityType="Self.BS_RangeValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_RangeWeights" EntityType="Self.BS_RangeWeights" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BS_RangeZones" EntityType="Self.BS_RangeZones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_ReturnReasons" EntityType="Self.BS_ReturnReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_RouteDetails" EntityType="Self.BS_RouteDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Routes" EntityType="Self.BS_Routes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Services" EntityType="Self.BS_Services" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BS_Status" EntityType="Self.BS_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
@@ -1070,18 +1138,6 @@
           <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="Int32" />
-        </EntityType>
-        <EntityType Name="BS_PriceZones">
-          <Key>
-            <PropertyRef Name="ProvinceID" />
-            <PropertyRef Name="ZoneID" />
-            <PropertyRef Name="GroupID" />
-            <PropertyRef Name="PriceTypeID" />
-          </Key>
-          <Property Name="ProvinceID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ZoneID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GroupID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PriceTypeID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="BS_Provinces">
           <Key>
@@ -1413,7 +1469,6 @@
           <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" />
           <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" />
           <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" />
-          <EntitySet Name="BS_PriceZones" EntityType="Self.BS_PriceZones" />
           <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" />
           <EntitySet Name="BS_Services" EntityType="Self.BS_Services" />
           <EntitySet Name="BS_ServiceTypes" EntityType="Self.BS_ServiceTypes" />
@@ -1474,7 +1529,6 @@
           </FunctionImport>
           <FunctionImport Name="WARD_GETALL" ReturnType="Collection(MNPOSTModel.WARD_GETALL_Result)" />
           <EntitySet Name="BS_ReturnReasons" EntityType="MNPOSTModel.BS_ReturnReasons" />
-          <EntitySet Name="BS_Status" EntityType="MNPOSTModel.BS_Status" />
           <EntitySet Name="MM_MailerDelivery" EntityType="MNPOSTModel.MM_MailerDelivery" />
           <EntitySet Name="UserLevels" EntityType="MNPOSTModel.UserLevel" />
           <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
@@ -1502,6 +1556,57 @@
           <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" />
           <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" />
           <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" />
+          <EntitySet Name="BS_Distants" EntityType="MNPOSTModel.BS_Distants" />
+          <EntitySet Name="BS_PriceGroups" EntityType="MNPOSTModel.BS_PriceGroups" />
+          <EntitySet Name="BS_PriceMaTrixs" EntityType="MNPOSTModel.BS_PriceMaTrixs" />
+          <EntitySet Name="BS_RangeValues" EntityType="MNPOSTModel.BS_RangeValues" />
+          <EntitySet Name="BS_RangeWeights" EntityType="MNPOSTModel.BS_RangeWeights" />
+          <EntitySet Name="BS_RangeZones" EntityType="MNPOSTModel.BS_RangeZones" />
+          <EntitySet Name="CDatas" EntityType="MNPOSTModel.CData" />
+          <FunctionImport Name="COUNTRY_GETALL1" ReturnType="Collection(MNPOSTModel.COUNTRY_GETALL1_Result)" />
+          <FunctionImport Name="DISTRICT_GETALL1" ReturnType="Collection(MNPOSTModel.DISTRICT_GETALL1_Result)" />
+          <FunctionImport Name="EMPLOYEE_GETALL1" ReturnType="Collection(MNPOSTModel.EMPLOYEE_GETALL1_Result)">
+            <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EMPLOYEE_GETBYID1" ReturnType="Collection(MNPOSTModel.EMPLOYEE_GETBYID1_Result)">
+            <Parameter Name="employeeID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GROUPUSER_GETLISTMENU1" ReturnType="Collection(MNPOSTModel.GROUPUSER_GETLISTMENU1_Result)">
+            <Parameter Name="groupId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MAILER_GET_ALL_DELIVERY1" ReturnType="Collection(MNPOSTModel.MAILER_GET_ALL_DELIVERY1_Result)">
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MAILER_GETALL" ReturnType="Collection(MNPOSTModel.MAILER_GETALL_Result)">
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="customerId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MAILERDELIVERY_GETMAILER1" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER1_Result)">
+            <Parameter Name="documentID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="POSTOFFICE_GETALL1" ReturnType="Collection(MNPOSTModel.POSTOFFICE_GETALL1_Result)" />
+          <FunctionImport Name="PROVINCE_GETALL1" ReturnType="Collection(MNPOSTModel.PROVINCE_GETALL1_Result)" />
+          <FunctionImport Name="ROUTE_GET_ALLEMPLOYEE_ROUTE1" ReturnType="Collection(MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result)">
+            <Parameter Name="postId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ROUTE_GETDETAIL_BYROUTEID1" ReturnType="Collection(MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID1_Result)">
+            <Parameter Name="routeId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USER_CHECKACCESS1" ReturnType="Collection(MNPOSTModel.USER_CHECKACCESS1_Result)">
+            <Parameter Name="groupId" Mode="In" Type="String" />
+            <Parameter Name="menuCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USER_GETMENU1" ReturnType="Collection(MNPOSTModel.USER_GETMENU1_Result)">
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USER_GETROLE1" ReturnType="Collection(MNPOSTModel.USER_GETROLE1_Result)">
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="WARD_GETALL1" ReturnType="Collection(MNPOSTModel.WARD_GETALL1_Result)" />
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
           <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -1653,15 +1758,6 @@
           <Property Name="ReasonID" Type="Int32" Nullable="false" />
           <Property Name="ReasonName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="BS_Status">
-          <Key>
-            <PropertyRef Name="StatusID" />
-          </Key>
-          <Property Name="StatusID" Type="Int32" Nullable="false" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="Type" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MM_MailerDelivery">
           <Key>
@@ -1871,6 +1967,306 @@
           <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="BS_Distants">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="ProvinceID" />
+          </Key>
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BS_PriceGroups">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneNumber" Type="Int32" />
+          <Property Name="WeightNumber" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BS_PriceMaTrixs">
+          <Key>
+            <PropertyRef Name="PriceMatrixID" />
+          </Key>
+          <Property Name="PriceMatrixID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="GroupID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PriceType" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="ApplyAllCustomer" Type="Boolean" />
+          <Property Name="ApplyAllZone" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Service" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="BS_RangeValues">
+          <Key>
+            <PropertyRef Name="PriceMatrixID" />
+            <PropertyRef Name="RowIndex" />
+            <PropertyRef Name="ColIndex" />
+          </Key>
+          <Property Name="PriceMatrixID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RowIndex" Type="Int32" Nullable="false" />
+          <Property Name="ColIndex" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Double" />
+        </EntityType>
+        <EntityType Name="BS_RangeWeights">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="FromWeight" />
+            <PropertyRef Name="ToWeight" />
+          </Key>
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FromWeight" Type="Double" Nullable="false" />
+          <Property Name="ToWeight" Type="Double" Nullable="false" />
+          <Property Name="IsNextWeight" Type="Boolean" />
+          <Property Name="No" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BS_RangeZones">
+          <Key>
+            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="ZoneID" />
+          </Key>
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ZoneID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="No" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CType" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="COUNTRY_GETALL1_Result">
+          <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="CountryName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CountryCode" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="DISTRICT_GETALL1_Result">
+          <Property Type="String" Name="DistrictID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="DistrictName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProvinceID" Nullable="false" MaxLength="15" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="EMPLOYEE_GETALL1_Result">
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="DepartmentID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="IdentifyCard" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="MemberOf" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+          <Property Type="Boolean" Name="IsCollaborators" Nullable="true" />
+          <Property Type="String" Name="SGPEmployeeID" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="ApproveDate" Nullable="true" />
+          <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="PositionID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PositionName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GroupId" Nullable="true" />
+          <Property Type="String" Name="AccountType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="EMPLOYEE_GETBYID1_Result">
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="DepartmentID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="String" Name="Address" Nullable="true" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="IdentifyCard" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="MemberOf" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+          <Property Type="Boolean" Name="IsCollaborators" Nullable="true" />
+          <Property Type="String" Name="SGPEmployeeID" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="Sex" Nullable="true" />
+          <Property Type="DateTime" Name="ApproveDate" Nullable="true" />
+          <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="PositionID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PositionName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="GroupId" Nullable="true" />
+          <Property Type="String" Name="AccountType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GROUPUSER_GETLISTMENU1_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="String" Name="Link" Nullable="true" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="GroupMenuId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Position" Nullable="true" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="groupUserId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="canedit" Nullable="true" />
+          <Property Type="String" Name="groupName" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MAILER_GET_ALL_DELIVERY1_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="DateTime" Name="DocumentDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="String" Name="RouteID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NumberPlate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="EmployeePhone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="EmployeeEmail" Nullable="true" MaxLength="512" />
+        </ComplexType>
+        <ComplexType Name="MAILER_GETALL_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SenderName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SenderAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SenderWardID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RecieverName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Double" Name="ReWeight" Nullable="true" />
+          <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="MAILERDELIVERY_GETMAILER1_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="POSTOFFICE_GETALL1_Result">
+          <Property Type="String" Name="PostOfficeID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ZoneID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="FaxNo" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsCollaborator" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="TaxCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BankAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BankName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="String" Name="ZoneName" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="PROVINCE_GETALL1_Result">
+          <Property Type="String" Name="ProvinceID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="ProvinceName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CountryID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="PhoneCode" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ZoneID" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result">
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+          <Property Type="Int32" Name="DistrictDelivery" Nullable="true" />
+          <Property Type="Int32" Name="DistrictReceive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ROUTE_GETDETAIL_BYROUTEID1_Result">
+          <Property Type="String" Name="RouteID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="WardID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="WardName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DistrictID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="DistrictName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USER_CHECKACCESS1_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="MenuId" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="GroupUserId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="CanEdit" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USER_GETMENU1_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="String" Name="Link" Nullable="true" />
+          <Property Type="String" Name="Icon" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="GroupMenuId" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Position" Nullable="true" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="groupName" Nullable="true" />
+          <Property Type="String" Name="GroupIcon" Nullable="true" MaxLength="128" />
+        </ComplexType>
+        <ComplexType Name="USER_GETROLE1_Result">
+          <Property Type="String" Name="UserName" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="GroupId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="WARD_GETALL1_Result">
+          <Property Type="String" Name="WardID" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="WardName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DistrictID" Nullable="false" MaxLength="15" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2087,16 +2483,6 @@
                 <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BS_PriceZones">
-            <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceZones">
-              <MappingFragment StoreEntitySet="BS_PriceZones">
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="PriceTypeID" ColumnName="PriceTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2393,209 +2779,12 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="COUNTRY_GETALL" FunctionName="MNPOSTModel.Store.COUNTRY_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.COUNTRY_GETALL_Result">
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DISTRICT_GETALL" FunctionName="MNPOSTModel.Store.DISTRICT_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.DISTRICT_GETALL_Result">
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL_Result">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
-                <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
-                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
-                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
-                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
-                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID_Result">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
-                <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
-                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
-                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
-                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
-                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
-                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="groupUserId" ColumnName="groupUserId" />
-                <ScalarProperty Name="canedit" ColumnName="canedit" />
-                <ScalarProperty Name="groupName" ColumnName="groupName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL_Result">
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IsCollaborator" ColumnName="IsCollaborator" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
-                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="PROVINCE_GETALL" FunctionName="MNPOSTModel.Store.PROVINCE_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.PROVINCE_GETALL_Result">
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
-                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USER_CHECKACCESS" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
-                <ScalarProperty Name="GroupUserId" ColumnName="GroupUserId" />
-                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USER_GETMENU" FunctionName="MNPOSTModel.Store.USER_GETMENU">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
-                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="groupName" ColumnName="groupName" />
-                <ScalarProperty Name="GroupIcon" ColumnName="GroupIcon" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USER_GETROLE" FunctionName="MNPOSTModel.Store.USER_GETROLE">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE_Result">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="WARD_GETALL" FunctionName="MNPOSTModel.Store.WARD_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.WARD_GETALL_Result">
-                <ScalarProperty Name="WardID" ColumnName="WardID" />
-                <ScalarProperty Name="WardName" ColumnName="WardName" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="BS_ReturnReasons">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_ReturnReasons">
               <MappingFragment StoreEntitySet="BS_ReturnReasons">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ReasonName" ColumnName="ReasonName" />
                 <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BS_Status">
-            <EntityTypeMapping TypeName="MNPOSTModel.BS_Status">
-              <MappingFragment StoreEntitySet="BS_Status">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2656,44 +2845,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result">
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-                <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
-                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
-                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
-                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
-                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
-                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
-                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
-                <ScalarProperty Name="COD" ColumnName="COD" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="BS_RouteDetails">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDetails">
               <MappingFragment StoreEntitySet="BS_RouteDetails">
@@ -2714,28 +2865,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result">
-                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-                <ScalarProperty Name="WardID" ColumnName="WardID" />
-                <ScalarProperty Name="WardName" ColumnName="WardName" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="DistrictDelivery" ColumnName="DistrictDelivery" />
-                <ScalarProperty Name="DistrictReceive" ColumnName="DistrictReceive" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="AC_CustomerDebitVoucher">
             <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
               <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
@@ -2816,6 +2945,371 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BS_Distants">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_Distants">
+              <MappingFragment StoreEntitySet="BS_Distants">
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_PriceGroups">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceGroups">
+              <MappingFragment StoreEntitySet="BS_PriceGroups">
+                <ScalarProperty Name="WeightNumber" ColumnName="WeightNumber" />
+                <ScalarProperty Name="ZoneNumber" ColumnName="ZoneNumber" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_PriceMaTrixs">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceMaTrixs">
+              <MappingFragment StoreEntitySet="BS_PriceMaTrixs">
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplyAllZone" ColumnName="ApplyAllZone" />
+                <ScalarProperty Name="ApplyAllCustomer" ColumnName="ApplyAllCustomer" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_RangeValues">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeValues">
+              <MappingFragment StoreEntitySet="BS_RangeValues">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+                <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+                <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_RangeWeights">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeWeights">
+              <MappingFragment StoreEntitySet="BS_RangeWeights">
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="IsNextWeight" ColumnName="IsNextWeight" />
+                <ScalarProperty Name="ToWeight" ColumnName="ToWeight" />
+                <ScalarProperty Name="FromWeight" ColumnName="FromWeight" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BS_RangeZones">
+            <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeZones">
+              <MappingFragment StoreEntitySet="BS_RangeZones">
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CDatas">
+            <EntityTypeMapping TypeName="MNPOSTModel.CData">
+              <MappingFragment StoreEntitySet="CData">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CNotes" ColumnName="CNotes" />
+                <ScalarProperty Name="CType" ColumnName="CType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="COUNTRY_GETALL1" FunctionName="MNPOSTModel.Store.COUNTRY_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.COUNTRY_GETALL1_Result">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DISTRICT_GETALL1" FunctionName="MNPOSTModel.Store.DISTRICT_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.DISTRICT_GETALL1_Result">
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL1" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL1_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
+                <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID1" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID1_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IdentifyCard" ColumnName="IdentifyCard" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="IsCollaborators" ColumnName="IsCollaborators" />
+                <ScalarProperty Name="SGPEmployeeID" ColumnName="SGPEmployeeID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU1" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="groupUserId" ColumnName="groupUserId" />
+                <ScalarProperty Name="canedit" ColumnName="canedit" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY1" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY1_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_GETALL" FunctionName="MNPOSTModel.Store.MAILER_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GETALL_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+                <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
+                <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
+                <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
+                <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
+                <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER1" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER1_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL1" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL1_Result">
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsCollaborator" ColumnName="IsCollaborator" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ZoneName" ColumnName="ZoneName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PROVINCE_GETALL1" FunctionName="MNPOSTModel.Store.PROVINCE_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.PROVINCE_GETALL1_Result">
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE1" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="DistrictDelivery" ColumnName="DistrictDelivery" />
+                <ScalarProperty Name="DistrictReceive" ColumnName="DistrictReceive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID1" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID1_Result">
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="WardName" ColumnName="WardName" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USER_CHECKACCESS1" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="GroupUserId" ColumnName="GroupUserId" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USER_GETMENU1" FunctionName="MNPOSTModel.Store.USER_GETMENU">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU1_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="GroupMenuId" ColumnName="GroupMenuId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="groupName" ColumnName="groupName" />
+                <ScalarProperty Name="GroupIcon" ColumnName="GroupIcon" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USER_GETROLE1" FunctionName="MNPOSTModel.Store.USER_GETROLE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE1_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="WARD_GETALL1" FunctionName="MNPOSTModel.Store.WARD_GETALL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.WARD_GETALL1_Result">
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="WardName" ColumnName="WardName" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

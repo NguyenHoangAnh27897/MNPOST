@@ -214,6 +214,7 @@
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
+    <Compile Include="Controllers\pricematrix\PriceMatrixController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
     <Compile Include="Controllers\troubleticket\TroubleController.cs" />
     <Compile Include="Filters\MyValidateAccess.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Models\IdentityCommon.cs" />
     <Compile Include="Models\IdentityMailer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IdentityPriceMatrix.cs" />
     <Compile Include="Models\IdentityRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -4529,10 +4531,10 @@
     <Content Include="Views\CODReturn\Show.cshtml" />
     <Content Include="Views\EmployeeDebit\Show.cshtml" />
     <Content Include="Templates\mailer.template.xlsx" />
+    <Content Include="Views\PriceMatrix\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\moneyadvance\" />
     <Folder Include="Temps\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />

@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_MailerModeraters" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Positions" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_PostOffices" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_PriceZones" Width="1.5" PointX="11.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Provinces" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Services" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_ServiceTypes" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
@@ -43,7 +42,6 @@
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__628FA481" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_ReturnReasons" Width="1.5" PointX="17.375" PointY="13.75" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_Status" Width="1.5" PointX="15.375" PointY="17.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDelivery" Width="1.5" PointX="17.375" PointY="16.75" />
         <EntityTypeShape EntityType="MNPOSTModel.UserLevel" Width="1.5" PointX="18.375" PointY="0.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="1.5" PointX="18.375" PointY="3.75" />
@@ -55,6 +53,13 @@
         <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" Width="1.5" PointX="19.375" PointY="8.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" Width="1.5" PointX="19.375" PointY="14.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Distants" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_PriceGroups" Width="1.5" PointX="20.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_PriceMaTrixs" Width="1.5" PointX="5.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_RangeValues" Width="1.5" PointX="21.375" PointY="6.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_RangeWeights" Width="1.5" PointX="7.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_RangeZones" Width="1.5" PointX="21.375" PointY="9.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.CData" Width="1.5" PointX="9.375" PointY="21.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

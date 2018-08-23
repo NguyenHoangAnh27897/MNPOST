@@ -41,7 +41,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<BS_MailerModeraters> BS_MailerModeraters { get; set; }
         public virtual DbSet<BS_Positions> BS_Positions { get; set; }
         public virtual DbSet<BS_PostOffices> BS_PostOffices { get; set; }
-        public virtual DbSet<BS_PriceZones> BS_PriceZones { get; set; }
         public virtual DbSet<BS_Provinces> BS_Provinces { get; set; }
         public virtual DbSet<BS_Services> BS_Services { get; set; }
         public virtual DbSet<BS_ServiceTypes> BS_ServiceTypes { get; set; }
@@ -61,7 +60,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
         public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
         public virtual DbSet<BS_ReturnReasons> BS_ReturnReasons { get; set; }
-        public virtual DbSet<BS_Status> BS_Status { get; set; }
         public virtual DbSet<MM_MailerDelivery> MM_MailerDelivery { get; set; }
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
@@ -72,6 +70,13 @@ namespace MNPOSTCOMMON
         public virtual DbSet<AC_CustomerDebitVoucherDetail> AC_CustomerDebitVoucherDetail { get; set; }
         public virtual DbSet<MM_EmployeeDebitVoucherDetails> MM_EmployeeDebitVoucherDetails { get; set; }
         public virtual DbSet<MM_EmployeeDebitVoucher> MM_EmployeeDebitVoucher { get; set; }
+        public virtual DbSet<BS_Distants> BS_Distants { get; set; }
+        public virtual DbSet<BS_PriceGroups> BS_PriceGroups { get; set; }
+        public virtual DbSet<BS_PriceMaTrixs> BS_PriceMaTrixs { get; set; }
+        public virtual DbSet<BS_RangeValues> BS_RangeValues { get; set; }
+        public virtual DbSet<BS_RangeWeights> BS_RangeWeights { get; set; }
+        public virtual DbSet<BS_RangeZones> BS_RangeZones { get; set; }
+        public virtual DbSet<CData> CDatas { get; set; }
     
         public virtual ObjectResult<COUNTRY_GETALL_Result> COUNTRY_GETALL()
         {
@@ -198,6 +203,154 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("postId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GET_ALLEMPLOYEE_ROUTE_Result>("ROUTE_GET_ALLEMPLOYEE_ROUTE", postIdParameter);
+        }
+    
+        public virtual ObjectResult<COUNTRY_GETALL1_Result> COUNTRY_GETALL1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<COUNTRY_GETALL1_Result>("COUNTRY_GETALL1");
+        }
+    
+        public virtual ObjectResult<DISTRICT_GETALL1_Result> DISTRICT_GETALL1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DISTRICT_GETALL1_Result>("DISTRICT_GETALL1");
+        }
+    
+        public virtual ObjectResult<EMPLOYEE_GETALL1_Result> EMPLOYEE_GETALL1(string postId, string search)
+        {
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            var searchParameter = search != null ?
+                new ObjectParameter("search", search) :
+                new ObjectParameter("search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETALL1_Result>("EMPLOYEE_GETALL1", postIdParameter, searchParameter);
+        }
+    
+        public virtual ObjectResult<EMPLOYEE_GETBYID1_Result> EMPLOYEE_GETBYID1(string employeeID)
+        {
+            var employeeIDParameter = employeeID != null ?
+                new ObjectParameter("employeeID", employeeID) :
+                new ObjectParameter("employeeID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETBYID1_Result>("EMPLOYEE_GETBYID1", employeeIDParameter);
+        }
+    
+        public virtual ObjectResult<GROUPUSER_GETLISTMENU1_Result> GROUPUSER_GETLISTMENU1(string groupId)
+        {
+            var groupIdParameter = groupId != null ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GROUPUSER_GETLISTMENU1_Result>("GROUPUSER_GETLISTMENU1", groupIdParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GET_ALL_DELIVERY1_Result> MAILER_GET_ALL_DELIVERY1(string fdate, string tdate)
+        {
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_ALL_DELIVERY1_Result>("MAILER_GET_ALL_DELIVERY1", fdateParameter, tdateParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string fdate, string tdate, string postId, string customerId)
+        {
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            var customerIdParameter = customerId != null ?
+                new ObjectParameter("customerId", customerId) :
+                new ObjectParameter("customerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETALL_Result>("MAILER_GETALL", fdateParameter, tdateParameter, postIdParameter, customerIdParameter);
+        }
+    
+        public virtual ObjectResult<MAILERDELIVERY_GETMAILER1_Result> MAILERDELIVERY_GETMAILER1(string documentID)
+        {
+            var documentIDParameter = documentID != null ?
+                new ObjectParameter("documentID", documentID) :
+                new ObjectParameter("documentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER1_Result>("MAILERDELIVERY_GETMAILER1", documentIDParameter);
+        }
+    
+        public virtual ObjectResult<POSTOFFICE_GETALL1_Result> POSTOFFICE_GETALL1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<POSTOFFICE_GETALL1_Result>("POSTOFFICE_GETALL1");
+        }
+    
+        public virtual ObjectResult<PROVINCE_GETALL1_Result> PROVINCE_GETALL1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PROVINCE_GETALL1_Result>("PROVINCE_GETALL1");
+        }
+    
+        public virtual ObjectResult<ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result> ROUTE_GET_ALLEMPLOYEE_ROUTE1(string postId)
+        {
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result>("ROUTE_GET_ALLEMPLOYEE_ROUTE1", postIdParameter);
+        }
+    
+        public virtual ObjectResult<ROUTE_GETDETAIL_BYROUTEID1_Result> ROUTE_GETDETAIL_BYROUTEID1(string routeId)
+        {
+            var routeIdParameter = routeId != null ?
+                new ObjectParameter("routeId", routeId) :
+                new ObjectParameter("routeId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GETDETAIL_BYROUTEID1_Result>("ROUTE_GETDETAIL_BYROUTEID1", routeIdParameter);
+        }
+    
+        public virtual ObjectResult<USER_CHECKACCESS1_Result> USER_CHECKACCESS1(string groupId, string menuCode)
+        {
+            var groupIdParameter = groupId != null ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(string));
+    
+            var menuCodeParameter = menuCode != null ?
+                new ObjectParameter("menuCode", menuCode) :
+                new ObjectParameter("menuCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_CHECKACCESS1_Result>("USER_CHECKACCESS1", groupIdParameter, menuCodeParameter);
+        }
+    
+        public virtual ObjectResult<USER_GETMENU1_Result> USER_GETMENU1(string user)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETMENU1_Result>("USER_GETMENU1", userParameter);
+        }
+    
+        public virtual ObjectResult<USER_GETROLE1_Result> USER_GETROLE1(string user)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USER_GETROLE1_Result>("USER_GETROLE1", userParameter);
+        }
+    
+        public virtual ObjectResult<WARD_GETALL1_Result> WARD_GETALL1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WARD_GETALL1_Result>("WARD_GETALL1");
         }
     }
 }

@@ -10,13 +10,13 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class BS_PriceZones
+    public partial class ROUTE_GETDETAIL_BYROUTEID1_Result
     {
-        public string ProvinceID { get; set; }
-        public string ZoneID { get; set; }
-        public string GroupID { get; set; }
-        public string PriceTypeID { get; set; }
+        public string RouteID { get; set; }
+        public string WardID { get; set; }
+        public string WardName { get; set; }
+        public string DistrictID { get; set; }
+        public string DistrictName { get; set; }
     }
 }

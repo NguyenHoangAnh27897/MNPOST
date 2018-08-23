@@ -10,13 +10,11 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class BS_Status
+    public partial class USER_GETROLE1_Result
     {
-        public int StatusID { get; set; }
-        public string StatusName { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public string Type { get; set; }
+        public string UserName { get; set; }
+        public string Name { get; set; }
+        public string GroupId { get; set; }
     }
 }

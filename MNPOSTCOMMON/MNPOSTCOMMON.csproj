@@ -78,6 +78,9 @@
     <Compile Include="BS_Customers.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="BS_Distants.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="BS_Districts.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -93,10 +96,22 @@
     <Compile Include="BS_PostOffices.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="BS_PriceZones.cs">
+    <Compile Include="BS_PriceGroups.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BS_PriceMaTrixs.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="BS_Provinces.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BS_RangeValues.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BS_RangeWeights.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BS_RangeZones.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="BS_ReturnReasons.cs">
@@ -114,26 +129,38 @@
     <Compile Include="BS_ServiceTypes.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="BS_Status.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="BS_Wards.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="BS_Zones.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="CData.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="COUNTRY_GETALL1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="COUNTRY_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="DISTRICT_GETALL1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="DISTRICT_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="EMPLOYEE_GETALL1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="EMPLOYEE_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EMPLOYEE_GETBYID1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="EMPLOYEE_GETBYID_Result.cs">
@@ -142,10 +169,22 @@
     <Compile Include="GeneralCodeInfo.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="GROUPUSER_GETLISTMENU1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILERDELIVERY_GETMAILER1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_GET_ALL_DELIVERY1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_ALL_DELIVERY_Result.cs">
@@ -202,14 +241,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MNPOST.edmx</DependentUpon>
     </Compile>
+    <Compile Include="POSTOFFICE_GETALL1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="POSTOFFICE_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PROVINCE_GETALL1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="PROVINCE_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="ROUTE_GETDETAIL_BYROUTEID1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="ROUTE_GETDETAIL_BYROUTEID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="ROUTE_GET_ALLEMPLOYEE_ROUTE_Result.cs">
@@ -233,13 +284,25 @@
     <Compile Include="UserPostOption.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="USER_CHECKACCESS1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="USER_CHECKACCESS_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USER_GETMENU1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="USER_GETMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="USER_GETROLE1_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="USER_GETROLE_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WARD_GETALL1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="WARD_GETALL_Result.cs">
