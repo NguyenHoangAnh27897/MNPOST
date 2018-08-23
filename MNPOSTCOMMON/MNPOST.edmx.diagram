@@ -53,6 +53,9 @@
         <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" Width="1.5" PointX="19.375" PointY="8.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" Width="1.5" PointX="19.375" PointY="14.75" />
+<<<<<<< HEAD
+        <EntityTypeShape EntityType="MNPOSTModel.CData" Width="1.5" PointX="20.375" PointY="3.75" />
+=======
         <EntityTypeShape EntityType="MNPOSTModel.BS_Distants" Width="1.5" PointX="20.375" PointY="0.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_PriceGroups" Width="1.5" PointX="20.375" PointY="3.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_PriceMaTrixs" Width="1.5" PointX="5.375" PointY="21.75" />
@@ -60,6 +63,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_RangeWeights" Width="1.5" PointX="7.375" PointY="21.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_RangeZones" Width="1.5" PointX="21.375" PointY="9.75" />
         <EntityTypeShape EntityType="MNPOSTModel.CData" Width="1.5" PointX="9.375" PointY="21.75" />
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

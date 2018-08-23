@@ -274,6 +274,8 @@
     <Property Name="BankName" Type="nvarchar" MaxLength="100" />
     <Property Name="Type" Type="int" />
   </EntityType>
+<<<<<<< HEAD
+=======
   <EntityType Name="BS_PriceGroups">
     <Key>
       <PropertyRef Name="GroupID" />
@@ -300,6 +302,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="200" />
     <Property Name="Service" Type="bit" />
   </EntityType>
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
   <EntityType Name="BS_Provinces">
     <Key>
       <PropertyRef Name="ProvinceID" />
@@ -861,8 +864,11 @@
     <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
+<<<<<<< HEAD
+=======
     <EntitySet Name="BS_PriceGroups" EntityType="Self.BS_PriceGroups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PriceMaTrixs" EntityType="Self.BS_PriceMaTrixs" Schema="dbo" store:Type="Tables" />
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_RangeValues" EntityType="Self.BS_RangeValues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_RangeWeights" EntityType="Self.BS_RangeWeights" Schema="dbo" store:Type="Tables" />

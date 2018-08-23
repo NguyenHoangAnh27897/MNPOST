@@ -199,6 +199,7 @@
     <Compile Include="Controllers\mailer\MailerController.cs" />
     <Compile Include="Controllers\mailer\MailerDeliveryConfirmController.cs" />
     <Compile Include="Controllers\mailer\MailerDeliveryController.cs" />
+    <Compile Include="Controllers\mailer\MailerImportController.cs" />
     <Compile Include="Controllers\mailer\MailerInitController.cs" />
     <Compile Include="Controllers\mailer\TrackingController.cs" />
     <Compile Include="Controllers\manage\AdminController.cs" />
@@ -4467,6 +4468,7 @@
     <Content Include="Scripts\myscript.keypress.js" />
     <Content Include="Scripts\myscripts.js" />
     <Content Include="Scripts\order\mailerdelivery.js" />
+    <Content Include="Scripts\order\mailershow.js" />
     <Content Include="Scripts\order\orderinit.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -4531,7 +4533,11 @@
     <Content Include="Views\CODReturn\Show.cshtml" />
     <Content Include="Views\EmployeeDebit\Show.cshtml" />
     <Content Include="Templates\mailer.template.xlsx" />
+<<<<<<< HEAD
+    <Content Include="Views\Mailer\ShowMailer.cshtml" />
+=======
     <Content Include="Views\PriceMatrix\Show.cshtml" />
+>>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4539,6 +4545,7 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CustomerDebitVoucher\" />
+    <Folder Include="Views\MailerImport\" />
     <Folder Include="Views\Tracking\" />
   </ItemGroup>
   <ItemGroup>
