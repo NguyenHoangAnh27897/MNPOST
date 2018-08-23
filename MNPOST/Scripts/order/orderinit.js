@@ -112,8 +112,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     $scope.payments = mailerService.getPayments();
     $scope.merchandises = mailerService.getMerchandises();
 
-    $scope.postoffices = postOfficesData;
-
     $scope.postchoose = '';
 
     $scope.currentIdx = -1;
@@ -130,6 +128,21 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         var mailer = angular.copy($scope.mailers[idx]);
         mailerService.addMailer(mailer);
     }
+
+    $scope.init = function () {
+        $scope.postOffices = postOfficesData;
+
+        $scope.postchoose = '';
+
+        if ($scope.postOffices.length == 1) {
+            $scope.postchoose = $scope.postOffices[0];
+        } else {
+            showModelFix('choosePostOfficeModal');
+        }
+
+    };
+
+    $scope.init();
 
     $scope.changeCus = function (idx) {
         var mailer = $scope.mailers[idx];
@@ -196,7 +209,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     $scope.getMailerCode = function (idx) {
         var mailer = $scope.mailers[idx];
 
-        if (mailer.MailerID === "") {
+        if (mailer.MailerID === "" || mailer.MailerID == null) {
             showLoader(true);
             var url = "/MailerInit/GeneralCode?cusId=" + mailer.SenderID;
 

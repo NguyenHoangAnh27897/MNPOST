@@ -454,7 +454,7 @@ namespace MNPOST.Controllers.mailer
                     AcceptDate = DateTime.Now,
                     COD = item.COD,
                     CreationDate = DateTime.Now,
-                    CurrentStatusID = 1,
+                    CurrentStatusID = 0,
                     HeightSize = item.HeightSize,
                     Weight = item.Weight,
                     LengthSize = item.LengthSize,
