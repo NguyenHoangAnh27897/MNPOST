@@ -12,12 +12,6 @@ namespace MNPOST.Controllers.mailer
         // GET: MailerDeliveryConfirm
         public ActionResult Show()
         {
-<<<<<<< HEAD
-          
-=======
-           // ViewBag.AllStatus = db.BS_Status.Where(p=>p.Type =="P" && p.IsActive == true ).ToList();//load du lieu sang combobox
-            ViewBag.AllReason = db.BS_ReturnReasons.Where(p=>p.IsActive == true).ToList();
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
             return View();
         }
 

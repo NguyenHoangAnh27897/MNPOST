@@ -11,6 +11,60 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AC_CustomerDebitVoucher">
+      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
+        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="RepresentativeID" ColumnName="RepresentativeID" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="IsPayComplete" ColumnName="IsPayComplete" />
+          <ScalarProperty Name="PayDocumentID" ColumnName="PayDocumentID" />
+          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="PayNotes" ColumnName="PayNotes" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+          <ScalarProperty Name="LastUpdDate" ColumnName="LastUpdDate" />
+          <ScalarProperty Name="RecordState" ColumnName="RecordState" />
+          <ScalarProperty Name="SyncFlag" ColumnName="SyncFlag" />
+          <ScalarProperty Name="LastSyncDate" ColumnName="LastSyncDate" />
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AC_CustomerDebitVoucherDetail">
+      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucherDetail">
+        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucherDetail">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="VATpercent" ColumnName="VATpercent" />
+          <ScalarProperty Name="BfVATamount" ColumnName="BfVATamount" />
+          <ScalarProperty Name="VATamount" ColumnName="VATamount" />
+          <ScalarProperty Name="AfVATamount" ColumnName="AfVATamount" />
+          <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="MNPOSTModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
@@ -41,7 +95,6 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="MNPOSTModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
-          <ScalarProperty Name="ULevel" ColumnName="ULevel" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -51,6 +104,7 @@
           <ScalarProperty Name="AccountType" ColumnName="AccountType" />
           <ScalarProperty Name="GroupId" ColumnName="GroupId" />
           <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+          <ScalarProperty Name="ULevel" ColumnName="ULevel" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -130,6 +184,15 @@
           <ScalarProperty Name="DebitObjectID" ColumnName="DebitObjectID" />
           <ScalarProperty Name="CustomerPreID" ColumnName="CustomerPreID" />
           <ScalarProperty Name="WardID" ColumnName="WardID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Distants">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Distants">
+        <MappingFragment StoreEntitySet="BS_Distants">
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -214,6 +277,34 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BS_PriceGroups">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceGroups">
+        <MappingFragment StoreEntitySet="BS_PriceGroups">
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="ZoneNumber" ColumnName="ZoneNumber" />
+          <ScalarProperty Name="WeightNumber" ColumnName="WeightNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_PriceMaTrixs">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceMaTrixs">
+        <MappingFragment StoreEntitySet="BS_PriceMaTrixs">
+          <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="ApplyAllCustomer" ColumnName="ApplyAllCustomer" />
+          <ScalarProperty Name="ApplyAllZone" ColumnName="ApplyAllZone" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Service" ColumnName="Service" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BS_Provinces">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Provinces">
         <MappingFragment StoreEntitySet="BS_Provinces">
@@ -225,6 +316,65 @@
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RangeValues">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeValues">
+        <MappingFragment StoreEntitySet="BS_RangeValues">
+          <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RangeWeights">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeWeights">
+        <MappingFragment StoreEntitySet="BS_RangeWeights">
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="FromWeight" ColumnName="FromWeight" />
+          <ScalarProperty Name="ToWeight" ColumnName="ToWeight" />
+          <ScalarProperty Name="IsNextWeight" ColumnName="IsNextWeight" />
+          <ScalarProperty Name="No" ColumnName="No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RangeZones">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeZones">
+        <MappingFragment StoreEntitySet="BS_RangeZones">
+          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="No" ColumnName="No" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_ReturnReasons">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_ReturnReasons">
+        <MappingFragment StoreEntitySet="BS_ReturnReasons">
+          <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
+          <ScalarProperty Name="ReasonName" ColumnName="ReasonName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_RouteDetails">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDetails">
+        <MappingFragment StoreEntitySet="BS_RouteDetails">
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="WardID" ColumnName="WardID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_Routes">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
+        <MappingFragment StoreEntitySet="BS_Routes">
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="IsDetail" ColumnName="IsDetail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -271,6 +421,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CDatas">
+      <EntityTypeMapping TypeName="MNPOSTModel.CData">
+        <MappingFragment StoreEntitySet="CData">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CType" ColumnName="CType" />
+          <ScalarProperty Name="CNotes" ColumnName="CNotes" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="GeneralCodeInfoes">
       <EntityTypeMapping TypeName="MNPOSTModel.GeneralCodeInfo">
         <MappingFragment StoreEntitySet="GeneralCodeInfo">
@@ -294,6 +456,32 @@
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="StatusID" ColumnName="StatusID" />
           <ScalarProperty Name="IsPercent" ColumnName="IsPercent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_EmployeeDebitVoucher">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
+        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="MoneyColector" ColumnName="MoneyColector" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
+          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_EmployeeDebitVoucherDetails">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucherDetails">
+        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucherDetails">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="ReciveCOD" ColumnName="ReciveCOD" />
+          <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -328,16 +516,48 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="MM_MailerDelivery">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDelivery">
+        <MappingFragment StoreEntitySet="MM_MailerDelivery">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+          <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MM_MailerDeliveryDetail">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDeliveryDetail">
+        <MappingFragment StoreEntitySet="MM_MailerDeliveryDetail">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="IsDeliverOver" ColumnName="IsDeliverOver" />
+          <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+          <ScalarProperty Name="PaymentFinished" ColumnName="PaymentFinished" />
+          <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+          <ScalarProperty Name="ConfirmUserID" ColumnName="ConfirmUserID" />
+          <ScalarProperty Name="ConfirmIndex" ColumnName="ConfirmIndex" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
-          <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
-          <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
-          <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
-          <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
-          <ScalarProperty Name="COD" ColumnName="COD" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -385,6 +605,13 @@
           <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+          <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
+          <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+          <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -443,7 +670,6 @@
     <EntitySetMapping Name="MM_TroubleTickets">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_TroubleTickets">
         <MappingFragment StoreEntitySet="MM_TroubleTickets">
-          <ScalarProperty Name="Contact" ColumnName="Contact" />
           <ScalarProperty Name="TicketID" ColumnName="TicketID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="TicketName" ColumnName="TicketName" />
@@ -453,17 +679,18 @@
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UMS_GroupMenu">
       <EntityTypeMapping TypeName="MNPOSTModel.UMS_GroupMenu">
         <MappingFragment StoreEntitySet="UMS_GroupMenu">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Position" ColumnName="Position" />
           <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -499,6 +726,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="UserLevels">
+      <EntityTypeMapping TypeName="MNPOSTModel.UserLevel">
+        <MappingFragment StoreEntitySet="UserLevel">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Describes" ColumnName="Describes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPostOptions">
+      <EntityTypeMapping TypeName="MNPOSTModel.UserPostOption">
+        <MappingFragment StoreEntitySet="UserPostOption">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TUser" ColumnName="TUser" />
+          <ScalarProperty Name="TPostId" ColumnName="TPostId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="AspNetUserRoles" TypeName="MNPOSTModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -507,263 +752,9 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="BS_ReturnReasons">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_ReturnReasons">
-        <MappingFragment StoreEntitySet="BS_ReturnReasons">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="ReasonName" ColumnName="ReasonName" />
-          <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MM_MailerDelivery">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDelivery">
-        <MappingFragment StoreEntitySet="MM_MailerDelivery">
-          <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
-          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
-          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="Weight" ColumnName="Weight" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserLevels">
-      <EntityTypeMapping TypeName="MNPOSTModel.UserLevel">
-        <MappingFragment StoreEntitySet="UserLevel">
-          <ScalarProperty Name="Describes" ColumnName="Describes" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MM_MailerDeliveryDetail">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_MailerDeliveryDetail">
-        <MappingFragment StoreEntitySet="MM_MailerDeliveryDetail">
-          <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="ConfirmIndex" ColumnName="ConfirmIndex" />
-          <ScalarProperty Name="ConfirmUserID" ColumnName="ConfirmUserID" />
-          <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
-          <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
-          <ScalarProperty Name="PaymentFinished" ColumnName="PaymentFinished" />
-          <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
-          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
-          <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
-          <ScalarProperty Name="IsDeliverOver" ColumnName="IsDeliverOver" />
-          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserPostOptions">
-      <EntityTypeMapping TypeName="MNPOSTModel.UserPostOption">
-        <MappingFragment StoreEntitySet="UserPostOption">
-          <ScalarProperty Name="TPostId" ColumnName="TPostId" />
-          <ScalarProperty Name="TUser" ColumnName="TUser" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_RouteDetails">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_RouteDetails">
-        <MappingFragment StoreEntitySet="BS_RouteDetails">
-          <ScalarProperty Name="WardID" ColumnName="WardID" />
-          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_Routes">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_Routes">
-        <MappingFragment StoreEntitySet="BS_Routes">
-          <ScalarProperty Name="IsDetail" ColumnName="IsDetail" />
-          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="RouteID" ColumnName="RouteID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AC_CustomerDebitVoucher">
-      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
-        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
-          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
-          <ScalarProperty Name="LastSyncDate" ColumnName="LastSyncDate" />
-          <ScalarProperty Name="SyncFlag" ColumnName="SyncFlag" />
-          <ScalarProperty Name="RecordState" ColumnName="RecordState" />
-          <ScalarProperty Name="LastUpdDate" ColumnName="LastUpdDate" />
-          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
-          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-          <ScalarProperty Name="PayNotes" ColumnName="PayNotes" />
-          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-          <ScalarProperty Name="PayDocumentID" ColumnName="PayDocumentID" />
-          <ScalarProperty Name="IsPayComplete" ColumnName="IsPayComplete" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-          <ScalarProperty Name="RepresentativeID" ColumnName="RepresentativeID" />
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
-          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AC_CustomerDebitVoucherDetail">
-      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucherDetail">
-        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucherDetail">
-          <ScalarProperty Name="Weight" ColumnName="Weight" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
-          <ScalarProperty Name="AfVATamount" ColumnName="AfVATamount" />
-          <ScalarProperty Name="VATamount" ColumnName="VATamount" />
-          <ScalarProperty Name="BfVATamount" ColumnName="BfVATamount" />
-          <ScalarProperty Name="VATpercent" ColumnName="VATpercent" />
-          <ScalarProperty Name="Discount" ColumnName="Discount" />
-          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-          <ScalarProperty Name="PriceService" ColumnName="PriceService" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MM_EmployeeDebitVoucherDetails">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucherDetails">
-        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucherDetails">
-          <ScalarProperty Name="COD" ColumnName="COD" />
-          <ScalarProperty Name="LastUpDate" ColumnName="LastUpDate" />
-          <ScalarProperty Name="ReciveCOD" ColumnName="ReciveCOD" />
-          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MM_EmployeeDebitVoucher">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_EmployeeDebitVoucher">
-        <MappingFragment StoreEntitySet="MM_EmployeeDebitVoucher">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
-          <ScalarProperty Name="MailerAccount" ColumnName="MailerAccount" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="MoneyColector" ColumnName="MoneyColector" />
-          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-          <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-<<<<<<< HEAD
-=======
-    <EntitySetMapping Name="BS_Distants">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_Distants">
-        <MappingFragment StoreEntitySet="BS_Distants">
-          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_PriceGroups">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceGroups">
-        <MappingFragment StoreEntitySet="BS_PriceGroups">
-          <ScalarProperty Name="WeightNumber" ColumnName="WeightNumber" />
-          <ScalarProperty Name="ZoneNumber" ColumnName="ZoneNumber" />
-          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_PriceMaTrixs">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_PriceMaTrixs">
-        <MappingFragment StoreEntitySet="BS_PriceMaTrixs">
-          <ScalarProperty Name="Service" ColumnName="Service" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="ApplyAllZone" ColumnName="ApplyAllZone" />
-          <ScalarProperty Name="ApplyAllCustomer" ColumnName="ApplyAllCustomer" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
-          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_RangeValues">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeValues">
-        <MappingFragment StoreEntitySet="BS_RangeValues">
-          <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
-          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
-          <ScalarProperty Name="PriceMatrixID" ColumnName="PriceMatrixID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_RangeWeights">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeWeights">
-        <MappingFragment StoreEntitySet="BS_RangeWeights">
-          <ScalarProperty Name="No" ColumnName="No" />
-          <ScalarProperty Name="IsNextWeight" ColumnName="IsNextWeight" />
-          <ScalarProperty Name="ToWeight" ColumnName="ToWeight" />
-          <ScalarProperty Name="FromWeight" ColumnName="FromWeight" />
-          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_RangeZones">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_RangeZones">
-        <MappingFragment StoreEntitySet="BS_RangeZones">
-          <ScalarProperty Name="No" ColumnName="No" />
-          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
-          <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
-    <EntitySetMapping Name="CDatas">
-      <EntityTypeMapping TypeName="MNPOSTModel.CData">
-        <MappingFragment StoreEntitySet="CData">
-          <ScalarProperty Name="Active" ColumnName="Active" />
-          <ScalarProperty Name="CNotes" ColumnName="CNotes" />
-          <ScalarProperty Name="CType" ColumnName="CType" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="COUNTRY_GETALL" FunctionName="MNPOSTModel.Store.COUNTRY_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.COUNTRY_GETALL_Result">
-=======
-    <FunctionImportMapping FunctionImportName="COUNTRY_GETALL1" FunctionName="MNPOSTModel.Store.COUNTRY_GETALL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.COUNTRY_GETALL1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="CountryID" ColumnName="CountryID" />
           <ScalarProperty Name="CountryName" ColumnName="CountryName" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
@@ -773,15 +764,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="DISTRICT_GETALL" FunctionName="MNPOSTModel.Store.DISTRICT_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.DISTRICT_GETALL_Result">
-=======
-    <FunctionImportMapping FunctionImportName="DISTRICT_GETALL1" FunctionName="MNPOSTModel.Store.DISTRICT_GETALL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.DISTRICT_GETALL1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
           <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
@@ -791,15 +776,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL_Result">
-=======
-    <FunctionImportMapping FunctionImportName="EMPLOYEE_GETALL1" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETALL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETALL1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -829,15 +808,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID_Result">
-=======
-    <FunctionImportMapping FunctionImportName="EMPLOYEE_GETBYID1" FunctionName="MNPOSTModel.Store.EMPLOYEE_GETBYID">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_GETBYID1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
@@ -867,15 +840,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU_Result">
-=======
-    <FunctionImportMapping FunctionImportName="GROUPUSER_GETLISTMENU1" FunctionName="MNPOSTModel.Store.GROUPUSER_GETLISTMENU">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.GROUPUSER_GETLISTMENU1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Link" ColumnName="Link" />
@@ -889,15 +856,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY_Result">
-=======
-    <FunctionImportMapping FunctionImportName="MAILER_GET_ALL_DELIVERY1" FunctionName="MNPOSTModel.Store.MAILER_GET_ALL_DELIVERY">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_ALL_DELIVERY1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -955,15 +916,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
-=======
-    <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER1" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -978,15 +933,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL_Result">
-=======
-    <FunctionImportMapping FunctionImportName="POSTOFFICE_GETALL1" FunctionName="MNPOSTModel.Store.POSTOFFICE_GETALL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.POSTOFFICE_GETALL1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
           <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1007,15 +956,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="PROVINCE_GETALL" FunctionName="MNPOSTModel.Store.PROVINCE_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.PROVINCE_GETALL_Result">
-=======
-    <FunctionImportMapping FunctionImportName="PROVINCE_GETALL1" FunctionName="MNPOSTModel.Store.PROVINCE_GETALL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.PROVINCE_GETALL1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
           <ScalarProperty Name="ProvinceName" ColumnName="ProvinceName" />
           <ScalarProperty Name="CountryID" ColumnName="CountryID" />
@@ -1027,15 +970,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result">
-=======
-    <FunctionImportMapping FunctionImportName="ROUTE_GET_ALLEMPLOYEE_ROUTE1" FunctionName="MNPOSTModel.Store.ROUTE_GET_ALLEMPLOYEE_ROUTE">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
@@ -1044,15 +981,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result">
-=======
-    <FunctionImportMapping FunctionImportName="ROUTE_GETDETAIL_BYROUTEID1" FunctionName="MNPOSTModel.Store.ROUTE_GETDETAIL_BYROUTEID">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="RouteID" ColumnName="RouteID" />
           <ScalarProperty Name="WardID" ColumnName="WardID" />
           <ScalarProperty Name="WardName" ColumnName="WardName" />
@@ -1061,15 +992,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="USER_CHECKACCESS" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS_Result">
-=======
-    <FunctionImportMapping FunctionImportName="USER_CHECKACCESS1" FunctionName="MNPOSTModel.Store.USER_CHECKACCESS">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.USER_CHECKACCESS1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="MenuId" ColumnName="MenuId" />
           <ScalarProperty Name="GroupUserId" ColumnName="GroupUserId" />
@@ -1077,15 +1002,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="USER_GETMENU" FunctionName="MNPOSTModel.Store.USER_GETMENU">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU_Result">
-=======
-    <FunctionImportMapping FunctionImportName="USER_GETMENU1" FunctionName="MNPOSTModel.Store.USER_GETMENU">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETMENU1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Link" ColumnName="Link" />
@@ -1098,30 +1017,18 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="USER_GETROLE" FunctionName="MNPOSTModel.Store.USER_GETROLE">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE_Result">
-=======
-    <FunctionImportMapping FunctionImportName="USER_GETROLE1" FunctionName="MNPOSTModel.Store.USER_GETROLE">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.USER_GETROLE1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="GroupId" ColumnName="GroupId" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="WARD_GETALL" FunctionName="MNPOSTModel.Store.WARD_GETALL">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MNPOSTModel.WARD_GETALL_Result">
-=======
-    <FunctionImportMapping FunctionImportName="WARD_GETALL1" FunctionName="MNPOSTModel.Store.WARD_GETALL">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MNPOSTModel.WARD_GETALL1_Result">
->>>>>>> 20ee0697620ee381e92d5e9fa30ab454703b44f5
           <ScalarProperty Name="WardID" ColumnName="WardID" />
           <ScalarProperty Name="WardName" ColumnName="WardName" />
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />

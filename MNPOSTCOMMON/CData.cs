@@ -10,11 +10,15 @@
 namespace MNPOSTCOMMON
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class USER_GETROLE1_Result
+    public partial class CData
     {
-        public string UserName { get; set; }
+        public string Id { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
-        public string GroupId { get; set; }
+        public string CType { get; set; }
+        public string CNotes { get; set; }
+        public Nullable<int> Active { get; set; }
     }
 }

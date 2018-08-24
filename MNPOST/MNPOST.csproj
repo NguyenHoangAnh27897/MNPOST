@@ -4533,11 +4533,9 @@
     <Content Include="Views\CODReturn\Show.cshtml" />
     <Content Include="Views\EmployeeDebit\Show.cshtml" />
     <Content Include="Templates\mailer.template.xlsx" />
-
     <Content Include="Views\Mailer\ShowMailer.cshtml" />
-
     <Content Include="Views\PriceMatrix\Show.cshtml" />
-
+    <Content Include="Views\MailerImport\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4545,7 +4543,6 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CustomerDebitVoucher\" />
-    <Folder Include="Views\MailerImport\" />
     <Folder Include="Views\Tracking\" />
   </ItemGroup>
   <ItemGroup>

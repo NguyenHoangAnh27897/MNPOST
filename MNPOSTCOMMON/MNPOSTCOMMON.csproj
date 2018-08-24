@@ -139,28 +139,16 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="COUNTRY_GETALL1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="COUNTRY_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="DISTRICT_GETALL1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="DISTRICT_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="EMPLOYEE_GETALL1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="EMPLOYEE_GETALL_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EMPLOYEE_GETBYID1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="EMPLOYEE_GETBYID_Result.cs">
@@ -169,22 +157,13 @@
     <Compile Include="GeneralCodeInfo.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="GROUPUSER_GETLISTMENU1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MAILERDELIVERY_GETMAILER1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GETALL_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MAILER_GET_ALL_DELIVERY1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_ALL_DELIVERY_Result.cs">
@@ -241,26 +220,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MNPOST.edmx</DependentUpon>
     </Compile>
-    <Compile Include="POSTOFFICE_GETALL1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="POSTOFFICE_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PROVINCE_GETALL1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="PROVINCE_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="ROUTE_GETDETAIL_BYROUTEID1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="ROUTE_GETDETAIL_BYROUTEID_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ROUTE_GET_ALLEMPLOYEE_ROUTE1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="ROUTE_GET_ALLEMPLOYEE_ROUTE_Result.cs">
@@ -284,25 +251,13 @@
     <Compile Include="UserPostOption.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="USER_CHECKACCESS1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="USER_CHECKACCESS_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="USER_GETMENU1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="USER_GETMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="USER_GETROLE1_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="USER_GETROLE_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WARD_GETALL1_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="WARD_GETALL_Result.cs">
@@ -310,28 +265,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="MNPOST.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MNPOST.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config" />
-    <None Include="MNPOST.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MNPOST.edmx</DependentUpon>
-      <LastGenOutput>MNPOST.Context.cs</LastGenOutput>
-    </None>
     <None Include="MNPOST.edmx.diagram">
       <DependentUpon>MNPOST.edmx</DependentUpon>
-    </None>
-    <None Include="MNPOST.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MNPOST.edmx</DependentUpon>
-      <LastGenOutput>MNPOST.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MNPOST.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MNPOST.edmx</DependentUpon>
+      <LastGenOutput>MNPOST.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MNPOST.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MNPOST.edmx</DependentUpon>
+      <LastGenOutput>MNPOST.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
