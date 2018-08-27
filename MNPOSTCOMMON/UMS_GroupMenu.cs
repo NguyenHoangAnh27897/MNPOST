@@ -14,6 +14,7 @@ namespace MNPOSTCOMMON
     
     public partial class UMS_GroupMenu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UMS_GroupMenu()
         {
             this.UMS_Menu = new HashSet<UMS_Menu>();
@@ -25,6 +26,7 @@ namespace MNPOSTCOMMON
         public string Icon { get; set; }
         public Nullable<int> IsActive { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UMS_Menu> UMS_Menu { get; set; }
     }
 }

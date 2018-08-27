@@ -12,11 +12,10 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class BS_Status
+    public partial class BS_RangeZones
     {
-        public int StatusID { get; set; }
-        public string StatusName { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public string Type { get; set; }
+        public string GroupID { get; set; }
+        public string ZoneID { get; set; }
+        public Nullable<int> No { get; set; }
     }
 }

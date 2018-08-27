@@ -12,11 +12,12 @@ namespace MNPOSTCOMMON
     using System;
     using System.Collections.Generic;
     
-    public partial class BS_PriceZones
+    public partial class BS_RangeWeights
     {
-        public string ProvinceID { get; set; }
-        public string ZoneID { get; set; }
         public string GroupID { get; set; }
-        public string PriceTypeID { get; set; }
+        public double FromWeight { get; set; }
+        public double ToWeight { get; set; }
+        public Nullable<bool> IsNextWeight { get; set; }
+        public Nullable<int> No { get; set; }
     }
 }

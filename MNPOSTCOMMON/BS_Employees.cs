@@ -14,6 +14,7 @@ namespace MNPOSTCOMMON
     
     public partial class BS_Employees
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BS_Employees()
         {
             this.MM_MailerDelivery = new HashSet<MM_MailerDelivery>();
@@ -42,6 +43,7 @@ namespace MNPOSTCOMMON
         public string UserLogin { get; set; }
         public string PositionID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MM_MailerDelivery> MM_MailerDelivery { get; set; }
     }
 }

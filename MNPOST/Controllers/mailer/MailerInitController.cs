@@ -47,21 +47,7 @@ namespace MNPOST.Controllers.mailer
             ViewBag.MailerTypes = allMailerType;
 
             //
-            List<CommonData> allPayment = new List<CommonData>();
-
-            allPayment.Add(new CommonData()
-            {
-                code = "NGTT",
-                name = "Người gửi thanh toán"
-            });
-
-            allPayment.Add(new CommonData()
-            {
-                code = "NNTT",
-                name = "Người nhận thanh toán"
-            });
-
-            ViewBag.Payments = allPayment;
+            ViewBag.Payments = db.CDatas.Where(p => p.CType == "MAILERPAY").Select(p => new CommonData() { code = p.Code, name = p.Name }).ToList();
 
 
             //
@@ -90,7 +76,7 @@ namespace MNPOST.Controllers.mailer
 
         #region
         [HttpPost]
-        public ActionResult InsertByExcel(HttpPostedFileBase files, string name)
+        public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string senderWard)
         {
             List<MailerIdentity> mailers = new List<MailerIdentity>();
             var result = new ResultInfo()
@@ -99,9 +85,29 @@ namespace MNPOST.Controllers.mailer
                 msg = "Đã tải",
                 data = mailers
             };
-           
+            string path = "";
             try
             {
+
+                // check sender
+                var checkSender = db.BS_Customers.Where(p => p.CustomerCode == senderID).FirstOrDefault();
+
+                if (checkSender == null)
+                    throw new Exception("Sai thông tin người gửi");
+
+                var checkSendProvince = db.BS_Provinces.Find(senderProvince);
+
+                if (checkSendProvince == null)
+                    throw new Exception("Sai thông tin tỉnh thành");
+
+                var checkSendDistrict = db.BS_Districts.Find(senderDistrict);
+                if (checkSendDistrict == null)
+                    throw new Exception("Sai thông tin quận huyện ");
+
+                var checkSendWard = db.BS_Wards.Find(senderWard);
+                if (checkSendWard == null)
+                    throw new Exception("Sai thông tin phường xã ");
+
                 if (files == null || files.ContentLength <= 0)
                     throw new Exception("Thiếu file Excel");
 
@@ -110,7 +116,7 @@ namespace MNPOST.Controllers.mailer
                 if (extension.Equals(".xlsx") || extension.Equals(".xls"))
                 {
                     string fileSave = "mailersupload" + DateTime.Now.ToString("ddMMyyyyhhmmss") + extension;
-                    string path = Server.MapPath("~/Temps/" + fileSave);
+                    path = Server.MapPath("~/Temps/" + fileSave);
                     if (System.IO.File.Exists(path))
                     {
                         System.IO.File.Delete(path);
@@ -144,7 +150,7 @@ namespace MNPOST.Controllers.mailer
                     int heightIdx = -1;
                     int notesIdx = -1;
                     int desIdx = -1;
-                    int servicePriceIdx = -1;
+                    int otherPriceIdx = -1;
 
                     // lay index col tren excel
                     for (int i = 0; i < totalCols; i++)
@@ -215,7 +221,7 @@ namespace MNPOST.Controllers.mailer
                                     desIdx = i + 1;
                                     break;
                                 case "19":
-                                    servicePriceIdx = i + 1;
+                                    otherPriceIdx = i + 1;
                                     break;
                             }
 
@@ -228,56 +234,178 @@ namespace MNPOST.Controllers.mailer
                         throw new Exception("Thiếu các cột cần thiết");
 
                     //
-                    
-                    for (int i = 0; i < totalRows; i++)
+
+                    for (int i = 2; i <= totalRows; i++)
                     {
-                        string mailerId = mailerCodeIdx == -1 ? GeneralMailerCode("") : Convert.ToString(sheet.Cells[i + 2, mailerCodeIdx].Value);
+                        string mailerId = mailerCodeIdx == -1 ? GeneralMailerCode("") : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
 
                         //
-                        string receiver = Convert.ToString(sheet.Cells[i + 2, receiverIdx].Value);
+                        string receiverPhone = Convert.ToString(sheet.Cells[i, receiPhoneIdx].Value);
+                        if (String.IsNullOrEmpty(receiverPhone))
+                            throw new Exception("Dòng " + (i) + " cột " + receiPhoneIdx + " : thiếu thông tin");
+
+                        //
+                        string receiver = Convert.ToString(sheet.Cells[i, receiverIdx].Value);
                         if (String.IsNullOrEmpty(receiver))
-                            throw new Exception("Dòng " + (i + 2) + " cột " + receiverIdx + " : thiếu thông tin");
+                            throw new Exception("Dòng " + (i) + " cột " + receiverIdx + " : thiếu thông tin");
                         //
-                        string receiverAddress = Convert.ToString(sheet.Cells[i + 2, receiAddressIdx].Value);
+                        string receiverAddress = Convert.ToString(sheet.Cells[i, receiAddressIdx].Value);
                         if (String.IsNullOrEmpty(receiverAddress))
-                            throw new Exception("Dòng " + (i + 2) + " cột " + receiAddressIdx + " : thiếu thông tin");
+                            throw new Exception("Dòng " + (i) + " cột " + receiAddressIdx + " : thiếu thông tin");
                         // 
-                        string receiverProvince = Convert.ToString(sheet.Cells[i + 2, receiProvinceIdx].Value);
+                        string receiverProvince = Convert.ToString(sheet.Cells[i, receiProvinceIdx].Value);
                         var checkProvince = db.BS_Provinces.Find(receiverProvince);
-                        if(checkProvince == null)
-                            throw new Exception("Dòng " + (i + 2) + " cột " + receiProvinceIdx + " : sai thông tin");
+                        if (checkProvince == null)
+                            throw new Exception("Dòng " + (i) + " cột " + receiProvinceIdx + " : sai thông tin");
 
                         //
-                        string receiverDistrict = Convert.ToString(sheet.Cells[i + 2, receiDistrictIdx].Value);
+                        string receiverDistrict = Convert.ToString(sheet.Cells[i, receiDistrictIdx].Value);
                         var checkDistrict = db.BS_Districts.Find(receiverDistrict);
                         if (checkDistrict == null)
-                            throw new Exception("Dòng " + (i + 2) + " cột " + receiDistrictIdx + " : sai thông tin");
+                            throw new Exception("Dòng " + (i) + " cột " + receiDistrictIdx + " : sai thông tin");
 
                         //
-                        string receiverWard = Convert.ToString(sheet.Cells[i + 2, receiWardIdx].Value);
-                        var checkWard = db.BS_Wards.Find(receiverWard);
-                        if (checkWard == null)
-                            throw new Exception("Dòng " + (i + 2) + " cột " + receiWardIdx + " : sai thông tin");
+                        string receiverWard = receiWardIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, receiWardIdx].Value);
+                        if (receiWardIdx != -1)
+                        {
+                            var checkWard = db.BS_Wards.Find(receiverWard);
+                            receiverWard = checkWard == null ? "" : receiverWard;
+                        }
 
                         //
-                        string mailerType = Convert.ToString(sheet.Cells[i + 2, mailerTypeIdx].Value);
+                        string mailerType = Convert.ToString(sheet.Cells[i, mailerTypeIdx].Value);
                         var checkMailerType = db.BS_ServiceTypes.Find(mailerType);
                         if (checkMailerType == null)
-                            throw new Exception("Dòng " + (i + 2) + " cột " + mailerTypeIdx + " : sai thông tin");
+                            throw new Exception("Dòng " + (i) + " cột " + mailerTypeIdx + " : sai thông tin");
+
+                        //
+                        var mailerPay = payTypeIdx == -1 ? "NGTT" : Convert.ToString(sheet.Cells[i, payTypeIdx].Value);
+                        if (payTypeIdx != -1)
+                        {
+                            var checkMailerPay = db.CDatas.Where(p => p.Code == mailerPay && p.CType == "MAILERPAY").FirstOrDefault();
+                            mailerPay = checkMailerPay == null ? "NGTT" : checkMailerPay.Code;
+                        }
+
+                        // COD
+                        var codValue = sheet.Cells[i, codIdx].Value;
+                        decimal cod = 0;
+                        if (codValue != null)
+                        {
+                            var isCodeNumber = codIdx == -1 ? false : Regex.IsMatch(codValue.ToString(), @"^\d+$");
+                            cod = isCodeNumber ? Convert.ToDecimal(codValue) : 0;
+                        }
+
+                        // hang hoa
+                        var merchandisType = Convert.ToString(sheet.Cells[i, merchandiseIdx].Value);
+                        var checkMerchandisType = db.CDatas.Where(p => p.Code == merchandisType && p.CType == "GOODTYPE").FirstOrDefault();
+                        if (checkMerchandisType == null)
+                            throw new Exception("Dòng " + (i) + " cột " + merchandiseIdx + " : sai thông tin");
+
+                        // trong luong
+                        var weightValue = sheet.Cells[i, weigthIdx].Value;
+                        double weight = 0;
+                        if (weightValue == null)
+                            throw new Exception("Dòng " + (i) + " cột " + weigthIdx + " : sai thông tin");
+                        else
+                        {
+                            var isWeightNumber = Regex.IsMatch(weightValue.ToString(), @"^\d+$");
+                            weight = isWeightNumber ? Convert.ToDouble(sheet.Cells[i, weigthIdx].Value) : 0;
+                        }
+
+                        // so luong
+                        var quantityValue = sheet.Cells[i, quantityIdx].Value;
+                        var isQuantityNumber = quantityIdx == -1 ? false : Regex.IsMatch(quantityValue == null?"0":quantityValue.ToString(), @"^\d+$");
+                        var quantity = isQuantityNumber ? Convert.ToInt32(quantityValue) : 0;
+
+
+                        // dai
+                        var lengthValue = sheet.Cells[i, lengthIdx].Value;
+                        var isLengthNumber = lengthIdx == -1 ? false : Regex.IsMatch(lengthValue == null?"0":lengthValue.ToString(), @"^\d+$");
+                        var length = isLengthNumber ? Convert.ToDouble(lengthValue) : 0;
+
+                        // rong
+                        var widthValue = sheet.Cells[i, widthIdx].Value;
+                        var isWidthNumber = widthIdx == -1 ? false : Regex.IsMatch(widthValue == null?"0":widthValue.ToString(), @"^\d+$");
+                        var width = isWidthNumber ? Convert.ToDouble(widthValue) : 0;
+
+                        //cao
+                        var heightValue = sheet.Cells[i, heightIdx].Value;
+                        var isHeightNumber = heightIdx == -1 ? false : Regex.IsMatch(heightValue == null? "0":heightValue.ToString(), @"^\d+$");
+                        var height = isHeightNumber ? Convert.ToDouble(heightValue) : 0;
+
+                        //
+                        string notes = notesIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, notesIdx].Value);
+
+                        //
+                        string describe = desIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, desIdx].Value);
+
+                        // phu phi
+                        var otherPriceValue = sheet.Cells[i, otherPriceIdx].Value;
+                        var isOtherPirce = otherPriceIdx == -1 ? false : Regex.IsMatch(otherPriceValue==null?"0":otherPriceValue.ToString(), @"^\d+$");
+                        var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
+
+
+                        var price = 0;
+                        var codPrice = 0;
+
+                        otherPrice += codPrice;
+
+                        mailers.Add(new MailerIdentity()
+                        {
+                            MailerID = mailerId,
+                            COD = cod,
+                            CODPrice = codPrice,
+                            HeightSize = height,
+                            LengthSize = length,
+                            MailerDescription = describe,
+                            MailerTypeID = mailerType,
+                            MerchandiseID = merchandisType,
+                            MerchandiseValue = cod,
+                            Notes = notes,
+                            PaymentMethodID = mailerPay,
+                            PriceDefault = price,
+                            PriceMain = price,
+                            PriceService = otherPrice,
+                            Quantity = quantity,
+                            RecieverAddress = receiverAddress,
+                            RecieverDistrictID = receiverDistrict,
+                            RecieverName = receiver,
+                            RecieverPhone = receiverPhone,
+                            RecieverProvinceID = receiverProvince,
+                            RecieverWardID = receiverWard,
+                            Weight = weight,
+                            WidthSize = width,
+                            SenderID = senderID,
+                            SenderAddress = senderAddress,
+                            SenderDistrictID = senderDistrict,
+                            SenderName = senderName,
+                            SenderPhone = senderPhone,
+                            SenderProvinceID = senderProvince,
+                            SenderWardID = senderWard
+                        });
 
                     }
 
+                    // xoa file temp
+                    package.Dispose();
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
 
                 }
 
-
+                result.data = mailers;
             }
             catch (Exception e)
             {
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
                 result.error = 1;
                 result.msg = e.Message;
             }
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -326,7 +454,7 @@ namespace MNPOST.Controllers.mailer
                     AcceptDate = DateTime.Now,
                     COD = item.COD,
                     CreationDate = DateTime.Now,
-                    CurrentStatusID = 1,
+                    CurrentStatusID = 0,
                     HeightSize = item.HeightSize,
                     Weight = item.Weight,
                     LengthSize = item.LengthSize,
