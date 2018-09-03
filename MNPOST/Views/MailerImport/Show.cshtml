@@ -4,4 +4,38 @@
 }
 
 
+<div ng-app="myApp" class="row" ng-controller="myCtrl">
+    <div class="col-md-12 col-sm-12 col-xs-12">
 
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>QUẢN LÝ SỔ PHÁT {{postHandle}}</h2>
+                <div class="nav navbar-right">
+                    <button type="button" class="btn btn-primary" ng-click="createDelivery()" ng-hide="showEdit">Tạo bảng kê</button>
+                    <button type="button" class="btn btn-warning" ng-hide="showEdit">Tạo từ chia tuyến</button>
+                    <button type="button" class="btn btn-primary" ng-click="createDelivery()" ng-show="showEdit">Cập nhật bảng kê</button>
+                    <button type="button" class="btn btn-warning" ng-show="showEdit">Đổ danh từ chia tuyến</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_sophat" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=false">Sổ phát</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=true">Chi tiết</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active in" id="tab_sophat" aria-labelledby="home-tab">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
