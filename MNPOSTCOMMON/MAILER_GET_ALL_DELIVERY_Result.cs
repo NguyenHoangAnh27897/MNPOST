@@ -14,12 +14,11 @@ namespace MNPOSTCOMMON
     public partial class MAILER_GET_ALL_DELIVERY_Result
     {
         public string DocumentID { get; set; }
-        public Nullable<System.DateTime> DocumentDate { get; set; }
+        public string DocumentDate { get; set; }
         public string EmployeeID { get; set; }
         public string Notes { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<double> Weight { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> LastEditDate { get; set; }
         public Nullable<int> StatusID { get; set; }
         public string RouteID { get; set; }
@@ -28,5 +27,6 @@ namespace MNPOSTCOMMON
         public string EmployeeName { get; set; }
         public string EmployeePhone { get; set; }
         public string EmployeeEmail { get; set; }
+        public string DocumentTime { get; set; }
     }
 }

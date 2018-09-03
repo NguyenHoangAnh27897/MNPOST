@@ -49,21 +49,7 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd")).Select(p => new MailerDeliveryIdentity()
-            {
-                DocumentDate = p.DocumentDate.Value.ToString("dd/MM/yyyy HH:mm"),
-                DocumentID = p.DocumentID,
-                DocumentCode = p.DocumentCode,
-                EmployeeID = p.EmployeeID,
-                EmployeeName = p.EmployeeName,
-                Notes = p.Notes,
-                NumberPlate = p.NumberPlate,
-                PostOfficeId = postId,
-                Quantity = p.Quantity,
-                RouteID = p.RouteID,
-                StatusID = p.StatusID,
-                Weight = p.Weight
-            }).ToList();
+            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd")).ToList();
 
             ResultInfo result = new ResultWithPaging()
             {

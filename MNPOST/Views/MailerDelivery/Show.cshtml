@@ -75,6 +75,7 @@
                                                     <th>STT</th>
                                                     <th>Mã bảng kê</th>
                                                     <th>Ngày lập</th>
+                                                    <th>Giờ lập</th>
                                                     <th>Nhân viên</th>
                                                     <th>Số xe</th>
                                                     <th>Số lượng</th>
@@ -89,6 +90,7 @@
                                                     <td>{{$index + 1}}</td>
                                                     <td>{{item.DocumentCode}}</td>
                                                     <td>{{item.DocumentDate}}</td>
+                                                    <td>{{item.DocumentTime}}</td>
                                                     <td>{{item.EmployeeName + ' - ' + item.EmployeeID}}</td>
                                                     <td>{{item.NumberPlate}}</td>
                                                     <td>{{item.Quantity}}</td>
@@ -266,9 +268,6 @@
         var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
         var fromDate = '@Html.Raw(ViewBag.FromDate)';
         var toDate = '@Html.Raw(ViewBag.ToDate)';
-
-
-        showModelFix('choosePostOfficeModal');
 
     </script>
     <script src="~/Scripts/order/mailerdelivery.js"></script>

@@ -73,10 +73,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         });
     }
 
-    $scope.postOffices = postOfficeDatas;
-
-    $scope.postHandle = '';
-
     $scope.title = '';
     //nhan vien
     $scope.employees = [];
@@ -105,7 +101,20 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             hideModel('choosePostOfficeModal');
         }
     };
+    $scope.init = function () {
+        $scope.postOffices = postOfficeDatas;
 
+        $scope.postHandle = '';
+
+        if ($scope.postOffices.length == 1) {
+            $scope.postHandle = $scope.postOffices[0];
+            $scope.GetData();
+            $scope.getFirstData();
+        } else {
+            showModelFix('choosePostOfficeModal');
+        }
+
+    };
 
     // xư ly bang ke
     $scope.createDelivery = function () {
@@ -185,4 +194,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
                 });
         }
     };
+
+
+    $scope.init();
+
 });
