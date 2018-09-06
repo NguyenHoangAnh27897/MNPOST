@@ -532,7 +532,7 @@
           <Property Name="IsDeliverOver" Type="bit" />
           <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
           <Property Name="DeliveryDate" Type="datetime" />
-          <Property Name="DeliveryStatus" Type="varchar" MaxLength="2" />
+          <Property Name="DeliveryStatus" Type="int" />
           <Property Name="PaymentFinished" Type="bit" />
           <Property Name="DeliveryNotes" Type="nvarchar" MaxLength="200" />
           <Property Name="ConfirmDate" Type="datetime" />
@@ -541,7 +541,7 @@
           <Property Name="LastEditDate" Type="datetime" />
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ReturnReasonID" Type="varchar" MaxLength="15" />
+          <Property Name="ReturnReasonID" Type="int" />
         </EntityType>
         <EntityType Name="MM_Mailers">
           <Key>
@@ -601,6 +601,9 @@
           <Property Name="WidthSize" Type="float" />
           <Property Name="HeightSize" Type="float" />
           <Property Name="MerchandiseValue" Type="money" />
+          <Property Name="DeliveryTo" Type="nvarchar(max)" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="DeliveryNotes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -830,6 +833,10 @@
         </Function>
         <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documentID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="MAILERDELIVERY_GETMAILER_BY_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documentID" Type="nvarchar" Mode="In" />
+          <Parameter Name="mailerID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -1458,7 +1465,7 @@
           <Property Name="IsDeliverOver" Type="Boolean" />
           <Property Name="DeliveryTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
-          <Property Name="DeliveryStatus" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryStatus" Type="Int32" />
           <Property Name="PaymentFinished" Type="Boolean" />
           <Property Name="DeliveryNotes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ConfirmDate" Type="DateTime" Precision="3" />
@@ -1467,7 +1474,7 @@
           <Property Name="LastEditDate" Type="DateTime" Precision="3" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReturnReasonID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ReturnReasonID" Type="Int32" />
         </EntityType>
         <EntityType Name="MM_Mailers">
           <Key>
@@ -1527,6 +1534,9 @@
           <Property Name="WidthSize" Type="Double" />
           <Property Name="HeightSize" Type="Double" />
           <Property Name="MerchandiseValue" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DeliveryTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="DeliveryNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -1825,6 +1835,10 @@
           <FunctionImport Name="MAILER_GET_NOT_INVENTORY" ReturnType="Collection(MNPOSTModel.MAILER_GET_NOT_INVENTORY_Result)">
           <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="MAILERDELIVERY_GETMAILER_BY_ID" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_BY_ID_Result)">
+            <Parameter Name="documentID" Mode="In" Type="String" />
+            <Parameter Name="mailerID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
           <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -1974,6 +1988,13 @@
           <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
+          <Property Type="String" Name="DeliveryNotes" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="ConfirmDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DeliveryTo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ReturnReasonID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="POSTOFFICE_GETALL_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="false" MaxLength="15" />
@@ -2082,6 +2103,26 @@
           <Property Type="String" Name="Notes" Nullable="true" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="MAILERDELIVERY_GETMAILER_BY_ID_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
+          <Property Type="String" Name="DeliveryNotes" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="ConfirmDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DeliveryTo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ReturnReasonID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2646,6 +2687,9 @@
           <EntitySetMapping Name="MM_Mailers">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
               <MappingFragment StoreEntitySet="MM_Mailers">
+                <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
                 <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -3018,6 +3062,13 @@
                 <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
                 <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+                <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+                <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -3162,6 +3213,30 @@
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER_BY_ID" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER_BY_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_BY_ID_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+                <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+                <ScalarProperty Name="ConfirmDate" ColumnName="ConfirmDate" />
+                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

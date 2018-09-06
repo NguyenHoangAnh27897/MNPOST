@@ -68,5 +68,8 @@ namespace MNPOSTCOMMON
         public Nullable<double> WidthSize { get; set; }
         public Nullable<double> HeightSize { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
+        public string DeliveryTo { get; set; }
+        public Nullable<System.DateTime> DeliveryDate { get; set; }
+        public string DeliveryNotes { get; set; }
     }
 }

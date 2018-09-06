@@ -43,7 +43,7 @@ namespace MNPOST.Controllers.mailer
 
                 if (find != null && find.CurrentStatusID == 0)
                 {
-                    find.CurrentStatusID = 1; // nhap kho
+                    find.CurrentStatusID = 2; // nhap kho
                     find.LastUpdateDate = DateTime.Now;
                     db.Entry(find).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();

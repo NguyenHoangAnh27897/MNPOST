@@ -160,6 +160,9 @@
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILERDELIVERY_GETMAILER_BY_ID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

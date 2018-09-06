@@ -234,5 +234,18 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_NOT_INVENTORY_Result>("MAILER_GET_NOT_INVENTORY", postIdParameter);
         }
+    
+        public virtual ObjectResult<MAILERDELIVERY_GETMAILER_BY_ID_Result> MAILERDELIVERY_GETMAILER_BY_ID(string documentID, string mailerID)
+        {
+            var documentIDParameter = documentID != null ?
+                new ObjectParameter("documentID", documentID) :
+                new ObjectParameter("documentID", typeof(string));
+    
+            var mailerIDParameter = mailerID != null ?
+                new ObjectParameter("mailerID", mailerID) :
+                new ObjectParameter("mailerID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_BY_ID_Result>("MAILERDELIVERY_GETMAILER_BY_ID", documentIDParameter, mailerIDParameter);
+        }
     }
 }

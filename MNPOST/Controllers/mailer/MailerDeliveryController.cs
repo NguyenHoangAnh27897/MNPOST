@@ -16,6 +16,7 @@ namespace MNPOST.Controllers.mailer
             ViewBag.PostOffices = EmployeeInfo.postOffices;
             ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
             ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
+            ViewBag.ReturnReasons = db.BS_ReturnReasons.Select(p => new {name = p.ReasonName, code = p.ReasonID }).ToList();
             return View();
         }
 
@@ -87,38 +88,72 @@ namespace MNPOST.Controllers.mailer
         {
             var mailer = db.MM_Mailers.Find(mailerId);
             if (mailer == null)
+            {
                 return Json(new ResultInfo()
                 {
                     error = 1,
                     msg = "Sai thông tin"
                 }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (mailer.CurrentStatusID != 2 && mailer.CurrentStatusID != 6)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Mã hàng không thể phân phát"
+                }, JsonRequestBehavior.AllowGet);
+            }
 
             var delivery = db.MM_MailerDelivery.Find(documentId);
 
-            if (delivery == null)
+            if (delivery == null || delivery.StatusID != 0)
+            {
                 return Json(new ResultInfo()
                 {
                     error = 1,
-                    msg = "Sai thông tin"
+                    msg = "Không thể phân phát"
                 }, JsonRequestBehavior.AllowGet);
+            }
 
             try
             {
+                var data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, mailerId).FirstOrDefault();
+
+                if (data != null)
+                {
+                    return Json(new ResultInfo()
+                    {
+                        error = 1,
+                        msg = "Mã đã tồn tại"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 var insData = new MM_MailerDeliveryDetail()
                 {
                     DocumentID = documentId,
                     MailerID = mailerId,
-                    CreationDate = DateTime.Now
+                    CreationDate = DateTime.Now,
+                    DeliveryStatus = 3,
                 };
 
                 db.MM_MailerDeliveryDetail.Add(insData);
 
                 db.SaveChanges();
 
+                mailer.CurrentStatusID = 3;
+                mailer.LastUpdateDate = DateTime.Now;
+                db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+
+                db.SaveChanges();
+
+                data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, mailerId).FirstOrDefault();
+
                 return Json(new ResultInfo()
                 {
                     error = 0,
-                    msg = ""
+                    msg = "",
+                    data = data
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -127,7 +162,7 @@ namespace MNPOST.Controllers.mailer
                 return Json(new ResultInfo()
                 {
                     error = 1,
-                    msg = "Sai thông tin"
+                    msg = "Lỗi cập nhật"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -152,7 +187,7 @@ namespace MNPOST.Controllers.mailer
             var insDocument = new MM_MailerDelivery()
             {
                 DocumentID = Guid.NewGuid().ToString(),
-                DocumentCode = postId + DateTime.Now.ToString("ddMMyyyyHH:mm"),
+                DocumentCode = postId + DateTime.Now.ToString("ddMMyyyyHHmmss"),
                 CreateDate = DateTime.Now,
                 DocumentDate = date,
                 EmployeeID = employeeId,
@@ -198,6 +233,137 @@ namespace MNPOST.Controllers.mailer
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-   
+
+
+        // UPDATE DELIVER 
+        [HttpGet]
+        public ActionResult GetDeliveryMailerDetailNotUpdate(string documentID)
+        {
+            var data = db.MAILERDELIVERY_GETMAILER(documentID).Where(p=> p.DeliveryStatus == 3).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult GetMailerForReUpdate(string mailerID)
+        {
+
+            var findLastDelivery = db.MM_MailerDeliveryDetail.Where(p => p.MailerID == mailerID).OrderByDescending(p => p.CreationDate).FirstOrDefault();
+
+            if (findLastDelivery == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Mã chưa được nhập kho"
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            // kiem tra đã chốt công nợ chưa
+
+
+            // lấy thông tin
+
+            var data = db.MAILERDELIVERY_GETMAILER_BY_ID(findLastDelivery.DocumentID, findLastDelivery.MailerID).FirstOrDefault();
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = "",
+                data = data
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+        // update phat
+        [HttpPost]
+        public ActionResult ConfirmDeliveyMailer(List<MailerDeliveryConfirmInfo> detail)
+        {
+            List<string> documents = new List<string>();
+            foreach(var item in detail)
+            {
+                var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == item.DocumentID && p.MailerID == item.MailerID).FirstOrDefault();
+
+                if (findDetail != null)
+                {
+                    var mailerInfo = db.MM_Mailers.Find(findDetail.MailerID);
+
+                    findDetail.DeliveryStatus = item.DeliveryStatus;
+                    mailerInfo.CurrentStatusID = item.DeliveryStatus;
+
+                    if (item.DeliveryStatus == 5 || item.DeliveryStatus == 6)
+                    {
+                        findDetail.DeliveryTo = "";
+                        findDetail.ReturnReasonID = item.ReturnReasonID;
+                        findDetail.ConfirmDate = null;
+
+                        var findReason = db.BS_ReturnReasons.Where(p => p.ReasonID == item.ReturnReasonID).FirstOrDefault() ;
+
+                        mailerInfo.DeliveryTo = "";
+                        mailerInfo.DeliveryDate = null;
+                        mailerInfo.DeliveryNotes = findReason.ReasonName;
+                    } else
+                    {
+                        findDetail.DeliveryTo = item.DeliveryTo;
+                        findDetail.ReturnReasonID = null;
+                        findDetail.ConfirmDate = DateTime.Now;
+
+                        mailerInfo.DeliveryTo = item.DeliveryTo;
+                        mailerInfo.DeliveryDate = DateTime.Now;
+                        mailerInfo.DeliveryNotes = null;
+                    }
+
+                    db.Entry(mailerInfo).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
+                    if (!documents.Contains(findDetail.DocumentID))
+                    {
+                        documents.Add(findDetail.DocumentID);
+                    }
+                }
+            }
+
+            foreach(var item in documents)
+            {
+                UpdateDeliveryStatus(item);
+            }
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = ""
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void UpdateDeliveryStatus(string documentId)
+        {
+            var find = db.MM_MailerDelivery.Find(documentId);
+
+            var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == documentId).ToList();
+
+            var countSucess = 0;
+
+            foreach (var item in findDetail)
+            {
+                if (item.DeliveryStatus == 4 || item.DeliveryStatus == 5)
+                {
+                    countSucess++;
+                }
+            }
+
+            if(countSucess == findDetail.Count())
+            {
+                find.StatusID = 3;
+            } else
+            {
+                find.StatusID = 2;
+            }
+
+            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
     }
 }

@@ -10,24 +10,26 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MM_MailerDeliveryDetail
+    public partial class MAILERDELIVERY_GETMAILER_BY_ID_Result
     {
-        public string DocumentID { get; set; }
         public string MailerID { get; set; }
-        public Nullable<bool> IsDeliverOver { get; set; }
-        public string DeliveryTo { get; set; }
-        public Nullable<System.DateTime> DeliveryDate { get; set; }
+        public string RecieverAddress { get; set; }
+        public Nullable<double> Weight { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public string MailerTypeID { get; set; }
+        public string Notes { get; set; }
+        public string RecieverDistrictID { get; set; }
+        public string RecieverProvinceID { get; set; }
+        public string RecieverPhone { get; set; }
+        public string RecieverWardID { get; set; }
+        public Nullable<decimal> COD { get; set; }
+        public Nullable<int> CurrentStatusID { get; set; }
         public Nullable<int> DeliveryStatus { get; set; }
-        public Nullable<bool> PaymentFinished { get; set; }
         public string DeliveryNotes { get; set; }
         public Nullable<System.DateTime> ConfirmDate { get; set; }
-        public string ConfirmUserID { get; set; }
-        public string ConfirmIndex { get; set; }
-        public Nullable<System.DateTime> LastEditDate { get; set; }
-        public Nullable<System.DateTime> CreationDate { get; set; }
-        public long ID { get; set; }
+        public string DeliveryTo { get; set; }
+        public string DocumentID { get; set; }
         public Nullable<int> ReturnReasonID { get; set; }
     }
 }

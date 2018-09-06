@@ -144,6 +144,38 @@ function showNotify( mesenger) {
 
 }
 
+function showNotifyWarm(mesenger) {
+
+    $.notify(mesenger, {
+        type: 'warning'
+    });
+
+}
+
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+
+
+//
+var mailerStatusData = [{ "code": 0, "name": "KHỞI TẠO" }, { "code": 1, "name": "ĐANG GỬI LIÊN TUYÊN" }, { "code": 2, "name": "ĐÃ NHẬN" }, { "code": 3, "name": "ĐANG PHÁT" }, { "code": 4, "name": "ĐÃ PHÁT" }, { "code": 5, "name": "CHUYỂN HOÀN" }, { "code": 6, "name": "CHƯA PHÁT ĐƯỢC" }];
+var deliveryStatusData = [
+    {
+        "code": "0",
+        "name": "KHỞI TẠO"
+    },
+    {
+        "code": "1",
+        "name": "ĐANG PHÁT"
+    },
+    {
+        "code": "2",
+        "name": "CHƯA PHÁT XONG"
+    },
+    {
+        "code": "3",
+        "name": "ĐÃ PHÁT"
+    }
+];
+
