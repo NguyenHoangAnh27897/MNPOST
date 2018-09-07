@@ -24,5 +24,12 @@ namespace MNPOSTCOMMON
         public string RecieverPhone { get; set; }
         public string RecieverWardID { get; set; }
         public Nullable<decimal> COD { get; set; }
+        public Nullable<int> CurrentStatusID { get; set; }
+        public Nullable<int> DeliveryStatus { get; set; }
+        public string DeliveryNotes { get; set; }
+        public Nullable<System.DateTime> ConfirmDate { get; set; }
+        public string DeliveryTo { get; set; }
+        public string DocumentID { get; set; }
+        public Nullable<int> ReturnReasonID { get; set; }
     }
 }

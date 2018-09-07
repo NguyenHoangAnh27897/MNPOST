@@ -10,9 +10,8 @@
 namespace MNPOSTCOMMON
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MM_Mailers
+    public partial class MAILER_GET_NOT_INVENTORY_Result
     {
         public string MailerID { get; set; }
         public string PostOfficeAcceptID { get; set; }
@@ -29,9 +28,8 @@ namespace MNPOSTCOMMON
         public string RecieverDistrictID { get; set; }
         public string RecieverProvinceID { get; set; }
         public string RecieverPhone { get; set; }
-        public string EmployeeAcceptID { get; set; }
-        public Nullable<System.DateTime> AcceptDate { get; set; }
-        public Nullable<System.DateTime> AcceptTime { get; set; }
+        public string AcceptDate { get; set; }
+        public string AcceptTime { get; set; }
         public string MailerTypeID { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<double> Weight { get; set; }
@@ -39,37 +37,14 @@ namespace MNPOSTCOMMON
         public Nullable<decimal> PriceDefault { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> PriceService { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public Nullable<decimal> BefVATAmount { get; set; }
-        public Nullable<double> VATPercent { get; set; }
-        public Nullable<decimal> VATAmount { get; set; }
         public Nullable<decimal> Amount { get; set; }
-        public Nullable<decimal> AmountBefDiscount { get; set; }
         public string PaymentMethodID { get; set; }
         public string MailerDescription { get; set; }
-        public string ThirdpartyDocID { get; set; }
-        public Nullable<decimal> ThirdpartyCost { get; set; }
-        public string ThirdpartyPaymentMethodID { get; set; }
         public Nullable<int> CurrentStatusID { get; set; }
         public string CurrentPostOfficeID { get; set; }
-        public string PriceType { get; set; }
-        public Nullable<bool> PriceIncludeVAT { get; set; }
-        public Nullable<decimal> CommissionAmt { get; set; }
-        public Nullable<double> CommissionPercent { get; set; }
-        public Nullable<decimal> CostAmt { get; set; }
-        public Nullable<System.DateTime> SalesClosingDate { get; set; }
-        public Nullable<double> DiscountPercent { get; set; }
-        public Nullable<System.DateTime> CreationDate { get; set; }
-        public Nullable<System.DateTime> LastUpdateDate { get; set; }
         public string MerchandiseID { get; set; }
         public string Notes { get; set; }
         public Nullable<decimal> COD { get; set; }
-        public Nullable<double> LengthSize { get; set; }
-        public Nullable<double> WidthSize { get; set; }
-        public Nullable<double> HeightSize { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
-        public string DeliveryTo { get; set; }
-        public Nullable<System.DateTime> DeliveryDate { get; set; }
-        public string DeliveryNotes { get; set; }
     }
 }

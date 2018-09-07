@@ -160,6 +160,9 @@
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILERDELIVERY_GETMAILER_BY_ID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -167,6 +170,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_ALL_DELIVERY_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_GET_NOT_INVENTORY_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_CustomerMoneyAdvances.cs">

@@ -11,10 +11,6 @@ namespace MNPOST.Controllers.mnpostinfo
     public class PostOfficeController : BaseController
     {
 
-        private string menuCode = "postoffice";
-        //
-        // GET: /PostOffice/
-
         public ActionResult Show()
         {
             ViewBag.AllProvince = db.BS_Provinces.ToList();

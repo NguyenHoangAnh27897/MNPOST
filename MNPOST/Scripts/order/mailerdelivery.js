@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective']);
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     // phan trang
@@ -8,6 +8,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.currentPage = 1;
     $scope.maxSize = 5;
     $scope.showEdit = false;
+    $scope.showDeliveries = true;
+    $scope.showUpdate = false;
+
+    $scope.deliveryStatus = angular.copy(deliveryStatusData);
+    $scope.mailerStatus = angular.copy(mailerStatusData);
 
     $scope.optionSeaches = [
         {
@@ -71,11 +76,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             showLoader(false);
             showNotify('Connect error');
         });
-    }
-
-    $scope.postOffices = postOfficeDatas;
-
-    $scope.postHandle = '';
+    };
 
     $scope.title = '';
     //nhan vien
@@ -105,7 +106,20 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             hideModel('choosePostOfficeModal');
         }
     };
+    $scope.init = function () {
+        $scope.postOffices = postOfficeDatas;
 
+        $scope.postHandle = '';
+
+        if ($scope.postOffices.length === 1) {
+            $scope.postHandle = $scope.postOffices[0];
+            $scope.GetData();
+            $scope.getFirstData();
+        } else {
+            showModelFix('choosePostOfficeModal');
+        }
+
+    };
 
     // xư ly bang ke
     $scope.createDelivery = function () {
@@ -155,6 +169,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.showDocumentDetail = function (idx) {
         $scope.mailers = [];
         $scope.showEdit = true;
+        $scope.showDeliveries = false;
+        $scope.showUpdate = false;
         $scope.currentDocument = angular.copy($scope.allDeliveries[idx]);
 
         $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
@@ -162,7 +178,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         $http.get("/mailerdelivery/GetDeliveryMailerDetail?documentID=" + $scope.currentDocument.DocumentID).then(
             function (response) {
                 console.log(response.data);
-                $scope.mailers = anglar.copy(response.data);
+                $scope.mailers = angular.copy(response.data);
             }
         );
     };
@@ -179,10 +195,113 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
                     mailerId: $scope.mailerId
                 }
             }).then(function sucess(response) {
-                    
-                }, function error() {
+                var result = response.data;
 
-                });
+                if (result.error === 1) {
+                    showNotifyWarm(result.msg);
+                } else {
+                    showNotify('Đã thêm : ' + $scope.mailerId);
+                    $scope.mailers.push(result.data);
+                }
+                $scope.mailerId = "";
+
+            }, function error() {
+                alert("connect error");
+            });
         }
     };
+
+
+    // 
+    $scope.mailerUpdates = [];
+    $scope.mailerIdUpdate = '';
+    $scope.returnReasons = angular.copy(reasonReturnDatas);
+    $scope.confirmAllMailers = function () {
+
+        $scope.showEdit = false;
+        $scope.showDeliveries = false;
+        $scope.showUpdate = true;
+
+        $('.nav-tabs a[href="#tab_capnhatphat"]').tab('show');
+
+        $http.get("/mailerdelivery/GetDeliveryMailerDetailNotUpdate?documentID=" + $scope.currentDocument.DocumentID).then(
+            function (response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var mailerId = response.data[i].MailerID;
+                    if (findMailerUpdatesIndex(mailerId) === -1) {
+                        response.data[i].DeliveryStatus = 4;
+                        $scope.mailerUpdates.push(response.data[i]);
+                    }
+                 
+                }
+            
+            }
+        );
+
+    };
+
+    function findMailerUpdatesIndex(mailerId) {
+        for (var i = 0; i < $scope.mailerUpdates.length; i++) {
+            if ($scope.mailerUpdates[i].MailerID === mailerId)
+                return i;
+        }
+
+        return -1;
+    }
+
+    $scope.addMailerUpdate = function (isvalid) {
+
+        $http.get('/mailerdelivery/GetMailerForReUpdate?mailerID=' + $scope.mailerIdUpdate).then(function (response) {
+
+            var result = response.data;
+
+            if (result.error === 1) {
+                showNotifyWarm(result.msg);
+            } else {
+
+                if (findMailerUpdatesIndex(result.data.MailerID) === -1) {
+                    if (result.data.DeliveryStatus === 3) {
+                        result.data.DeliveryStatus = 4;
+                    }
+
+                    $scope.mailerUpdates.push(result.data);
+
+                   
+
+                }
+                showNotify('Đã thêm ' + $scope.mailerIdUpdate);
+                $scope.mailerIdUpdate = '';
+            }
+        
+           
+        });
+
+    };
+
+    $scope.updateDeliveryMailer = function () {
+        showLoader(true);
+        $http({
+            method: 'POST',
+            url: '/mailerdelivery/ConfirmDeliveyMailer',
+            data: {
+                detail: $scope.mailerUpdates
+            }
+        }).then(function sucess(response) {
+
+            showLoader(false);
+            $scope.mailerUpdates = [];
+            showNotify('Đã cập nhật phát');
+            $scope.mailers = [];
+            $scope.currentDocument = {};
+            $scope.GetData();
+
+            }, function error(response) {
+                showLoader(false);
+                alert("connect error");
+            });
+
+    };
+
+    $scope.init();
+
 });

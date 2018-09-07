@@ -4,4 +4,132 @@
 }
 
 
+<div ng-app="myApp" class="row" ng-controller="myCtrl">
+    <div class="col-md-12 col-sm-12 col-xs-12">
 
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>NHẬP KHO {{postHandle}}</h2>
+                <div class="nav navbar-right">
+                    <button type="button" class="btn btn-primary" ng-click="sendImport()">NHẬP KHO</button>
+                    <button type="button" class="btn btn-warning" ng-click="getData()">TẢI LẠI</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                    <ul class="nav nav-tabs bar_tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tab_sophat" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=false">Danh sách chưa nhập kho</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active in" id="tab_sophat" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <form ng-submit="addMailerImport(addMailer.$valid)" name="addMailer">
+
+                                        <input type="text" class="form-control" ng-model="mailerId" required />
+
+                                    </form>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table bulk_action scrollmenu">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th><input type="checkbox" ng-model="checkMailers" ng-change="checkAll()"/></th>
+                                            <th>STT</th>
+                                            <th>Mã vận đơn</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Mã người gửi</th>
+                                            <th>Người gửi</th>
+                                            <th>Điện thoại</th>
+                                            <th>Địa chỉ gửi</th>
+                                            <th>Tỉnh thành gửi</th>
+                                            <th>Quận huyện gửi</th>
+                                            <th>Phường xã gửi</th>
+                                            <th>Người nhận</th>
+                                            <th>Điện thoại</th>
+                                            <th>Địa chỉ nhận</th>
+                                            <th>Tỉnh thành nhận</th>
+                                            <th>Quận huyện nhận</th>
+                                            <th>Phường xã nhận</th>
+                                            <th>Dịch vụ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in mailers">
+                                            <td><input type="checkbox" ng-model="item.isCheck"/></td>
+                                            <td>{{$index + 1}}</td>
+                                            <td>{{item.MailerID}}</td>
+                                            <td>{{item.AcceptDate}}</td>
+                                            <td>{{item.SenderID}}</td>
+                                            <td>{{item.SenderName}}</td>
+                                            <td>{{item.SenderPhone}}</td>
+                                            <td>{{item.SenderAddress}}</td>
+                                            <td>{{item.SenderProvinceID}}</td>
+                                            <td>{{item.SenderDistrictID}}</td>
+                                            <td>{{item.SenderWardID}}</td>
+                                            <td>{{item.RecieverName}}</td>
+                                            <td>{{item.RecieverPhone}}</td>
+                                            <td>{{item.RecieverAddress}}</td>
+                                            <td>{{item.RecieverProvinceID}}</td>
+                                            <td>{{item.RecieverDistrictID}}</td>
+                                            <td>{{item.RecieverWardID}}</td>
+                                            <td>{{item.MailerTypeID}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- choose buu cuc-->
+<div id="choosePostOfficeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Chọn bưu cục xử lý</label>
+                    <select class="form-control" ng-model="postHandle">
+                        <option ng-repeat="item in postOffices" value="{{item}}">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="choosePostHandle()">Chọn</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end chon buu cuc-->
+@section styles {
+
+    <style type="text/css">
+        .scrollmenu {
+            overflow: auto;
+            white-space: nowrap;
+        }
+    </style>
+}
+@section scripts {
+
+    <script type="text/javascript">
+          var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
+    </script>
+
+    <script src="~/Scripts/order/mailerimport.js" type="text/javascript"></script>
+
+
+}

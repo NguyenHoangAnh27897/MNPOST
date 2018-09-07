@@ -66,7 +66,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         });
     };
 
-    $scope.status = [{ code: 0, name: 'Khởi tạo' }, { code: 1, name: 'Đã nhận' }, { code: 2, name: 'Đang chuyển nội bộ' }, {code: 3, name: 'Đang phát'}];
+    $scope.status = angular.copy(mailerStatusData);
 
     $scope.findStatus = function (code) {
         for (var i = 0; i < $scope.status.length; i++) {

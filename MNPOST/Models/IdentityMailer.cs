@@ -80,6 +80,21 @@ namespace MNPOST.Models
 
         public string PostOfficeId { get; set; }
     }
+
+    public class MailerDeliveryConfirmInfo
+    {
+        public string MailerID { get; set; }
+
+        public string DeliveryTo { get; set; }
+
+        public string DocumentID { get; set; }
+
+        public int? ReturnReasonID { get; set; }
+
+        public int? DeliveryStatus { get; set; }
+
+
+    }
 }
  
  
