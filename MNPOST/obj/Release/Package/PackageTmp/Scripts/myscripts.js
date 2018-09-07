@@ -1,7 +1,14 @@
 ﻿function showModel(id) {
+
     $('#' + id).modal('show');
 }
-
+function showModelFix(id) {
+    $('#' + id).modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+    $('#' + id).modal('show');
+}
 function hideModel(id) {
     $('#' + id).modal('hide');
 }
@@ -72,7 +79,15 @@ function handleAutoCompleteAddress(place) {
 
     //var place = autocomplete.getPlace();
 
-    var result = {};
+    var result = {
+        street_number: '',
+        route: '',
+        political: '',
+        administrative_area_level_1: '',
+        country: '',
+        postal_code: '',
+        administrative_area_level_2: ''
+    };
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
@@ -84,8 +99,11 @@ function handleAutoCompleteAddress(place) {
             case 'route':
                 result.route = place.address_components[i]['long_name'];
                 break;
-            case 'locality':
-                result.locality = place.address_components[i]['long_name'];
+            case 'political':
+                result.political = place.address_components[i]['long_name'];
+                break;
+            case 'sublocality_level_1':
+                result.sublocality_level_1 = place.address_components[i]['long_name'];
                 break;
             case 'administrative_area_level_1':
                 result.administrative_area_level_1 = place.address_components[i]['short_name'];
@@ -125,4 +143,39 @@ function showNotify( mesenger) {
     });
 
 }
+
+function showNotifyWarm(mesenger) {
+
+    $.notify(mesenger, {
+        type: 'warning'
+    });
+
+}
+
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+
+
+//
+var mailerStatusData = [{ "code": 0, "name": "KHỞI TẠO" }, { "code": 1, "name": "ĐANG GỬI LIÊN TUYÊN" }, { "code": 2, "name": "ĐÃ NHẬN" }, { "code": 3, "name": "ĐANG PHÁT" }, { "code": 4, "name": "ĐÃ PHÁT" }, { "code": 5, "name": "CHUYỂN HOÀN" }, { "code": 6, "name": "CHƯA PHÁT ĐƯỢC" }];
+var deliveryStatusData = [
+    {
+        "code": "0",
+        "name": "KHỞI TẠO"
+    },
+    {
+        "code": "1",
+        "name": "ĐANG PHÁT"
+    },
+    {
+        "code": "2",
+        "name": "CHƯA PHÁT XONG"
+    },
+    {
+        "code": "3",
+        "name": "ĐÃ PHÁT"
+    }
+];
 

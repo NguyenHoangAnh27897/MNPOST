@@ -254,7 +254,7 @@ namespace MNPOST.Controllers.mailer
                 return Json(new ResultInfo()
                 {
                     error = 1,
-                    msg = "Mã chưa được nhập kho"
+                    msg = "Mã chưa được phân phát"
                 }, JsonRequestBehavior.AllowGet);
 
             }

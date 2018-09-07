@@ -247,5 +247,14 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_BY_ID_Result>("MAILERDELIVERY_GETMAILER_BY_ID", documentIDParameter, mailerIDParameter);
         }
+    
+        public virtual ObjectResult<MAILER_GETINFO_BYID_Result> MAILER_GETINFO_BYID(string mailerId)
+        {
+            var mailerIdParameter = mailerId != null ?
+                new ObjectParameter("mailerId", mailerId) :
+                new ObjectParameter("mailerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYID_Result>("MAILER_GETINFO_BYID", mailerIdParameter);
+        }
     }
 }

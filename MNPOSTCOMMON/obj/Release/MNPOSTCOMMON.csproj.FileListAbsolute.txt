@@ -7,7 +7,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
@@ -18,3 +17,6 @@ D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CoreCompileInputs.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete

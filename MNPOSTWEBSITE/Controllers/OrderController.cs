@@ -74,7 +74,7 @@ namespace MNPOSTWEBSITE.Controllers
                 WidthSize = Width,
                 MailerTypeID = MailerTypeID,
                 MerchandiseID = MerchandiseID,
-                PriceDefault = PriceDefault,
+                PriceDefault = PriceDefault
                 
                 
             };

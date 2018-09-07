@@ -218,6 +218,11 @@
     <Compile Include="Controllers\pricematrix\PriceMatrixController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
     <Compile Include="Controllers\troubleticket\TroubleController.cs" />
+    <Compile Include="DS\MNPOSTDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MNPOSTDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Filters\MyValidateAccess.cs" />
     <Compile Include="Filters\MyValidateAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,6 +238,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\MenuInfo.cs" />
+    <Compile Include="Utils\MNPostUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\build\css\custom.css" />
@@ -4451,8 +4457,18 @@
     <Content Include="Content\vendors\validator\.bower.json" />
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
-    <Content Include="Report\test.rdl" />
     <Content Include="Content\curved-bars.svg" />
+    <Content Include="DS\MNPOSTDS.xsc">
+      <DependentUpon>MNPOSTDS.xsd</DependentUpon>
+    </Content>
+    <None Include="DS\MNPOSTDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MNPOSTDS.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DS\MNPOSTDS.xss">
+      <DependentUpon>MNPOSTDS.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\mnpost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\customer\cus_initiate.js" />
@@ -4562,6 +4578,9 @@
       <Project>{86535a9f-fb29-4141-951a-30bcbedef8c0}</Project>
       <Name>MNPOSTCOMMON</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report\mailer.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
