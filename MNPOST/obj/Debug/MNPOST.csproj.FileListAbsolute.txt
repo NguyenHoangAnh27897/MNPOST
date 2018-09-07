@@ -315,6 +315,7 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssem
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
 D:\Laptrinh\Github\MNPOST\MNPOST\bin\EPPlus.dll
+<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.pdb
@@ -384,3 +385,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csproj.CoreCompileInput
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csproj.CopyComplete
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+=======
+D:\LAPTRINH\MNPOST\MNPOST\bin\EPPlus.dll
+>>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c

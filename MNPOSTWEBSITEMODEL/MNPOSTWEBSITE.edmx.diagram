@@ -4,19 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b69b342bffad44e296db2225a42ecd44" Name="Diagram1">
-        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+      <Diagram DiagramId="332ba7fdd7054b63baf7eecc97d66721" Name="Diagram1">
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTWEBSITEModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTWEBSITEModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTWEBSITEModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_Post" Width="1.5" PointX="5.375" PointY="6.75" />
-        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_FacebookUser" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.625" />
-        <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" />
-        <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="MNPOSTWEBSITEModel.AspNetUserRoles" />
-        <AssociationConnector Association="MNPOSTWEBSITEModel.FK__AspNetUse__IDRol__398D8EEE" />
-        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_Mailer" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.UserProfile" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.webpages_Membership" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.webpages_OAuthMembership" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_FacebookUser" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_Mailer" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_Post" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="MNPOSTWEBSITEModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="MNPOSTWEBSITEModel.webpages_UsersInRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
