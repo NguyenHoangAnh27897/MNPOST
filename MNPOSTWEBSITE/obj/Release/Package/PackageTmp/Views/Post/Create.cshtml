@@ -37,13 +37,6 @@
         <link rel="stylesheet" href="/Content/js/file-uploader/css/jquery.fileupload-ui-noscript.css">
     </noscript>
 
-    <!-- Include external CSS. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-
-    <!-- Include Editor style. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.min.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -81,11 +74,11 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
 
-                    <p class="centered"><a href=""><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
+                    <p class="centered"><a href="/manage/index"><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
                     <h5 class="centered">@Session["Username"]</h5>
 
                     <li class="mt">
-                        <a class="active" href="/manage/index">
+                        <a href="/manage/index">
                             <i class="fa fa-dashboard"></i>
                             <span>Thông tin tài khoản</span>
                         </a>
@@ -104,82 +97,12 @@
 
                     <li class="sub-menu">
                         <a href="javascript:;">
-                            <i class="fa fa-cogs"></i>
-                            <span>Components</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="calendar.html">Calendar</a></li>
-                            <li><a href="gallery.html">Gallery</a></li>
-                            <li><a href="todo_list.html">Todo List</a></li>
-                            <li><a href="dropzone.html">Dropzone File Upload</a></li>
-                            <li><a href="inline_editor.html">Inline Editor</a></li>
-                            <li><a href="file_upload.html">Multiple File Upload</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
                             <i class="fa fa-book"></i>
-                            <span>Extra Pages</span>
+                            <span>Đơn hàng</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="blank.html">Blank Page</a></li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="lock_screen.html">Lock Screen</a></li>
-                            <li><a href="profile.html">Profile</a></li>
-                            <li><a href="invoice.html">Invoice</a></li>
-                            <li><a href="pricing_table.html">Pricing Table</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-tasks"></i>
-                            <span>Forms</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="form_component.html">Form Components</a></li>
-                            <li><a href="advanced_form_components.html">Advanced Components</a></li>
-                            <li><a href="form_validation.html">Form Validation</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-th"></i>
-                            <span>Data Tables</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="basic_table.html">Basic Table</a></li>
-                            <li><a href="responsive_table.html">Responsive Table</a></li>
-                            <li><a href="advanced_table.html">Advanced Table</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="inbox.html">
-                            <i class="fa fa-envelope"></i>
-                            <span>Mail </span>
-                            <span class="label label-theme pull-right mail-info">2</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class=" fa fa-bar-chart-o"></i>
-                            <span>Charts</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="morris.html">Morris</a></li>
-                            <li><a href="chartjs.html">Chartjs</a></li>
-                            <li><a href="flot_chart.html">Flot Charts</a></li>
-                            <li><a href="xchart.html">xChart</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-comments-o"></i>
-                            <span>Chat Room</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="lobby.html">Lobby</a></li>
-                            <li><a href="chat_room.html"> Chat Room</a></li>
+                            <li><a href="/order/create">Tạo đơn hàng</a></li>
+                            <li><a href="/order/orderlist">Danh sách đơn hàng</a></li>
                         </ul>
                     </li>
 
@@ -191,7 +114,6 @@
         <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
-        
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
@@ -227,15 +149,14 @@
                                         <textarea name="Postcontent" id="Postcontent"></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-round btn-primary" >Lưu bài viết</button>
+                                <button type="submit" class="btn btn-round btn-primary">Lưu bài viết</button>
                             </form>
                         </div>
                     </div><!-- col-lg-12-->
-                </div><!-- /row -->                      
+                </div><!-- /row -->
             </section><! --/wrapper -->
         </section><!-- /MAIN CONTENT -->
         <!--main content end-->
-
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper site-min-height">
@@ -448,36 +369,34 @@
 
     </script>
 
-    <!-- Include external JS libs. -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-    <!-- CSS rules for styling the element inside the editor such as p, h1, h2, etc. -->
-    <link href="~/Content/froala_style.min.css" rel="stylesheet" type="text/css" />
-    <!-- Include Editor JS files. -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/js/froala_editor.pkgd.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.0.0-rc.1/js/plugins/image.min.js"></script>
-    <!-- Initialize the editor. -->
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
     <script>
-        var $j = jQuery.noConflict();
-        $j(function () { $j('textarea').froalaEditor({ height: 200 }) });
+        //var $j = jQuery.noConflict();
 
-        $j('textarea').on('froalaEditor.image.uploaded', function (e, editor, response) {
-            // Do something here.
-        });
-        $j('textarea').off('froalaEditor.image.inserted');
+        ClassicEditor
+                    .create(document.querySelector('#Postcontent'))
+                    .then(editor => {
+                        console.log(editor);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        ClassicEditor
+    .create(document.querySelector('#Postcontent'), {
+        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        heading: {
+            options: [
+                { modelElement: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { modelElement: 'heading1', viewElement: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                { modelElement: 'heading2', viewElement: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+            ]
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
     </script>
 
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-

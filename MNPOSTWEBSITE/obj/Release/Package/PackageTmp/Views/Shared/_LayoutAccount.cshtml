@@ -61,24 +61,36 @@
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
 
-                    <p class="centered"><a href=""><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
+                    <p class="centered"><a href="/manage/index"><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
                     <h5 class="centered">@Session["Username"]</h5>
 
                     <li class="mt">
-                        <a class="active" href="/manage/index">
+                        <a href="/manage/index">
                             <i class="fa fa-dashboard"></i>
                             <span>Thông tin tài khoản</span>
                         </a>
                     </li>
-
+                    @if (Session["RoleID"].ToString().Equals("Admin"))
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Quản lý tin tức</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/post/create">Đăng bài mới</a></li>
+                                <li><a href="/post/accountpost">Danh sách bài đăng</a></li>
+                            </ul>
+                        </li>
+                    }
                     <li class="sub-menu">
                         <a href="javascript:;">
-                            <i class="fa fa-desktop"></i>
-                            <span>Quản lý tin tức</span>
+                            <i class="fa fa-book"></i>
+                            <span>Quản lý đơn hàng</span>
                         </a>
                         <ul class="sub">
-                            <li><a href="/post/create">Đăng bài mới</a></li>
-                            <li><a href="/post/accountpost">Danh sách bài đăng</a></li>
+                            <li><a href="/order/create">Tạo đơn hàng</a></li>
+                            <li><a href="/order/list">Danh sách đơn hàng</a></li>
                         </ul>
                     </li>
 

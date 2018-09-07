@@ -29,9 +29,14 @@ namespace MNPOSTWEBSITEMODEL
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<WS_Post> WS_Post { get; set; }
-        public virtual DbSet<WS_FacebookUser> WS_FacebookUser { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<UserProfile> UserProfile { get; set; }
+        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public virtual DbSet<WS_FacebookUser> WS_FacebookUser { get; set; }
         public virtual DbSet<WS_Mailer> WS_Mailer { get; set; }
+        public virtual DbSet<WS_Post> WS_Post { get; set; }
     }
 }

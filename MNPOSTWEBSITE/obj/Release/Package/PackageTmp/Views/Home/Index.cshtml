@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<MNPOSTWEBSITE.Models.Province>
+@{
     ViewBag.Title = "Home Page";
     MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
     var data = db.WS_Post.ToList();
@@ -33,60 +34,13 @@
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <div class="input-group">
-                            <div class="input-group-addon"><i class="mdi mdi-google-maps"></i></div>
+                            <div class="input-group-addon"><i class="mdi mdi-security-home"></i></div>
                             <select class="form-control select2 no-radius">
-                                <option value="">Nơi bắt đầu</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AK">Alaska</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="DC">District Of Columbia</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
+                                    <option value="">Nơi bắt đầu</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -95,14 +49,10 @@
                             <div class="input-group-addon"><i class="mdi mdi-security-home"></i></div>
                             <select class="form-control select2 no-radius">
                                 <option value="">Nơi kết thúc</option>
-                                <option value="">House/Villa</option>
-                                <option value="">Flat</option>
-                                <option value="">Plot/Land</option>
-                                <option value="">Office Space</option>
-                                <option value="">Shop/Showroom</option>
-                                <option value="">Commercial Land</option>
-                                <option value="">Warehouse/ Godown</option>
-                                <option value="">Industrial Building</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -126,18 +76,13 @@
                 <div class="card card-list">
                     <a href="#">
                         <span class="badge badge-success">Hồ Chí Minh</span>
-                        <img class="card-img-top" src="/Content/img/list/1.png" alt="Card image cap">
+                        <img class="card-img-top" src="~/Content/img/list/hcm.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Hồ Chí Minh - Hà Nội</h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
                                 Cước phí: <small>250.000 VND</small>
                             </h2>
-                        </div>
-                        <div class="card-footer">
-                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>3</strong></span>
-                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>2</strong></span>
-                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>587 sq ft</strong></span>
                         </div>
                     </a>
                 </div>
@@ -146,18 +91,13 @@
                 <div class="card card-list">
                     <a href="#">
                         <span class="badge badge-secondary">Hà Nội</span>
-                        <img class="card-img-top" src="/Content/img/list/2.png" alt="Card image cap">
+                        <img class="card-img-top" src="~/Content/img/list/hn.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Hà Nội - Đà Nẵng</h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
                                 Cước phí: <small>250.000 VND</small>
                             </h2>
-                        </div>
-                        <div class="card-footer">
-                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>5</strong></span>
-                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>3</strong></span>
-                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>300 sq ft</strong></span>
                         </div>
                     </a>
                 </div>
@@ -166,18 +106,13 @@
                 <div class="card card-list">
                     <a href="#">
                         <span class="badge badge-success">Đà Nẵng</span>
-                        <img class="card-img-top" src="/Content/img/list/3.png" alt="Card image cap">
+                        <img class="card-img-top" src="~/Content/img/list/dn.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Đà Nẵng - Cần Thơ</h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
                                 Cước phí: <small>250.000 VND</small>
                             </h2>
-                        </div>
-                        <div class="card-footer">
-                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>2</strong></span>
-                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>1</strong></span>
-                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>100 sq ft</strong></span>
                         </div>
                     </a>
                 </div>
@@ -188,18 +123,13 @@
                 <div class="card card-list">
                     <a href="#">
                         <span class="badge badge-danger">Cần Thơ</span>
-                        <img class="card-img-top" src="/Content/img/list/4.png" alt="Card image cap">
+                        <img class="card-img-top" src="~/Content/img/list/ct.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Cần Thơ - Huế</h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
                                 Cước phí: <small>250.000 VND</small>
                             </h2>
-                        </div>
-                        <div class="card-footer">
-                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>6</strong></span>
-                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>4</strong></span>
-                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>987 sq ft</strong></span>
                         </div>
                     </a>
                 </div>
@@ -208,18 +138,13 @@
                 <div class="card card-list">
                     <a href="#">
                         <span class="badge badge-warning">Huế</span>
-                        <img class="card-img-top" src="/Content/img/list/5.png" alt="Card image cap">
+                        <img class="card-img-top" src="~/Content/img/list/hue.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Huế - Hà Tĩnh</h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
                             <h2 class="text-success mb-0 mt-3">
                                 Cước phí: <small>250.000 VND</small>
                             </h2>
-                        </div>
-                        <div class="card-footer">
-                            <span><i class="mdi mdi-sofa"></i> Beds : <strong>8</strong></span>
-                            <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>4</strong></span>
-                            <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>120 sq ft</strong></span>
                         </div>
                     </a>
                 </div>
@@ -228,7 +153,7 @@
                 <div class="card card-list">
                     <a href="#">
                         <span class="badge badge-info">Hà Tĩnh</span>
-                        <img class="card-img-top" src="/Content/img/list/6.png" alt="Card image cap">
+                        <img class="card-img-top" src="~/Content/img/list/ht.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Hà Tĩnh - Hồ Chí Minh</h5>
                             <h6 class="card-subtitle mb-2 text-muted"><i class="mdi mdi-home-map-marker"></i>Thời gian giao dự kiến: 10 ngày</h6>
@@ -236,11 +161,11 @@
                                 Cước phí: <small>250.000 VND</small>
                             </h2>
                         </div>
-                        <div class="card-footer">
+                        @*<div class="card-footer">
                             <span><i class="mdi mdi-sofa"></i> Beds : <strong>1</strong></span>
                             <span><i class="mdi mdi-scale-bathroom"></i> Baths : <strong>3</strong></span>
                             <span><i class="mdi mdi-move-resize-variant"></i> Area : <strong>187 sq ft</strong></span>
-                        </div>
+                        </div>*@
                     </a>
                 </div>
             </div>

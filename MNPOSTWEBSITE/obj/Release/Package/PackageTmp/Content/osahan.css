@@ -163,7 +163,8 @@ b, strong {
 #content .card {
     box-shadow: none;
     margin: 0;
-    padding: 26px 0px 26px 26px;
+    padding: 13px;
+    margin-bottom: 13px;
 }
 #content .card-body, #content .card-footer {
     padding: 16px 0;
