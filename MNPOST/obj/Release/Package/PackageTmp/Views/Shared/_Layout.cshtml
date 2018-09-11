@@ -40,18 +40,52 @@
         .css-form input.ng-valid.ng-touched {
             background-color: #78FA89;
         }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        /*google place*/
+        .pac-container {
+            z-index: 10000 !important;
+        }
+
+        .center {
+            margin: auto;
+            padding: 10px;
+            width: 100%;
+        }
     </style>
 
+    @RenderSection("styles", false)
+
 </head>
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title"><i class="fa fa-users"></i>&nbsp;&nbsp; <span>MNPOST</span></a>
+                        <a href="/" class="site_title"><img src="~/Content/logo.jpg" width="30" class="profile_img"> MNPOST</a>
                     </div>
-
                     <div class="clearfix"></div>
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -64,6 +98,20 @@
 
                     </div>
                     <!-- /sidebar menu -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings" aria-describedby="tooltip861484">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout" href="javascript:document.getElementById('logoutForm').submit()">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -74,7 +122,7 @@
                         <div class="nav toggle">
                             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                         </div>
-
+                       
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -107,6 +155,7 @@
             <!-- /top navigation -->
 
             <div class="right_col" role="main">
+                <div class="clearfix"></div>
                 <div class="">
                     @RenderBody()
                 </div>
@@ -122,13 +171,14 @@
             }
             <footer>
                 <div class="pull-right">
-                    MNPost - Developer by MNPost Team<
+                    MNPost - Developer by MNPost Team
                 </div>
                 <div class="clearfix"></div>
             </footer>
 
         </div>
     </div>
+
     <div id="loader"></div>
 
     <!-- jQuery -->
@@ -146,9 +196,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-sanitize.min.js"></script>
     <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script src="~/Scripts/uploader.min.js"></script>
+    <script src="~/Scripts/myscript.keypress.js"></script>
+    <script src="~/Scripts/mydirective.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMESJTjSQnZU8Q7J5AFDE2wP2wOm3hy1o&libraries=places"
-            async defer></script>
 
     <script src="~/Scripts/myscripts.js"></script>
 

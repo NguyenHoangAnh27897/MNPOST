@@ -23,38 +23,43 @@
 </head>
 <body class="login">
     <div>
-        <a class="hiddenanchor" id="signup"></a>
+      
         <div class="login_wrapper">
             <div class="animate form login_form">
+
                 <section id="loginForm" class="login_content">
+
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
-                        <form>
-                            <h1>Login Form</h1>
-                            @Html.ValidationSummary(true)
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username", @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.UserName)
-                                </div>
+                    <form>
+                        <img src="~/Content/logo.jpg" width="150" />
+                        <hr />
+                        <h2>ĐĂNG NHẬP MNPOST</h2>
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.UserName, new { placeholder = "Tên đăng nhập", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.UserName)
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Password)
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { placeholder = "Mật khẩu", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password)
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        @Html.CheckBoxFor(m => m.RememberMe)
-                                        @Html.LabelFor(m => m.RememberMe)
-                                    </div>
-                                    <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
                                 </div>
+                                <input type="submit" value="XÁC NHẬN" class="btn btn-default" />
                             </div>
-                        </form>
+                        </div>
+
+                    </form>
                     }
                 </section>
             </div>
@@ -62,6 +67,17 @@
     </div>
 </body>
 
+
+@section Styles {
+    <style>
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+        }
+    </style>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

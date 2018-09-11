@@ -16,7 +16,7 @@ namespace MNPOST.Controllers
     [Authorize(Roles = "user")]
     public class BaseController : Controller
     {
-
+       
         protected UserInfo EmployeeInfo;
 
         protected MNPOSTEntities db = new MNPOSTEntities();

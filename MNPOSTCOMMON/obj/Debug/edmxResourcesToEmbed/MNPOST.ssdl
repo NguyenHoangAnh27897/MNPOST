@@ -826,6 +826,9 @@
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="customerId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_GETINFO_BYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>

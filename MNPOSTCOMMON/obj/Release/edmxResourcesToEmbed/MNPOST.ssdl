@@ -527,7 +527,7 @@
     <Property Name="IsDeliverOver" Type="bit" />
     <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
     <Property Name="DeliveryDate" Type="datetime" />
-    <Property Name="DeliveryStatus" Type="varchar" MaxLength="2" />
+    <Property Name="DeliveryStatus" Type="int" />
     <Property Name="PaymentFinished" Type="bit" />
     <Property Name="DeliveryNotes" Type="nvarchar" MaxLength="200" />
     <Property Name="ConfirmDate" Type="datetime" />
@@ -536,7 +536,7 @@
     <Property Name="LastEditDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ReturnReasonID" Type="varchar" MaxLength="15" />
+    <Property Name="ReturnReasonID" Type="int" />
   </EntityType>
   <EntityType Name="MM_Mailers">
     <Key>
@@ -596,6 +596,12 @@
     <Property Name="WidthSize" Type="float" />
     <Property Name="HeightSize" Type="float" />
     <Property Name="MerchandiseValue" Type="money" />
+<<<<<<< HEAD
+    <Property Name="DeliveryTo" Type="nvarchar(max)" />
+    <Property Name="DeliveryDate" Type="datetime" />
+    <Property Name="DeliveryNotes" Type="nvarchar(max)" />
+=======
+>>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -814,6 +820,12 @@
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
   </Function>
+<<<<<<< HEAD
+  <Function Name="MAILER_GET_NOT_INVENTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
+=======
+>>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c
   <Function Name="MAILER_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
@@ -823,6 +835,13 @@
   <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>
+<<<<<<< HEAD
+  <Function Name="MAILERDELIVERY_GETMAILER_BY_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="documentID" Type="nvarchar" Mode="In" />
+    <Parameter Name="mailerID" Type="nvarchar" Mode="In" />
+  </Function>
+=======
+>>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
