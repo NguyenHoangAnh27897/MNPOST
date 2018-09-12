@@ -20,3 +20,12 @@ D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CoreCompileInputs.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.xml
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb

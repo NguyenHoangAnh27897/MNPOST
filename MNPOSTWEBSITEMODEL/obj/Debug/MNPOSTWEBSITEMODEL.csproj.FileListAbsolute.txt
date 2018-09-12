@@ -62,3 +62,13 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMOD
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xml
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb

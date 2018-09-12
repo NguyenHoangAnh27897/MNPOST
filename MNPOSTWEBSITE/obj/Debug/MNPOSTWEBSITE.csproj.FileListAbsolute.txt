@@ -476,3 +476,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb

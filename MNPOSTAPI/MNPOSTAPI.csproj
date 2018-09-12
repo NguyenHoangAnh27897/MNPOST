@@ -198,6 +198,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\mnpostapi.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
