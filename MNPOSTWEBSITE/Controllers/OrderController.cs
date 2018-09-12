@@ -74,13 +74,7 @@ namespace MNPOSTWEBSITE.Controllers
                 WidthSize = Width,
                 MailerTypeID = MailerTypeID,
                 MerchandiseID = MerchandiseID,
-<<<<<<< HEAD
                 PriceDefault = PriceDefault
-                
-                
-=======
-                PriceDefault = PriceDefault 
->>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());

@@ -10,11 +10,16 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOST.Models;
+using MNPOST.Filters;
+using MNPOSTCOMMON;
 
 namespace MNPOST.Controllers
 {
     public class AccountController : Controller
     {
+
+        MNPOSTEntities db = new MNPOSTEntities();
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -46,8 +51,8 @@ namespace MNPOST.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
-       
-                if (user != null &&user.IsActivced == 1)
+
+                if (user != null && user.IsActivced == 1)
                 {
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
@@ -63,7 +68,7 @@ namespace MNPOST.Controllers
 
         //
         // GET: /Account/Register
-         [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public ActionResult Register()
         {
             return View();
@@ -95,6 +100,51 @@ namespace MNPOST.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        [MyValidateAntiForgeryToken]
+        public async Task<ActionResult> SignUpStaff(string UserName, string Password,string EmployeeID, string GroupId, string levelId)
+        {
+            var findEmployee = db.BS_Employees.Find(EmployeeID);
+
+            if (findEmployee == null)
+            {
+                return Json(new ResultInfo() { error = 1, msg = "Sai thông tin" });
+            }
+
+            if (!String.IsNullOrEmpty(findEmployee.UserLogin))
+            {
+                return Json(new ResultInfo() { error = 1, msg = "Đã tạo tài khoản" });
+            }
+
+            var user = new ApplicationUser() { UserName = UserName, FullName = findEmployee.EmployeeName, AccountType = "USER", GroupId = GroupId, IsActivced = 1, ULevel = levelId };
+            var result = await UserManager.CreateAsync(user, Password);
+            if (result.Succeeded)
+            {
+                var findUser = UserManager.FindById(UserName);
+                UserManager.AddToRole(findUser.Id, "user");
+                findEmployee.UserLogin = UserName;
+                db.Entry(findEmployee).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return Json(new ResultInfo() { error = 0, msg = "" });
+            }
+            else
+            {
+                AddErrors(result);
+            }
+
+
+            // If we got this far, something failed, redisplay form
+            return Json(new ResultInfo()
+            {
+                error = 1,
+                msg = ModelState.Keys.SelectMany(k => ModelState[k].Errors)
+                                .Select(m => m.ErrorMessage).FirstOrDefault().ToString()
+            });
+        }
+
+        //
         //
         // POST: /Account/Disassociate
         [HttpPost]
@@ -116,7 +166,7 @@ namespace MNPOST.Controllers
 
         //
         // GET: /Account/Manage
-           [Authorize]
+        [Authorize]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =

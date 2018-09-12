@@ -10,7 +10,7 @@
 </head>
 <body style="margin: 0px; padding: 0px;">
     <form id="form1" runat="server">
-        <div>
+        <div style="display:flex;justify-content:center;align-items:center;">
             <asp:ScriptManager ID="ScriptManager1" runat="server">
                 <Scripts>
                     <asp:ScriptReference Assembly="ReportViewerForMvc" Name="ReportViewerForMvc.Scripts.PostMessage.js" />

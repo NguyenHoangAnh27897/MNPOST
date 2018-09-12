@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MNPOST.Models;
+using Microsoft.Reporting.WebForms;
+using System.Web.UI.WebControls;
 
 namespace MNPOST.Controllers.mailer
 {
@@ -23,7 +25,7 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public ActionResult GetMailers(int? page, string search, string fromDate, string toDate, string customer, string postId)
+        public JsonResult GetMailers(int? page, string search, string fromDate, string toDate, string customer, string postId)
         {
             int pageSize = 50;
 
@@ -69,12 +71,25 @@ namespace MNPOST.Controllers.mailer
         }
 
 
-        public ActionResult GetCustomers(string postId)
+        public JsonResult GetCustomers(string postId)
         {
             var data = db.BS_Customers.Where(p => p.PostOfficeID == postId).Select(p => new CommonData() { name = p.CustomerName, code = p.CustomerCode }).ToList();
 
             return Json(new ResultInfo() { error = 0, msg = "", data = data }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpGet]
+        public ActionResult ShowReportMailer(string mailers)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("@mailers", mailers);
+            var sqlAdapter = GetSqlDataAdapter("MAILER_GETINFO_BYLISTID", parameters);
+
+            var reportViewer = GetReportViewer(sqlAdapter, ds.MAILER_GETINFO_BYID.TableName, "MAILERINFO", "mailer.rdlc");
+            ViewBag.ReportViewer = reportViewer;
+
+            return View();
         }
 
         public string GeneralMailerCode(string cusId)
@@ -123,7 +138,7 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public ActionResult CalBillPrice(float weight = 0, float volume = 0, float cod = 0, float merchandiseValue = 0) 
+        public JsonResult CalBillPrice(float weight = 0, float volume = 0, float cod = 0, float merchandiseValue = 0) 
         {
             return Json(new { price =0, codPrice = 0 }, JsonRequestBehavior.AllowGet);
         }
