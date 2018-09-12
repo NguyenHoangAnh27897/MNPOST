@@ -50,6 +50,8 @@ namespace MNPOST.Models
 
         public decimal? MerchandiseValue { get; set; }
 
+        public int? CurrentStatusID { get; set; }
+
     }
 
 
@@ -94,6 +96,17 @@ namespace MNPOST.Models
         public int? DeliveryStatus { get; set; }
 
 
+    }
+
+
+   // chia tuyen nhan vien
+   public class EmployeeAutoRouteInfo
+    {
+        public string EmployeeID { get; set; }
+
+        public string EmployeeName { get; set; }
+
+        public List<MailerIdentity> Mailers { get; set; }
     }
 }
  

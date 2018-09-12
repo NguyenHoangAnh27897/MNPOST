@@ -134,7 +134,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
         $scope.postchoose = '';
 
-        if ($scope.postOffices.length == 1) {
+        if ($scope.postOffices.length === 1) {
             $scope.postchoose = $scope.postOffices[0];
         } else {
             showModelFix('choosePostOfficeModal');
@@ -209,7 +209,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     $scope.getMailerCode = function (idx) {
         var mailer = $scope.mailers[idx];
 
-        if (mailer.MailerID === "" || mailer.MailerID == null) {
+        if (mailer.MailerID === "" || mailer.MailerID === null) {
             showLoader(true);
             var url = "/MailerInit/GeneralCode?cusId=" + mailer.SenderID;
 

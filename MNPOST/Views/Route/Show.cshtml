@@ -75,20 +75,9 @@
                                     <option ng-repeat="item in provinces" value="{{item.code}}">{{item.name}}</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <select class="form-control" ng-model="districtChoose">
-                                    <option ng-repeat="item in districts" value="{{item.code}}">{{item.name}}</option>
-                                </select>
-                            </div>
-
                         </div>
                         <div class="col-sm-6">
-
                             <button type="button" class="btn btn-primary" ng-click="getDistrictRoutes()">XEM PHÂN TUYẾN</button>
-
-
-                            <button class="btn btn-danger" type="button" ng-click="addDistrictRoute()">THÊM PHÂN TUYẾN</button>
-
                         </div>
 
                         <div class="col-sm-12">
@@ -98,35 +87,39 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead>
                                     <tr class="headings">
-                                        <th>STT</th>
                                         <th>Quận/huyện</th>
-                                        <th>Phân rã</th>
+                                        <th>NV tham gia</th>
+                                        <th>Phường/Xã</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in districtRoutes" >
-                                        <td>{{$index + 1}}&nbsp;&nbsp;<a href="#" ng-click="removeMailer($index)"><i my-tool-tip="Xóa" class="fa fa-minus-square"></i></a></td>
-                                        <td>{{item.DistrictName}}</td>
-                                        <td><input type="checkbox" ng-model="item.IsDetail" />&nbsp;<button ng-show="item.IsDetail" class="btn btn-danger btn-xs" ng-click="showWardRoute($index)">Chọn phường</button></td>
+                                    <tr ng-repeat="item in districtRoutes">
+                                        <td><input type="checkbox" ng-model="item.ISJoin" ng-checked="item.ISJoin" ng-change="addDistrictRoute($index)" />&nbsp;{{item.DistrictName}}</td>
+                                        <td><span class="label label-default" ng-repeat="staff in item.Staffs">{{staff.name}}</span></td>
+                                        <td><a href="#" ng-show="item.ISJoin" ng-click="showWardRoutes($index)">Xem</a></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead>
                                     <tr class="headings">
-                                        <th>Chọn</th>
                                         <th>Phường/xã</th>
-                                        <th>Quận huyện</th>
+                                        <th>Quận</th>
+                                        <th>Nhân viên</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-             
+                                    <tr ng-repeat="item in wardRoutes">
+                                        <td>{{item.WardName}}</td>
+                                        <td>{{districtRouteChoose.DistrictName}}</td>
+                                        <th><input type="checkbox" ng-show="item.IsChoose" ng-model="item.ISJoin" ng-checked="item.ISJoin" ng-change="addWardRoute($index)" /><span ng-show="!item.IsChoose">{{item.Staff.name}}</span></th>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -173,7 +166,9 @@
             $scope.provinceChoose = '';
             $scope.districts = [];
             $scope.districtRoutes = [];
-            $scope.districtChoose = '';
+            $scope.wardRoutes = [];
+
+            $scope.districtRouteChoose = {};
 
             $scope.getEmployeeRoutes = function (post) {
                 console.log(post);
@@ -195,7 +190,8 @@
                 var employee = $scope.employeeRoutes[idx];
                 $scope.eRoute = { EmployeeID: employee.EmployeeID, EmployeeName: employee.EmployeeName, Routetype: rType };
                 $scope.modaltitle = (rType === 'N' ? 'Quản lý tuyến nhận nhân viên ' : 'Quản lý tuyến phát nhân viên ') + $scope.eRoute.EmployeeName;
-
+                $scope.wardRoutes = [];
+                $scope.districtRoutes = [];
                 showModel('routemodal');
 
             };
@@ -204,9 +200,14 @@
                 if ($scope.provinceChoose !== '') {
                     showLoader(true);
                     $http.get("/route/GetDistrictRoutes?provinceId=" + $scope.provinceChoose + "&employeeId=" + $scope.eRoute.EmployeeID + "&type=" + $scope.eRoute.Routetype).then(function (response) {
-                        $scope.districts = angular.copy(response.data.districts);
 
-                        $scope.districtRoutes = angular.copy(response.data.routes);
+                        var result = response.data;
+
+                        if (result.error === 0) {
+                            $scope.districtRoutes = angular.copy(result.data);
+                        } else {
+                            alert(result.msg);
+                        }
 
                         showLoader(false);
 
@@ -214,53 +215,109 @@
                 }
             };
 
-            // tim index theo ma tinh
-            function getDistrictIndex(id) {
-                for (var i = 0; i < $scope.districts.length; i++)
-                    if ($scope.districts[i].code == id)
-                        return i;
-                return -1;
-            };
+            $scope.showWardRoutes = function (idx) {
+                $scope.districtRouteChoose = $scope.districtRoutes[idx];
 
-            $scope.addDistrictRoute = function () {
+                showLoader(true);
+                $http.get("/route/GetWardRoutes?districtId=" + $scope.districtRouteChoose.DistrictID + "&employeeId=" + $scope.eRoute.EmployeeID + "&type=" + $scope.eRoute.Routetype).then(function (response) {
 
-                if ($scope.provinceChoose === '' || $scope.districtChoose === '') {
-                    alert('Thiếu thông tin');
-                } else {
+                    $scope.wardRoutes = angular.copy(response.data);
 
-                    showLoader(true);
+                    showLoader(false);
+                });
 
-                    $http(
-                        {
-                            method: "POST",
-                            url: "/route/AddDistrictRoutes",
-                            data: {
-                                provinceId: $scope.provinceChoose,
-                                employeeId: $scope.eRoute.EmployeeID,
-                                type: $scope.eRoute.Routetype,
-                                district: $scope.districtChoose
-                            }
-                        }
-                    ).then(function sucess(response) {
 
-                        showLoader(false);
+            }
 
-                        var data = response.data.data;
 
-                        var districtIdx = getDistrictIndex($scope.districtChoose);
 
-                        data.DistrictName = $scope.districts[districtIdx].name;
+            $scope.findEmployeeJoin = function (idx) {
+                var findRouteDistrict = $scope.districtRoutes[idx];
+                for (var i = 0; i < findRouteDistrict.Staffs.length; i++) {
+                    if (findRouteDistrict.Staffs[i].code === $scope.eRoute.EmployeeID) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            $scope.addWardRoute = function (idx) {
 
-                        $scope.districtRoutes.push(data);
+                var wardRouteChoose = $scope.wardRoutes[idx];
 
-                        $scope.districts.splice(districtIdx, 1);
-                        $scope.districtChoose = '';
+                showLoader(true);
+
+                $http({
+                    method: "POST",
+                    url: "/route/addwardroute",
+                    data: {
+                        detail: wardRouteChoose,
+                        employeeId: $scope.eRoute.EmployeeID,
+                        provinceId: $scope.provinceChoose,
+                        type: $scope.eRoute.Routetype
+                    }
+                }).then(function sucess(response) {
+
+                    showLoader(false);
+
                     }, function error(response) {
                         showLoader(false);
-                        alert('disconnect internet')
+                        alert('disconnect');
                     });
 
-                }
+            }
+            $scope.addDistrictRoute = function (idx) {
+
+                showLoader(true);
+                var routeInfo = $scope.districtRoutes[idx];
+                $http(
+                    {
+                        method: "POST",
+                        url: "/route/AddDistrictRoutes",
+                        data: {
+
+                            info: routeInfo,
+                            employeeId: $scope.eRoute.EmployeeID
+                        }
+                    }
+                ).then(function sucess(response) {
+
+                    showLoader(false);
+
+                    var result = response.data;
+
+                    if (result.error === 1) {
+                        $scope.districtRoutes[idx].ISJoin = !$scope.districtRoutes[idx].ISJoin;
+                        alert(result.msg);
+                    } else {
+
+                        $scope.wardRoutes = [];
+                        var employee = { code: $scope.eRoute.EmployeeID, name : $scope.eRoute.EmployeeName };
+                        if (routeInfo.ISJoin) {
+                            // them vao
+                            $scope.districtRoutes[idx].Staffs.push(employee);
+                        } else {
+                            // bo ra
+                            var staffJoin = routeInfo.Staffs;
+                            var staffJoinIdx = -1;
+                            for (var i = 0; i < staffJoin.length; i++) {
+                                if (staffJoin[i].code === employee.code) {
+                                    staffJoinIdx = i;
+                                }
+                            }
+
+                            if (staffJoinIdx !== -1) {
+                                $scope.districtRoutes[idx].Staffs.splice(staffJoinIdx, 1);
+                            }
+                        }
+
+
+
+                    }
+
+                }, function error(response) {
+                    showLoader(false);
+                    alert('disconnect internet')
+                });
 
             };
 

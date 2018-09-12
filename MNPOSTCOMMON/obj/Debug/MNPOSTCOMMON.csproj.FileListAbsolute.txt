@@ -59,4 +59,19 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.Core
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.CopyComplete
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojAssemblyReference.cache
+=======
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojAssemblyReference.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.CoreCompileInputs.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.CopyComplete
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+>>>>>>> aff09808aa2c15d3d4ce019b8b9b848b0ce47b5c

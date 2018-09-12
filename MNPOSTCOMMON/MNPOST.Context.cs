@@ -265,5 +265,31 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYLISTID_Result>("MAILER_GETINFO_BYLISTID", mailersParameter);
         }
+    
+        public virtual ObjectResult<ROUTE_GETWARD_Result> ROUTE_GETWARD(string type, string districtId)
+        {
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            var districtIdParameter = districtId != null ?
+                new ObjectParameter("districtId", districtId) :
+                new ObjectParameter("districtId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GETWARD_Result>("ROUTE_GETWARD", typeParameter, districtIdParameter);
+        }
+    
+        public virtual ObjectResult<ROUTE_GETMAILER_BYEMPLOYEEID_Result> ROUTE_GETMAILER_BYEMPLOYEEID(string employeeId, string postId)
+        {
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GETMAILER_BYEMPLOYEEID_Result>("ROUTE_GETMAILER_BYEMPLOYEEID", employeeIdParameter, postIdParameter);
+        }
     }
 }

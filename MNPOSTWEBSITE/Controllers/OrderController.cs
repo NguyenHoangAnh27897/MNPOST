@@ -21,34 +21,48 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: Order
         public ActionResult Create()
         {
-            string username = Session["Email"].ToString();
-            if (db.WS_Mailer.Where(s=>s.CustomerAccount.Equals(username)).FirstOrDefault().SenderName != null)
+            if (Session["Authentication"].ToString() != null)
             {
-                ViewBag.SenderName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderName;
-                ViewBag.SenderAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderAddress;
-                ViewBag.SenderPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderPhone;
-                ViewBag.SenderDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderDistrictID;
-                ViewBag.SenderProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderProvinceID;
-                ViewBag.SenderWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderWardID;
-                ViewBag.RecieverName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverName;
-                ViewBag.RecieverAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverAddress;
-                ViewBag.RecieverPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverPhone;
-                ViewBag.RecieverDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverDistrictID;
-                ViewBag.RecieverProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverProvinceID;
-                ViewBag.RecieverWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverWardID;
-                ViewBag.Weight = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Weight;
-                ViewBag.Quantity = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Quantity;
+                if (Session["RoleID"].ToString().Equals("Customer"))
+                {
+                    string username = Session["Email"].ToString();
+                    if (db.WS_Mailer.Where(s => s.CustomerAccount.Equals(username)).FirstOrDefault().SenderName != null)
+                    {
+                        ViewBag.SenderName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderName;
+                        ViewBag.SenderAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderAddress;
+                        ViewBag.SenderPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderPhone;
+                        ViewBag.SenderDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderDistrictID;
+                        ViewBag.SenderProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderProvinceID;
+                        ViewBag.SenderWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderWardID;
+                        ViewBag.RecieverName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverName;
+                        ViewBag.RecieverAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverAddress;
+                        ViewBag.RecieverPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverPhone;
+                        ViewBag.RecieverDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverDistrictID;
+                        ViewBag.RecieverProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverProvinceID;
+                        ViewBag.RecieverWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverWardID;
+                        ViewBag.Weight = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Weight;
+                        ViewBag.Quantity = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Quantity;
+                    }
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index","Manage");
+                }
             }
-            return View();
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+          
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(string SenderID = "", string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0, string Purchase="",string MerchandiseValue="",string COD="",string Note="", string MailerDescription="",int? Length=0,int? Width=0,int? Height=0,string MailerTypeID="",string MerchandiseID="",int? PriceMain=0,int? CODPrice=0,int? PriceDefault=0)
         {
-            decimal? cod = decimal.Parse(COD);
-            decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
-            MM_Mailers mailers = new MM_Mailers
+            try
             {
+<<<<<<< HEAD
                 MailerID = "007",
                 SenderName = SenderName,
                 SenderAddress = SenderAddress,
@@ -81,24 +95,95 @@ namespace MNPOSTWEBSITE.Controllers
             string api = "http://35.231.147.186:89/api/mailer/addmailer";
             var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
             if (response.IsSuccessStatusCode)
+=======
+                decimal? cod = decimal.Parse(COD);
+                decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
+                MM_Mailers mailers = new MM_Mailers
+                {
+                    MailerID = getGUID(),
+                    SenderName = SenderName,
+                    SenderAddress = SenderAddress,
+                    SenderPhone = SenderPhone,
+                    SenderDistrictID = SenderDistrictID,
+                    SenderProvinceID = SenderProvinceID,
+                    SenderWardID = SenderWardID,
+                    RecieverName = RecieverName,
+                    RecieverAddress = RecieverAddress,
+                    RecieverPhone = RecieverPhone,
+                    RecieverDistrictID = RecieverDistrictID,
+                    RecieverProvinceID = RecieverProvinceID,
+                    RecieverWardID = RecieverWardID,
+                    Weight = Weight,
+                    Quantity = Quantity,
+                    PaymentMethodID = Purchase,
+                    MerchandiseValue = MerchandiseVal,
+                    COD = cod,
+                    Notes = Note,
+                    MailerDescription = MailerDescription,
+                    LengthSize = Length,
+                    HeightSize = Height,
+                    WidthSize = Width,
+                    MailerTypeID = MailerTypeID,
+                    MerchandiseID = MerchandiseID,
+                    PriceDefault = PriceDefault
+                };
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+                string api = "http://35.231.147.186:89/api/mailer/addmailer";
+                var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+                return View();
+            }catch(Exception ex)
+>>>>>>> aff09808aa2c15d3d4ce019b8b9b848b0ce47b5c
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("","");
             }
-            return View();
+          
         }
 
 
         public ActionResult OrderList()
         {
-            return View();
+            if (Session["Authentication"].ToString() != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Customer"))
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index","Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         public ActionResult List(int? page = 1)
         {
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            var lst = db.WS_Mailer.Where(s => s.IsActive == true).ToList();
-            return View(lst.ToPagedList(pageNumber, pageSize));
+            if (Session["Authentication"].ToString() != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Customer"))
+                {
+                    int pageSize = 5;
+                    int pageNumber = (page ?? 1);
+                    var lst = db.WS_Mailer.Where(s => s.IsActive == true).ToList();
+                    return View(lst.ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return RedirectToAction("Index","Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         [HttpPost]
@@ -131,6 +216,24 @@ namespace MNPOSTWEBSITE.Controllers
             //    return RedirectToAction("Index", "Manage");
             //}
             return View();
+        }
+
+        //generate ra một id mới
+        public static string getGUID()
+        {
+            string rs = "";
+            char replace = '-';
+            char to = '_';
+            try
+            {
+                rs = Guid.NewGuid().ToString();
+                rs = rs.Replace(replace, to);
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message.ToString();
+            }
+            return rs;
         }
     }
 }

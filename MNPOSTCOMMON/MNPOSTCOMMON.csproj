@@ -242,6 +242,12 @@
     <Compile Include="ROUTE_GETDETAIL_BYROUTEID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="ROUTE_GETMAILER_BYEMPLOYEEID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ROUTE_GETWARD_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="ROUTE_GET_ALLEMPLOYEE_ROUTE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
