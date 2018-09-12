@@ -10,12 +10,22 @@ namespace MNPOSTWEBSITE.Controllers
     {
         //
         // GET: /Transport/
-        public ActionResult FastTransportation()
+        //public ActionResult FastTransportation()
+        //{
+        //    return View();
+        //}
+
+        //public ActionResult NormalTransportation()
+        //{
+        //    return View();
+        //}
+
+        public ActionResult Service()
         {
             return View();
         }
 
-        public ActionResult NormalTransportation()
+        public ActionResult Recruitment()
         {
             return View();
         }

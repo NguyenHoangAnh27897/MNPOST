@@ -18,8 +18,23 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Post/
         public ActionResult Create()
         {
-            ViewBag.ThumbSize = ThumbSize;
-            return View();
+            if (Session["Authentication"].ToString() != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    ViewBag.ThumbSize = ThumbSize;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index","Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+          
         }
         public string picturename= "";
         [HttpPost]
@@ -174,16 +189,45 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult AccountPost(int? page = 1)
         {
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            var lst = db.WS_Post.ToList();
-            return View(lst.ToPagedList(pageNumber, pageSize));
+            if (Session["Authentication"].ToString() != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    int pageSize = 5;
+                    int pageNumber = (page ?? 1);
+                    var lst = db.WS_Post.ToList();
+                    return View(lst.ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return RedirectToAction("Index","Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         public ActionResult Edit(int? id)
         {
-            var pst = db.WS_Post.Where(s => s.ID == id);
-            return View(pst);
+            if (Session["Authentication"].ToString() != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    var pst = db.WS_Post.Where(s => s.ID == id);
+                    return View(pst);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+          
         }
 
         public ActionResult Delete(int? id)

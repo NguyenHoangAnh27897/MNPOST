@@ -13,9 +13,17 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Manage/
         public ActionResult Index()
         {
-            string id = Session["ID"].ToString();
-            var user = db.AspNetUsers.Where(s => s.Id == id);
-            return View(user);
+            if(Session["Authentication"].ToString() != null)
+            {
+                string id = Session["ID"].ToString();
+                var user = db.AspNetUsers.Where(s => s.Id == id);
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Login","Account");
+            }
+           
         }
 
 	}

@@ -50,3 +50,15 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CoreCompileInputs.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CopyComplete
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojAssemblyReference.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CoreCompileInputs.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CopyComplete
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
