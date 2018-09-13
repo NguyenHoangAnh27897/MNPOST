@@ -544,9 +544,15 @@
     <Content Include="Content\css\zabuto_calendar.css" />
     <Content Include="Content\custom.js" />
     <Content Include="Content\encot\css\animate.min.css" />
+    <Content Include="Content\encot\css\animation.css" />
     <Content Include="Content\encot\css\base.css" />
     <Content Include="Content\encot\css\custom.css" />
     <Content Include="Content\encot\css\enfold.css" />
+    <Content Include="Content\encot\css\fontello-codes.css" />
+    <Content Include="Content\encot\css\fontello-embedded.css" />
+    <Content Include="Content\encot\css\fontello-ie7-codes.css" />
+    <Content Include="Content\encot\css\fontello-ie7.css" />
+    <Content Include="Content\encot\css\fontello.css" />
     <Content Include="Content\encot\css\grid.css" />
     <Content Include="Content\encot\css\layout.css" />
     <Content Include="Content\encot\css\magnific-popup.css" />
@@ -555,6 +561,7 @@
     <Content Include="Content\encot\css\print.css" />
     <Content Include="Content\encot\css\shortcodes.css" />
     <Content Include="Content\encot\css\style.css" />
+    <Content Include="Content\encot\fonts\fontello.svg" />
     <Content Include="Content\encot\js\avia-compat.js" />
     <Content Include="Content\encot\js\avia.js" />
     <Content Include="Content\encot\js\common.min.js" />
@@ -562,6 +569,7 @@
     <Content Include="Content\encot\js\jquery-1.12.4.js" />
     <Content Include="Content\encot\js\jquery-migrate.min.js" />
     <Content Include="Content\encot\js\jquery.magnific-popup.min.js" />
+    <Content Include="Content\encot\js\js.js" />
     <Content Include="Content\encot\js\mediaelement-and-player.min.js" />
     <Content Include="Content\encot\js\mediaelement-migrate.min.js" />
     <Content Include="Content\encot\js\popup.min.js" />
@@ -569,6 +577,7 @@
     <Content Include="Content\encot\js\sdk.js" />
     <Content Include="Content\encot\js\shortcodes.js" />
     <Content Include="Content\encot\js\wp-embed.min.js" />
+    <Content Include="Content\encot\js\wp-emoji-release.min.js" />
     <Content Include="Content\encot\js\wp-mediaelement.min.js" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -587,6 +596,7 @@
     <Content Include="Content\img\list\hn.jpg" />
     <Content Include="Content\img\list\ht.jpg" />
     <Content Include="Content\img\list\hue.jpg" />
+    <Content Include="Content\img\mnpost.jpg" />
     <Content Include="Content\img\slider\2.jpg" />
     <Content Include="Content\img\user.jpg" />
     <Content Include="Content\jqBootstrapValidation.js" />
@@ -971,6 +981,10 @@
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Content\encot\fonts\fontello.eot" />
+    <Content Include="Content\encot\fonts\fontello.ttf" />
+    <Content Include="Content\encot\fonts\fontello.woff" />
+    <Content Include="Content\encot\fonts\fontello.woff2" />
     <None Include="Properties\PublishProfiles\MNPOST.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

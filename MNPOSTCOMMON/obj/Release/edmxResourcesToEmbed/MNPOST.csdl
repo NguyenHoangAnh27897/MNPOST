@@ -901,15 +901,12 @@
       <Parameter Name="documentID" Mode="In" Type="String" />
       <Parameter Name="mailerID" Mode="In" Type="String" />
     </FunctionImport>
-<<<<<<< HEAD
-=======
     <FunctionImport Name="MAILER_GETINFO_BYID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYID_Result)">
       <Parameter Name="mailerId" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
       <Parameter Name="mailers" Mode="In" Type="String" />
     </FunctionImport>
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e
   </EntityContainer>
   <ComplexType Name="COUNTRY_GETALL_Result">
     <Property Type="String" Name="CountryID" Nullable="false" MaxLength="5" />
@@ -998,18 +995,11 @@
   <ComplexType Name="MAILER_GET_ALL_DELIVERY_Result">
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
     <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
-<<<<<<< HEAD
-    <Property Type="DateTime" Name="DocumentDate" Nullable="true" Precision="23" />
-=======
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e
     <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="Notes" Nullable="true" />
     <Property Type="Int32" Name="Quantity" Nullable="true" />
     <Property Type="Double" Name="Weight" Nullable="true" />
-<<<<<<< HEAD
     <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
-=======
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e
     <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="StatusID" Nullable="true" />
     <Property Type="String" Name="RouteID" Nullable="true" MaxLength="20" />
@@ -1203,8 +1193,6 @@
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
     <Property Type="Int32" Name="ReturnReasonID" Nullable="true" />
   </ComplexType>
-<<<<<<< HEAD
-=======
   <ComplexType Name="MAILER_GETINFO_BYID_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
     <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
@@ -1323,5 +1311,4 @@
     <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
     <Property Type="String" Name="DeliveryNotes" Nullable="true" />
   </ComplexType>
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e
 </Schema>

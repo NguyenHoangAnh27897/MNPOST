@@ -1108,7 +1108,6 @@
           <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
-<<<<<<< HEAD
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
@@ -1191,8 +1190,6 @@
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
           <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
-=======
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1308,8 +1305,6 @@
           <ScalarProperty Name="SalesClosingDate" ColumnName="SalesClosingDate" />
           <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-<<<<<<< HEAD
-=======
           <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
           <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="Notes" ColumnName="Notes" />
@@ -1321,7 +1316,6 @@
           <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
           <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
           <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

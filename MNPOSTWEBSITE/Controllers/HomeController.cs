@@ -48,19 +48,19 @@ namespace MNPOSTWEBSITE.Controllers
             //        ProvinceName = getDistrict(token, i).Result
             //    });
             //}
-            Session["token"] = getToken().Result;
-            List<Province> lstProvince = new List<Province>();
-            Province pro = new Province();
-            List<string> lstname = getProvince(Session["token"].ToString()).Result;
-            List<string> lstid = getProvinceID(Session["token"].ToString()).Result;
-            for(int i = 0; i < lstname.Count; i++)
-            {
-                pro = new Province();
-                pro.ProvinceName = lstname[i];
-                pro.ProvinceID = lstid[i];
-                lstProvince.Add(pro);
-            }
-            return View(lstProvince);
+            //Session["token"] = getToken().Result;
+            //List<Province> lstProvince = new List<Province>();
+            //Province pro = new Province();
+            //List<string> lstname = getProvince(Session["token"].ToString()).Result;
+            //List<string> lstid = getProvinceID(Session["token"].ToString()).Result;
+            //for(int i = 0; i < lstname.Count; i++)
+            //{
+            //    pro = new Province();
+            //    pro.ProvinceName = lstname[i];
+            //    pro.ProvinceID = lstid[i];
+            //    lstProvince.Add(pro);
+            //}
+            return View();
         }
 
         public async Task<List<string>> getProvince(string tokenaccess)
