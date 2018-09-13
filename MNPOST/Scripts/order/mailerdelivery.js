@@ -304,4 +304,74 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     $scope.init();
 
+    $scope.autoRoutes = [];
+    $scope.countMailers = 0;
+    $scope.getAutoRoutes = function () {
+
+        showLoader(true);
+        $http.get('/mailerdelivery/AutoGetRouteEmployees?postId=' + $scope.postHandle).then(function (response) {
+
+            showLoader(false);
+            $scope.autoRoutes = angular.copy(response.data.routes);
+            $scope.countMailers = response.data.coutMailer;
+            showModel('autoRoutes');
+
+        });
+
+    };
+
+    $scope.createAutoOneEmployee = function (idx) {
+
+        var routesSend = [];
+        routesSend.push($scope.autoRoutes[idx]);
+        var date = $('#deliveryRouteDate').val();
+        showLoader(true);
+        $http({
+            method: "POsT",
+            url: "/mailerdelivery/CreateFromRoutes",
+            data: {
+                routes: routesSend,
+                postId: $scope.postHandle,
+                deliveryDate: date
+            }
+        }).then(function sucess(response) {
+
+            for (var i = 0; i < response.data.length; i++) {
+                $scope.allDeliveries.unshift(response.data[i]);
+
+            }
+            showLoader(false);
+            hideModel('autoRoutes');
+            }, function error(response) {
+                showLoader(false);
+                alert("connect error");
+            });
+
+    };
+    $scope.createAutoAllEmployee = function () {
+
+        var date = $('#deliveryRouteDate').val();
+        showLoader(true);
+        $http({
+            method: "POsT",
+            url: "/mailerdelivery/CreateFromRoutes",
+            data: {
+                routes: $scope.autoRoutes,
+                postId: $scope.postHandle,
+                deliveryDate: date
+            }
+        }).then(function sucess(response) {
+
+            for (var i = 0; i < response.data.length; i++) {
+                $scope.allDeliveries.unshift(response.data[i]);
+
+            }
+            showLoader(false);
+            hideModel('autoRoutes');
+        }, function error(response) {
+            showLoader(false);
+            alert("connect error");
+        });
+
+    };
 });

@@ -275,6 +275,160 @@ namespace MNPOST.Controllers.mailer
 
         }
 
+        // lay tuyen tu dong
+        [HttpGet]
+        public ActionResult AutoGetRouteEmployees (string postId)
+        {
+            var employees = db.BS_Employees.Where(p => p.PostOfficeID == postId).ToList();
+            List<EmployeeAutoRouteInfo> routeAutoes = new List<EmployeeAutoRouteInfo>();
+
+            var countMailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6)).ToList();
+
+            foreach(var item in employees)
+            {
+                var listMailer = db.ROUTE_GETMAILER_BYEMPLOYEEID(item.EmployeeID, postId).ToList();
+                var data = new EmployeeAutoRouteInfo()
+                {
+                    EmployeeID = item.EmployeeID,
+                    EmployeeName = item.EmployeeName,
+                    Mailers = new List<MailerIdentity>()
+                };
+
+                foreach(var mailer in listMailer)
+                {
+                    if(mailer.IsDetail == true)
+                    {
+                        // check phuong
+                        var wardCheck = db.BS_RouteDetails.Where(p => p.RouteID == mailer.RouteID && p.WardID == mailer.RecieverWardID).FirstOrDefault();
+
+                        if(wardCheck != null)
+                        {
+                            data.Mailers.Add(new MailerIdentity()
+                            {
+                                MailerID = mailer.MailerID,
+                                COD = mailer.COD,
+                                SenderName = mailer.SenderName,
+                                SenderAddress = mailer.SenderAddress,
+                                RecieverAddress = mailer.RecieverAddress,
+                                RecieverProvinceID = mailer.RecieverProvinceID,
+                                RecieverDistrictID = mailer.RecieverDistrictID,
+                                RecieverWardID = mailer.RecieverWardID,
+                                RecieverPhone = mailer.RecieverPhone,
+                                CurrentStatusID = mailer.CurrentStatusID,
+                                MailerTypeID = mailer.MailerTypeID
+                            });
+                        } 
+
+                    }else
+                    {
+                        data.Mailers.Add(new MailerIdentity()
+                        {
+                            MailerID = mailer.MailerID,
+                            COD = mailer.COD,
+                            SenderName = mailer.SenderName,
+                            SenderAddress = mailer.SenderAddress,
+                            RecieverAddress = mailer.RecieverAddress,
+                            RecieverProvinceID = mailer.RecieverProvinceID,
+                            RecieverDistrictID =mailer.RecieverDistrictID,
+                            RecieverWardID = mailer.RecieverWardID,
+                            RecieverPhone = mailer.RecieverPhone,
+                            CurrentStatusID = mailer.CurrentStatusID,
+                            MailerTypeID = mailer.MailerTypeID
+                        });
+                    }
+                }
+
+                routeAutoes.Add(data);
+            }
+
+            return Json(new { routes = routeAutoes, coutMailer = countMailers.Count()}, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult CreateFromRoutes (List<EmployeeAutoRouteInfo> routes, string postId, string deliveryDate)
+        {
+            DateTime date = DateTime.Now;
+            try
+            {
+                date = DateTime.ParseExact(deliveryDate, "dd/MM/yyyy", null);
+            }
+            catch
+            {
+                date = DateTime.Now;
+            }
+
+            List<MailerDeliveryIdentity> result = new List<MailerDeliveryIdentity>();
+
+            foreach(var item in routes)
+            {
+                if (item.Mailers.Count() == 0)
+                    continue;
+
+                var insDocument = new MM_MailerDelivery()
+                {
+                    DocumentID = Guid.NewGuid().ToString(),
+                    DocumentCode = postId + DateTime.Now.ToString("ddMMyyyyHHmmss"),
+                    CreateDate = DateTime.Now,
+                    DocumentDate = date,
+                    EmployeeID = item.EmployeeID,
+                    Notes = "Tạo từ chia tuyến phát",
+                    NumberPlate = "",
+                    Quantity = 1,
+                    StatusID = 0,
+                    Weight = 0
+                };
+
+                db.MM_MailerDelivery.Add(insDocument);
+
+                db.SaveChanges();
+
+                // add to detail
+                foreach(var mailer in item.Mailers)
+                {
+                    var checkMailer = db.MM_Mailers.Where(p => p.MailerID == mailer.MailerID && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6)).FirstOrDefault();
+
+                    if (checkMailer != null)
+                    {
+                        var insData = new MM_MailerDeliveryDetail()
+                        {
+                            DocumentID = insDocument.DocumentID,
+                            MailerID = checkMailer.MailerID,
+                            CreationDate = DateTime.Now,
+                            DeliveryStatus = 3,
+                        };
+
+                        db.MM_MailerDeliveryDetail.Add(insData);
+
+                        checkMailer.CurrentStatusID = 3;
+                        checkMailer.LastUpdateDate = DateTime.Now;
+                        db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
+
+                        db.SaveChanges();
+                    }
+                }
+
+                var deliveryDocument = db.MM_MailerDelivery.Find(insDocument.DocumentID);
+
+                result.Add(new MailerDeliveryIdentity()
+                {
+                    DocumentDate = deliveryDocument.DocumentDate.Value.ToString("dd/MM/yyyy HH:mm"),
+                    DocumentID = deliveryDocument.DocumentID,
+                    DocumentCode = deliveryDocument.DocumentCode,
+                    EmployeeID = deliveryDocument.EmployeeID,
+                    EmployeeName = deliveryDocument.BS_Employees.EmployeeName,
+                    Notes = deliveryDocument.Notes,
+                    NumberPlate = deliveryDocument.NumberPlate,
+                    PostOfficeId = postId,
+                    Quantity = deliveryDocument.Quantity,
+                    RouteID = deliveryDocument.RouteID,
+                    StatusID = deliveryDocument.StatusID,
+                    Weight = deliveryDocument.Weight
+                });
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         // update phat
         [HttpPost]

@@ -11,7 +11,7 @@
                 <h2>QUẢN LÝ SỔ PHÁT {{postHandle}}</h2>
                 <div class="nav navbar-right">
                     <button type="button" class="btn btn-primary" ng-click="createDelivery()" ng-show="showDeliveries">Tạo bảng kê</button>
-                    <button type="button" class="btn btn-warning" ng-show="showDeliveries">Tạo từ chia tuyến</button>
+                    <button type="button" class="btn btn-warning" ng-show="showDeliveries" ng-click="getAutoRoutes()">Tạo từ chia tuyến</button>
                     <button type="button" class="btn btn-primary" ng-show="showEdit">Cập nhật bảng kê</button>
                     <button type="button" class="btn btn-warning" ng-show="showEdit">Đổ danh từ chia tuyến</button>
                     <button type="button" class="btn btn-success" ng-show="showEdit" ng-click="confirmAllMailers()">Cập nhật phát</button>
@@ -326,6 +326,63 @@
     </div>
 
     <!-- end tao bang ke-->
+    <!--Lay tuyen tu dong -->
+    <div id="autoRoutes" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Thời gian phát</label>
+                                <input type="text" id="deliveryRouteDate" required class="form-control" data-inputmask="'mask': '99/99/9999'" value="@ViewBag.FromDate">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+
+                                <ul class="listroutes">
+                                    <li><span>Tổng vận đơn cần phân phát: <strong>{{countMailers}}</strong></span></li>
+                                    <li ng-repeat="item in autoRoutes">
+                                        <span><strong>{{item.EmployeeName + '-' + item.EmployeeID}}</strong></span><br />
+                                        <a href="#" class="label label-primary" ng-click="createAutoOneEmployee($index)" ng-show="item.Mailers.length > 0">Tạo bảng kê phát</a>
+                                        <table class="table table-striped scrollmenu">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th>STT</th>
+                                                    <th>Vận đơn</th>
+                                                    <th>Người gửi</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Dịch vụ</th>
+                                                    <th>Nơi đến</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="mailer in item.Mailers">
+                                                    <td>{{$index}}</td>
+                                                    <td>{{mailer.MailerID}}</td>
+                                                    <td>{{mailer.SenderName}}</td>
+                                                    <td>{{mailerStatus[mailer.CurrentStatusID].name}}</td>
+                                                    <td>{{mailer.MailerTypeID}}</td>
+                                                    <td>{{mailer.RecieverAddress}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="createAutoAllEmployee()" class="btn btn-default">Tạo toàn bộ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end lay tuyen tu dong -->
 
 </div>
 
@@ -340,6 +397,12 @@
         .tableinput {
             width: 150px;
             height: 25px;
+        }
+
+        .listroutes {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
         }
     </style>
 

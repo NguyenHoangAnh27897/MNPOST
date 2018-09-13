@@ -62,6 +62,40 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
+<<<<<<< HEAD
+                MailerID = "007",
+                SenderName = SenderName,
+                SenderAddress = SenderAddress,
+                SenderPhone = SenderPhone,
+                SenderDistrictID = SenderDistrictID,
+                SenderProvinceID = SenderProvinceID,
+                SenderWardID = SenderWardID,
+                RecieverName = RecieverName,
+                RecieverAddress = RecieverAddress,
+                RecieverPhone = RecieverPhone,
+                RecieverDistrictID = RecieverDistrictID,
+                RecieverProvinceID = RecieverProvinceID,
+                RecieverWardID = RecieverWardID,
+                Weight = Weight,
+                Quantity = Quantity,
+                PaymentMethodID = Purchase,
+                MerchandiseValue = MerchandiseVal,
+                COD = cod,
+                Notes = Note,
+                MailerDescription = MailerDescription,
+                LengthSize = Length,
+                HeightSize = Height,
+                WidthSize = Width,
+                MailerTypeID = MailerTypeID,
+                MerchandiseID = MerchandiseID,
+                PriceDefault = PriceDefault
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://35.231.147.186:89/api/mailer/addmailer";
+            var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
+            if (response.IsSuccessStatusCode)
+=======
                 decimal? cod = decimal.Parse(COD);
                 decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
                 MM_Mailers mailers = new MM_Mailers
@@ -103,6 +137,7 @@ namespace MNPOSTWEBSITE.Controllers
                 }
                 return View();
             }catch(Exception ex)
+>>>>>>> aff09808aa2c15d3d4ce019b8b9b848b0ce47b5c
             {
                 return RedirectToAction("","");
             }

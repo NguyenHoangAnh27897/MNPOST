@@ -4534,7 +4534,6 @@
     <Content Include="Views\CustomerInitiate\Show.cshtml" />
     <Content Include="Views\CustomerInitiate\Create.cshtml" />
     <Content Include="Views\Province\Show.cshtml" />
-    <Content Include="Views\Mailer\Show.cshtml" />
     <Content Include="Views\District\Show.cshtml" />
     <Content Include="Views\Position\Show.cshtml" />
     <Content Include="Views\Ward\Show.cshtml" />
@@ -4554,6 +4553,7 @@
     <Content Include="Views\Mailer\ShowMailer.cshtml" />
     <Content Include="Views\PriceMatrix\Show.cshtml" />
     <Content Include="Views\MailerImport\Show.cshtml" />
+    <Content Include="Views\Mailer\ShowReportMailer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,6 +20,7 @@ D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CoreCompileInputs.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
+<<<<<<< HEAD
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
@@ -32,3 +33,14 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
+=======
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.xml
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
+C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
+>>>>>>> 4d752a680a38366641ec5de29851975769fef75e

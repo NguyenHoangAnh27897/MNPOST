@@ -8,10 +8,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.currentPage = 1;
     $scope.maxSize = 5;
     $scope.showEdit = false;
-
+    $scope.checkMailers = false;
 
     $scope.pageChanged = function () {
-       $scope.GetData();
+        $scope.GetData();
     };
 
     $scope.searchInfo = {
@@ -55,9 +55,32 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         });
     }
 
+    $scope.checkAll = function () {
+        for (var i = 0; i < $scope.mailers.length; i++) {
+            $scope.mailers[i].isCheck = $scope.checkMailers;
+        }
+    };
+    $scope.reportUrl = '#';
+    $scope.printMailers = function () {
 
+        var listMailers = '';
+        for (var i = 0; i < $scope.mailers.length; i++) {
+            if ($scope.mailers[i].isCheck) {
+                listMailers = listMailers + ',' + $scope.mailers[i].MailerID;
+            }
+        }
 
-    $scope.customers = [{code : '', name : 'Tất cả'}];
+        if (listMailers.charAt(0) === ',') {
+            listMailers = listMailers.substr(1);
+        }
+
+        $scope.reportUrl = "/mailer/ShowReportMailer?mailers=" + listMailers;
+        document.getElementById('framereport').contentDocument.location.reload(true);
+        showModel('showreport');
+
+    };
+
+    $scope.customers = [{ code: '', name: 'Tất cả' }];
     $scope.getCustomerData = function () {
         $http.get("/mailer/GetCustomers?postId=" + $scope.postHandle).then(function (response) {
             if (response.data.error === 0) {

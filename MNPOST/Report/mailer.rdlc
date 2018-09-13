@@ -17,28 +17,74 @@
                   <CellContents>
                     <Rectangle Name="Rectangle4">
                       <ReportItems>
-                        <Image Name="Image2">
-                          <Source>Embedded</Source>
-                          <Value>logo1</Value>
-                          <Sizing>FitProportional</Sizing>
+                        <Rectangle Name="Rectangle1">
+                          <ReportItems>
+                            <Image Name="Image2">
+                              <Source>Embedded</Source>
+                              <Value>logo1</Value>
+                              <Sizing>FitProportional</Sizing>
+                              <Top>0cm</Top>
+                              <Left>0cm</Left>
+                              <Height>1.81391cm</Height>
+                              <Width>2.61125cm</Width>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                              </Style>
+                            </Image>
+                            <Textbox Name="MailerID">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>="*" + Fields!MailerID.Value + "*"</Value>
+                                      <Style>
+                                        <FontFamily>Free 3 of 9</FontFamily>
+                                        <FontSize>26pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>MailerID</rd:DefaultName>
+                              <Top>0.3175cm</Top>
+                              <Left>4.57412cm</Left>
+                              <Height>0.81166cm</Height>
+                              <Width>3.69062cm</Width>
+                              <ZIndex>1</ZIndex>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </ReportItems>
+                          <KeepTogether>true</KeepTogether>
                           <Top>0cm</Top>
                           <Left>0cm</Left>
-                          <Height>1.81391cm</Height>
-                          <Width>2.61125cm</Width>
+                          <Height>1.86683cm</Height>
+                          <Width>8.52933cm</Width>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Style>Solid</Style>
                             </Border>
                           </Style>
-                        </Image>
+                        </Rectangle>
                       </ReportItems>
                       <Style>
                         <Border>
-                          <Style>None</Style>
+                          <Style>Solid</Style>
                         </Border>
                       </Style>
                     </Rectangle>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>

@@ -358,8 +358,8 @@
       <PropertyRef Name="RouteID" />
       <PropertyRef Name="WardID" />
     </Key>
-    <Property Name="RouteID" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="WardID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="RouteID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="WardID" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="BS_Routes">
     <Key>
@@ -829,6 +829,9 @@
   <Function Name="MAILER_GETINFO_BYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_GETINFO_BYLISTID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="mailers" Type="varchar(max)" Mode="In" />
+  </Function>
   <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>
@@ -843,6 +846,14 @@
   </Function>
   <Function Name="ROUTE_GETDETAIL_BYROUTEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="routeId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ROUTE_GETMAILER_BYEMPLOYEEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ROUTE_GETWARD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="type" Type="nvarchar" Mode="In" />
+    <Parameter Name="districtId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />

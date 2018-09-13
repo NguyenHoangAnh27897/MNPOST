@@ -32,14 +32,17 @@ namespace MNPOST.Filters
 
             try
             {
+
+                ValidateRequestHeader(filterContext.HttpContext.Request);
+                /*
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
-                    ValidateRequestHeader(filterContext.HttpContext.Request);
+                    
                 }
                 else
                 {
                     AntiForgery.Validate();
-                }
+                }*/
             }
             catch
             {

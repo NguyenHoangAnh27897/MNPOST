@@ -12,7 +12,7 @@ namespace MNPOST.Controllers.mnpostinfo
         // GET: Route
         public ActionResult Show()
         {
-            ViewBag.AllProvince = db.BS_Provinces.Select(p=>new CommonData() { code = p.ProvinceID, name = p.ProvinceName}).ToList();
+            ViewBag.AllProvince = db.BS_Provinces.Select(p => new CommonData() { code = p.ProvinceID, name = p.ProvinceName }).ToList();
             ViewBag.AllPost = EmployeeInfo.postOffices;
             return View();
         }
@@ -35,67 +35,204 @@ namespace MNPOST.Controllers.mnpostinfo
         [HttpGet]
         public ActionResult GetDistrictRoutes(string provinceId, string employeeId, string type)
         {
-            var routes = db.BS_Routes.Where(p => p.ProvinceID == provinceId && p.EmployeeID == employeeId && p.Type == type).ToList();
 
-            List<ERouteInfo> routeInfos = new List<ERouteInfo>();
+            var checkEmployee = db.BS_Employees.Find(employeeId);
 
-            var districts = GetProvinceDatas(provinceId, "district");
-
-            foreach(var item in routes)
-            {
-                var findDistrict = districts.Where(p => p.code == item.DistrictID).FirstOrDefault();
-
-                if(findDistrict != null)
+            if (checkEmployee == null)
+                return Json(new ResultInfo()
                 {
+                    error = 1,
+                    msg = "Sai nhân viên"
+                }, JsonRequestBehavior.AllowGet);
 
-                    routeInfos.Add(new ERouteInfo()
+            var allDistrict = db.BS_Districts.Where(p => p.ProvinceID == provinceId).ToList();
+
+            List<ERouteInfo> districtRoutes = new List<ERouteInfo>();
+
+            foreach (var item in allDistrict)
+            {
+                var findStaffRoutes = db.BS_Routes.Where(p => p.ProvinceID == provinceId && p.DistrictID == item.DistrictID && p.Type == type).ToList();
+
+                var routeInfo = new ERouteInfo()
+                {
+                    DistrictID = item.DistrictID,
+                    DistrictName = item.DistrictName,
+                    ProvinceID = provinceId,
+                    Staffs = new List<CommonData>(),
+                    Type = type,
+                    ISJoin = false
+                };
+
+                foreach (var staff in findStaffRoutes)
+                {
+                    var checkStaff = db.BS_Employees.Find(staff.EmployeeID);
+
+                    if (checkStaff != null && checkStaff.PostOfficeID == checkEmployee.PostOfficeID)
                     {
-                        RouteID = item.RouteID,
-                        DistrictID = item.DistrictID,
-                        DistrictName = findDistrict.name,
-                        IsDetail = item.IsDetail
-                    });
+                        routeInfo.Staffs.Add(new CommonData()
+                        {
+                            code = checkStaff.EmployeeID,
+                            name = checkStaff.EmployeeName
+                        });
 
-                    districts.Remove(findDistrict);
-
+                        if (checkStaff.EmployeeID == employeeId)
+                        {
+                            routeInfo.ISJoin = true;
+                        }
+                    }
                 }
+
+                districtRoutes.Add(routeInfo);
             }
 
 
-            return Json(new {routes = routeInfos, districts = districts }, JsonRequestBehavior.AllowGet);
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = "",
+                data = districtRoutes
+            }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpGet]
+        public ActionResult GetWardRoutes( string districtId, string employeeId, string type)
+        {
+            List<ERouteDetail> result = new List<ERouteDetail>();
+
+            var check = db.ROUTE_GETWARD(type, districtId).ToList();
+
+            foreach(var item in check)
+            {
+                var data = new ERouteDetail()
+                {
+                    DistrictID = item.DistrictID,
+                    WardID = item.WardID,
+                    WardName = item.WardName,
+                    ISJoin = item.EmployeeID == employeeId ?true:false,
+                    Staff = new CommonData { name = item.EmployeeName, code = item.EmployeeID }
+                };
+
+                if(String.IsNullOrEmpty(item.RouteID))
+                {
+                    data.IsChoose = true;
+                } else
+                {
+                    if(data.ISJoin)
+                    {
+                        data.IsChoose = true;
+                    } else
+                    {
+                        data.IsChoose = false;
+                    }
+                }
+
+                result.Add(data);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpPost]
-        public ActionResult AddDistrictRoutes(string provinceId, string employeeId, string type, string district)
+        public ActionResult AddWardRoute (ERouteDetail detail, string employeeId, string provinceId, string type)
         {
-            var check = db.BS_Routes.Where(p => p.ProvinceID == provinceId && p.EmployeeID == employeeId && p.Type == type && p.DistrictID == district).FirstOrDefault();
 
-            if (check != null)
-                return Json(new ResultInfo() {error = 1, msg = "Đã tạo" }, JsonRequestBehavior.AllowGet);
+            var findRoute = db.BS_Routes.Where(p => p.Type == type && p.EmployeeID == employeeId && p.ProvinceID == provinceId && p.DistrictID == detail.DistrictID).FirstOrDefault();
 
-            var routes = new BS_Routes()
+            if(findRoute != null)
             {
-                RouteID = Guid.NewGuid().ToString(),
-                DistrictID = district,
-                EmployeeID = employeeId,
-                IsDetail = true,
-                ProvinceID = provinceId,
-                Type = type
-            };
+                var findWard = db.BS_RouteDetails.Where(p => p.WardID == detail.WardID && p.RouteID == findRoute.RouteID).FirstOrDefault();
 
-            db.BS_Routes.Add(routes);
-            db.SaveChanges();
+                if(detail.ISJoin)
+                {
+                    // tham gia
+                    if(findWard == null)
+                    {
+                        var data = new BS_RouteDetails()
+                        {
+                            RouteID = findRoute.RouteID,
+                            WardID = detail.WardID
+                        };
+                        db.BS_RouteDetails.Add(data);
+                        db.SaveChanges();
 
-            var routesInfo = new ERouteInfo()
+        
+                    } else
+                    {
+                        // xoa
+                        if(findWard != null)
+                        {
+                            db.BS_RouteDetails.Remove(findWard);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+            }
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddDistrictRoutes(ERouteInfo info, string employeeId)
+        {
+            var getAll = db.BS_Routes.Where(p => p.ProvinceID == info.ProvinceID && p.Type == info.Type && p.DistrictID == info.DistrictID).ToList();
+
+            var check = getAll.Where(p => p.EmployeeID == employeeId).FirstOrDefault();
+
+            if(info.ISJoin)
             {
-                RouteID = routes.RouteID,
-                DistrictID = routes.DistrictID,
-                IsDetail = routes.IsDetail
-            };
+                // them
+                if (check == null)
+                {
 
-            return Json(new ResultInfo() {error = 0, msg = "", data = routesInfo }, JsonRequestBehavior.AllowGet);
+                    var routes = new BS_Routes()
+                    {
+                        RouteID = Guid.NewGuid().ToString(),
+                        DistrictID = info.DistrictID,
+                        EmployeeID = employeeId,
+                        IsDetail = getAll.Count() > 0?true:false,
+                        ProvinceID = info.ProvinceID,
+                        Type = info.Type
+                    };
+
+                    db.BS_Routes.Add(routes);
+                    db.SaveChanges();
+
+                    foreach(var item in getAll)
+                    {
+                        item.IsDetail = true;
+                        db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+
+            } else
+            {
+                // remove
+                if (check != null)
+                {
+                    db.BS_Routes.Remove(check);
+                    
+
+                    var findWards = db.BS_RouteDetails.Where(p => p.RouteID == check.RouteID).ToList();
+                    findWards.Clear();
+                    db.SaveChanges();
+
+
+                    getAll.Remove(check);
+                   
+                    if(getAll.Count() == 1)
+                    {
+                        var firstCheck = getAll[0];
+                        firstCheck.IsDetail = false;
+                        db.Entry(firstCheck).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+            }
+
+            return Json(new ResultInfo() { error = 0, msg = "" }, JsonRequestBehavior.AllowGet);
 
         }
     }

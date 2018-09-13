@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MNPOST.Models;
 using MNPOSTCOMMON;
 using MNPOST.Utils;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MNPOST.DS;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+using Microsoft.Reporting.WebForms;
+using System.Web.UI.WebControls;
 
 namespace MNPOST.Controllers
 {
@@ -16,7 +19,9 @@ namespace MNPOST.Controllers
     [Authorize(Roles = "user")]
     public class BaseController : Controller
     {
-       
+
+        protected MNPOSTDS ds = new MNPOSTDS();
+        protected SqlConnection conn;
         protected UserInfo EmployeeInfo;
 
         protected MNPOSTEntities db = new MNPOSTEntities();
@@ -56,8 +61,10 @@ namespace MNPOST.Controllers
         {
             RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(sdb));
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(sdb));
-         
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         }
+
+
 
         protected bool checkAccess(string menu, int edit)
         {
@@ -218,6 +225,53 @@ namespace MNPOST.Controllers
                 return new List<CommonData>();
             }
 
+        }
+
+
+        // return sql adapter
+        protected SqlDataAdapter GetSqlDataAdapter(string sql)
+        {
+            SqlCommand cmd = new SqlCommand(sql, conn);
+          
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            return da;
+        }
+
+        protected SqlDataAdapter GetSqlDataAdapter(string store, Dictionary<string, string> parameter)
+        {
+            SqlCommand cmd = new SqlCommand(store, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if(parameter != null)
+            {
+                foreach(var item in parameter)
+                {
+                    cmd.Parameters.Add(new SqlParameter(item.Key, SqlDbType.Text)).Value = item.Value;
+                }
+            }
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            return da;
+        }
+
+        protected ReportViewer GetReportViewer(SqlDataAdapter da, string tableName, string dataSetName, string reportName)
+        {
+            da.Fill(ds, tableName);
+
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = true;
+            reportViewer.Width = Unit.Percentage(100);
+            reportViewer.Height = Unit.Percentage(100);
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"\Report\" + reportName;
+
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource(dataSetName, ds.Tables[tableName]));
+
+            reportViewer.LocalReport.Refresh();
+
+            return reportViewer;
         }
 
     }

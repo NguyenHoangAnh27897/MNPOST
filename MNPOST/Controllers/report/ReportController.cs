@@ -26,6 +26,7 @@ namespace MNPOST.Controllers.report
         // GET: /Report/
         public ActionResult Index()
         {
+
             
             var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             SqlCommand cmd = new SqlCommand("MAILER_GETINFO_BYID", conn);
@@ -33,8 +34,9 @@ namespace MNPOST.Controllers.report
             cmd.Parameters.Add(new SqlParameter("@mailerId", SqlDbType.Text)).Value = "MN000020";
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-    
+
             da.Fill(ds, ds.MAILER_GETINFO_BYID.TableName);
+
 
             ReportViewer reportViewer = new ReportViewer();
             reportViewer.ProcessingMode = ProcessingMode.Local;
@@ -46,8 +48,10 @@ namespace MNPOST.Controllers.report
             reportViewer.LocalReport.DataSources.Add(new ReportDataSource("MAILERINFO", ds.Tables[ds.MAILER_GETINFO_BYID.TableName]));
 
             reportViewer.LocalReport.Refresh();
-      
+            
             ViewBag.ReportViewer = reportViewer;
+
+
             return View();
         }
 

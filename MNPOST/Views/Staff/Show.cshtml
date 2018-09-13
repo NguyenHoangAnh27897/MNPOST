@@ -4,28 +4,23 @@
 @{
     ViewBag.Title = "Show";
 }
+@functions{
+    public string GetAntiForgeryToken()
+    {
+        string cookieToken, formToken;
+        AntiForgery.GetTokens(null, out cookieToken, out formToken);
+        return cookieToken + ":" + formToken;
+    }
+}
 <div ng-app="myApp" ng-controller="myCtrl">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Danh sách nhân viên</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="#" ng-click="createStaff()">Thêm nhân viên</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="close-link"><i class="fa fa-close"></i></a>
-                        </li>
-                    </ul>
+                    <div class="nav navbar-right">
+                        <a class="btn btn-primary" href="#" ng-click="createStaff()">Thêm nhân viên</a>
+                    </div>
                     <div class="clearfix"></div>
 
                 </div>
@@ -210,40 +205,40 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Tạo tài khoản</h4>
                 </div>
-                <form method="post" action="/staff/register" onsubmit="fsubmit('Tạo tài khoản ?', 'usermodal')">
-                    @Html.AntiForgeryToken()
+                <form ng-submit="createUserLogin()">
+
+                    <input id="antiForgeryToken" ng-model="antiForgeryToken" type="hidden" ng-init="antiForgeryToken='@GetAntiForgeryToken()'" />
                     <div class="modal-body">
-                        <input type="hidden" value="{{EmployeeID}}" name="StaffCode" />
+                        <input type="hidden" value="{{userCreateIno.EmployeeID}}" name="StaffCode" />
                         <div class="form-group">
                             <label>Mã NV</label>
-                            <input type="text" class="form-control" value="{{EmployeeID}}" required disabled />
+                            <input type="text" class="form-control" value="{{userCreateIno.EmployeeID}}" required disabled />
                         </div>
 
                         <div class="form-group">
                             <label>Tên NV</label>
-                            <input type="text" name="StaffName" class="form-control" ng-model="EmployeeName" />
+                            <input type="text" name="StaffName" class="form-control" ng-model="userCreateIno.EmployeeName" />
                         </div>
 
                         <div class="form-group">
                             <label>User</label>
-                            <input type="text" name="UserName" class="form-control" required />
+                            <input type="text" ng-model="userCreateIno.UserName" class="form-control" required />
                         </div>
 
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="Password" class="form-control" required />
+                            <input type="password" ng-model="userCreateIno.Password" class="form-control" required />
                         </div>
-
                         <div class="form-group">
                             <label>Nhóm người dùng</label>
-                            <select class="form-control" name="GroupId">
+                            <select class="form-control" ng-model="userCreateIno.GroupId">
                                 <option ng-repeat="x in GroupStaff" value="{{x.GroupID}}">{{x.GroupName}}</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Nấc quyền</label>
-                            <select class="form-control">
+                            <select class="form-control" ng-model="userCreateIno.levelId">
                                 <option ng-repeat="x in StaffLevel" value="{{x.levelId}}">{{x.levelName}}</option>
                             </select>
                         </div>
@@ -280,6 +275,7 @@
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function ($scope, $http) {
 
+            $scope.userCreateIno = {};
 
             $scope.insertModalTitle = "Thêm nhân viên";
 
@@ -314,12 +310,40 @@
 
                 console.log(staff);
 
-                $scope.EmployeeID = staff.EmployeeID;
-                $scope.EmployeeName = staff.EmployeeName;
+                $scope.userCreateIno.EmployeeID = staff.EmployeeID;
+                $scope.userCreateIno.EmployeeName = staff.EmployeeName;
 
                 showModel('usermodal');
             };
+            $scope.createUserLogin = function () {
+                showLoader(true);
+                $http({
+                    method: 'POST',
+                    url: '/Account/SignUpStaff',
+                    data: $scope.userCreateIno,
+                    headers: {
+                        'RequestVerificationToken': $scope.antiForgeryToken
+                    }
+                }).then(
+                    function sucess(response) {
+                        showLoader(false);
 
+                        if (response.data.error === 0) {
+                            var idx = getSelectedIndex($scope.userCreateIno.EmployeeID);
+
+                            $scope.listStaff[idx].UserLogin = $scope.userCreateIno.UserName;
+
+                            hideModel('usermodal');
+                        } else {
+                            alert(response.data.msg);
+                        }
+
+                    },
+                    function error() {
+                        alert('Connect error');
+                        showLoader(false);
+                    });
+            };
 
             // prepare for create staff --> resset empty
             $scope.createStaff = function () {
@@ -378,7 +402,8 @@
                         updateStaff(staff);
                     }
                 } else {
-                    alert('our form is missing');
+                     alert('Connect error');
+                    showLoader(false);
                 }
             }
 
