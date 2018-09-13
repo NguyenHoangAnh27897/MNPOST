@@ -558,12 +558,9 @@
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
-<<<<<<< HEAD
           <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
           <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
           <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
-=======
->>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -798,7 +795,6 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Notes" ColumnName="Notes" />
           <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-<<<<<<< HEAD
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
@@ -1112,7 +1108,6 @@
           <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
-=======
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
           <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
@@ -1356,7 +1351,6 @@
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
->>>>>>> 9ccaaedbec6eaba20897321e7433326a77b76b5c
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
