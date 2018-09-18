@@ -60,7 +60,8 @@ namespace MNPOSTWEBSITE.Controllers
             //    pro.ProvinceID = lstid[i];
             //    lstProvince.Add(pro);
             //}
-            return View();
+            var lst = db.WS_Post.ToList();
+            return View(lst);
         }
 
         public async Task<List<string>> getProvince(string tokenaccess)
