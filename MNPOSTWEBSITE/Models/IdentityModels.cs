@@ -9,7 +9,7 @@ namespace MNPOSTWEBSITE.Models
         public bool? IsActive { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
-        public int? IDRole { get; set; }
+        public string IDRole { get; set; }
         public string ResetPasswordCode { get; set; }
     }
 
@@ -18,7 +18,7 @@ namespace MNPOSTWEBSITE.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
-            Database.SetInitializer<ApplicationDbContext>(null);
+           Database.SetInitializer<ApplicationDbContext>(null);
         }
     }
 }

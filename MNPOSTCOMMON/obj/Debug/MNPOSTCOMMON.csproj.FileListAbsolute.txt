@@ -9,3 +9,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.Core
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.CopyComplete
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+<<<<<<< HEAD
+=======
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojAssemblyReference.cache
+>>>>>>> cc781ae746525b191ce1fd89b0d4cd8ae81e32f1

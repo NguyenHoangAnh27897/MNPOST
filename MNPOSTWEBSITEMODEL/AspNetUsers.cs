@@ -30,7 +30,7 @@ namespace MNPOSTWEBSITEMODEL
         public string FullName { get; set; }
         public string Phone { get; set; }
         public string Discriminator { get; set; }
-        public Nullable<int> IDRole { get; set; }
+        public string IDRole { get; set; }
         public string ResetPasswordCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
