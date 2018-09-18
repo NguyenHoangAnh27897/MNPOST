@@ -67,7 +67,7 @@ namespace MNPOSTWEBSITE.Controllers
                             Session["RoleID"] = db.AspNetRoles.Where(s => s.Id == idrole).FirstOrDefault().Name;
                             Session["Authentication"] = "True";
                             await SignInAsync(user, model.RememberMe);
-                            return RedirectToLocal(returnUrl);
+                            return RedirectToAction("Index","Manage");
                         }else
                         {
                             ModelState.AddModelError("", "Tài khoản chưa được kích hoạt");

@@ -369,33 +369,12 @@
 
     </script>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
-    <script>
-        //var $j = jQuery.noConflict();
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+<script src="~/Content/ckeditor/samples/js/sample.js"></script>
+<script>
+    CKEDITOR.replace('Postcontent');
+</script>
 
-        ClassicEditor
-                    .create(document.querySelector('#Postcontent'))
-                    .then(editor => {
-                        console.log(editor);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-        ClassicEditor
-    .create(document.querySelector('#Postcontent'), {
-        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-        heading: {
-            options: [
-                { modelElement: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { modelElement: 'heading1', viewElement: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                { modelElement: 'heading2', viewElement: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-            ]
-        }
-    })
-    .catch(error => {
-        console.log(error);
-    });
-    </script>
 
 
 </body>

@@ -21,40 +21,45 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: Order
         public ActionResult Create()
         {
-            if (Session["Authentication"].ToString() != null)
+            try
             {
-                if (Session["RoleID"].ToString().Equals("Customer"))
+                if (Session["Authentication"].ToString() != null)
                 {
-                    string username = Session["Email"].ToString();
-                    if (db.WS_Mailer.Where(s => s.CustomerAccount.Equals(username)).FirstOrDefault().SenderName != null)
+                    if (Session["RoleID"].ToString().Equals("Customer"))
                     {
-                        ViewBag.SenderName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderName;
-                        ViewBag.SenderAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderAddress;
-                        ViewBag.SenderPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderPhone;
-                        ViewBag.SenderDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderDistrictID;
-                        ViewBag.SenderProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderProvinceID;
-                        ViewBag.SenderWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderWardID;
-                        ViewBag.RecieverName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverName;
-                        ViewBag.RecieverAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverAddress;
-                        ViewBag.RecieverPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverPhone;
-                        ViewBag.RecieverDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverDistrictID;
-                        ViewBag.RecieverProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverProvinceID;
-                        ViewBag.RecieverWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverWardID;
-                        ViewBag.Weight = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Weight;
-                        ViewBag.Quantity = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Quantity;
+                        string username = Session["Email"].ToString();
+                        if (db.WS_Mailer.Where(s => s.CustomerAccount.Equals(username)).FirstOrDefault().SenderName != null)
+                        {
+                            ViewBag.SenderName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderName;
+                            ViewBag.SenderAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderAddress;
+                            ViewBag.SenderPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderPhone;
+                            ViewBag.SenderDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderDistrictID;
+                            ViewBag.SenderProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderProvinceID;
+                            ViewBag.SenderWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderWardID;
+                            ViewBag.RecieverName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverName;
+                            ViewBag.RecieverAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverAddress;
+                            ViewBag.RecieverPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverPhone;
+                            ViewBag.RecieverDistrictID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverDistrictID;
+                            ViewBag.RecieverProvinceID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverProvinceID;
+                            ViewBag.RecieverWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverWardID;
+                            ViewBag.Weight = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Weight;
+                            ViewBag.Quantity = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Quantity;
+                        }
+                        return View();
                     }
-                    return View();
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index","Manage");
+                    return RedirectToAction("Login", "Account");
                 }
-            }
-            else
+            }catch(Exception ex)
             {
                 return RedirectToAction("Login", "Account");
-            }
-          
+            }          
         }
 
         [HttpPost]
@@ -62,40 +67,6 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
-<<<<<<< HEAD
-                MailerID = "007",
-                SenderName = SenderName,
-                SenderAddress = SenderAddress,
-                SenderPhone = SenderPhone,
-                SenderDistrictID = SenderDistrictID,
-                SenderProvinceID = SenderProvinceID,
-                SenderWardID = SenderWardID,
-                RecieverName = RecieverName,
-                RecieverAddress = RecieverAddress,
-                RecieverPhone = RecieverPhone,
-                RecieverDistrictID = RecieverDistrictID,
-                RecieverProvinceID = RecieverProvinceID,
-                RecieverWardID = RecieverWardID,
-                Weight = Weight,
-                Quantity = Quantity,
-                PaymentMethodID = Purchase,
-                MerchandiseValue = MerchandiseVal,
-                COD = cod,
-                Notes = Note,
-                MailerDescription = MailerDescription,
-                LengthSize = Length,
-                HeightSize = Height,
-                WidthSize = Width,
-                MailerTypeID = MailerTypeID,
-                MerchandiseID = MerchandiseID,
-                PriceDefault = PriceDefault
-            };
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://35.231.147.186:89/api/mailer/addmailer";
-            var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
-            if (response.IsSuccessStatusCode)
-=======
                 decimal? cod = decimal.Parse(COD);
                 decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
                 MM_Mailers mailers = new MM_Mailers
@@ -137,7 +108,6 @@ namespace MNPOSTWEBSITE.Controllers
                 }
                 return View();
             }catch(Exception ex)
->>>>>>> aff09808aa2c15d3d4ce019b8b9b848b0ce47b5c
             {
                 return RedirectToAction("","");
             }
@@ -147,21 +117,28 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult OrderList()
         {
-            if (Session["Authentication"].ToString() != null)
+            try
             {
-                if (Session["RoleID"].ToString().Equals("Customer"))
+                if (Session["Authentication"].ToString() != null)
                 {
-                    return View();
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        return View();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index","Manage");
+                    return RedirectToAction("Login", "Account");
                 }
             }
-            else
+            catch (Exception ex)
             {
                 return RedirectToAction("Login", "Account");
-            }
+            }        
         }
 
         public ActionResult List(int? page = 1)
