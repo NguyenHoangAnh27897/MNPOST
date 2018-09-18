@@ -16,6 +16,8 @@ namespace MNPOST.Controllers.mailer
             ViewBag.PostOffices = EmployeeInfo.postOffices;
             ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
             ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
+            List<CommonData> allProvince = GetProvinceDatas("", "province");
+            ViewBag.Provinces = allProvince;
             ViewBag.ReturnReasons = db.BS_ReturnReasons.Select(p => new {name = p.ReasonName, code = p.ReasonID }).ToList();
             return View();
         }
@@ -344,6 +346,96 @@ namespace MNPOST.Controllers.mailer
             return Json(new { routes = routeAutoes, coutMailer = countMailers.Count()}, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpGet]
+        public ActionResult GetAutoMailerFromEmployeeRoute (string postId, string employeeId)
+        {
+            var employee = db.BS_Employees.Find(employeeId);
+
+            var countMailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6)).ToList();
+
+            var listMailer = db.ROUTE_GETMAILER_BYEMPLOYEEID(employee.EmployeeID, postId).ToList();
+            var data = new EmployeeAutoRouteInfo()
+            {
+                EmployeeID = employee.EmployeeID,
+                EmployeeName = employee.EmployeeName,
+                Mailers = new List<MailerIdentity>()
+            };
+
+            foreach (var mailer in listMailer)
+            {
+                if (mailer.IsDetail == true)
+                {
+                    // check phuong
+                    var wardCheck = db.BS_RouteDetails.Where(p => p.RouteID == mailer.RouteID && p.WardID == mailer.RecieverWardID).FirstOrDefault();
+
+                    if (wardCheck != null)
+                    {
+                        data.Mailers.Add(new MailerIdentity()
+                        {
+                            MailerID = mailer.MailerID,
+                            COD = mailer.COD,
+                            SenderName = mailer.SenderName,
+                            SenderAddress = mailer.SenderAddress,
+                            RecieverAddress = mailer.RecieverAddress,
+                            RecieverProvinceID = mailer.RecieverProvinceID,
+                            RecieverDistrictID = mailer.RecieverDistrictID,
+                            RecieverWardID = mailer.RecieverWardID,
+                            RecieverPhone = mailer.RecieverPhone,
+                            CurrentStatusID = mailer.CurrentStatusID,
+                            MailerTypeID = mailer.MailerTypeID
+                        });
+                    }
+
+                }
+                else
+                {
+                    data.Mailers.Add(new MailerIdentity()
+                    {
+                        MailerID = mailer.MailerID,
+                        COD = mailer.COD,
+                        SenderName = mailer.SenderName,
+                        SenderAddress = mailer.SenderAddress,
+                        RecieverAddress = mailer.RecieverAddress,
+                        RecieverProvinceID = mailer.RecieverProvinceID,
+                        RecieverDistrictID = mailer.RecieverDistrictID,
+                        RecieverWardID = mailer.RecieverWardID,
+                        RecieverPhone = mailer.RecieverPhone,
+                        CurrentStatusID = mailer.CurrentStatusID,
+                        MailerTypeID = mailer.MailerTypeID
+                    });
+                }
+            }
+
+            return Json(new { routes = data, countMailer = countMailers.Count() }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public ActionResult GetMailerForEmployee(string postId, string province, string district)
+        {
+            var mailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6) && p.RecieverProvinceID.Contains(province) && p.RecieverDistrictID.Contains(district)).ToList();
+            var data = new List<MailerIdentity>();
+            foreach(var mailer in mailers)
+            {
+                data.Add(new MailerIdentity()
+                {
+                    MailerID = mailer.MailerID,
+                    COD = mailer.COD,
+                    SenderName = mailer.SenderName,
+                    SenderAddress = mailer.SenderAddress,
+                    RecieverAddress = mailer.RecieverAddress,
+                    RecieverProvinceID = mailer.RecieverProvinceID,
+                    RecieverDistrictID = mailer.RecieverDistrictID,
+                    RecieverWardID = mailer.RecieverWardID,
+                    RecieverPhone = mailer.RecieverPhone,
+                    CurrentStatusID = mailer.CurrentStatusID,
+                    MailerTypeID = mailer.MailerTypeID
+                });
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult CreateFromRoutes (List<EmployeeAutoRouteInfo> routes, string postId, string deliveryDate)
