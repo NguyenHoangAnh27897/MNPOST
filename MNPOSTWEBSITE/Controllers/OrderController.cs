@@ -23,7 +23,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
-                if (Session["Authentication"].ToString() != null)
+                if (Session["Authentication"] != null)
                 {
                     if (Session["RoleID"].ToString().Equals("Customer"))
                     {
@@ -123,7 +123,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
-                if (Session["Authentication"].ToString() != null)
+                if (Session["Authentication"] != null)
                 {
                     if (Session["RoleID"].ToString().Equals("Customer"))
                     {
@@ -147,7 +147,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult List(int? page = 1)
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Customer"))
                 {

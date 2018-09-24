@@ -18,7 +18,7 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Post/
         public ActionResult Create()
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
@@ -41,18 +41,25 @@ namespace MNPOSTWEBSITE.Controllers
         [ValidateInput(false)]
         public ActionResult Create(string Title, string PostBy,string Service, string Postcontent)
         {
+            try
+            {
+                MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
+                data.PostName = Title;
+                data.PostBy = PostBy;
+                data.Service = Service;
+                data.Images = Session["PictureName"].ToString();
+                data.CreatedDate = DateTime.Now;
+                data.PostContent = Postcontent;
+                db.WS_Post.Add(data);
+                db.SaveChanges();
+                ViewBag.Message = "Đăng bài thành công";
+                return RedirectToAction("Index", "Manage");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("ErrorPage","Error");
+            }
           
-            MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
-            data.PostName = Title;
-            data.PostBy = PostBy;
-            data.Service = Service;
-            data.Images = Session["PictureName"].ToString();
-            data.CreatedDate = DateTime.Now;
-            data.PostContent = Postcontent;
-            db.WS_Post.Add(data);
-            db.SaveChanges();
-            ViewBag.Message = "Đăng bài thành công";
-            return RedirectToAction("Index","Manage");
         }
 
         private const int ThumbSize = 160;
@@ -189,7 +196,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult AccountPost(int? page = 1)
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
@@ -211,7 +218,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {

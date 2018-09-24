@@ -33,7 +33,7 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
-                    if (Session["Authentication"].ToString() != null)
+                    if (Session["Authentication"] != null)
                     {
                         var rs = db.WS_AboutUs.Where(s=>s.ID == "firstabu");
                         return View(rs);
@@ -61,7 +61,7 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
-                    if (Session["Authentication"].ToString() != null)
+                    if (Session["Authentication"] != null)
                     {
                         string id = "firstabu";
                         //var rs = db.WS_AboutUs.Where(s => s.ID.Equals("firstabu"));
