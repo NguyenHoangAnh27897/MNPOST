@@ -22,6 +22,7 @@
         <AssociationConnector Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTWEBSITEModel.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTWEBSITEModel.webpages_UsersInRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_AboutUs" Width="1.5" PointX="10.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

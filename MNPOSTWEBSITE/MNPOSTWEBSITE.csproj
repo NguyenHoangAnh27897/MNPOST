@@ -201,6 +201,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -1043,11 +1045,14 @@
     <Content Include="Views\Post\Recruitment.cshtml" />
     <Content Include="Views\Transport\Service.cshtml" />
     <Content Include="Views\Transport\Recruitment.cshtml" />
+    <Content Include="Views\Manage\EditAboutus.cshtml" />
+    <Content Include="Views\Error\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\post\" />
     <Folder Include="Report\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

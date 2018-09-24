@@ -64,6 +64,9 @@
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILER_GETALL_Result.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
     <Compile Include="MNPOSTWEBSITE.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,6 +96,9 @@
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_Roles.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WS_AboutUs.cs">
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
     <Compile Include="WS_FacebookUser.cs">

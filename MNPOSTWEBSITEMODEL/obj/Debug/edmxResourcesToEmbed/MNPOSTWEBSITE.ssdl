@@ -116,6 +116,14 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="RoleId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="WS_AboutUs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContentAbout" Type="nvarchar(max)" />
+    <Property Name="EditedBy" Type="nvarchar" MaxLength="15" />
+  </EntityType>
   <EntityType Name="WS_FacebookUser">
     <Key>
       <PropertyRef Name="ID" />
@@ -272,6 +280,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="MAILER_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="user" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="MNPOSTWEBSITEModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -285,6 +296,7 @@
     <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WS_AboutUs" EntityType="Self.WS_AboutUs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Mailer" EntityType="Self.WS_Mailer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
