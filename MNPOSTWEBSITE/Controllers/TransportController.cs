@@ -8,17 +8,6 @@ namespace MNPOSTWEBSITE.Controllers
 {
     public class TransportController : Controller
     {
-        //
-        // GET: /Transport/
-        //public ActionResult FastTransportation()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult NormalTransportation()
-        //{
-        //    return View();
-        //}
 
         public ActionResult Service()
         {

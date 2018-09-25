@@ -83,29 +83,34 @@
                             <span>Thông tin tài khoản</span>
                         </a>
                     </li>
-
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-desktop"></i>
-                            <span>Quản lý tin tức</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="/post/create">Đăng bài mới</a></li>
-                            <li><a href="/post/accountpost">Danh sách bài đăng</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-book"></i>
-                            <span>Đơn hàng</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="/order/create">Tạo đơn hàng</a></li>
-                            <li><a href="/order/orderlist">Danh sách đơn hàng</a></li>
-                        </ul>
-                    </li>
-
+                    @if (Session["RoleID"].ToString().Equals("Admin"))
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-desktop"></i>
+                                <span>Quản lý tin tức</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/post/create">Đăng bài mới</a></li>
+                                <li><a href="/post/accountpost">Danh sách bài đăng</a></li>
+                                <li><a href="#">Đăng tin tuyển dụng</a></li>
+                                <li><a href="/manage/editaboutus">Quản lí giới thiệu</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Quản lý đơn hàng</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/order/create">Tạo đơn hàng</a></li>
+                                <li><a href="/order/list">Danh sách đơn hàng</a></li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 <!-- sidebar menu end-->
             </div>
@@ -122,23 +127,43 @@
                 <!-- BASIC FORM ELELEMNTS -->
                 <div class="row mt">
                     <div class="col-lg-12">
+                        <select class="form-control" id="opt" name="opt" style="width:15%; margin-left:10px">
+                            <option value="form0" selected>Đăng bài</option>
+                            <option value="form1">Upload PDF</option>
+                        </select>
                         <div class="form-panel">
-                            <h4 class="mb"><i class="fa fa-angle-right"></i> Bài đăng mới</h4>
-                            <select class="form-control" id="opt" name="opt">
-                                @if (ViewBag.OPT == 0)
-                                {
-                                    <option value="0" selected>Đăng bài</option>
-                                    <option value="1">Upload PDF</option>
-                                }
-                                else
-                                {
-                                    <option value="0">Đăng bài</option>
-                                    <option value="1" selected>Upload PDF</option>
-                                }
-                            </select>
-                            <form class="form-horizontal style-form" method="post" action="/post/create">
-                                @if (ViewBag.OPT == 0)
-                                {
+                            
+                            <form class="form-horizontal style-form" method="post" action="/post/create" id="form0">
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Bài đăng mới</h4>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Tiêu đề</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="Title" placeholder="Nhập tiêu đề...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Người đăng bài</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="PostBy" placeholder="Người đăng bài...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Loại dịch vụ</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="Service" placeholder="Nhập loại dịch vụ...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Nội dung bài viết</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="Postcontent" id="Postcontent"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-round btn-primary">Lưu bài viết</button>
+                            </form>
+
+                                <form class="form-horizontal style-form" method="post" action="/post/create" id="form0" style="display:none">
+                                    <h4 class="mb"><i class="fa fa-angle-right"></i> Bài đăng mới</h4>
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">Tiêu đề</label>
                                         <div class="col-sm-10">
@@ -164,19 +189,20 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-round btn-primary">Lưu bài viết</button>
-                                }
-                                else
-                                {
+                                </form>
+
+
+                                <form class="form-horizontal style-form" method="post" action="/post/create" id="form1" style="display:none">
+                                    <h4 class="mb"><i class="fa fa-angle-right"></i> Bài đăng mới</h4>
                                     <br />
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">Chọn file PDF</label>
                                         <div class="col-sm-10">
-                                            <input type="file" />
+                                            <input type="file" name="filepdf" accept="application/pdf,application/vnd.ms-excel" />
                                         </div>
                                     </div>
-                                }
-
-                            </form>
+                                    <button type="submit" class="btn btn-round btn-primary">Lưu bài viết</button>
+                                </form>
                         </div>
                     </div><!-- col-lg-12-->
                 </div><!-- /row -->
@@ -396,12 +422,16 @@
     </script>
 
     <script src="~/Content/ckeditor/ckeditor.js"></script>
-<script src="~/Content/ckeditor/samples/js/sample.js"></script>
-<script>
-    CKEDITOR.replace('Postcontent');
-</script>
+    <script src="~/Content/ckeditor/samples/js/sample.js"></script>
+    <script>
+        CKEDITOR.replace('Postcontent');
+    </script>
 
-
+    <script>
+        $("#opt").on("change", function () {
+            $("#" + $(this).val()).show().siblings().hide();
+        })
+    </script>
 
 </body>
 </html>

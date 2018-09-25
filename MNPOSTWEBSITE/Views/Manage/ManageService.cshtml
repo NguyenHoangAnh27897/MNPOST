@@ -1,7 +1,7 @@
-﻿@model IEnumerable<MNPOSTWEBSITEMODEL.WS_Recruitment>
+﻿@model IEnumerable<MNPOSTWEBSITEMODEL.WS_ServiceType>
 @{
-    ViewBag.Title = "Recruitment";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ManageService";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
 }
 
 <!--main content start-->
@@ -18,7 +18,7 @@
                             <thead>
                                 <tr>
                                     <th><i class="fa fa-bullhorn"></i>ID</th>
-                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i>Tên vị trí tuyển dụng</th>
+                                    <th class="hidden-phone"><i class="fa fa-question-circle"></i>Tên dịch vụ</th>
                                     <th><i class="fa fa-bookmark"></i> Chỉnh sửa</th>
                                 </tr>
                             </thead>
@@ -29,7 +29,7 @@
                                         <td>@item.ID</td>
                                         <td>@item.Name</td>
                                         <td>
-                                            <form action="/post/editrecruitment/@item.ID">
+                                            <form action="/manage/editservice/@item.ID">
                                                 <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
                                             </form>
                                         </td>
@@ -37,9 +37,11 @@
                                 }
                             </tbody>
                         </table>
-                    </div><!-- /content-panel -->
+                    </div><!-- /content-panel -->                  
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
     </section><! --/wrapper -->
 </section><!-- /MAIN CONTENT -->
+
+

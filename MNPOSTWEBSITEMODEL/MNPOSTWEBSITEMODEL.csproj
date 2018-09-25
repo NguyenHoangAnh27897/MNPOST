@@ -110,6 +110,12 @@
     <Compile Include="WS_Post.cs">
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
+    <Compile Include="WS_Recruitment.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WS_ServiceType.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">

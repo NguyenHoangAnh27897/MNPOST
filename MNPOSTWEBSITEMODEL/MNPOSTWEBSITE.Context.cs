@@ -41,6 +41,8 @@ namespace MNPOSTWEBSITEMODEL
         public virtual DbSet<WS_Mailer> WS_Mailer { get; set; }
         public virtual DbSet<WS_Post> WS_Post { get; set; }
         public virtual DbSet<WS_AboutUs> WS_AboutUs { get; set; }
+        public virtual DbSet<WS_ServiceType> WS_ServiceType { get; set; }
+        public virtual DbSet<WS_Recruitment> WS_Recruitment { get; set; }
     
         public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string user)
         {
