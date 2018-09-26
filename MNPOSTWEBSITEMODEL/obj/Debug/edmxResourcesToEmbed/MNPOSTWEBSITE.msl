@@ -41,6 +41,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUsers">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="IDClient" ColumnName="IDClient" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -270,6 +271,16 @@
     <EntitySetMapping Name="WS_ServiceType">
       <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_ServiceType">
         <MappingFragment StoreEntitySet="WS_ServiceType">
+          <ScalarProperty Name="ContentService" ColumnName="ContentService" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WS_Recruitment">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Recruitment">
+        <MappingFragment StoreEntitySet="WS_Recruitment">
+          <ScalarProperty Name="ContentRecruitment" ColumnName="ContentRecruitment" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>

@@ -337,5 +337,38 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-	}
+
+        [HttpPost]
+        public ActionResult EditRecruitment(string ID, string Recruitment, string Content)
+        {
+            if (Session["Authentication"] != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    try
+                    {
+                        int id = int.Parse(ID);
+                        var rs = db.WS_Recruitment.Find(id);
+                        rs.Name = Recruitment;
+                        rs.ContentRecruitment = Content;
+                        db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Recruitment", "Post");
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+    }
 }

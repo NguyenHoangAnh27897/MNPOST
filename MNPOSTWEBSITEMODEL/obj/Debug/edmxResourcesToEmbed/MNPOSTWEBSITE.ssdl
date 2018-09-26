@@ -58,6 +58,7 @@
     <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="IDRole" Type="nvarchar" MaxLength="128" />
     <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
+    <Property Name="IDClient" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -200,12 +201,21 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="Service" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="WS_Recruitment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContentRecruitment" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="WS_ServiceType">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="ContentService" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -307,6 +317,7 @@
     <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Mailer" EntityType="Self.WS_Mailer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WS_Recruitment" EntityType="Self.WS_Recruitment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_ServiceType" EntityType="Self.WS_ServiceType" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

@@ -104,7 +104,7 @@ namespace MNPOSTWEBSITE.Controllers
                 };
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                string api = "http://35.231.147.186:89/api/mailer/addmailer";
+                string api = "http://221.133.7.74:90/api/mailer/addmailer";
                 var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
                 if (response.IsSuccessStatusCode)
                 {
@@ -115,7 +115,6 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 return RedirectToAction("ErrorPage","Error");
             }
-          
         }
 
 
