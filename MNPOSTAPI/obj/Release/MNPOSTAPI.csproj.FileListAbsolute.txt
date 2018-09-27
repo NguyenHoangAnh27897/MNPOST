@@ -111,7 +111,6 @@ D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 D:\LAPTRINH\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
 D:\LAPTRINH\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
-<<<<<<< HEAD
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb
@@ -172,7 +171,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csproj.CoreCo
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
-=======
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTCOMMON.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csprojAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csproj.CoreCompileInputs.cache
@@ -234,4 +232,3 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
->>>>>>> 4d752a680a38366641ec5de29851975769fef75e

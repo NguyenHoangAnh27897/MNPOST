@@ -1,0 +1,115 @@
+﻿@model IQueryable<MNPOSTWEBSITEMODEL.AspNetUsers>
+@using MNPOSTWEBSITE.Models;
+@{
+    ViewBag.Title = "EditAccount";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+    List<Province> lstProvince = new List<Province>();
+    List<District> lstDistrict = new List<District>();
+    List<Ward> lstWard = new List<Ward>();
+    Province pro = new Province();
+    District dt = new District();
+    Ward w = new Ward();
+    MNPOSTWEBSITE.Controllers.HomeController home = new MNPOSTWEBSITE.Controllers.HomeController();
+    List<string> lstname = home.getProvince(Session["token"].ToString()).Result;
+    List<string> lstid = home.getProvinceID(Session["token"].ToString()).Result;
+    List<string> lstdname = home.getDistrict(Session["token"].ToString()).Result;
+    List<string> lstdid = home.getDistrictID(Session["token"].ToString()).Result;
+    List<string> lstwname = home.getWard(Session["token"].ToString()).Result;
+    List<string> lstwid = home.getWardID(Session["token"].ToString()).Result;
+    for (int i = 0; i < lstname.Count; i++)
+    {
+        pro = new Province();
+        pro.ProvinceName = lstname[i];
+        pro.ProvinceID = lstid[i];
+        lstProvince.Add(pro);
+    }
+    for (int i = 0; i < lstdname.Count; i++)
+    {
+        dt = new District();
+        dt.DistrictName = lstdname[i];
+        dt.DistrictID = lstdid[i];
+        lstDistrict.Add(dt);
+    }
+    for (int i = 0; i < lstwname.Count; i++)
+    {
+        w = new Ward();
+        w.WardName = lstwname[i];
+        w.WardID = lstwid[i];
+        lstWard.Add(w);
+    }
+}
+
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Chỉnh sửa thông tin tài khoản</h3>
+
+        <!-- BASIC FORM ELELEMNTS -->
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <h4 class="mb"><i class="fa fa-angle-right"></i> Chỉnh sửa</h4>
+                    <form class="form-horizontal style-form" method="post" action="/manage/editservice">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Họ tên</label>
+                            <div class="col-sm-10">
+                                <input class="form-control round-form" name="Fullname" value="@Model.FirstOrDefault().FullName" />
+                            </div>
+
+                            <input class="form-control round-form" name="ID" value="@Model.FirstOrDefault().Id" style="display:none" />
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
+                            <div class="col-sm-10">
+                                <input class="form-control round-form" name="Phone" value="@Model.FirstOrDefault().Phone" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
+                            <div class="col-sm-10">
+                                <input class="form-control round-form" name="Address" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Phường</label>
+                            <div class="col-sm-10">
+                                <select class="form-control select2 no-radius" name="SenderWardID">
+                                    <option value="">Chọn phường</option>
+                                    @foreach (var item in lstWard)
+                                    {
+                                        <option value="@item.WardID">@item.WardName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
+                            <div class="col-sm-10">
+                                <select class="form-control select2 no-radius" name="SenderDistrictID">
+                                    <option value="">Chọn quận/huyện</option>
+                                    @foreach (var item in lstDistrict)
+                                    {
+                                        <option value="@item.DistrictID">@item.DistrictName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
+                            <div class="col-sm-10">
+                                <select class="form-control select2 no-radius" name="SenderProvinceID">
+                                    <option value="">Chọn thành phố</option>
+                                    @foreach (var item in lstProvince)
+                                    {
+                                        <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-round btn-primary">Lưu</button>
+                    </form>
+                </div>
+            </div><!-- col-lg-12-->
+        </div><!-- /row -->
+    </section>
+</section><!-- /MAIN CONTENT -->

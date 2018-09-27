@@ -1048,6 +1048,7 @@
     <Content Include="Views\Manage\ManageService.cshtml" />
     <Content Include="Views\Manage\EditService.cshtml" />
     <Content Include="Views\Post\EditRecruitment.cshtml" />
+    <Content Include="Views\Manage\EditAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

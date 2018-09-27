@@ -199,5 +199,37 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("ErrorPage", "Error");
             }
         }
+
+        public ActionResult EditAccount(string id)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Admin"))
+                    {
+                        var rs = db.AspNetUsers.Where(s => s.Id == id);
+                        return View(rs);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+      //  [HttpPost]
+      //public async Task<ActionResult> EditCustomer()
+      //  {
+
+      //  }
     }
 }

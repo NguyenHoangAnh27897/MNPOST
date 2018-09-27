@@ -54,7 +54,7 @@ namespace MNPOSTAPI.Controllers.web
                 return result;
             }          
         }
-        [HttpGet]
+        [HttpGet]  
         public MailerInfoResult GetMailerbyCustomerID(string customerid)
         {
             try

@@ -12,6 +12,7 @@ using MNPOSTWEBSITE.Models;
 using MNPOSTWEBSITEMODEL;
 using PagedList;
 using PagedList.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -152,6 +153,8 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     int pageSize = 5;
                     int pageNumber = (page ?? 1);
+                    //api/mailer/GetMailerbyCustomerID?customerid=
+                 
                     var lst = db.WS_Mailer.Where(s => s.IsActive == true).ToList();
                     return View(lst.ToPagedList(pageNumber, pageSize));
                 }
@@ -164,6 +167,36 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+        }
+
+        public async Task<List<Mailer>> getMailerbyCustomerID()
+        {
+            string id = Session["ID"].ToString();
+            var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+            List<Mailer> mailer = new List<Mailer>();
+            if (cusid != null)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/mailer/GetMailerbyCustomerID?customerid=" + cusid).ConfigureAwait(continueOnCapturedContext: false))
+                    {
+
+                        using (HttpContent content = response.Content)
+                        {
+                            string jsonstring = await content.ReadAsStringAsync();
+                           if(jsonstring != null)
+                            {
+                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                mailer = (List<Mailer>)serializer.Deserialize(jsonstring, typeof(List<Mailer>));
+                                return mailer;
+                            }
+                            return mailer;
+                        }
+                    }
+                }
+            }
+            return mailer;
         }
 
         [HttpPost]
