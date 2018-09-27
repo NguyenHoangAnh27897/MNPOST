@@ -121,7 +121,7 @@ namespace MNPOST.Controllers
             var result = await UserManager.CreateAsync(user, Password);
             if (result.Succeeded)
             {
-                var findUser = UserManager.FindById(UserName);
+                var findUser = UserManager.FindByName(UserName);
                 UserManager.AddToRole(findUser.Id, "user");
                 findEmployee.UserLogin = UserName;
                 db.Entry(findEmployee).State = System.Data.Entity.EntityState.Modified;

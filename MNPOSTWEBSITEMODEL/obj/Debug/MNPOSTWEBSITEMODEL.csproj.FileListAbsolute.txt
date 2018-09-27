@@ -47,9 +47,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xm
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojAssemblyReference.cache
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CoreCompileInputs.cache
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
@@ -72,3 +69,4 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramewo
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache

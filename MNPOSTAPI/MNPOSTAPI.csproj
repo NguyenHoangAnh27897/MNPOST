@@ -164,12 +164,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\mobile\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\mobile\UserAPIContract.cs" />
+    <Compile Include="Controllers\mobile\UserAPIController.cs" />
+    <Compile Include="Controllers\mobile\UserAPIIdentity.cs" />
+    <Compile Include="Controllers\mobile\UserAPIPresenter.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\web\CatalogController.cs" />
     <Compile Include="Controllers\web\CustomerController.cs" />
@@ -192,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\mnapi.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
