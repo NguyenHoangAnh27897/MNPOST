@@ -1007,7 +1007,6 @@
     <Property Type="String" Name="Notes" Nullable="true" />
     <Property Type="Int32" Name="Quantity" Nullable="true" />
     <Property Type="Double" Name="Weight" Nullable="true" />
-    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
     <Property Type="DateTime" Name="LastEditDate" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="StatusID" Nullable="true" />
     <Property Type="String" Name="RouteID" Nullable="true" MaxLength="20" />

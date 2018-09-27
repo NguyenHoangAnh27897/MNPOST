@@ -1108,6 +1108,7 @@
           <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="ReturnReasonID" ColumnName="ReturnReasonID" />
+<<<<<<< HEAD
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1177,6 +1178,8 @@
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
           <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+=======
+>>>>>>> 2a0f6f7300c069a3e142899a53df2bdc9e90ed11
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

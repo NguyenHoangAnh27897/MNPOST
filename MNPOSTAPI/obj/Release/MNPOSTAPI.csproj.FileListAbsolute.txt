@@ -29,6 +29,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.Razor.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\WebGrease.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTCOMMON.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTCOMMON.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\EntityFramework.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.AspNet.Identity.Core.xml
@@ -52,6 +53,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.Deployment.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.Razor.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
+<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
@@ -232,3 +234,10 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
+=======
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csprojAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csproj.CoreCompileInputs.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csproj.CopyComplete
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
+>>>>>>> 2a0f6f7300c069a3e142899a53df2bdc9e90ed11
