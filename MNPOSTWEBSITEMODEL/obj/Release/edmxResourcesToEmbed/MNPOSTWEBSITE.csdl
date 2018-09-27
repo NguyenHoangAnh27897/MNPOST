@@ -14,7 +14,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
   </EntityType>
@@ -51,7 +51,7 @@
     <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="IDRole" Type="Int32" />
+    <Property Name="IDRole" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
     <Property Name="ResetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
@@ -250,5 +250,14 @@
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="UserProfile" EntitySet="UserProfile" />
     </AssociationSet>
+    <EntitySet Name="WS_AboutUs" EntityType="MNPOSTWEBSITEModel.WS_AboutUs" />
   </EntityContainer>
+  <EntityType Name="WS_AboutUs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ContentAbout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EditedBy" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

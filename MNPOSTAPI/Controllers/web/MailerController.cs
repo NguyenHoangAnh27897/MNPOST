@@ -33,7 +33,7 @@ namespace MNPOSTAPI.Controllers.web
             }
             
         }
-        public MailerInfoResult GetMailerbyCustomerID(string customerid,DateTime fromdate,DateTime todate)
+        public MailerInfoResult GetMailerbyCustomerIDandDate(string customerid,DateTime fromdate,DateTime todate)
         {
             try
             {
@@ -53,6 +53,29 @@ namespace MNPOSTAPI.Controllers.web
                 };
                 return result;
             }          
+        }
+        [HttpGet]
+        public MailerInfoResult GetMailerbyCustomerID(string customerid)
+        {
+            try
+            {
+                MailerInfoResult result = new MailerInfoResult()
+                {
+                    error = 0,
+                    msg = "400-OK",
+                    mailer = db.MM_Mailers.Where(p => p.SenderID == customerid).ToList()
+                };
+                return result;
+            }
+            catch
+            {
+                MailerInfoResult result = new MailerInfoResult()
+                {
+                    error = 1,
+                    msg = "Khong ket noi he thong"
+                };
+                return result;
+            }
         }
         [HttpPost]
         public ResultInfo AddMailer()

@@ -10,6 +10,7 @@ namespace MNPOSTWEBSITE.Models
         public string FullName { get; set; }
         public string Phone { get; set; }
         public string IDRole { get; set; }
+        public string IDClient { get; set; }
         public string ResetPasswordCode { get; set; }
     }
 

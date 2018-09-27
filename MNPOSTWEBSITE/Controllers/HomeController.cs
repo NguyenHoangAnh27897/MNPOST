@@ -48,7 +48,7 @@ namespace MNPOSTWEBSITE.Controllers
             //        ProvinceName = getDistrict(token, i).Result
             //    });
             //}
-            //Session["token"] = getToken().Result;
+            Session["token"] = getToken().Result;
             //List<Province> lstProvince = new List<Province>();
             //Province pro = new Province();
             //List<string> lstname = getProvince(Session["token"].ToString()).Result;

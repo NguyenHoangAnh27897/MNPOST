@@ -15,6 +15,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -113,6 +114,7 @@ namespace MNPOSTWEBSITE.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
+                    string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
@@ -130,11 +132,8 @@ namespace MNPOSTWEBSITE.Controllers
                     smtp.Credentials = new System.Net.NetworkCredential("hoanganh27897@gmail.com", "pokemonblackwhite2");
                     smtp.EnableSsl = true;
                     smtp.Send(m);
-                    if (AddCustomer(Fullname, Phone, false, model.UserName).Result)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    return View();
+                    await AddCustomer(cusid,Fullname, Phone, false, model.UserName);
+                    return RedirectToAction("Index","Home");
                 }
                 else
                 {
@@ -180,7 +179,7 @@ namespace MNPOSTWEBSITE.Controllers
             return View();
         }
 
-        public async Task<bool> AddCustomer(string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
+        public async Task<ActionResult> AddCustomer(string custid, string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
         {
             Customer cus = new Customer
             {
@@ -192,13 +191,39 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://35.231.147.186:89/api/customer/addcustomer";
+            string api = "http://221.133.7.74:90/api/customer/addcustomer";
             var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
-                return true;
+                string content = await response.Content.ReadAsStringAsync();
+                var obj = JObject.Parse(content);
+                string msg = (string)obj["msg"];
+                var rs = db.AspNetUsers.Find(custid);
+                rs.IDClient = msg;
+                db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return Json(new ResultInfo() { error = 0, msg = custid, data = cus }, JsonRequestBehavior.AllowGet);
             }
-            return false;          
+            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = false)
+        {
+            Customer cus = new Customer
+            {
+                CustomerID = custid,
+                IsActive = IsActive,
+                CreateDate = DateTime.Now
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://221.133.7.74:90/api/customer/updatecustomer";
+            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                return Json(new ResultInfo() { error = 0, msg = custid, data = cus }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
         }
 
         //

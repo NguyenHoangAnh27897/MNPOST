@@ -1,0 +1,169 @@
+﻿@using MNPOSTWEBSITEMODEL
+@model IQueryable<MNPOSTWEBSITEMODEL.WS_Post>
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<head>
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="/Content/js/file-uploader/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="/Content/js/file-uploader/css/jquery.fileupload-ui.css">
+
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript>
+        <link rel="stylesheet" href="/Content/js/file-uploader/css/jquery.fileupload-noscript.css">
+    </noscript>
+    <noscript>
+        <link rel="stylesheet" href="/Content/js/file-uploader/css/jquery.fileupload-ui-noscript.css">
+    </noscript>
+</head>
+<body>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <h3><i class="fa fa-angle-right"></i> Chỉnh sửa bài đăng</h3>
+
+            <!-- BASIC FORM ELELEMNTS -->
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="form-panel">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Bài đăng mới</h4>
+                        <form class="form-horizontal style-form" method="post" action="/post/create">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Tiêu đề</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control round-form" name="Title" placeholder="Nhập tiêu đề..." value="@Model.FirstOrDefault().PostName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Người đăng bài</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control round-form" name="PostBy" placeholder="Người đăng bài..." value="@Model.FirstOrDefault().PostBy">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Loại dịch vụ</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control round-form" name="Service" placeholder="Nhập loại dịch vụ..." value="@Model.FirstOrDefault().Service">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Nội dung bài viết</label>
+                                <div class="col-sm-10">
+                                    <textarea name="Postcontent" id="Postcontent">@Html.Raw(@Model.FirstOrDefault().PostContent)</textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-round btn-primary">Lưu bài viết</button>
+                        </form>
+                    </div>
+                </div><!-- col-lg-12-->
+            </div><!-- /row -->
+        </section><! --/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <h3><i class="fa fa-angle-right"></i> Upload hình ảnh</h3>
+            <div class="row mt">
+                <div class="col-lg-12">
+
+                    <!-- The file upload form used as target for the file upload widget -->
+                    <form id="fileupload" data-url="@Url.Action("Upload", "Post")" method="POST" enctype="multipart/form-data">
+                        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                        <noscript>
+                            <input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/">
+                        </noscript>
+
+                        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                        <div class="row fileupload-buttonbar">
+                            <div class="col-lg-8">
+                                <!-- The fileinput-button span is used to style the file input field as button -->
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Chọn hình...</span>
+                                    <input type="file" name="files[]" multiple>
+                                </span>
+                                <button type="submit" class="btn btn-theme start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Bắt đầu Upload</span>
+                                </button>
+                                <button type="reset" class="btn btn-theme02 cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>Hủy Upload</span>
+                                </button>
+                                <button type="button" class="btn btn-theme04 delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span>Xóa hình</span>
+                                </button>
+                                <input type="checkbox" class="toggle">
+                                <!-- The global file processing state -->
+                                <span class="fileupload-process"></span>
+                            </div><!-- /col-lg-7 -->
+                            <!-- The global progress state -->
+                            <div class="col-lg-4 fileupload-progress fade">
+                                <!-- The global progress bar -->
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;">
+                                    </div>
+                                </div>
+                                <!-- The extended global progress state -->
+                                <div class="progress-extended">
+                                    &nbsp;
+                                </div>
+                            </div><!-- /col-lg-5 -->
+                        </div><!-- /row -->
+                        <!-- The table listing the files available for upload/download -->
+                        <table role="presentation" class="table table-striped">
+                            <tbody class="files"></tbody>
+                        </table>
+                    </form>
+                    <br>
+                    <!-- The blueimp Gallery widget -->
+                    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                    </div>
+
+                </div>
+            </div>
+
+        </section><! --/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
+    <script>
+        //var $j = jQuery.noConflict();
+
+        ClassicEditor
+                    .create(document.querySelector('#Postcontent'))
+                    .then(editor => {
+                        console.log(editor);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        ClassicEditor
+    .create(document.querySelector('#Postcontent'), {
+        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        heading: {
+            options: [
+                { modelElement: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { modelElement: 'heading1', viewElement: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                { modelElement: 'heading2', viewElement: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+            ]
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    </script>
+</body>

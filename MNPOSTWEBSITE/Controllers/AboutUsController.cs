@@ -8,11 +8,13 @@ namespace MNPOSTWEBSITE.Controllers
 {
     public class AboutUsController : Controller
     {
+        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
         //
         // GET: /AboutUs/
         public ActionResult Introduce()
         {
-            return View();
+            var rs = db.WS_AboutUs.Where(s=>s.ID.Equals("firstabu"));
+            return View(rs);
         }
 
         public ActionResult Contact()

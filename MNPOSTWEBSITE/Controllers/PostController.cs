@@ -18,7 +18,7 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Post/
         public ActionResult Create()
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
@@ -39,20 +39,30 @@ namespace MNPOSTWEBSITE.Controllers
         public string picturename= "";
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(string Title, string PostBy,string Service, string Postcontent)
+        public ActionResult Create(string Title, string PostBy,string Service, string Postcontent, HttpPostedFileBase filepdf)
         {
+            try
+            {
+                MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
+                data.PostName = Title;
+                data.PostBy = PostBy;
+                data.Service = Service;
+                if(Session["PictureName"] != null)
+                {
+                    data.Images = Session["PictureName"].ToString();
+                }         
+                data.CreatedDate = DateTime.Now;
+                data.PostContent = Postcontent;
+                db.WS_Post.Add(data);
+                db.SaveChanges();
+                ViewBag.Message = "Đăng bài thành công";
+                return RedirectToAction("Index", "Manage");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("ErrorPage","Error");
+            }
           
-            MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
-            data.PostName = Title;
-            data.PostBy = PostBy;
-            data.Service = Service;
-            data.Images = Session["PictureName"].ToString();
-            data.CreatedDate = DateTime.Now;
-            data.PostContent = Postcontent;
-            db.WS_Post.Add(data);
-            db.SaveChanges();
-            ViewBag.Message = "Đăng bài thành công";
-            return RedirectToAction("Index","Manage");
         }
 
         private const int ThumbSize = 160;
@@ -175,28 +185,49 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult DetailPost(int id)
         {
-            var pst = db.WS_Post.Where(s => s.ID == id);
-            return View(pst);
+            try
+            {
+                var pst = db.WS_Post.Where(s => s.ID == id);
+                return View(pst);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
         }
 
         public ActionResult PostList(int? page = 1)
         {
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            var lst = db.WS_Post.ToList();
-            return View(lst.ToPagedList(pageNumber,pageSize));
+            try
+            {
+                int pageSize = 5;
+                int pageNumber = (page ?? 1);
+                var lst = db.WS_Post.ToList();
+                return View(lst.ToPagedList(pageNumber, pageSize));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
         }
 
         public ActionResult AccountPost(int? page = 1)
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
-                    int pageSize = 5;
-                    int pageNumber = (page ?? 1);
-                    var lst = db.WS_Post.ToList();
-                    return View(lst.ToPagedList(pageNumber, pageSize));
+                    try
+                    {
+                        int pageSize = 5;
+                        int pageNumber = (page ?? 1);
+                        var lst = db.WS_Post.ToList();
+                        return View(lst.ToPagedList(pageNumber, pageSize));
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
                 }
                 else
                 {
@@ -211,12 +242,19 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if (Session["Authentication"].ToString() != null)
+            if (Session["Authentication"] != null)
             {
                 if (Session["RoleID"].ToString().Equals("Admin"))
                 {
-                    var pst = db.WS_Post.Where(s => s.ID == id);
-                    return View(pst);
+                    try
+                    {
+                        var pst = db.WS_Post.Where(s => s.ID == id);
+                        return View(pst);
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
                 }
                 else
                 {
@@ -232,15 +270,105 @@ namespace MNPOSTWEBSITE.Controllers
 
         public ActionResult Delete(int? id)
         {
-            var pst = db.WS_Post.Find(id);
-            db.WS_Post.Remove(pst);
-            db.SaveChanges();
-            return RedirectToAction("AccountPost","Post");
+            try
+            {
+                var pst = db.WS_Post.Find(id);
+                db.WS_Post.Remove(pst);
+                db.SaveChanges();
+                return RedirectToAction("AccountPost", "Post");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
         }
 
         public ActionResult Recruitment()
         {
-            return View();
+            if (Session["Authentication"] != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    try
+                    {
+                        var lst = db.WS_Recruitment.ToList();
+                        return View(lst);
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
-	}
+
+        public ActionResult EditRecruitment(string ID)
+        {
+            if (Session["Authentication"] != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    try
+                    {
+                        int id = int.Parse(ID);
+                        var rs = db.WS_Recruitment.Where(s => s.ID == id);
+                        return View(rs);
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditRecruitment(string ID, string Recruitment, string Content)
+        {
+            if (Session["Authentication"] != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    try
+                    {
+                        int id = int.Parse(ID);
+                        var rs = db.WS_Recruitment.Find(id);
+                        rs.Name = Recruitment;
+                        rs.ContentRecruitment = Content;
+                        db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Recruitment", "Post");
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+    }
 }

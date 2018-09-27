@@ -202,5 +202,14 @@
         <ScalarProperty Name="UserId" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="WS_AboutUs">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_AboutUs">
+        <MappingFragment StoreEntitySet="WS_AboutUs">
+          <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
+          <ScalarProperty Name="ContentAbout" ColumnName="ContentAbout" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

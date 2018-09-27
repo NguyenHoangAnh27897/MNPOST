@@ -12,6 +12,8 @@ namespace MNPOSTWEBSITEMODEL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MNPOSTWEBSITEEntities : DbContext
     {
@@ -38,5 +40,17 @@ namespace MNPOSTWEBSITEMODEL
         public virtual DbSet<WS_FacebookUser> WS_FacebookUser { get; set; }
         public virtual DbSet<WS_Mailer> WS_Mailer { get; set; }
         public virtual DbSet<WS_Post> WS_Post { get; set; }
+        public virtual DbSet<WS_AboutUs> WS_AboutUs { get; set; }
+        public virtual DbSet<WS_ServiceType> WS_ServiceType { get; set; }
+        public virtual DbSet<WS_Recruitment> WS_Recruitment { get; set; }
+    
+        public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string user)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETALL_Result>("MAILER_GETALL", userParameter);
+        }
     }
 }
