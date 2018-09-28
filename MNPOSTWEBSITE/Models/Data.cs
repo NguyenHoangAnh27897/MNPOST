@@ -11,20 +11,34 @@ namespace MNPOSTWEBSITE.Models
 
     public class Province
     {
-        public string ProvinceName { get; set; }
         public string ProvinceID { get; set; }
+        public string ProvinceName { get; set; }
+        public string CountryID { get; set; }
+        public string PhoneCode { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
+        public string ZoneID { get; set; }
     }
 
     public class District
     {
-        public string DistrictName { get; set; }
         public string DistrictID { get; set; }
+        public string DistrictName { get; set; }
+        public string ProvinceID { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     }
 
     public class Ward
     {
-        public string WardName { get; set; }
         public string WardID { get; set; }
+        public string WardName { get; set; }
+        public string DistrictID { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     }
 
     public class Order

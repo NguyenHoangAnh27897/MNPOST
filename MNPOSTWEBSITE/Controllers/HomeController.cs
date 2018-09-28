@@ -38,37 +38,16 @@ namespace MNPOSTWEBSITE.Controllers
             //    }
             //}
             //Session["Username"] = faceBookUser.Name;
-            //List<Province> lst = new List<Province>();
-            //string token = getToken().Result;
-            //int count = getCount(token).Result;
-            //for(int i = 0; i < count; i++)
-            //{
-            //    lst.Add(new Province()
-            //    {
-            //        ProvinceName = getDistrict(token, i).Result
-            //    });
-            //}
             Session["token"] = getToken().Result;
-            //List<Province> lstProvince = new List<Province>();
-            //Province pro = new Province();
-            //List<string> lstname = getProvince(Session["token"].ToString()).Result;
-            //List<string> lstid = getProvinceID(Session["token"].ToString()).Result;
-            //for(int i = 0; i < lstname.Count; i++)
-            //{
-            //    pro = new Province();
-            //    pro.ProvinceName = lstname[i];
-            //    pro.ProvinceID = lstid[i];
-            //    lstProvince.Add(pro);
-            //}
             var lst = db.WS_Post.ToList();
             return View(lst);
         }
 
-        public async Task<List<string>> getProvince(string tokenaccess)
+        public async Task<List<Province>> getProvince(string tokenaccess)
         {
 
             string token = "";
-            List<string> lst = new List<string>();
+            List<Province> pro = new List<Province>();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
@@ -79,51 +58,27 @@ namespace MNPOSTWEBSITE.Controllers
                     {
                         token = await content.ReadAsStringAsync();
                         var obj = JObject.Parse(token);
-                        var count = obj["provinces"].ToList();
-                        for(int i = 0; i < count.Count; i++)
+                        var jobj = obj["provinces"];
+                        var jsonstring = JsonConvert.SerializeObject(jobj);
+                        if (jsonstring != null)
                         {
-                            var tokenstr = (string)obj["provinces"][i]["ProvinceName"];
-                            lst.Add(tokenstr);
-                        }      
-                        return lst;
-                    }
-                }
-            }
-        }
-
-        public async Task<List<string>> getProvinceID(string tokenaccess)
-        {
-
-            string token = "";
-            List<string> lst = new List<string>();
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
-                {
-
-                    using (HttpContent content = response.Content)
-                    {
-                        token = await content.ReadAsStringAsync();
-                        var obj = JObject.Parse(token);
-                        var count = obj["provinces"].ToList();
-                        for (int i = 0; i < count.Count; i++)
-                        {
-                            var tokenstr = (string)obj["provinces"][i]["ProvinceID"];
-                            lst.Add(tokenstr);
+                            JavaScriptSerializer serializer = new JavaScriptSerializer();
+                            pro = (List<Province>)serializer.Deserialize(jsonstring, typeof(List<Province>));
+                            return pro;
                         }
-                        return lst;
-
+                        return pro;
                     }
                 }
             }
         }
 
-        public async Task<List<string>> getDistrict(string tokenaccess)
+      
+
+        public async Task<List<District>> getDistrict(string tokenaccess)
         {
 
             string token = "";
-            List<string> lst = new List<string>();
+            List<District> dist = new List<District>();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
@@ -134,51 +89,25 @@ namespace MNPOSTWEBSITE.Controllers
                     {
                         token = await content.ReadAsStringAsync();
                         var obj = JObject.Parse(token);
-                        var count = obj["districts"].ToList();
-                        for (int i = 0; i < count.Count; i++)
+                        var jobj = obj["districts"];
+                        var jsonstring = JsonConvert.SerializeObject(jobj);
+                        if (jsonstring != null)
                         {
-                            var tokenstr = (string)obj["districts"][i]["DistrictName"];
-                            lst.Add(tokenstr);
+                            JavaScriptSerializer serializer = new JavaScriptSerializer();
+                            dist = (List<District>)serializer.Deserialize(jsonstring, typeof(List<District>));
+                            return dist;
                         }
-                        return lst;
+                        return dist;
                     }
                 }
             }
         }
 
-        public async Task<List<string>> getDistrictID(string tokenaccess)
+        public async Task<List<Ward>> getWard(string tokenaccess)
         {
 
             string token = "";
-            List<string> lst = new List<string>();
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetDistrict").ConfigureAwait(continueOnCapturedContext: false))
-                {
-
-                    using (HttpContent content = response.Content)
-                    {
-                        token = await content.ReadAsStringAsync();
-                        var obj = JObject.Parse(token);
-                        var count = obj["districts"].ToList();
-                        for (int i = 0; i < count.Count; i++)
-                        {
-                            var tokenstr = (string)obj["districts"][i]["DistrictID"];
-                            lst.Add(tokenstr);
-                        }
-                        return lst;
-
-                    }
-                }
-            }
-        }
-
-        public async Task<List<string>> getWard(string tokenaccess)
-        {
-
-            string token = "";
-            List<string> lst = new List<string>();
+            List<Ward> ward = new List<Ward>();
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
@@ -189,41 +118,15 @@ namespace MNPOSTWEBSITE.Controllers
                     {
                         token = await content.ReadAsStringAsync();
                         var obj = JObject.Parse(token);
-                        var count = obj["wards"].ToList();
-                        for (int i = 0; i < count.Count; i++)
+                        var jobj = obj["wards"];
+                        var jsonstring = JsonConvert.SerializeObject(jobj);
+                        if (jsonstring != null)
                         {
-                            var tokenstr = (string)obj["wards"][i]["WardName"];
-                            lst.Add(tokenstr);
+                            JavaScriptSerializer serializer = new JavaScriptSerializer();
+                            ward = (List<Ward>)serializer.Deserialize(jsonstring, typeof(List<Ward>));
+                            return ward;
                         }
-                        return lst;
-                    }
-                }
-            }
-        }
-
-        public async Task<List<string>> getWardID(string tokenaccess)
-        {
-
-            string token = "";
-            List<string> lst = new List<string>();
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetWard").ConfigureAwait(continueOnCapturedContext: false))
-                {
-
-                    using (HttpContent content = response.Content)
-                    {
-                        token = await content.ReadAsStringAsync();
-                        var obj = JObject.Parse(token);
-                        var count = obj["wards"].ToList();
-                        for (int i = 0; i < count.Count; i++)
-                        {
-                            var tokenstr = (string)obj["wards"][i]["WardID"];
-                            lst.Add(tokenstr);
-                        }
-                        return lst;
-
+                        return ward;
                     }
                 }
             }

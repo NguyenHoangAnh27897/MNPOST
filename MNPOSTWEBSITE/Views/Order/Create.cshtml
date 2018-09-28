@@ -2,40 +2,10 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
-    List<Province> lstProvince = new List<Province>();
-    List<District> lstDistrict = new List<District>();
-    List<Ward> lstWard = new List<Ward>();
-    Province pro = new Province();
-    District dt = new District();
-    Ward w = new Ward();
     MNPOSTWEBSITE.Controllers.HomeController home = new MNPOSTWEBSITE.Controllers.HomeController();
-    List<string> lstname = home.getProvince(Session["token"].ToString()).Result;
-    List<string> lstid = home.getProvinceID(Session["token"].ToString()).Result;
-    List<string> lstdname = home.getDistrict(Session["token"].ToString()).Result;
-    List<string> lstdid = home.getDistrictID(Session["token"].ToString()).Result;
-    List<string> lstwname = home.getWard(Session["token"].ToString()).Result;
-    List<string> lstwid = home.getWardID(Session["token"].ToString()).Result;
-    for (int i = 0; i < lstname.Count; i++)
-    {
-        pro = new Province();
-        pro.ProvinceName = lstname[i];
-        pro.ProvinceID = lstid[i];
-        lstProvince.Add(pro);
-    }
-    for (int i = 0; i < lstdname.Count; i++)
-    {
-        dt = new District();
-        dt.DistrictName = lstdname[i];
-        dt.DistrictID = lstdid[i];
-        lstDistrict.Add(dt);
-    }
-    for (int i = 0; i < lstwname.Count; i++)
-    {
-        w = new Ward();
-        w.WardName = lstwname[i];
-        w.WardID = lstwid[i];
-        lstWard.Add(w);
-    }
+    List<Province> lstpro = home.getProvince(Session["token"].ToString()).Result;
+    List<District> lstdist = home.getDistrict(Session["token"].ToString()).Result;
+    List<Ward> lstward = home.getWard(Session["token"].ToString()).Result;
 }
 
 <!--main content start-->
@@ -74,7 +44,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control select2 no-radius" name="SenderWardID">
                                             <option value="">Chọn phường</option>
-                                            @foreach (var item in lstWard)
+                                            @foreach (var item in lstward)
                                             {
                                                 <option value="@item.WardID">@item.WardName</option>
                                             }
@@ -86,7 +56,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control select2 no-radius" name="SenderDistrictID">
                                             <option value="">Chọn quận/huyện</option>
-                                            @foreach (var item in lstDistrict)
+                                            @foreach (var item in lstdist)
                                             {
                                                 <option value="@item.DistrictID">@item.DistrictName</option>
                                             }
@@ -98,7 +68,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control select2 no-radius" name="SenderProvinceID">
                                             <option value="">Chọn thành phố</option>
-                                            @foreach (var item in lstProvince)
+                                            @foreach (var item in lstpro)
                                             {
                                                 <option value="@item.ProvinceID">@item.ProvinceName</option>
                                             }
@@ -131,7 +101,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control select2 no-radius" name="RecieverWardID">
                                             <option value="">Chọn phường</option>
-                                            @foreach (var item in lstWard)
+                                            @foreach (var item in lstward)
                                             {
                                                 <option value="@item.WardID">@item.WardName</option>
                                             }
@@ -143,7 +113,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control select2 no-radius" name="RecieverDistrictID">
                                             <option value="">Chọn quận/huyện</option>
-                                            @foreach (var item in lstDistrict)
+                                            @foreach (var item in lstdist)
                                             {
                                                 <option value="@item.DistrictID">@item.DistrictName</option>
                                             }
@@ -155,7 +125,7 @@
                                     <div class="col-sm-10">
                                         <select class="form-control select2 no-radius" name="RecieverProvinceID">
                                             <option value="">Chọn thành phố</option>
-                                            @foreach (var item in lstProvince)
+                                            @foreach (var item in lstpro)
                                             {
                                                 <option value="@item.ProvinceID">@item.ProvinceName</option>
                                             }

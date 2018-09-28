@@ -22,6 +22,7 @@ namespace MNPOSTWEBSITE.Controllers
             if (Session["Authentication"] != null)
             {
                 ViewBag.CusInfo = getcusinfo().Result;
+                Session["CustomerID"] = getcusinfo().Result;
                 string id = Session["ID"].ToString();
                 var user = db.AspNetUsers.Where(s => s.Id == id);
                 return View(user);
@@ -206,15 +207,8 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 if (Session["Authentication"] != null)
                 {
-                    if (Session["RoleID"].ToString().Equals("Admin"))
-                    {
                         var rs = db.AspNetUsers.Where(s => s.Id == id);
                         return View(rs);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Login", "Account");
-                    }
                 }
                 else
                 {

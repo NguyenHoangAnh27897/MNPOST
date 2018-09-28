@@ -1,6 +1,6 @@
 ﻿@using PagedList.Mvc;
 @using GridMvc.Html;
-@model PagedList.IPagedList<MNPOSTWEBSITEMODEL.WS_Mailer> 
+@model PagedList.IPagedList<MNPOSTWEBSITE.Models.Mailer> 
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
@@ -40,9 +40,6 @@
                                 }
                             </tbody>
                         </table>
-                    <form action="" style="margin-left:10px;">
-                        <button class="btn btn-theme" type="submit">Lưu</button>
-                    </form>
                     </div><!-- /content-panel -->
                     <br />
                     <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>

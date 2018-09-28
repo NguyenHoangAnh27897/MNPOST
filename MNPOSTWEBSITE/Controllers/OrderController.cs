@@ -13,6 +13,7 @@ using MNPOSTWEBSITEMODEL;
 using PagedList;
 using PagedList.Mvc;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -154,9 +155,9 @@ namespace MNPOSTWEBSITE.Controllers
                     int pageSize = 5;
                     int pageNumber = (page ?? 1);
                     //api/mailer/GetMailerbyCustomerID?customerid=
-                 
-                    var lst = db.WS_Mailer.Where(s => s.IsActive == true).ToList();
-                    return View(lst.ToPagedList(pageNumber, pageSize));
+                    List<Mailer> mailer = getMailerbyCustomerID().Result;
+                    //var lst = db.WS_Mailer.Where(s => s.IsActive == true).ToList();
+                    return View(mailer.ToPagedList(pageNumber, pageSize));
                 }
                 else
                 {
@@ -171,8 +172,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public async Task<List<Mailer>> getMailerbyCustomerID()
         {
-            string id = Session["ID"].ToString();
-            var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+            string cusid = Session["CustomerID"].ToString();
             List<Mailer> mailer = new List<Mailer>();
             if (cusid != null)
             {
@@ -184,8 +184,11 @@ namespace MNPOSTWEBSITE.Controllers
 
                         using (HttpContent content = response.Content)
                         {
-                            string jsonstring = await content.ReadAsStringAsync();
-                           if(jsonstring != null)
+                            string token = await content.ReadAsStringAsync();
+                            var obj = JObject.Parse(token);
+                            var jobj = obj["mailer"];
+                            var jsonstring = JsonConvert.SerializeObject(jobj);
+                            if (jsonstring != null)
                             {
                                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                                 mailer = (List<Mailer>)serializer.Deserialize(jsonstring, typeof(List<Mailer>));
