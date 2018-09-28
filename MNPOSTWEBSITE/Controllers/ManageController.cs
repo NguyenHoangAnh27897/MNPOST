@@ -220,10 +220,43 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("ErrorPage", "Error");
             }
         }
-      //  [HttpPost]
-      //public async Task<ActionResult> EditCustomer()
-      //  {
+        [HttpPost]
+        public async Task<ActionResult> EditCustomer(string Fullname, string Phone, string Address, string SenderWardID, string SenderDistrictID, string SenderProvinceID)
+        {
+            try
+            {
+                await UpdateCustomer(Fullname, Phone, Address, SenderWardID, SenderDistrictID, SenderProvinceID);
+                return RedirectToAction("Index","Manage");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
 
-      //  }
+        public async Task<ActionResult> UpdateCustomer(string Fullname, string Phone, string Address, string SenderWardID, string SenderDistrictID, string SenderProvinceID)
+        {
+            string id = Session["ID"].ToString();
+            var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+            CustomerInfo cus = new CustomerInfo
+            {
+                CustomerID = cusid,
+                Phone = Phone,
+                Address = Address,
+                CustomerName = Fullname,
+                ProvinceID = SenderProvinceID,
+                DistrictID = SenderDistrictID,
+                WardID = SenderWardID
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://221.133.7.74:90/api/customer/updatecustomer";
+            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

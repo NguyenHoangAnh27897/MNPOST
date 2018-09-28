@@ -58,7 +58,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csproj.CoreCompil
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csproj.CopyComplete
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
-<<<<<<< HEAD
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb
@@ -119,7 +118,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csproj.CoreComp
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
-=======
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb
@@ -177,4 +175,3 @@ D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 D:\LAPTRINH\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 D:\LAPTRINH\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
->>>>>>> d5fb23a7050a1c70fcbdd5264a6de5ac0fc5c681
