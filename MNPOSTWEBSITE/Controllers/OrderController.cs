@@ -107,7 +107,7 @@ namespace MNPOSTWEBSITE.Controllers
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
                 string api = "http://221.133.7.74:90/api/mailer/addmailer";
-                var response = await client.PostAsJsonAsync(api, new { mailer = mailers });
+                var response = await client.PostAsJsonAsync(api, new { mailer = mailers }).ConfigureAwait(continueOnCapturedContext: false);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index", "Manage");
@@ -156,7 +156,6 @@ namespace MNPOSTWEBSITE.Controllers
                     int pageNumber = (page ?? 1);
                     //api/mailer/GetMailerbyCustomerID?customerid=
                     List<Mailer> mailer = getMailerbyCustomerID().Result;
-                    //var lst = db.WS_Mailer.Where(s => s.IsActive == true).ToList();
                     return View(mailer.ToPagedList(pageNumber, pageSize));
                 }
                 else

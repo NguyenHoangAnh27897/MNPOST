@@ -202,7 +202,7 @@ namespace MNPOSTWEBSITE.Controllers
                 rs.IDClient = msg;
                 db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return Json(new ResultInfo() { error = 0, msg = custid, data = cus }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
         }
