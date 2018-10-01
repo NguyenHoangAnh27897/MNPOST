@@ -10,3 +10,15 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.Co
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojAssemblyReference.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CoreCompileInputs.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb

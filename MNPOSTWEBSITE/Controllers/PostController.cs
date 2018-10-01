@@ -370,5 +370,31 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+        public ActionResult PricePage()
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        return View();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
     }
 }

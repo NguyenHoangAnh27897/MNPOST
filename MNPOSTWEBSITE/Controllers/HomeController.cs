@@ -38,9 +38,17 @@ namespace MNPOSTWEBSITE.Controllers
             //    }
             //}
             //Session["Username"] = faceBookUser.Name;
-            Session["token"] = getToken().Result;
-            var lst = db.WS_Post.ToList();
-            return View(lst);
+            try
+            {
+                Session["token"] = getToken().Result;
+                var lst = db.WS_Post.ToList();
+                return View(lst);
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+           
         }
 
         public async Task<List<Province>> getProvince(string tokenaccess)

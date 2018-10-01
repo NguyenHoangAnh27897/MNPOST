@@ -9,6 +9,8 @@ using MNPOSTWEBSITEMODEL;
 using System.Threading.Tasks;
 using MNPOSTWEBSITE.Models;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -19,13 +21,26 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Manage/
         public ActionResult Index()
         {
+
             if (Session["Authentication"] != null)
             {
-                ViewBag.CusInfo = getcusinfo().Result;
-                Session["CustomerID"] = getcusinfo().Result;
-                string id = Session["ID"].ToString();
-                var user = db.AspNetUsers.Where(s => s.Id == id);
-                return View(user);
+                try
+                {
+                    string id = Session["ID"].ToString();
+                    var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+                    ViewBag.CusInfo = "";
+                    if (cusid != null)
+                    {
+                        ViewBag.CusInfo = getcusinfo(cusid).Result.CustomerCode;
+                        Session["CustomerID"] = getcusinfo(cusid).Result.CustomerCode;
+                    }
+                    var user = db.AspNetUsers.Where(s => s.Id == id);
+                    return View(user);
+                }catch(Exception ex)
+                {
+                    return RedirectToAction("ErrorPage","Error");
+                }
+             
             }
             else
             {
@@ -34,10 +49,9 @@ namespace MNPOSTWEBSITE.Controllers
 
         }
 
-        public async Task<string> getcusinfo()
+        public async Task<CustomerInfo> getcusinfo(string cusid)
         {
-            string id = Session["ID"].ToString();
-            var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+            CustomerInfo cus = new CustomerInfo();
             if(cusid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -50,15 +64,22 @@ namespace MNPOSTWEBSITE.Controllers
                         {
                             string token = await content.ReadAsStringAsync();
                             var obj = JObject.Parse(token);
-                            string idsv = (string)obj["customer"]["CustomerCode"];
-                            return idsv;
+                            var jobj =  obj["customer"];
+                            string jsonstring = JsonConvert.SerializeObject(jobj);
+                            if (jsonstring != null)
+                            {
+                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                cus = (CustomerInfo)serializer.Deserialize(jsonstring, typeof(CustomerInfo));
+                                return cus;
+                            }
+                            return cus;
                         }
                     }
                 }
             }
             else
             {
-                return "";
+                return cus;
             }   
         }
 
@@ -207,7 +228,7 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 if (Session["Authentication"] != null)
                 {
-                        var rs = db.AspNetUsers.Where(s => s.Id == id);
+                        var rs = getcusinfo(id).Result;
                         return View(rs);
                 }
                 else

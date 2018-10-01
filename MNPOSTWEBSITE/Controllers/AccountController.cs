@@ -162,6 +162,8 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IsActive = true;
                     db.SaveChanges();
+                    var cusid = db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IDClient;
+                    await UpdateCustomer(cusid, true);
                     return RedirectToAction("Confirm", "Account", new { Email = user.UserName });
                 }
             }
@@ -207,13 +209,12 @@ namespace MNPOSTWEBSITE.Controllers
             return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = false)
+        public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = true)
         {
             Customer cus = new Customer
             {
                 CustomerID = custid,
-                IsActive = IsActive,
-                CreateDate = DateTime.Now
+                IsActive = IsActive
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());

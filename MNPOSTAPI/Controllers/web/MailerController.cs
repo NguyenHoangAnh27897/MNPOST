@@ -104,7 +104,6 @@ namespace MNPOSTAPI.Controllers.web
 
                 db.MM_Mailers.Add(data);
                 db.SaveChanges();
-
             }
             catch (Exception e)
             {

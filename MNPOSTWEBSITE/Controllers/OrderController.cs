@@ -29,9 +29,9 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     if (Session["RoleID"].ToString().Equals("Customer"))
                     {
-                        string username = Session["Email"].ToString();
-                        if (db.WS_Mailer.Where(s => s.CustomerAccount.Equals(username)).FirstOrDefault().SenderName != null)
-                        {
+                        //string username = Session["Email"].ToString();
+                        //if (db.WS_Mailer.Where(s => s.CustomerAccount.Equals(username)).FirstOrDefault().SenderName != null)
+                        //{
                             //ViewBag.SenderName = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderName;
                             //ViewBag.SenderAddress = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderAddress;
                             //ViewBag.SenderPhone = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().SenderPhone;
@@ -46,11 +46,11 @@ namespace MNPOSTWEBSITE.Controllers
                             //ViewBag.RecieverWardID = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().RecieverWardID;
                             //ViewBag.Weight = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Weight;
                             //ViewBag.Quantity = db.WS_Mailer.Where(s => s.CustomerAccount == username).FirstOrDefault().Quantity;
-                            var parameters = new Dictionary<string, string>();
-                            parameters.Add("@user", username);
-                            var sqlAdapter = GetSqlDataAdapter("MAILER_GETALL", parameters);
+                            //var parameters = new Dictionary<string, string>();
+                            //parameters.Add("@user", username);
+                            //var sqlAdapter = GetSqlDataAdapter("MAILER_GETALL", parameters);
                             
-                        }
+                        //}
                         return View();
                     }
                     else
@@ -102,15 +102,16 @@ namespace MNPOSTWEBSITE.Controllers
                     WidthSize = Width,
                     MailerTypeID = MailerTypeID,
                     MerchandiseID = MerchandiseID,
-                    PriceDefault = PriceDefault
+                    PriceDefault = PriceDefault,
+                    SenderID = Session["CustomerID"].ToString()
                 };
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                string api = "http://221.133.7.74:90/api/mailer/addmailer";
+                string api = "http://221.133.7.74:90/api/mailer/AddMailer";
                 var response = await client.PostAsJsonAsync(api, new { mailer = mailers }).ConfigureAwait(continueOnCapturedContext: false);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Index", "Manage");
+                    return RedirectToAction("List", "Order");
                 }
                 return View();
             }catch(Exception ex)
@@ -142,31 +143,39 @@ namespace MNPOSTWEBSITE.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("ErrorPage", "Error");
             }        
         }
 
         public ActionResult List(int? page = 1)
         {
-            if (Session["Authentication"] != null)
+            try
             {
-                if (Session["RoleID"].ToString().Equals("Customer"))
+                if (Session["Authentication"] != null)
                 {
-                    int pageSize = 5;
-                    int pageNumber = (page ?? 1);
-                    //api/mailer/GetMailerbyCustomerID?customerid=
-                    List<Mailer> mailer = getMailerbyCustomerID().Result;
-                    return View(mailer.ToPagedList(pageNumber, pageSize));
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        int pageSize = 5;
+                        int pageNumber = (page ?? 1);
+                        //api/mailer/GetMailerbyCustomerID?customerid=
+                        List<Mailer> mailer = getMailerbyCustomerID().Result;
+                        return View(mailer.ToPagedList(pageNumber, pageSize));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index","Manage");
+                    return RedirectToAction("Login", "Account");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("ErrorPage", "Error");
             }
+           
         }
 
         public async Task<List<Mailer>> getMailerbyCustomerID()
@@ -191,6 +200,67 @@ namespace MNPOSTWEBSITE.Controllers
                             {
                                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                                 mailer = (List<Mailer>)serializer.Deserialize(jsonstring, typeof(List<Mailer>));
+                                return mailer;
+                            }
+                            return mailer;
+                        }
+                    }
+                }
+            }
+            return mailer;
+        }
+
+        //Search Mailer by MailerID
+        [HttpGet]
+        public ActionResult SearchMailer(string mailerid)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        //api/mailer/GetMailerbyCustomerID?customerid=
+                        Mailer mailer = getMailerbyMailerID(mailerid).Result;
+                        return View(mailer);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
+        public async Task<Mailer> getMailerbyMailerID(string mailerid)
+        {
+            Mailer mailer = new Mailer();
+            if (mailerid != null)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/mailer/GetMailerbyID/" + mailerid).ConfigureAwait(continueOnCapturedContext: false))
+                    {
+
+                        using (HttpContent content = response.Content)
+                        {
+                            string token = await content.ReadAsStringAsync();
+                            var obj = JObject.Parse(token);
+                            var jobj = obj["mailer"];
+                            var jsonstring = JsonConvert.SerializeObject(jobj);
+                            if (jsonstring != null)
+                            {
+                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                mailer = (Mailer)serializer.Deserialize(jsonstring, typeof(Mailer));
                                 return mailer;
                             }
                             return mailer;

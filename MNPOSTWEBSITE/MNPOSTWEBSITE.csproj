@@ -987,6 +987,7 @@
     <Content Include="Content\encot\fonts\entypo.ttf" />
     <Content Include="Content\encot\fonts\entypo.woff" />
     <Content Include="Content\encot\fonts\entypo.woff2" />
+    <Content Include="document\BANGGIACPNMNPOST.doc" />
     <None Include="Properties\PublishProfiles\MNPOST.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1049,6 +1050,8 @@
     <Content Include="Views\Manage\EditService.cshtml" />
     <Content Include="Views\Post\EditRecruitment.cshtml" />
     <Content Include="Views\Manage\EditAccount.cshtml" />
+    <Content Include="Views\Order\SearchMailer.cshtml" />
+    <Content Include="Views\Post\PricePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

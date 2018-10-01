@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\LAPTRINH\MN</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\hoang\source\repos\MN</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -70,28 +70,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:19</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>09/19/2018 15:44:26</publishTime>
+      <publishTime>10/01/2018 01:23:19</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>09/19/2018 11:37:02</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
-      <publishTime>09/19/2018 15:44:26</publishTime>
+      <publishTime>10/01/2018 01:23:19</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.dll">
-      <publishTime>09/19/2018 15:44:27</publishTime>
+      <publishTime>10/01/2018 01:46:42</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.pdb">
-      <publishTime>09/19/2018 15:44:27</publishTime>
+      <publishTime>10/01/2018 01:46:42</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll">
-      <publishTime>09/19/2018 15:44:26</publishTime>
+      <publishTime>10/01/2018 01:23:19</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll.config">
       <publishTime>09/19/2018 11:37:16</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.pdb">
-      <publishTime>09/19/2018 15:44:26</publishTime>
+      <publishTime>10/01/2018 01:23:19</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>09/19/2018 11:37:20</publishTime>
@@ -2466,6 +2466,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/vendor/modernizr-2.6.2.min.js">
       <publishTime>09/19/2018 11:37:12</publishTime>
     </File>
+    <File Include="document/BANGGIACPNMNPOST.doc">
+      <publishTime>09/30/2018 22:54:15</publishTime>
+    </File>
     <File Include="favicon.ico">
       <publishTime>09/19/2018 11:37:16</publishTime>
     </File>
@@ -2568,29 +2571,44 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Account/_SetPasswordPartial.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
+    <File Include="Views/Error/ErrorPage.cshtml">
+      <publishTime>09/20/2018 15:20:35</publishTime>
+    </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/01/2018 01:21:21</publishTime>
     </File>
     <File Include="Views/Manage/EditAboutus.cshtml">
       <publishTime>09/19/2018 14:54:44</publishTime>
     </File>
+    <File Include="Views/Manage/EditAccount.cshtml">
+      <publishTime>09/30/2018 22:32:15</publishTime>
+    </File>
+    <File Include="Views/Manage/EditService.cshtml">
+      <publishTime>09/27/2018 01:16:56</publishTime>
+    </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>09/30/2018 22:35:38</publishTime>
+    </File>
+    <File Include="Views/Manage/ManageService.cshtml">
+      <publishTime>09/26/2018 13:21:53</publishTime>
     </File>
     <File Include="Views/Order/Create.cshtml">
-      <publishTime>09/19/2018 13:59:26</publishTime>
+      <publishTime>09/28/2018 00:38:24</publishTime>
     </File>
     <File Include="Views/Order/List.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/01/2018 01:44:55</publishTime>
     </File>
     <File Include="Views/Order/OrderList.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
+    </File>
+    <File Include="Views/Order/SearchMailer.cshtml">
+      <publishTime>10/01/2018 01:44:41</publishTime>
     </File>
     <File Include="Views/Post/AccountPost.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Post/Create.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>09/26/2018 14:09:49</publishTime>
     </File>
     <File Include="Views/Post/DetailPost.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2598,11 +2616,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Post/Edit.cshtml">
       <publishTime>09/19/2018 13:47:11</publishTime>
     </File>
+    <File Include="Views/Post/EditRecruitment.cshtml">
+      <publishTime>09/26/2018 14:23:36</publishTime>
+    </File>
     <File Include="Views/Post/PostList.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>09/26/2018 13:21:53</publishTime>
+    </File>
+    <File Include="Views/Post/PricePage.cshtml">
+      <publishTime>10/01/2018 01:18:58</publishTime>
     </File>
     <File Include="Views/Post/Recruitment.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>09/26/2018 14:24:22</publishTime>
     </File>
     <File Include="Views/Setting/AddMenu.cshtml">
       <publishTime>07/04/2018 16:48:32</publishTime>
@@ -2611,13 +2635,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/04/2018 16:48:32</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>09/20/2018 15:11:06</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAccount.cshtml">
-      <publishTime>09/19/2018 14:20:17</publishTime>
+      <publishTime>10/01/2018 01:19:57</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2632,7 +2656,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Transport/Service.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>09/26/2018 13:21:53</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/19/2018 11:37:13</publishTime>

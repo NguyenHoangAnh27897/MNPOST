@@ -86,14 +86,14 @@
                             </ul>
                         </li>
                         @*<li class="sub-menu">
-                                <a href="javascript:;">
-                                    <i class="fa fa-desktop"></i>
-                                    <span>Quản lí dịch vụ</span>
-                                </a>
-                                <ul class="sub">
-                                    <li><a href="/manage/manageservice">Loại dịch vụ</a></li>
-                                </ul>
-                            </li>*@
+                <a href="javascript:;">
+                    <i class="fa fa-desktop"></i>
+                    <span>Quản lí dịch vụ</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="/manage/manageservice">Loại dịch vụ</a></li>
+                </ul>
+            </li>*@
                     }
                     @if (Session["RoleID"].ToString().Equals("Customer"))
                     {
@@ -105,6 +105,15 @@
                             <ul class="sub">
                                 <li><a href="/order/create">Tạo đơn hàng</a></li>
                                 <li><a href="/order/list">Danh sách đơn hàng</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-book"></i>
+                                <span>Xem bảng giá cước</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="/post/pricepage">Dịch vụ chuyển phát</a></li>
                             </ul>
                         </li>
                     }
