@@ -22,3 +22,13 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.xml
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlServer.xml
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
+D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb

@@ -82,7 +82,7 @@ namespace MNPOSTWEBSITE.Controllers
 
       
 
-        public async Task<List<District>> getDistrict(string tokenaccess)
+        public async Task<List<District>> getDistrict(string tokenaccess, string provinceid)
         {
 
             string token = "";
@@ -90,7 +90,7 @@ namespace MNPOSTWEBSITE.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetDistrict").ConfigureAwait(continueOnCapturedContext: false))
+                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetDistrict?provinceid="+ provinceid).ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)
@@ -111,7 +111,7 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
-        public async Task<List<Ward>> getWard(string tokenaccess)
+        public async Task<List<Ward>> getWard(string tokenaccess, string districtid)
         {
 
             string token = "";
@@ -119,7 +119,7 @@ namespace MNPOSTWEBSITE.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetWard").ConfigureAwait(continueOnCapturedContext: false))
+                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetWard?districtid="+districtid).ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)

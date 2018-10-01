@@ -1864,7 +1864,7 @@
             <Parameter Name="districtId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ROUTE_GETMAILER_BYEMPLOYEEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETMAILER_BYEMPLOYEEID_Result)">
-          <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="employeeId" Mode="In" Type="String" />
             <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>

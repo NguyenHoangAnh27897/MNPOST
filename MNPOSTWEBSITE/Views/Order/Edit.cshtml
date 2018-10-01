@@ -1,0 +1,407 @@
+﻿@using MNPOSTWEBSITE.Models;
+@model MNPOSTWEBSITE.Models.Mailer
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+    MNPOSTWEBSITE.Controllers.HomeController home = new MNPOSTWEBSITE.Controllers.HomeController();
+    List<Province> lstpro = home.getProvince(Session["token"].ToString()).Result;
+}
+<head>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script>
+        $(function () {
+            $("#SenderProvinceID").change(function () {
+                $("select[name='SenderDistrictID'] option").remove()
+                var proid = $('#SenderProvinceID').val();
+                $.ajax({
+                    url: "/Order/GetDistrict",
+                    data: { provinceid: proid },
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        debugger;
+                        $("#SenderDistrictID").prepend("<option>Chọn quận/huyện</option>");
+                        for (var i = 0; i < data.length; i++) {
+                            $("#SenderDistrictID").append('<option value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+
+        $(function () {
+            $("#SenderDistrictID").change(function () {
+                $("select[name='SenderWardID'] option").remove()
+                var disid = $('#SenderDistrictID').val();
+                $.ajax({
+                    url: "/Order/GetWard",
+                    data: { districtid: disid },
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        debugger;
+                        $("#SenderWardID").prepend("<option>Chọn phường</option>");
+                        for (var i = 0; i < data.length; i++) {
+                            $("#SenderWardID").append('<option value="' + data[i].WardID + '">' + data[i].WardName + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+
+        $(function () {
+            $("#RecieverProvinceID").change(function () {
+                $("select[name='RecieverDistrictID'] option").remove()
+                var proid = $('#RecieverProvinceID').val();
+                $.ajax({
+                    url: "/Order/GetDistrict",
+                    data: { provinceid: proid },
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        debugger;
+                        $("#RecieverDistrictID").prepend("<option>Chọn quận/huyện</option>");
+                        for (var i = 0; i < data.length; i++) {
+                            $("#RecieverDistrictID").append('<option value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+
+        $(function () {
+            $("#RecieverDistrictID").change(function () {
+                $("select[name='RecieverWardID'] option").remove()
+                var disid = $('#RecieverDistrictID').val();
+                $.ajax({
+                    url: "/Order/GetWard",
+                    data: { districtid: disid },
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        debugger;
+                        $("#RecieverWardID").prepend("<option>Chọn phường</option>");
+                        for (var i = 0; i < data.length; i++) {
+                            $("#RecieverWardID").append('<option value="' + data[i].WardID + '">' + data[i].WardName + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Cập nhật đơn hàng</h3>
+
+        <!-- BASIC FORM ELELEMNTS -->
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <form class="form-horizontal style-form" method="post" action="/order/edit">
+                        <div class="row">
+                            <div class="col-lg-5" style="margin-left:50px;">
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Người gửi</h4>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Họ và tên</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="SenderName" placeholder="Nhập họ và tên..." value="@Model.SenderName">
+                                        <input type="text" class="form-control round-form" name="MailerID" style="display:none" value="@Model.MailerID">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="SenderPhone" placeholder="Người số điện thoại..." value="@Model.SenderPhone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="SenderAddress" placeholder="Nhập địa chỉ..." value="@Model.SenderAddress">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 no-radius" name="SenderProvinceID" id="SenderProvinceID">
+                                            <option value="">Chọn thành phố</option>
+                                            @foreach (var item in lstpro)
+                                            {
+                                                <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 no-radius" name="SenderDistrictID" id="SenderDistrictID">
+                                            <option value="">Chọn quận/huyện</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Phường</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 no-radius" name="SenderWardID" id="SenderWardID">
+                                            <option value="">Chọn phường</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5" style="float:right; margin-right:100px;">
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Người nhận</h4>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Họ và tên</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="RecieverName" placeholder="Nhập họ và tên..." value="@Model.RecieverName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="RecieverPhone" placeholder="Người số điện thoại..." value="@Model.RecieverPhone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="RecieverAddress" placeholder="Nhập địa chỉ..." value="@Model.RecieverAddress">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 no-radius" name="RecieverProvinceID" id="RecieverProvinceID">
+                                            <option value="">Chọn thành phố</option>
+                                            @foreach (var item in lstpro)
+                                            {
+                                                <option value="@item.ProvinceID">@item.ProvinceName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 no-radius" name="RecieverDistrictID" id="RecieverDistrictID">
+                                            <option value="">Chọn quận/huyện</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Phường</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control select2 no-radius" name="RecieverWardID" id="RecieverWardID">
+                                            <option value="">Chọn phường</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4 class="mb" style="margin-left:50px;"><i class="fa fa-angle-right"></i> Thông tin kiện hàng</h4>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-sm-4 control-label">Tiền thu</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập CoD..." value="@Model.COD">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-sm-4 control-label">Giá trị hàng hóa</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control round-form" name="MerchandiseValue" placeholder="Nhập giá trị..." value="@Model.MerchandiseValue">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-sm-4 control-la
+                                           bel">Dịch vụ</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2 no-radius" name="MailerTypeID">
+                                            <option value="">Chọn dịch vụ</option>
+                                            <option value="SN">Dịch vụ chuyển phát nhanh</option>
+                                            <option value="ST">Dịch vụ chuyển phát thường</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-sm-4 control-label">Phương thức thanh toán</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2 no-radius" name="Purchase">
+                                            <option value="">Chọn phương thức</option>
+                                            <option value="NGTT">Người gửi thanh toán</option>
+                                            <option value="NNTT">Người nhận thanh toán</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-sm-4 control-label">Dịch vụ cộng thêm</label>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" onclick="myFunction()" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-7" style="float:right; margin-right:100px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Nội dung kiện hàng</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="MailerDescription" placeholder="Nhập nội dung..." value="@Model.MailerDescription">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Ghi chú</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control round-form" name="Note" placeholder="Nhập ghi chú..." value="@Model.Notes">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Dài</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control round-form" name="Length" step="any" value="@Model.LengthSize">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Rộng</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control round-form" name="Width" step="any" value="@Model.WidthSize">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Cao</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control round-form" name="Height" step="any" value="@Model.HeightSize">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control round-form" name="Weight" placeholder="Nhập trọng lượng..." step="any" value="@Model.Weight">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control round-form" name="Quantity" placeholder="Nhập số lượng..." step="any" value="@Model.Quantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control select2 no-radius" name="MerchandiseID">
+                                                    <option value="">Chọn loại hàng</option>
+                                                    <option value="H">Hàng hóa</option>
+                                                    <option value="T">Thư từ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="myDIV" style="display:none;">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control round-form" name="Weight" placeholder="Nhập trọng lượng..." step="any">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control round-form" name="Quantity" placeholder="Nhập số lượng..." step="any">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control select2 no-radius" name="Purchase">
+                                                    <option value="">Chọn loại hàng</option>
+                                                    <option value="">Hàng hóa</option>
+                                                    <option value="">Thư từ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4 class="mb" style="margin-left:50px;"><i class="fa fa-angle-right"></i> Thành tiền</h4>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Cước chính</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" id="PriceMain" class="form-control round-form" name="PriceMain" placeholder="Nhập cước..." step="any" onclick="sum()" value="">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
+                            </div>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Cước CoD</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" id="CODPrice" class="form-control round-form" name="CODPrice" placeholder="Nhập cước..." step="any" onclick="sum()" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="margin-left:50px;">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Tổng cước</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" id="PriceDefault" class="form-control round-form" name="PriceDefault" placeholder="Tổng cước..." step="any" value="@Model.PriceDefault">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- col-lg-12-->
+        </div><!-- /row -->
+    </section>
+</section><!-- /MAIN CONTENT -->
+<!--main content end-->
+@*<a href="~/Controllers/ManageController.cs">~/Controllers/ManageController.cs</a>*@
+<!--custom tagsinput-->
+<script>
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+function sum() {
+    var pricemain = document.getElementById("PriceMain").value;
+    var codprice = document.getElementById("CODPrice").value;
+    var total = 0;
+    total = parseInt(pricemain) + parseInt(codprice);
+    document.getElementById("PriceDefault").value = total;
+}
+</script>
+<script src="/Content/js/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+
+
+

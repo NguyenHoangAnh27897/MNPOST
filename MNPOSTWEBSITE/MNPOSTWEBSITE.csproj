@@ -993,6 +993,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1052,9 +1053,18 @@
     <Content Include="Views\Manage\EditAccount.cshtml" />
     <Content Include="Views\Order\SearchMailer.cshtml" />
     <Content Include="Views\Post\PricePage.cshtml" />
+    <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\GetMailer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\datetime\css\" />
+    <Folder Include="Content\datetime\js\" />
+    <Folder Include="Content\login\css\" />
+    <Folder Include="Content\login\fonts\" />
+    <Folder Include="Content\login\images\" />
+    <Folder Include="Content\login\js\" />
+    <Folder Include="Content\login\vendor\" />
     <Folder Include="images\post\" />
     <Folder Include="Report\" />
     <Folder Include="Views\Base\" />
