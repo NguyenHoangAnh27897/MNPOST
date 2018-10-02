@@ -498,6 +498,134 @@ namespace MNPOSTWEBSITE.Controllers
             return Json(lstWard, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SendMailerCheck(IEnumerable<string> mailerid)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        foreach(var item in mailerid)
+                        {
+                            var ml = getMailerbyMailerID(item).Result;
+                            Mailer mailers = new Mailer()
+                            {
+                                MailerID = item,
+                                SenderID =ml.SenderID,
+                                MailerDescription = ml.MailerDescription,
+                                SenderName = ml.SenderName,
+                                SenderAddress = ml.SenderAddress,
+                                SenderPhone = ml.SenderPhone,
+                                SenderDistrictID = ml.SenderDistrictID,
+                                SenderProvinceID = ml.SenderProvinceID,
+                                SenderWardID = ml.SenderWardID,
+                                RecieverName = ml.RecieverName,
+                                RecieverAddress = ml.RecieverAddress,
+                                RecieverPhone = ml.RecieverPhone,
+                                RecieverDistrictID = ml.RecieverDistrictID,
+                                RecieverProvinceID = ml.RecieverProvinceID,
+                                RecieverWardID = ml.RecieverWardID,
+                                Weight = ml.Weight,
+                                Quantity = ml.Quantity,
+                                PaymentMethodID = ml.PaymentMethodID,
+                                MerchandiseValue = ml.MerchandiseValue,
+                                COD = ml.COD,
+                                Notes = ml.Notes,
+                                LengthSize = ml.LengthSize,
+                                HeightSize = ml.HeightSize,
+                                WidthSize = ml.WidthSize,
+                                MailerTypeID = ml.MailerTypeID,
+                                MerchandiseID = ml.MerchandiseID,
+                                PriceDefault = ml.PriceDefault,
+                                AcceptDate = ml.AcceptDate,
+                                CurrentStatusID = 1
+                            };
+                            await AddorUpdateMailer(1, mailers);
+                        }
+                        return RedirectToAction("List");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ReturnMailer(IEnumerable<string> mailerid)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        foreach (var item in mailerid)
+                        {
+                            var ml = getMailerbyMailerID(item).Result;
+                            Mailer mailers = new Mailer()
+                            {
+                                MailerID = item,
+                                SenderID = ml.SenderID,
+                                MailerDescription = ml.MailerDescription,
+                                SenderName = ml.SenderName,
+                                SenderAddress = ml.SenderAddress,
+                                SenderPhone = ml.SenderPhone,
+                                SenderDistrictID = ml.SenderDistrictID,
+                                SenderProvinceID = ml.SenderProvinceID,
+                                SenderWardID = ml.SenderWardID,
+                                RecieverName = ml.RecieverName,
+                                RecieverAddress = ml.RecieverAddress,
+                                RecieverPhone = ml.RecieverPhone,
+                                RecieverDistrictID = ml.RecieverDistrictID,
+                                RecieverProvinceID = ml.RecieverProvinceID,
+                                RecieverWardID = ml.RecieverWardID,
+                                Weight = ml.Weight,
+                                Quantity = ml.Quantity,
+                                PaymentMethodID = ml.PaymentMethodID,
+                                MerchandiseValue = ml.MerchandiseValue,
+                                COD = ml.COD,
+                                Notes = ml.Notes,
+                                LengthSize = ml.LengthSize,
+                                HeightSize = ml.HeightSize,
+                                WidthSize = ml.WidthSize,
+                                MailerTypeID = ml.MailerTypeID,
+                                MerchandiseID = ml.MerchandiseID,
+                                PriceDefault = ml.PriceDefault,
+                                AcceptDate = ml.AcceptDate,
+                                CurrentStatusID = 0
+                            };
+                            await AddorUpdateMailer(1, mailers);
+                        }
+                        return RedirectToAction("List","Order");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
         [HttpGet]
         public ActionResult GetMailer(string FromDate, string ToDate, int? page = 1)
         {
