@@ -74,7 +74,7 @@
                                     <th><i class="fa fa-question-circle"></i> Tên người gửi</th>
                                     <th><i class="fa fa-bookmark"></i> Tên người nhận</th>
                                     <th><i class="fa fa-edit"></i> Ngày tạo</th>
-                                    <th></th>
+                                    <th><i class="fa fa-eraser"></i> Xoá</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,6 +87,11 @@
                                             <td class="hidden-phone">@item.SenderName</td>
                                             <td class="hidden-phone">@item.RecieverName</td>
                                             <td>@item.CreationDate</td>
+                                            <td>
+                                                <form action="/order/deletemailer/@item.MailerID" method="get">
+                                                    <button class="btn btn-primary btn-xs"><i class="fa fa-eraser"></i></button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     }
                                     else

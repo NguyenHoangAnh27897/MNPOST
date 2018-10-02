@@ -183,7 +183,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public async Task<ActionResult> AddCustomer(string custid, string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
         {
-            Customer cus = new Customer
+            CustomerInfo cus = new CustomerInfo
             {
                 CustomerName = Fullname,
                 Phone = Phone,
@@ -211,7 +211,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = true)
         {
-            Customer cus = new Customer
+            CustomerInfo cus = new CustomerInfo
             {
                 CustomerID = custid,
                 IsActive = IsActive

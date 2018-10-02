@@ -355,6 +355,23 @@ namespace MNPOSTWEBSITE.Controllers
             return mailer;
         }
 
+        public async Task<ActionResult> DeleteMailerById(string mailerid)
+        {
+            Mailer mailers = new Mailer
+            {
+                MailerID = mailerid
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://221.133.7.74:90/api/mailer/DeleteCustomerByCustomerID";
+            var response = await client.PostAsJsonAsync(api, new { mailer = mailers }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+        }
+
         //Search Mailer by MailerID
         [HttpGet]
         public ActionResult SearchMailer(string mailerid)
@@ -518,6 +535,35 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("ErrorPage", "Error");
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteMailer(string id)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        await DeleteMailerById(id);
+                        return RedirectToAction("List");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> getExcel(HttpPostedFileBase FileExcel)
         {
@@ -670,5 +716,7 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("ErrorPage", "Error");
             }
         }
+
+
     }
 }
