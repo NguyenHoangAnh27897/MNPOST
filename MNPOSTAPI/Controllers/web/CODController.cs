@@ -30,7 +30,7 @@ namespace MNPOSTAPI.Controllers.web
             };
                 return result;
             }
-            catch
+            catch(Exception ex)
             {
                 CODInfoResult result = new CODInfoResult()
                 {
