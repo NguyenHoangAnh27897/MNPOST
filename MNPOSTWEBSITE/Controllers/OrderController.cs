@@ -15,6 +15,9 @@ using PagedList;
 using PagedList.Mvc;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using System.Data;
+using System.Data.OleDb;
+using System.Xml;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -78,9 +81,16 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 decimal? cod = decimal.Parse(COD);
                 decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
+                if(SenderWardID.Count() > 10)
+                {
+                    SenderWardID = "";
+                }else if(RecieverWardID.Count() > 10)
+                {
+                    RecieverWardID = "";
+                }
                 Mailer mailers = new Mailer
                 {
-                    MailerID = "MNPOST0002",
+                    MailerID = getGUID(),
                     SenderName = SenderName,
                     SenderAddress = SenderAddress,
                     SenderPhone = SenderPhone,
@@ -151,6 +161,13 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 decimal? cod = decimal.Parse(COD);
                 decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
+                if (SenderWardID.Count() > 10)
+                {
+                    SenderWardID = "";
+                }else if(RecieverWardID.Count() > 10)
+                {
+                    RecieverWardID = "";
+                }
                 Mailer mailers = new Mailer
                 {
                     SenderName = SenderName,
@@ -309,7 +326,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             string cusid = Session["CustomerID"].ToString();
             List<Mailer> mailer = new List<Mailer>();
-            string api = "http://221.133.7.74:90/api/mailer/GetMailerbyCustomerIDandDate?customerid=" + cusid + "&fromdate="+fromdate+"&todate="+todate;
+            string api = "http://221.133.7.74:90/api/mailer/GetMailerbyCustomerIDandDate?customerid=" + cusid + "&fromdate=" + fromdate + "&todate=" + todate;
             if (cusid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -371,12 +388,14 @@ namespace MNPOSTWEBSITE.Controllers
         public async Task<Mailer> getMailerbyMailerID(string mailerid)
         {
             Mailer mailer = new Mailer();
+            string cusid = Session["CustomerID"].ToString();
+            string api = "http://221.133.7.74:90/api/mailer/GetMailerbyID?id=" + mailerid + "&customerid=" + cusid;
             if (mailerid != null)
             {
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/mailer/GetMailerbyID/" + mailerid).ConfigureAwait(continueOnCapturedContext: false))
+                    using (HttpResponseMessage response = await client.GetAsync(api).ConfigureAwait(continueOnCapturedContext: false))
                     {
 
                         using (HttpContent content = response.Content)
@@ -434,18 +453,12 @@ namespace MNPOSTWEBSITE.Controllers
         //generate ra một id mới
         public static string getGUID()
         {
-            string rs = "";
-            char replace = '-';
-            char to = '_';
-            try
-            {
-                rs = Guid.NewGuid().ToString();
-                rs = rs.Replace(replace, to);
-            }
-            catch (Exception ex)
-            {
-                string mess = ex.Message.ToString();
-            }
+            string rs = "MNPOST";
+            Random rd = new Random();
+            int random = rd.Next(90000);
+            rs += random.ToString() + "_";
+            random = rd.Next(90000);
+            rs += random.ToString();
             return rs;
         }
 
@@ -454,7 +467,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             List<District> lstDis = new List<District>();
             var token = Session["token"].ToString();
-            lstDis = home.getDistrict(token,provinceid).Result;
+            lstDis = home.getDistrict(token, provinceid).Result;
             return Json(lstDis, JsonRequestBehavior.AllowGet);
         }
 
@@ -469,7 +482,7 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetMailer(string FromDate, string ToDate)
+        public ActionResult GetMailer(string FromDate, string ToDate, int? page = 1)
         {
             try
             {
@@ -477,25 +490,170 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     if (Session["RoleID"].ToString().Equals("Customer"))
                     {
-                        string fromDate;
-                        string toDate;
                         //api/mailer/GetMailerbyCustomerID?customerid=
                         if (String.IsNullOrEmpty(FromDate) || String.IsNullOrEmpty(ToDate))
                         {
-                            fromDate = DateTime.Now.ToString("yyyy-MM-dd");
-                            toDate = DateTime.Now.ToString("yyyy-MM-dd");
-                            FromDate = DateTime.Now.ToString("dd/MM/yyyy");
-                            ToDate = DateTime.Now.ToString("dd/MM/yyyy");
+                            FromDate = DateTime.Now.ToString("yyyy-MM-dd");
+                            ToDate = DateTime.Now.ToString("yyyy-MM-dd");
 
                         }
-                        else
-                        {
-                            fromDate = DateTime.ParseExact(Request["FromDate"], "dd/MM/yyyy", null).ToString("yyyy-MM-dd");
-                            toDate = DateTime.ParseExact(Request["ToDate"], "dd/MM/yyyy", null).ToString("yyyy-MM-dd");
-                        }
-                        List<Mailer> mailer = getMailerbyCustomerIDandDate(fromDate,toDate).Result;
+                        int pageSize = 5;
+                        int pageNumber = (page ?? 1);
+                        List<Mailer> mailer = getMailerbyCustomerIDandDate(FromDate, ToDate).Result;
                         //Mailer mailer = getMailerbyMailerID(mailerid).Result;
-                        return View(mailer);
+                        return View(mailer.ToPagedList(pageNumber, pageSize));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> getExcel(HttpPostedFileBase FileExcel)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        DataSet ds = new DataSet();
+                        if (Request.Files["FileExcel"].ContentLength > 0)
+                        {
+                            string fileExtension =
+                                                 System.IO.Path.GetExtension(Request.Files["FileExcel"].FileName);
+
+                            if (fileExtension == ".xls" || fileExtension == ".xlsx")
+                            {
+                                string fileLocation = Server.MapPath("~/document/excel/") + Request.Files["FileExcel"].FileName;
+                                if (System.IO.File.Exists(fileLocation))
+                                {
+
+                                    System.IO.File.Delete(fileLocation);
+                                }
+                                Request.Files["FileExcel"].SaveAs(fileLocation);
+                                string excelConnectionString = string.Empty;
+                                excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                                //connection String for xls file format.
+                                if (fileExtension == ".xls")
+                                {
+                                    excelConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+                                    fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                                }
+                                //connection String for xlsx file format.
+                                else if (fileExtension == ".xlsx")
+                                {
+                                    excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                    fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                                }
+                                //Create Connection to Excel work book and add oledb namespace
+                                OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+                                excelConnection.Open();
+                                DataTable dt = new DataTable();
+
+                                dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                                if (dt == null)
+                                {
+                                    return null;
+                                }
+
+                                String[] excelSheets = new String[dt.Rows.Count];
+                                int t = 0;
+                                //excel data saves in temp file here.
+                                foreach (DataRow row in dt.Rows)
+                                {
+                                    excelSheets[t] = row["TABLE_NAME"].ToString();
+                                    t++;
+                                }
+                                OleDbConnection excelConnection1 = new OleDbConnection(excelConnectionString);
+
+
+                                string query = string.Format("Select * from [{0}]", excelSheets[0]);
+                                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                                {
+                                    dataAdapter.Fill(ds);
+                                }
+                            }
+                            if (fileExtension.ToString().ToLower().Equals(".xml"))
+                            {
+                                string fileLocation = Server.MapPath("~/document/excel/") + Request.Files["FileExcel"].FileName;
+                                if (System.IO.File.Exists(fileLocation))
+                                {
+                                    System.IO.File.Delete(fileLocation);
+                                }
+
+                                Request.Files["FileExcel"].SaveAs(fileLocation);
+                                XmlTextReader xmlreader = new XmlTextReader(fileLocation);
+                                // DataSet ds = new DataSet();
+                                ds.ReadXml(xmlreader);
+                                xmlreader.Close();
+                            }
+
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                            {
+                                //string conn = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+                                //SqlConnection con = new SqlConnection(conn);
+                                //string query = "Insert into Person(Name,Email,Mobile) Values('" +
+                                //ds.Tables[0].Rows[i][0].ToString() + "','" + ds.Tables[0].Rows[i][1].ToString() +
+                                //"','" + ds.Tables[0].Rows[i][2].ToString() + "')";
+                                //con.Open();
+                                //SqlCommand cmd = new SqlCommand(query, con);
+                                //cmd.ExecuteNonQuery();
+                                //con.Close();
+                                decimal? cod = decimal.Parse(ds.Tables[0].Rows[i][12].ToString());
+                                decimal? MerchandiseVal = decimal.Parse(ds.Tables[0].Rows[i][16].ToString());
+                                int? wei = int.Parse(ds.Tables[0].Rows[i][13].ToString());
+                                int? quan = int.Parse(ds.Tables[0].Rows[i][14].ToString());
+                                double? hei = double.Parse(ds.Tables[0].Rows[i][20].ToString());
+                                double? wid = double.Parse(ds.Tables[0].Rows[i][21].ToString());
+                                double? len = double.Parse(ds.Tables[0].Rows[i][19].ToString());
+                                decimal? pdf = decimal.Parse(ds.Tables[0].Rows[i][24].ToString());
+                                Mailer mailers = new Mailer
+                                {
+                                    MailerID = getGUID(),
+                                    SenderName = ds.Tables[0].Rows[i][0].ToString(),
+                                    SenderAddress = ds.Tables[0].Rows[i][2].ToString(),
+                                    SenderPhone = ds.Tables[0].Rows[i][1].ToString(),
+                                    SenderDistrictID = ds.Tables[0].Rows[i][4].ToString(),
+                                    SenderProvinceID = ds.Tables[0].Rows[i][3].ToString(),
+                                    SenderWardID = ds.Tables[0].Rows[i][5].ToString(),
+                                    RecieverName = ds.Tables[0].Rows[i][6].ToString(),
+                                    RecieverAddress = ds.Tables[0].Rows[i][8].ToString(),
+                                    RecieverPhone = ds.Tables[0].Rows[i][7].ToString(),
+                                    RecieverDistrictID = ds.Tables[0].Rows[i][10].ToString(),
+                                    RecieverProvinceID = ds.Tables[0].Rows[i][9].ToString(),
+                                    RecieverWardID = ds.Tables[0].Rows[i][11].ToString(),
+                                    Weight = wei,
+                                    Quantity = quan,
+                                    PaymentMethodID = ds.Tables[0].Rows[i][15].ToString(),
+                                    MerchandiseValue = MerchandiseVal,
+                                    COD = cod,
+                                    Notes = ds.Tables[0].Rows[i][17].ToString(),
+                                    MailerDescription = ds.Tables[0].Rows[i][18].ToString(),
+                                    LengthSize = len,
+                                    HeightSize = hei,
+                                    WidthSize = wid,
+                                    MailerTypeID = ds.Tables[0].Rows[i][22].ToString(),
+                                    MerchandiseID = ds.Tables[0].Rows[i][23].ToString(),
+                                    PriceDefault = pdf,
+                                    SenderID = Session["CustomerID"].ToString()
+
+                                };
+                                await AddorUpdateMailer(0, mailers);
+                            }
+                        }
+                        return RedirectToAction("List", "Order");
                     }
                     else
                     {

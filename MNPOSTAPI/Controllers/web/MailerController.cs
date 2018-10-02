@@ -11,7 +11,7 @@ namespace MNPOSTAPI.Controllers.web
     public class MailerController : WebBaseController
     {
         [HttpGet]
-        public MailerInfoResultbyID GetMailerbyID(string id)
+        public MailerInfoResultbyID GetMailerbyID(string id, string customerid)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace MNPOSTAPI.Controllers.web
                 {
                     error = 0,
                     msg = "400-OK",
-                    mailer = db.MM_Mailers.Find(id)
+                    mailer = db.MM_Mailers.Where(s => s.MailerID == id && s.SenderID == customerid).FirstOrDefault()
                 };
                 return result;
             }catch

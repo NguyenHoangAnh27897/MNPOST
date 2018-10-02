@@ -70,19 +70,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:19</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/01/2018 01:23:19</publishTime>
+      <publishTime>10/01/2018 22:38:02</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>09/19/2018 11:37:02</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
-      <publishTime>10/01/2018 01:23:19</publishTime>
+      <publishTime>10/01/2018 22:38:02</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.dll">
-      <publishTime>10/01/2018 01:46:42</publishTime>
+      <publishTime>10/02/2018 08:32:36</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.pdb">
-      <publishTime>10/01/2018 01:46:42</publishTime>
+      <publishTime>10/02/2018 08:32:36</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll">
       <publishTime>10/01/2018 01:23:19</publishTime>
@@ -2505,6 +2505,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery-1.10.2.min.map">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
+    <File Include="Scripts/jquery-2.1.4.js">
+      <publishTime>10/01/2018 22:38:02</publishTime>
+    </File>
     <File Include="Scripts/jquery.validate.js">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
@@ -2527,7 +2530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/01/2018 22:38:02</publishTime>
     </File>
     <File Include="Views/AboutUs/Contact.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2536,7 +2539,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 15:35:09</publishTime>
     </File>
     <File Include="Views/Account/Confirm.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/02/2018 01:16:43</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2545,16 +2548,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Account/Forget.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/02/2018 08:08:05</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/01/2018 22:38:02</publishTime>
     </File>
     <File Include="Views/Account/Manage.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/01/2018 22:38:02</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2572,7 +2575,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Error/ErrorPage.cshtml">
-      <publishTime>09/20/2018 15:20:35</publishTime>
+      <publishTime>10/02/2018 01:13:09</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>10/01/2018 01:21:21</publishTime>
@@ -2593,16 +2596,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/26/2018 13:21:53</publishTime>
     </File>
     <File Include="Views/Order/Create.cshtml">
-      <publishTime>09/28/2018 00:38:24</publishTime>
+      <publishTime>10/02/2018 01:00:27</publishTime>
+    </File>
+    <File Include="Views/Order/Edit.cshtml">
+      <publishTime>10/02/2018 00:30:50</publishTime>
+    </File>
+    <File Include="Views/Order/GetMailer.cshtml">
+      <publishTime>10/02/2018 08:26:42</publishTime>
     </File>
     <File Include="Views/Order/List.cshtml">
-      <publishTime>10/01/2018 01:44:55</publishTime>
+      <publishTime>10/02/2018 03:17:09</publishTime>
     </File>
     <File Include="Views/Order/OrderList.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Order/SearchMailer.cshtml">
-      <publishTime>10/01/2018 01:44:41</publishTime>
+      <publishTime>10/02/2018 08:26:13</publishTime>
     </File>
     <File Include="Views/Post/AccountPost.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2623,7 +2632,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/26/2018 13:21:53</publishTime>
     </File>
     <File Include="Views/Post/PricePage.cshtml">
-      <publishTime>10/01/2018 01:18:58</publishTime>
+      <publishTime>10/01/2018 12:33:46</publishTime>
     </File>
     <File Include="Views/Post/Recruitment.cshtml">
       <publishTime>09/26/2018 14:24:22</publishTime>
@@ -2656,7 +2665,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Views/Transport/Service.cshtml">
-      <publishTime>09/26/2018 13:21:53</publishTime>
+      <publishTime>10/01/2018 14:10:36</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/19/2018 11:37:13</publishTime>
