@@ -11,7 +11,7 @@ namespace MNPOSTAPI.Models
         public string DocumentID { get; set; }
         public DateTime DocumentDate { get; set; }
         public string PaymentID { get; set; }
-        public float Total { get; set; }
+        public decimal Total { get; set; }
     }
     public class CODDetail
     {
