@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\COD\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Controllers\mobile\UserAPIPresenter.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\web\CatalogController.cs" />
+    <Compile Include="Controllers\web\CODController.cs" />
     <Compile Include="Controllers\web\CustomerController.cs" />
     <Compile Include="Controllers\web\MailerController.cs" />
     <Compile Include="Controllers\web\WebBaseController.cs" />
@@ -182,6 +184,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CatalogEntity.cs" />
+    <Compile Include="Models\CODEntity.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerEntity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
