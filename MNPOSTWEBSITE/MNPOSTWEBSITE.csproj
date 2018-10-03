@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\SessionPaymentController.cs" />
     <Compile Include="Controllers\TransportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1056,6 +1057,10 @@
     <Content Include="Views\Post\PricePage.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\GetMailer.cshtml" />
+    <Content Include="Views\SessionPayment\Index.cshtml" />
+    <Content Include="Views\SessionPayment\SearchCOD.cshtml" />
+    <Content Include="Views\SessionPayment\Detail.cshtml" />
+    <Content Include="Views\SessionPayment\Transaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

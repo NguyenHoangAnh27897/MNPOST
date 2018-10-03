@@ -170,4 +170,30 @@ namespace MNPOSTWEBSITE.Models
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public string DeliveryNotes { get; set; }
     }
+
+    public class CODEntity
+    {
+        public string PostOfficeID { get; set; }
+        public string DocumentID { get; set; }
+        public DateTime DocumentDate { get; set; }
+        public string PaymentID { get; set; }
+        public float Total { get; set; }
+    }
+    public class CODDetail
+    {
+        public string PostOfficeID { get; set; }
+        public string DocumentID { get; set; }
+        public DateTime DocumentDate { get; set; }
+        public string PaymentID { get; set; }
+        public string MailerID { get; set; }
+        public string RecieverName { get; set; }
+        public decimal COD { get; set; }
+    }
+    public class CODTotal
+    {
+        public decimal SapChuyen { get; set; }
+        public decimal ChuaGiao { get; set; }
+        public decimal DaGiao { get; set; }
+        public decimal DaChuyen { get; set; }
+    }
 }

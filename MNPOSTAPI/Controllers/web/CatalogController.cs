@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using MNPOSTCOMMON;
 using MNPOSTAPI.Models;
+using System.Data.SqlClient;
 namespace MNPOSTAPI.Controllers.web
 {
     public class CatalogController : WebBaseController
