@@ -1072,6 +1072,7 @@
     <Folder Include="Content\login\js\" />
     <Folder Include="Content\login\vendor\" />
     <Folder Include="document\excel\" />
+    <Folder Include="document\pdf\" />
     <Folder Include="images\post\" />
     <Folder Include="Report\" />
     <Folder Include="Views\Base\" />

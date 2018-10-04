@@ -396,5 +396,45 @@ namespace MNPOSTWEBSITE.Controllers
                 return RedirectToAction("ErrorPage", "Error");
             }
         }
+
+        [HttpPost]
+        public ActionResult UploadPDF(HttpPostedFileBase FilePDF)
+        {
+            if (Session["Authentication"] != null)
+            {
+                if (Session["RoleID"].ToString().Equals("Admin"))
+                {
+                    try
+                    {
+                        if(Request.Files["FilePDF"].ContentLength > 0)
+                        {
+                            string fileExtension = System.IO.Path.GetExtension(Request.Files["FilePDF"].FileName);
+                            if (fileExtension == ".pdf")
+                            {
+                                string fileLocation = Server.MapPath("~/document/pdf/") + Request.Files["FilePDF"].FileName;
+                                if (System.IO.File.Exists(fileLocation))
+                                {
+                                    System.IO.File.Delete(fileLocation);
+                                }
+                                Request.Files["FilePDF"].SaveAs(fileLocation);
+                            }
+                        }
+                        return RedirectToAction("AccountPost", "Post");
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("ErrorPage", "Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
     }
 }

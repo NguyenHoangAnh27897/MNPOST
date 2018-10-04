@@ -703,15 +703,13 @@ namespace MNPOSTWEBSITE.Controllers
                         DataSet ds = new DataSet();
                         if (Request.Files["FileExcel"].ContentLength > 0)
                         {
-                            string fileExtension =
-                                                 System.IO.Path.GetExtension(Request.Files["FileExcel"].FileName);
+                            string fileExtension = System.IO.Path.GetExtension(Request.Files["FileExcel"].FileName);
 
                             if (fileExtension == ".xls" || fileExtension == ".xlsx")
                             {
                                 string fileLocation = Server.MapPath("~/document/excel/") + Request.Files["FileExcel"].FileName;
                                 if (System.IO.File.Exists(fileLocation))
                                 {
-
                                     System.IO.File.Delete(fileLocation);
                                 }
                                 Request.Files["FileExcel"].SaveAs(fileLocation);
