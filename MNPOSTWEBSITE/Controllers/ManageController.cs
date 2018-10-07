@@ -9,6 +9,8 @@ using MNPOSTWEBSITEMODEL;
 using System.Threading.Tasks;
 using MNPOSTWEBSITE.Models;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -19,12 +21,26 @@ namespace MNPOSTWEBSITE.Controllers
         // GET: /Manage/
         public ActionResult Index()
         {
+
             if (Session["Authentication"] != null)
             {
-                ViewBag.CusInfo = getcusinfo().Result;
-                string id = Session["ID"].ToString();
-                var user = db.AspNetUsers.Where(s => s.Id == id);
-                return View(user);
+                try
+                {
+                    string id = Session["ID"].ToString();
+                    var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+                    ViewBag.CusInfo = "";
+                    if (cusid != null)
+                    {
+                        ViewBag.CusInfo = getcusinfo(cusid).Result.CustomerCode;
+                        Session["CustomerID"] = getcusinfo(cusid).Result.CustomerCode;
+                    }
+                    var user = db.AspNetUsers.Where(s => s.Id == id);
+                    return View(user);
+                }catch(Exception ex)
+                {
+                    return RedirectToAction("ErrorPage","Error");
+                }
+             
             }
             else
             {
@@ -33,10 +49,9 @@ namespace MNPOSTWEBSITE.Controllers
 
         }
 
-        public async Task<string> getcusinfo()
+        public async Task<CustomerInfo> getcusinfo(string cusid)
         {
-            string id = Session["ID"].ToString();
-            var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+            CustomerInfo cus = new CustomerInfo();
             if(cusid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -49,15 +64,22 @@ namespace MNPOSTWEBSITE.Controllers
                         {
                             string token = await content.ReadAsStringAsync();
                             var obj = JObject.Parse(token);
-                            string idsv = (string)obj["customer"]["CustomerCode"];
-                            return idsv;
+                            var jobj =  obj["customer"];
+                            string jsonstring = JsonConvert.SerializeObject(jobj);
+                            if (jsonstring != null)
+                            {
+                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                cus = (CustomerInfo)serializer.Deserialize(jsonstring, typeof(CustomerInfo));
+                                return cus;
+                            }
+                            return cus;
                         }
                     }
                 }
             }
             else
             {
-                return "";
+                return cus;
             }   
         }
 
@@ -198,6 +220,64 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 return RedirectToAction("ErrorPage", "Error");
             }
+        }
+
+        public ActionResult EditAccount(string id)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                        var rs = getcusinfo(id).Result;
+                        return View(rs);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+        [HttpPost]
+        public async Task<ActionResult> EditCustomer(string Fullname, string Phone, string Address, string SenderWardID, string SenderDistrictID, string SenderProvinceID)
+        {
+            try
+            {
+                await UpdateCustomer(Fullname, Phone, Address, SenderWardID, SenderDistrictID, SenderProvinceID);
+                return RedirectToAction("Index","Manage");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
+        public async Task<ActionResult> UpdateCustomer(string Fullname, string Phone, string Address, string SenderWardID, string SenderDistrictID, string SenderProvinceID)
+        {
+            string id = Session["ID"].ToString();
+            var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+            CustomerInfo cus = new CustomerInfo
+            {
+                CustomerID = cusid,
+                Phone = Phone,
+                Address = Address,
+                CustomerName = Fullname,
+                ProvinceID = SenderProvinceID,
+                DistrictID = SenderDistrictID,
+                WardID = SenderWardID
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://221.133.7.74:90/api/customer/updatecustomer";
+            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

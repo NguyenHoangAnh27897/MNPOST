@@ -162,6 +162,8 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IsActive = true;
                     db.SaveChanges();
+                    var cusid = db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IDClient;
+                    await UpdateCustomer(cusid, true);
                     return RedirectToAction("Confirm", "Account", new { Email = user.UserName });
                 }
             }
@@ -181,7 +183,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         public async Task<ActionResult> AddCustomer(string custid, string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
         {
-            Customer cus = new Customer
+            CustomerInfo cus = new CustomerInfo
             {
                 CustomerName = Fullname,
                 Phone = Phone,
@@ -202,18 +204,17 @@ namespace MNPOSTWEBSITE.Controllers
                 rs.IDClient = msg;
                 db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return Json(new ResultInfo() { error = 0, msg = custid, data = cus }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = false)
+        public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = true)
         {
-            Customer cus = new Customer
+            CustomerInfo cus = new CustomerInfo
             {
                 CustomerID = custid,
-                IsActive = IsActive,
-                CreateDate = DateTime.Now
+                IsActive = IsActive
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
