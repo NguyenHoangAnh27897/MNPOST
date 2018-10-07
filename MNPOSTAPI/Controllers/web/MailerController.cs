@@ -11,7 +11,7 @@ namespace MNPOSTAPI.Controllers.web
     public class MailerController : WebBaseController
     {
         [HttpGet]
-        public MailerInfoResultbyID GetMailerbyID(string id)
+        public MailerInfoResultbyID GetMailerbyID(string id, string customerid)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace MNPOSTAPI.Controllers.web
                 {
                     error = 0,
                     msg = "400-OK",
-                    mailer = db.MM_Mailers.Find(id)
+                    mailer = db.MM_Mailers.Where(s => s.MailerID == id && s.SenderID == customerid).FirstOrDefault()
                 };
                 return result;
             }catch
@@ -54,7 +54,7 @@ namespace MNPOSTAPI.Controllers.web
                 return result;
             }          
         }
-        [HttpGet]
+        [HttpGet]  
         public MailerInfoResult GetMailerbyCustomerID(string customerid)
         {
             try
@@ -77,6 +77,40 @@ namespace MNPOSTAPI.Controllers.web
                 return result;
             }
         }
+
+        [HttpPost]
+        public ResultInfo DeleteCustomerByCustomerID()
+        {
+            ResultInfo result = new ResultInfo()
+            {
+                error = 0,
+                msg = "Cap nhat thanh cong"
+            };
+
+            try
+            {
+                var requestContent = Request.Content.ReadAsStringAsync().Result;
+
+                var jsonserializer = new JavaScriptSerializer();
+                var paser = jsonserializer.Deserialize<AddMailerRequest>(requestContent);
+
+                var data = paser.mailer;
+                var checkmailer = db.MM_Mailers.Find(data.MailerID);
+                if (data == null)
+                    throw new Exception("Sai du lieu gui len");
+
+                db.MM_Mailers.Remove(checkmailer); ;
+                db.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                result.error = 1;
+                result.msg = e.Message;
+            }
+            return result;
+        }
+
         [HttpPost]
         public ResultInfo AddMailer()
         {
@@ -104,7 +138,6 @@ namespace MNPOSTAPI.Controllers.web
 
                 db.MM_Mailers.Add(data);
                 db.SaveChanges();
-
             }
             catch (Exception e)
             {

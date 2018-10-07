@@ -1,8 +1,45 @@
-﻿
+﻿@model IEnumerable<MNPOSTWEBSITEMODEL.WS_Recruitment>
 @{
     ViewBag.Title = "Recruitment";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
 }
 
-<h2>Recruitment</h2>
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Danh sách bài viết</h3>
+        <div class="row">
 
+            <div class="row mt">
+                <div class="col-md-12">
+                    <div class="content-panel">
+                        <table class="table table-bordered table-striped table-condensed">
+                            <h4><i class="fa fa-angle-right"></i> Bài viết</h4>
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-code"></i>ID</th>
+                                    <th><i class="fa fa-users"></i>Tên vị trí tuyển dụng</th>
+                                    <th><i class="fa fa-edit"></i> Chỉnh sửa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            <form action="/post/editrecruitment/@item.ID">
+                                                <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- /content-panel -->
+                </div><!-- /col-md-12 -->
+            </div><!-- /row -->
+        </div>
+    </section><! --/wrapper -->
+</section><!-- /MAIN CONTENT -->

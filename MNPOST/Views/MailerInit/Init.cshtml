@@ -80,15 +80,15 @@
                                                         <td><input type="text" ng-model="item.SenderName" class="tableinput" required /></td>
                                                         <td><input type="tel" ng-model="item.SenderPhone" class="tableinput" required /></td>
                                                         <td><input type="text" ng-model="item.SenderAddress" required class="tableinput" typeahead-on-select="onSelectAddress($item, $model, $label, $index, 'send')" typeahead-on-select="fillAddress()" uib-typeahead="address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" /></td>
-                                                        <td><input type="text" ng-model="item.SenderProvinceID" required class="tableinput" disabled /></td>
-                                                        <td><input type="text" ng-model="item.SenderDistrictID" required class="tableinput" disabled /></td>
-                                                        <td><input type="text" ng-model="item.SenderWardID" class="tableinput" disabled /></td>
+                                                        <td><input type="text" ng-model="item.SenderProvinceID" required class="tableinput"  /></td>
+                                                        <td><input type="text" ng-model="item.SenderDistrictID" required class="tableinput"  /></td>
+                                                        <td><input type="text" ng-model="item.SenderWardID" class="tableinput"  /></td>
                                                         <td><input type="text" ng-model="item.RecieverName" required class="tableinput" /></td>
                                                         <td><input type="tel" ng-model="item.RecieverPhone" class="tableinput" required /></td>
                                                         <td><input type="text" ng-model="item.RecieverAddress" required class="tableinput" typeahead-on-select="onSelectAddress($item, $model, $label,$index, 'receive')" uib-typeahead="address.formatted_address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" /></td>
-                                                        <td><input type="text" ng-model="item.RecieverProvinceID" class="tableinput" disabled required /></td>
-                                                        <td><input type="text" ng-model="item.RecieverDistrictID" class="tableinput" disabled required /></td>
-                                                        <td><input type="text" ng-model="item.RecieverWardID" class="tableinput" disabled /></td>
+                                                        <td><input type="text" ng-model="item.RecieverProvinceID" class="tableinput"  required /></td>
+                                                        <td><input type="text" ng-model="item.RecieverDistrictID" class="tableinput" required /></td>
+                                                        <td><input type="text" ng-model="item.RecieverWardID" class="tableinput" /></td>
                                                         <td>
                                                             <select ng-model="item.MailerTypeID" class="tableinput">
                                                                 <option ng-repeat="mailerType in mailerTypes" required value="{{mailerType.code}}">{{mailerType.name}}</option>
@@ -113,6 +113,7 @@
                                                         <td><input type="number" ng-model="item.CODPrice" class="tableinput" required step="any" /></td>
                                                         <td><input type="number" ng-model="item.PriceMain" class="tableinput" required step="any" /></td>
                                                         <td><input type="number" ng-model="item.PriceDefault" class="tableinput" required step="any" /></td>
+                                                        <td><a class="btn btn-primary btn-xs" ng-click="calPrice($index)">Tính giá</a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

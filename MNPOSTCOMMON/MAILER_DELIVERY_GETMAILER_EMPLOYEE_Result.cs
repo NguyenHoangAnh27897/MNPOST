@@ -23,5 +23,6 @@ namespace MNPOSTCOMMON
         public string RecieverPhone { get; set; }
         public string RecieverName { get; set; }
         public string RecieverDistrictID { get; set; }
+        public Nullable<int> CurrentStatusID { get; set; }
     }
 }

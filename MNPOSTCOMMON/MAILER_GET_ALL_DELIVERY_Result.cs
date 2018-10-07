@@ -15,6 +15,7 @@ namespace MNPOSTCOMMON
     {
         public string DocumentID { get; set; }
         public string DocumentDate { get; set; }
+        public string DocumentTime { get; set; }
         public string EmployeeID { get; set; }
         public string Notes { get; set; }
         public Nullable<int> Quantity { get; set; }
@@ -27,6 +28,5 @@ namespace MNPOSTCOMMON
         public string EmployeeName { get; set; }
         public string EmployeePhone { get; set; }
         public string EmployeeEmail { get; set; }
-        public string DocumentTime { get; set; }
     }
 }

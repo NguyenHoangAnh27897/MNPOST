@@ -17,66 +17,55 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult Init()
         {
-            var allCus = db.BS_Customers.ToList();
 
-            List<CustomerInfoResult> cusResult = new List<CustomerInfoResult>();
-
-            foreach (var item in allCus)
+            ViewBag.Customers = db.BS_Customers.Select(item => new
             {
-                cusResult.Add(new CustomerInfoResult()
-                {
-                    code = item.CustomerCode,
-                    name = item.CustomerName,
-                    phone = item.Phone,
-                    provinceId = item.ProvinceID,
-                    address = item.Address,
-                    districtId = item.DistrictID,
-                    wardId = item.WardID
-                });
-            }
+                code = item.CustomerCode,
+                name = item.CustomerName,
+                phone = item.Phone,
+                provinceId = item.ProvinceID,
+                address = item.Address,
+                districtId = item.DistrictID,
+                wardId = item.WardID
+            }).ToList();
 
-            ViewBag.Customers = cusResult;
+            // dịch vu
 
-            //
-            List<CommonData> allMailerType = db.BS_ServiceTypes.Select(p => new CommonData()
+            ViewBag.MailerTypes = db.BS_ServiceTypes.Select(p => new CommonData()
             {
                 code = p.ServiceID,
                 name = p.ServiceName
             }).ToList();
 
-            ViewBag.MailerTypes = allMailerType;
-
-            //
+            // hinh thuc thanh toan
             ViewBag.Payments = db.CDatas.Where(p => p.CType == "MAILERPAY").Select(p => new CommonData() { code = p.Code, name = p.Name }).ToList();
 
 
-            //
-            List<ItemPriceCommon> allServices = db.BS_Services.Select(p => new ItemPriceCommon()
+            // danh sach phu phi
+            ViewBag.Services = db.BS_Services.Select(p => new ItemPriceCommon()
             {
                 code = p.ServiceID,
                 name = p.ServiceName,
                 price = p.Price,
                 choose = false
 
-            }).ToList();
+            }).ToList(); ;
 
-            ViewBag.Services = allServices;
-
-            //
+            // buu cuc
             ViewBag.PostOffices = EmployeeInfo.postOffices;
 
-            // danh sach tinh thanh
-            List<CommonData> allProvince = GetProvinceDatas("", "province");
-            ViewBag.Provinces = allProvince;
+            // tinh thanh
+            ViewBag.Provinces = GetProvinceDatas("", "province");
 
 
             return View();
         }
 
 
+
         #region
         [HttpPost]
-        public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string senderWard)
+        public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string senderWard, string postId)
         {
             List<MailerIdentity> mailers = new List<MailerIdentity>();
             var result = new ResultInfo()
@@ -344,8 +333,8 @@ namespace MNPOST.Controllers.mailer
                         var isOtherPirce = otherPriceIdx == -1 ? false : Regex.IsMatch(otherPriceValue==null?"0":otherPriceValue.ToString(), @"^\d+$");
                         var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
 
-
-                        var price = 0;
+                        
+                        var price = db.CalPrice(weight, senderID, senderProvince,mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
                         var codPrice = 0;
 
                         otherPrice += codPrice;
