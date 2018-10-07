@@ -44,6 +44,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.MM_History" Width="1.5" PointX="6.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDelivery" Width="1.5" PointX="8" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_Mailers" Width="1.5" PointX="8.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerServices" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingList" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingListDetail" Width="1.5" PointX="14.75" PointY="18.75" IsExpanded="true" />
@@ -59,11 +60,6 @@
         <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__628FA481" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucher" Width="1.5" PointX="21.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucherDetails" Width="1.5" PointX="21.375" PointY="4.75" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_PriceCustomers" Width="1.5" PointX="21.375" PointY="7.75" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_PriceServiceTypes" Width="1.5" PointX="9.375" PointY="21.75" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_Mailers" Width="1.5" PointX="19.375" PointY="21.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

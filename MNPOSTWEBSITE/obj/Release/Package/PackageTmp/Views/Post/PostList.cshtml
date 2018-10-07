@@ -4,6 +4,47 @@
 @{
     ViewBag.Title = "PostList";
 }
+
+<!-- Blog List -->
+@*<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                @for (int j = 1; j <= Model.Count; j++)
+                {
+                    <div class="row">
+                        @for (int i = 0; i < 3; i++)
+                        {
+                            if (Model.FirstOrDefault(s => s.ID == j) != null)
+                            {
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="card blog-card">
+                                        <a href="/post/detailpost/@Model.FirstOrDefault(s=>s.ID == j).ID">
+                                            <img class="card-img-top" src="/images/post/@Model.FirstOrDefault(s=>s.ID == j).Images" alt="@Model.FirstOrDefault(s=>s.ID == j).Images">
+                                            <div class="card-body">
+                                                <span class="badge badge-success">@Model.FirstOrDefault(s => s.ID == j).Service</span>
+                                                <h6>@Model.FirstOrDefault(s => s.ID == j).PostName</h6>
+                                                <p class="mb-0">@Html.Raw(@Model.FirstOrDefault(s => s.ID == j).PostContent)</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <p class="mb-0">đăng bởi <strong>@Model.FirstOrDefault(s => s.ID == j).PostBy</strong> @Model.FirstOrDefault(s => s.ID == j).CreatedDate</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                j++;
+                            }
+                        }
+                    </div>
+                }
+                <br />
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("PostList", new { page}))
+            </div>
+        </div>
+    </div>
+</section>*@
+<!-- End Blog List -->
 <div id='main' class='all_colors' data-scroll-offset='60'>
 
     <div class='stretch_full container_wrap alternate_color light_bg_color title_container'><div class='container'><h1 class='main-title entry-title'><a href='https://ecotrans.vn/tin-tuc' rel='bookmark' title='Permanent Link: Tin tức' itemprop="headline">Tin tức</a></h1><div class="breadcrumb breadcrumbs avia-breadcrumbs"><div class="breadcrumb-trail" xmlns:v="http://rdf.data-vocabulary.org/#"><span class="trail-before"><span class="breadcrumb-title"></span></span> <a href="https://ecotrans.vn" title="Chuyển phát nhanh Ecotrans" rel="home" class="trail-begin">Trang chủ</a> <span class="sep">/</span> <span class="trail-end">Tin tức</span></div></div></div></div><div class='main_color container_wrap_first container_wrap sidebar_right'>

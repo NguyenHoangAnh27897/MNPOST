@@ -813,6 +813,9 @@
   <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="MAILER_GET_ALL_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />

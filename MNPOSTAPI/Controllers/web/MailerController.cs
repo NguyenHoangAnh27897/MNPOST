@@ -12,7 +12,7 @@ namespace MNPOSTAPI.Controllers.web
     public class MailerController : WebBaseController
     {
         [HttpGet]
-        public MailerInfoResultbyID GetMailerbyID(string id, string customerid)
+        public MailerInfoResultbyID GetMailerbyID(string id)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace MNPOSTAPI.Controllers.web
                 {
                     error = 0,
                     msg = "400-OK",
-                    mailer = db.MM_Mailers.Where(s => s.MailerID == id && s.SenderID == customerid).FirstOrDefault()
+                    mailer = db.MM_Mailers.Find(id)
                 };
                 return result;
             }catch
@@ -55,7 +55,7 @@ namespace MNPOSTAPI.Controllers.web
                 return result;
             }          
         }
-        [HttpGet]  
+        [HttpGet]
         public MailerInfoResult GetMailerbyCustomerID(string customerid)
         {
             try
@@ -78,6 +78,7 @@ namespace MNPOSTAPI.Controllers.web
                 return result;
             }
         }
+<<<<<<< HEAD
         [HttpGet]
         public CalPrice GetPrice(decimal weight,string customerid,string provinceid,string servicetypeid,string postofficeid,string date)
         {
@@ -141,6 +142,8 @@ namespace MNPOSTAPI.Controllers.web
             return result;
         }
 
+=======
+>>>>>>> 6664cf0e7d0350e1c394564f99144079d55accb6
         [HttpPost]
         public ResultInfo AddMailer()
         {
@@ -168,6 +171,7 @@ namespace MNPOSTAPI.Controllers.web
 
                 db.MM_Mailers.Add(data);
                 db.SaveChanges();
+
             }
             catch (Exception e)
             {
