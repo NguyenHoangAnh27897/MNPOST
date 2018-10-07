@@ -38,15 +38,6 @@ D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 D:\Laptrinh\Github\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.dll
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.dll
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xml
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\MNPOSTWEBSITEMODEL.pdb
@@ -69,4 +60,3 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramewo
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache

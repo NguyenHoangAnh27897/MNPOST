@@ -166,6 +166,9 @@
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MAILER_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

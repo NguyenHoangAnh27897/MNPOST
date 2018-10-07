@@ -818,6 +818,9 @@
         <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="MAILER_GET_ALL_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="varchar" Mode="In" />
           <Parameter Name="tdate" Type="varchar" Mode="In" />
@@ -1864,8 +1867,11 @@
             <Parameter Name="districtId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ROUTE_GETMAILER_BYEMPLOYEEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETMAILER_BYEMPLOYEEID_Result)">
-          <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="employeeId" Mode="In" Type="String" />
             <Parameter Name="postId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE" ReturnType="Collection(MNPOSTModel.MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result)">
+          <Parameter Name="employeeId" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="COUNTRY_GETALL_Result">
@@ -2338,6 +2344,18 @@
           <Property Type="String" Name="DeliveryNotes" Nullable="true" />
           <Property Type="String" Name="RouteID" Nullable="false" MaxLength="128" />
           <Property Type="Boolean" Name="IsDetail" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DocumentTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RecieverName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3655,6 +3673,22 @@
                 <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
                 <ScalarProperty Name="RouteID" ColumnName="RouteID" />
                 <ScalarProperty Name="IsDetail" ColumnName="IsDetail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_DELIVERY_GETMAILER_EMPLOYEE" FunctionName="MNPOSTModel.Store.MAILER_DELIVERY_GETMAILER_EMPLOYEE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

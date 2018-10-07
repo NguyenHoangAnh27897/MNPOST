@@ -169,10 +169,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\mobile\UserAPIContract.cs" />
-    <Compile Include="Controllers\mobile\UserAPIController.cs" />
-    <Compile Include="Controllers\mobile\UserAPIIdentity.cs" />
-    <Compile Include="Controllers\mobile\UserAPIPresenter.cs" />
+    <Compile Include="Controllers\mobile\BaseMobileController.cs" />
+    <Compile Include="Controllers\mobile\mailer\MailerAPIController.cs" />
+    <Compile Include="Controllers\mobile\mailer\MailerPresenter.cs" />
+    <Compile Include="Controllers\mobile\user\UserAPIController.cs" />
+    <Compile Include="Controllers\mobile\user\UserAPIIdentity.cs" />
+    <Compile Include="Controllers\mobile\user\UserAPIPresenter.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\web\CatalogController.cs" />
     <Compile Include="Controllers\web\CustomerController.cs" />
