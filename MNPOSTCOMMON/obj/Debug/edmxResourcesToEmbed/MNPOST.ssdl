@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -9,6 +9,29 @@
     <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
     <Property Name="Model" Type="varbinary(max)" Nullable="false" />
     <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AC_CODDebitVoucher">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="DocumentDate" Type="date" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
+    <Property Name="PaymentID" Type="nvarchar" MaxLength="30" />
+    <Property Name="CustomerID" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsPayment" Type="bit" />
+    <Property Name="Total" Type="money" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="AC_CODDebitVoucherDetails">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="20" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="AC_CustomerDebitVoucher">
     <Key>
@@ -274,6 +297,13 @@
     <Property Name="BankName" Type="nvarchar" MaxLength="100" />
     <Property Name="Type" Type="int" />
   </EntityType>
+  <EntityType Name="BS_PriceCustomers">
+    <Key>
+      <PropertyRef Name="PriceMatrixID" />
+    </Key>
+    <Property Name="PriceMatrixID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CustomerID" Type="nvarchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="BS_PriceGroups">
     <Key>
       <PropertyRef Name="GroupID" />
@@ -299,6 +329,14 @@
     <Property Name="ApplyAllZone" Type="nvarchar" MaxLength="5" />
     <Property Name="Description" Type="nvarchar" MaxLength="200" />
     <Property Name="Service" Type="bit" />
+  </EntityType>
+  <EntityType Name="BS_PriceServiceTypes">
+    <Key>
+      <PropertyRef Name="PriceMatrixID" />
+      <PropertyRef Name="ServiceTypeID" />
+    </Key>
+    <Property Name="PriceMatrixID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ServiceTypeID" Type="nvarchar" MaxLength="2" Nullable="false" />
   </EntityType>
   <EntityType Name="BS_Provinces">
     <Key>
@@ -401,6 +439,13 @@
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'MNPOST.dbo.BS_ZoneProvines' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="BS_ZoneProvines">
+          <Property Name="GroupID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ZoneID" Type="nvarchar" MaxLength="20" />
+          <Property Name="ProvinceID" Type="nvarchar" MaxLength="10" />
+        </EntityType>-->
   <EntityType Name="BS_Zones">
     <Key>
       <PropertyRef Name="ZoneID" />
@@ -599,6 +644,7 @@
     <Property Name="DeliveryTo" Type="nvarchar(max)" />
     <Property Name="DeliveryDate" Type="datetime" />
     <Property Name="DeliveryNotes" Type="nvarchar(max)" />
+    <Property Name="CreateType" Type="int" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -868,6 +914,8 @@
   <Function Name="WARD_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="MNPOSTModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AC_CODDebitVoucher" EntityType="Self.AC_CODDebitVoucher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AC_CODDebitVoucherDetails" EntityType="Self.AC_CODDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CustomerDebitVoucher" EntityType="Self.AC_CustomerDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="Self.AC_CustomerDebitVoucherDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -885,8 +933,10 @@
     <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_PriceCustomers" EntityType="Self.BS_PriceCustomers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PriceGroups" EntityType="Self.BS_PriceGroups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PriceMaTrixs" EntityType="Self.BS_PriceMaTrixs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_PriceServiceTypes" EntityType="Self.BS_PriceServiceTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Provinces" EntityType="Self.BS_Provinces" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_RangeValues" EntityType="Self.BS_RangeValues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_RangeWeights" EntityType="Self.BS_RangeWeights" Schema="dbo" store:Type="Tables" />
