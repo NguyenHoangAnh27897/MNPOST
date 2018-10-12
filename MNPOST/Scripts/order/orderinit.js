@@ -14,6 +14,16 @@ app.service('mailerService', function () {
     var payments = paymentsGet;
 
 
+    var postchoose = '';
+
+    var setPost = function (post) {
+        postchoose = post;
+    };
+
+    var getPost = function () {
+        return postchoose;
+    };
+
     var actionEdit = true;
 
     var addMailer = function (newObj) {
@@ -98,7 +108,9 @@ app.service('mailerService', function () {
         getActionEdit: getActionEdit,
         getNewMailer: getNewMailer,
         getMerchandises: getMerchandises,
-        resetMailers: resetMailers
+        resetMailers: resetMailers,
+        getPost: getPost,
+        setPost: setPost
     };
 
 });
@@ -137,6 +149,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
         if ($scope.postOffices.length === 1) {
             $scope.postchoose = $scope.postOffices[0];
+            mailerService.setPost($scope.postchoose);
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -150,6 +163,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             alert('Chọn bưu cục nếu không sẽ không thể thao tác');
         } else {
             $scope.postchoose = $scope.postchoose;
+            mailerService.setPost($scope.postchoose);
             hideModel('choosePostOfficeModal');
         }
     };
@@ -304,6 +318,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             $scope.senderExcelInfo.senderAddress = cus.address;
             $scope.senderExcelInfo.senderDistrict = cus.districtId;
             $scope.senderExcelInfo.senderWard = cus.wardId;
+            $scope.senderExcelInfo.postId = mailerService.getPost();
         }
     };
 
@@ -330,6 +345,33 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             }
 
         });
+    };
+
+    $scope.calPrice = function (index) {
+        var info = $scope.mailers[index];
+        $http({
+            method: "POST",
+            url: "/mailer/calbillprice",
+            data: {
+                'weight': info.Weight,
+                'customerId': info.SenderID,
+                'provinceId': info.SenderProvinceID,
+                'serviceTypeId': info.MailerTypeID,
+                'postId': mailerService.getPost(),
+                'cod': info.COD,
+                'goodPrice': info.MerchandiseValue
+            }
+        }).then(function mySuccess(response) {
+
+            $scope.mailers[index].PriceMain = response.data.price;
+            $scope.mailers[index].CODPrice = response.data.codPrice;
+
+            $scope.mailers[index].PriceDefault = $scope.mailers[index].PriceMain + $scope.mailers[index].CODPrice + $scope.mailers[index].PriceService;
+
+        }, function myError(response) {
+            alert('Connect error');
+        });
+
     };
 
     // upload file
@@ -467,7 +509,6 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
         var cus = mailerService.findCustomer($scope.mailer.SenderID);
 
         if (cus) {
-            $scope.mailer.SenderName = cus.name;
             $scope.mailer.SenderPhone = cus.phone;
             $scope.mailer.SenderProvinceID = cus.provinceId;
             $scope.mailer.SenderAddress = cus.address;
@@ -588,9 +629,10 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             url: "/mailer/calbillprice",
             data: {
                 'weight': $scope.mailer.Weight,
-                'width': $scope.mailer.WidthSize,
-                'height': $scope.mailer.HeightSize,
-                'length': $scope.mailer.LengthSize,
+                'customerId': $scope.mailer.SenderID,
+                'provinceId': $scope.mailer.SenderProvinceID,
+                'serviceTypeId': $scope.mailer.MailerTypeID,
+                'postId': mailerService.getPost(),
                 'cod': $scope.mailer.COD,
                 'goodPrice': $scope.mailer.MerchandiseValue
             }

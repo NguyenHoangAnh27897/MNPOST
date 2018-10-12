@@ -24,8 +24,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Web.Infrastructure.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Newtonsoft.Json.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Owin.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\PagedList.Mvc.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\ReportViewerForMvc.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Mvc.dll
@@ -62,8 +60,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.OAuth.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Google.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Twitter.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Release\MNPOST.csprojAssemblyReference.cache
-D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Release\MNPOST.csproj.CoreCompileInputs.cache
-D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Release\MNPOST.csproj.CopyComplete
+D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Release\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Release\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Release\MNPOST.pdb

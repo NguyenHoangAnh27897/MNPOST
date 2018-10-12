@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\THINK\Desktop\work temp\MMBox\MNPOST</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\work temp\MMBox\AdminSite</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -73,16 +73,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:30</publishTime>
     </File>
     <File Include="bin/MNPOST.dll">
-      <publishTime>09/24/2018 11:21:29</publishTime>
+      <publishTime>10/08/2018 05:40:29</publishTime>
     </File>
     <File Include="bin/MNPOST.pdb">
       <publishTime>09/24/2018 11:21:29</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>09/24/2018 11:21:28</publishTime>
+      <publishTime>10/08/2018 05:40:27</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
-      <publishTime>08/23/2018 16:34:49</publishTime>
+      <publishTime>10/07/2018 15:15:12</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
       <publishTime>09/24/2018 11:21:28</publishTime>
@@ -12829,19 +12829,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Scripts/myscripts.js">
-      <publishTime>09/06/2018 11:51:24</publishTime>
+      <publishTime>10/08/2018 04:47:19</publishTime>
     </File>
     <File Include="Scripts/order/mailerdelivery.js">
       <publishTime>09/13/2018 13:50:44</publishTime>
     </File>
     <File Include="Scripts/order/mailerimport.js">
-      <publishTime>09/24/2018 11:20:44</publishTime>
+      <publishTime>10/08/2018 05:33:51</publishTime>
     </File>
     <File Include="Scripts/order/mailershow.js">
       <publishTime>09/24/2018 11:20:39</publishTime>
     </File>
     <File Include="Scripts/order/orderinit.js">
-      <publishTime>09/24/2018 11:19:42</publishTime>
+      <publishTime>10/07/2018 18:39:35</publishTime>
     </File>
     <File Include="Scripts/respond.js">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -12895,7 +12895,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Views/Customer/Show.cshtml">
-      <publishTime>08/23/2018 15:56:13</publishTime>
+      <publishTime>10/07/2018 15:42:01</publishTime>
     </File>
     <File Include="Views/CustomerGroup/Show.cshtml">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -12946,10 +12946,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Views/MailerImport/Show.cshtml">
-      <publishTime>09/04/2018 02:45:21</publishTime>
+      <publishTime>10/08/2018 05:35:32</publishTime>
     </File>
     <File Include="Views/MailerInit/Init.cshtml">
-      <publishTime>09/24/2018 11:19:48</publishTime>
+      <publishTime>10/07/2018 18:31:21</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -13015,7 +13015,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/24/2018 11:21:32</publishTime>
+      <publishTime>10/07/2018 18:41:25</publishTime>
     </File>
   </ItemGroup>
 </Project>

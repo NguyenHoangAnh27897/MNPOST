@@ -11,4 +11,11 @@ namespace MNPOSTAPI.Models
 
         public string msg { get; set; }
     }
+
+    public class ResponseInfo : ResultInfo
+    {
+
+        public Object data { get; set; }
+    }
+
 }

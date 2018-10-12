@@ -49,6 +49,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:19</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.dll">
+<<<<<<< HEAD
+      <publishTime>09/30/2018 19:39:44</publishTime>
+    </File>
+    <File Include="bin/MNPOSTAPI.pdb">
+      <publishTime>09/30/2018 19:39:44</publishTime>
+    </File>
+    <File Include="bin/MNPOSTCOMMON.dll">
+      <publishTime>09/30/2018 19:39:41</publishTime>
+=======
       <publishTime>10/03/2018 00:12:18</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.pdb">
@@ -56,12 +65,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
       <publishTime>10/01/2018 22:38:02</publishTime>
+>>>>>>> ceaefec7425d0d64865620cc360037d42e9936e8
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>09/19/2018 11:37:02</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
+<<<<<<< HEAD
+      <publishTime>09/30/2018 19:39:42</publishTime>
+=======
       <publishTime>10/01/2018 22:38:02</publishTime>
+>>>>>>> ceaefec7425d0d64865620cc360037d42e9936e8
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>09/19/2018 11:37:20</publishTime>
@@ -112,6 +126,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:00</publishTime>
     </File>
     <File Include="Web.config">
+<<<<<<< HEAD
+      <publishTime>09/27/2018 12:09:02</publishTime>
+=======
       <publishTime>10/02/2018 08:16:50</publishTime>
     </File>
   </ItemGroup>
@@ -220,6 +237,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Web.config">
       <publishTime>10/02/2018 08:16:50</publishTime>
+>>>>>>> ceaefec7425d0d64865620cc360037d42e9936e8
     </File>
   </ItemGroup>
 </Project>
