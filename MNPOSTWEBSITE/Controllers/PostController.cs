@@ -49,10 +49,10 @@ namespace MNPOSTWEBSITE.Controllers
                 data.Service = Service;
                 if(Session["PictureName"] != null)
                 {
-                    data.Images = Session["PictureName"].ToString();
+                    data.Avatar = Session["PictureName"].ToString();
                 }         
                 data.CreatedDate = DateTime.Now;
-                data.PostContent = Postcontent;
+                data.ContentPost = Postcontent;
                 db.WS_Post.Add(data);
                 db.SaveChanges();
                 ViewBag.Message = "Đăng bài thành công";
@@ -339,6 +339,7 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditRecruitment(string ID, string Recruitment, string Content)
         {
             if (Session["Authentication"] != null)

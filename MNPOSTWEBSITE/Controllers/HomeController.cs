@@ -40,8 +40,8 @@ namespace MNPOSTWEBSITE.Controllers
             //Session["Username"] = faceBookUser.Name;
             try
             {
-                Session["token"] = getToken().Result;
-                var lst = db.WS_Post.ToList();
+                //Session["token"] = getToken().Result;
+                var lst = db.WS_ServiceType.ToList();
                 return View(lst);
             }
             catch(Exception ex)

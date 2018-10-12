@@ -30,6 +30,12 @@ namespace MNPOSTAPI.Models
         public decimal DaGiao { get; set; }
         public decimal DaChuyen { get; set; }
     }
+
+    public class CalPrice
+    {
+        public double Price { get; set; }
+    }
+
     public class CODInfoResult : ResultInfo
     {
         public List<CODEntity> codinfo { get; set; }
@@ -41,5 +47,10 @@ namespace MNPOSTAPI.Models
     public class CODTotalInfoResult : ResultInfo
     {
         public List<CODTotal> codtotalinfo { get; set; }
+    }
+
+    public class CalPriceResult : ResultInfo
+    {
+        public CalPrice calprice { get; set; }
     }
 }

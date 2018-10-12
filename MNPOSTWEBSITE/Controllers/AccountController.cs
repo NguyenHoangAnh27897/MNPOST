@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
+using MNPOSTWEBSITE.Controllers;
 using ASPSnippets.FaceBookAPI;
 using System.Net.Mail;
 using System.Net;
@@ -42,6 +43,8 @@ namespace MNPOSTWEBSITE.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            HomeController home = new HomeController();
+            Session["token"] = home.getToken().Result;
             return View();
         }
 
@@ -113,27 +116,28 @@ namespace MNPOSTWEBSITE.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInAsync(user, isPersistent: false);
-                    string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = "2";
-                    db.SaveChanges();
+                    await SignInAsync(user, isPersistent: false);                
                     System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                    new System.Net.Mail.MailAddress("hoanganh27897@gmail.com", "Đăng ký tài khoản"),
+                    new System.Net.Mail.MailAddress("cskh@miennampost.vn", "Đăng ký tài khoản"),
                     new System.Net.Mail.MailAddress(user.UserName));
                     m.Subject = "Đăng ký tài khoản";
                     m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin click vào link dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
                     user.UserName, Url.Action("ConfirmEmail", "Account",
                     new { Token = user.Id, Email = user.UserName }, Request.Url.Scheme)) ;
                     m.IsBodyHtml = true;
-                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
-                    smtp.Credentials = new System.Net.NetworkCredential("hoanganh27897@gmail.com", "pokemonblackwhite2");
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("mail92100.maychuemail.com");
+                    smtp.Port = 465;
+                    smtp.Credentials = new System.Net.NetworkCredential("cskh@miennampost.vn", "cskh@mnp");
                     smtp.EnableSsl = true;
                     smtp.Send(m);
+                    string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = "2";
+                    db.SaveChanges();
                     await AddCustomer(cusid,Fullname, Phone, false, model.UserName);
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("SuccessfulRegister", "Account");
                 }
                 else
                 {
@@ -178,6 +182,11 @@ namespace MNPOSTWEBSITE.Controllers
         public ActionResult Confirm(string Email)
         {
             ViewBag.Email = Email;
+            return View();
+        }
+
+        public ActionResult SuccessfulRegister()
+        {
             return View();
         }
 

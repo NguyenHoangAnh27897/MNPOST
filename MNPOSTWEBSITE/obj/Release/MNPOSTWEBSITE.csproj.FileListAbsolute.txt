@@ -74,3 +74,5 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.cspro
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.Migrations.Init.resources
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.csproj.GenerateResource.cache

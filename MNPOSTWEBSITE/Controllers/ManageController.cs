@@ -204,7 +204,8 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditService(string Service, string ID, string Content)
+        [ValidateInput(false)]
+        public ActionResult EditService(string Service, string ID, string Content, HttpPostedFileBase FilePDF)
         {
             try
             {
@@ -212,6 +213,22 @@ namespace MNPOSTWEBSITE.Controllers
                 var sv = db.WS_ServiceType.Find(id);
                 sv.Name = Service;
                 sv.ContentService = Content;
+                if (Request.Files["FilePDF"].ContentLength > 0)
+                {
+                    string fileExtension = System.IO.Path.GetExtension(Request.Files["FilePDF"].FileName);
+                    if (fileExtension == ".pdf")
+                    {
+                        string fileLocation = Server.MapPath("~/document/pdf/") + Request.Files["FilePDF"].FileName;
+                        if (System.IO.File.Exists(fileLocation))
+                        {
+                            System.IO.File.Delete(fileLocation);
+                        }
+                        Request.Files["FilePDF"].SaveAs(fileLocation);
+                        string fname = Request.Files["FilePDF"].FileName;
+                        fname = fname.Remove(fname.Length - 4);
+                        sv.ExcelFile = fname;
+                    }
+                }
                 db.Entry(sv).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ManageService", "Manage");
@@ -278,6 +295,215 @@ namespace MNPOSTWEBSITE.Controllers
                 return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult HideService(string check1 = "", string check2 = "", string check3 = "", string check4 = "", string check5 = "")
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if(check1 != "")
+                    {
+                        if(check1 == "true")
+                        {
+                            var rs = db.WS_ServiceType.Find(1);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }else if(check1 == "false")
+                        {
+                            var rs = db.WS_ServiceType.Find(1);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }   
+                    }
+                    if (check2 != "")
+                    {
+                        if (check2 == "true")
+                        {
+                            var rs = db.WS_ServiceType.Find(2);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check2 == "false")
+                        {
+                            var rs = db.WS_ServiceType.Find(2);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check3 != "")
+                    {
+                        if (check3 == "true")
+                        {
+                            var rs = db.WS_ServiceType.Find(3);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check3 == "false")
+                        {
+                            var rs = db.WS_ServiceType.Find(3);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check4 != "")
+                    {
+                        if (check4 == "true")
+                        {
+                            var rs = db.WS_ServiceType.Find(4);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check4 == "false")
+                        {
+                            var rs = db.WS_ServiceType.Find(4);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check5 != "")
+                    {
+                        if (check5 == "true")
+                        {
+                            var rs = db.WS_ServiceType.Find(5);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check5 == "false")
+                        {
+                            var rs = db.WS_ServiceType.Find(5);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    return RedirectToAction("ManageService", "Manage");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult HideRecruiment(string check1 = "", string check2 = "", string check3 = "", string check4 = "", string check5 = "")
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (check1 != "")
+                    {
+                        if (check1 == "true")
+                        {
+                            var rs = db.WS_Recruitment.Find(1);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check1 == "false")
+                        {
+                            var rs = db.WS_Recruitment.Find(1);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check2 != "")
+                    {
+                        if (check2 == "true")
+                        {
+                            var rs = db.WS_Recruitment.Find(2);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check2 == "false")
+                        {
+                            var rs = db.WS_Recruitment.Find(2);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check3 != "")
+                    {
+                        if (check3 == "true")
+                        {
+                            var rs = db.WS_Recruitment.Find(3);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check3 == "false")
+                        {
+                            var rs = db.WS_Recruitment.Find(3);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check4 != "")
+                    {
+                        if (check4 == "true")
+                        {
+                            var rs = db.WS_Recruitment.Find(4);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check4 == "false")
+                        {
+                            var rs = db.WS_Recruitment.Find(4);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    if (check5 != "")
+                    {
+                        if (check5 == "true")
+                        {
+                            var rs = db.WS_Recruitment.Find(5);
+                            rs.Hide = true;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else if (check5 == "false")
+                        {
+                            var rs = db.WS_Recruitment.Find(5);
+                            rs.Hide = false;
+                            db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    return RedirectToAction("Recruitment", "Post");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
         }
     }
 }
