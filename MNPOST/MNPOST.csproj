@@ -246,6 +246,7 @@
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
     <Content Include="Content\logo.jpg" />
+    <Content Include="Content\select2.min.css" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -4490,6 +4491,8 @@
     <Content Include="Scripts\order\orderinit.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2-angular.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Scripts\uploader.min.js" />
     <Content Include="Scripts\_references.js" />

@@ -17,5 +17,6 @@ namespace MNPOSTCOMMON
         public string Id { get; set; }
         public string FirstChar { get; set; }
         public Nullable<int> PreNumber { get; set; }
+        public string Code { get; set; }
     }
 }

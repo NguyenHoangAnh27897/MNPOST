@@ -18,7 +18,7 @@ namespace MNPOST.Controllers.mailer
         public ActionResult Init()
         {
 
-            ViewBag.Customers = db.BS_Customers.Select(item => new
+            ViewBag.Customers = db.BS_Customers.Where(p=> p.IsActive == true).Select(item => new
             {
                 code = item.CustomerCode,
                 name = item.CustomerName,
@@ -499,9 +499,9 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpGet]
-        public ActionResult GeneralCode(string cusId)
+        public ActionResult GeneralCode(string postId)
         {
-            var code = GeneralMailerCode(cusId);
+            var code = GeneralMailerCode(postId);
 
             return Json(new { error = 0, code = code }, JsonRequestBehavior.AllowGet);
         }

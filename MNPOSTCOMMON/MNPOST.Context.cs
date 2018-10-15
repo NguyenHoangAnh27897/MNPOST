@@ -74,6 +74,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
         public virtual DbSet<MM_PackingListDetail> MM_PackingListDetail { get; set; }
+        public virtual DbSet<MM_TakeDetails> MM_TakeDetails { get; set; }
+        public virtual DbSet<MM_TakeMailers> MM_TakeMailers { get; set; }
         public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
         public virtual DbSet<UMS_GroupMenu> UMS_GroupMenu { get; set; }
         public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
@@ -81,22 +83,7 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
-        public virtual DbSet<MM_TakeDetails> MM_TakeDetails { get; set; }
-        public virtual DbSet<MM_TakeMailers> MM_TakeMailers { get; set; }
-    
-        [DbFunction("MNPOSTEntities", "SplitList")]
-        public virtual IQueryable<SplitList_Result> SplitList(string list, string separator)
-        {
-            var listParameter = list != null ?
-                new ObjectParameter("list", list) :
-                new ObjectParameter("list", typeof(string));
-    
-            var separatorParameter = separator != null ?
-                new ObjectParameter("separator", separator) :
-                new ObjectParameter("separator", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SplitList_Result>("[MNPOSTEntities].[SplitList](@list, @separator)", listParameter, separatorParameter);
-        }
+        public virtual DbSet<EmpployeeDebitCOD> EmpployeeDebitCODs { get; set; }
     
         public virtual ObjectResult<AC_CODDEBITVOUCHER_BYCUSTOMERID_Result> AC_CODDEBITVOUCHER_BYCUSTOMERID(string customerid, string fromdate, string todate)
         {
@@ -264,13 +251,13 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYID_Result>("MAILER_GETINFO_BYID", mailerIdParameter);
         }
     
-        public virtual ObjectResult<MAILER_GETINFO_BYLISTID_Result> MAILER_GETINFO_BYLISTID(string mailers)
+        public virtual int MAILER_GETINFO_BYLISTID(string mailers)
         {
             var mailersParameter = mailers != null ?
                 new ObjectParameter("mailers", mailers) :
                 new ObjectParameter("mailers", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYLISTID_Result>("MAILER_GETINFO_BYLISTID", mailersParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MAILER_GETINFO_BYLISTID", mailersParameter);
         }
     
         public virtual ObjectResult<MAILERDELIVERY_GETMAILER_Result> MAILERDELIVERY_GETMAILER(string documentID)
@@ -349,6 +336,28 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ROUTE_GETWARD_Result>("ROUTE_GETWARD", typeParameter, districtIdParameter);
         }
     
+        public virtual ObjectResult<TAKEMAILER_GETDETAILs_Result> TAKEMAILER_GETDETAILs(string documentID)
+        {
+            var documentIDParameter = documentID != null ?
+                new ObjectParameter("documentID", documentID) :
+                new ObjectParameter("documentID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETDETAILs_Result>("TAKEMAILER_GETDETAILs", documentIDParameter);
+        }
+    
+        public virtual ObjectResult<TAKEMAILER_GETLIST_Result> TAKEMAILER_GETLIST(string postId, Nullable<int> statusId)
+        {
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("statusId", statusId) :
+                new ObjectParameter("statusId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_Result>("TAKEMAILER_GETLIST", postIdParameter, statusIdParameter);
+        }
+    
         public virtual ObjectResult<USER_CHECKACCESS_Result> USER_CHECKACCESS(string groupId, string menuCode)
         {
             var groupIdParameter = groupId != null ?
@@ -385,26 +394,17 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WARD_GETALL_Result>("WARD_GETALL");
         }
     
-        public virtual ObjectResult<TAKEMAILER_GETLIST_Result> TAKEMAILER_GETLIST(string postId, Nullable<int> statusId)
+        public virtual ObjectResult<MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE_Result> MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE(string employeeId, string date)
         {
-            var postIdParameter = postId != null ?
-                new ObjectParameter("postId", postId) :
-                new ObjectParameter("postId", typeof(string));
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
     
-            var statusIdParameter = statusId.HasValue ?
-                new ObjectParameter("statusId", statusId) :
-                new ObjectParameter("statusId", typeof(int));
+            var dateParameter = date != null ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_Result>("TAKEMAILER_GETLIST", postIdParameter, statusIdParameter);
-        }
-    
-        public virtual ObjectResult<TAKEMAILER_GETDETAILs_Result> TAKEMAILER_GETDETAILs(string documentID)
-        {
-            var documentIDParameter = documentID != null ?
-                new ObjectParameter("documentID", documentID) :
-                new ObjectParameter("documentID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETDETAILs_Result>("TAKEMAILER_GETDETAILs", documentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE_Result>("MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE", employeeIdParameter, dateParameter);
         }
     }
 }

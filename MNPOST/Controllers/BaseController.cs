@@ -274,5 +274,28 @@ namespace MNPOST.Controllers
             return reportViewer;
         }
 
+
+        // get data
+        // nhan vien dang hoat dong
+        protected List<CommonData> GetEmployees (string postID)
+        {
+            return db.BS_Employees.Where(p=> p.PostOfficeID == postID && p.IsActive == true).Select(p => new CommonData()
+            {
+                code = p.EmployeeID,
+                name = p.EmployeeName
+            }).ToList();
+
+        }
+
+        protected List<CommonData> GetCustomers(string postID)
+        {
+
+            return db.BS_Customers.Where(p => p.PostOfficeID == postID && p.IsActive == true).Select(p => new CommonData()
+            {
+                code = p.CustomerID,
+                name = p.CustomerName
+            }).ToList();
+
+        }
     }
 }
