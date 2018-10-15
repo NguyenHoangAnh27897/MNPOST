@@ -55,9 +55,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.Razor.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
-<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csprojResolveAssemblyReference.cache
-=======
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb
@@ -290,4 +288,3 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
->>>>>>> ceaefec7425d0d64865620cc360037d42e9936e8

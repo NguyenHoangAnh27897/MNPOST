@@ -33,7 +33,7 @@ namespace MNPOSTAPI.Models
 
     public class CalPrice
     {
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 
     public class CODInfoResult : ResultInfo

@@ -113,7 +113,7 @@ namespace MNPOSTAPI.Controllers.web
                 {
                     error = 0,
                     msg = "400-OK",
-                    calprice = db.Database.SqlQuery<CalPrice>("CalPrice @Weight,@CustomerID,@ProvinceID,@ServiceTypeID,@PostOfficeID,@Ngay", Weight, CustomerID, ProvinceID, ServiceTypeID, PostOfficeID, Ngay).FirstOrDefault()
+                    calprice = db.Database.SqlQuery<CalPrice>("CalPrice @Weight,@CustomerID,@ProvinceID,@ServiceTypeID,@PostOfficeID,@Ngay", weight, cusid, proid, serviceid, postid, ngay).FirstOrDefault()
                 };
                 return result;
             }

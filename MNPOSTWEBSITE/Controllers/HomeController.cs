@@ -59,7 +59,7 @@ namespace MNPOSTWEBSITE.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
+                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/catalog/GetProvince").ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)
@@ -90,7 +90,7 @@ namespace MNPOSTWEBSITE.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetDistrict?provinceid="+ provinceid).ConfigureAwait(continueOnCapturedContext: false))
+                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/catalog/GetDistrict?provinceid=" + provinceid).ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)
@@ -119,7 +119,7 @@ namespace MNPOSTWEBSITE.Controllers
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenaccess);
-                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/catalog/GetWard?districtid="+districtid).ConfigureAwait(continueOnCapturedContext: false))
+                using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/catalog/GetWard?districtid=" + districtid).ConfigureAwait(continueOnCapturedContext: false))
                 {
 
                     using (HttpContent content = response.Content)
@@ -153,7 +153,7 @@ namespace MNPOSTWEBSITE.Controllers
             HttpContent q = new FormUrlEncodedContent(queries);
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await client.PostAsync("http://221.133.7.74:90/mntoken", q).ConfigureAwait(continueOnCapturedContext: false))
+                using (HttpResponseMessage response = await client.PostAsync("http://221.133.7.92:89/mntoken", q).ConfigureAwait(continueOnCapturedContext: false))
                 {
                     using (HttpContent content = response.Content)
                     {
