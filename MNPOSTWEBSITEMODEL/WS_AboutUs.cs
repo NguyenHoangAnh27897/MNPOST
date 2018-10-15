@@ -16,6 +16,5 @@ namespace MNPOSTWEBSITEMODEL
     {
         public string ID { get; set; }
         public string ContentAbout { get; set; }
-        public string EditedBy { get; set; }
     }
 }

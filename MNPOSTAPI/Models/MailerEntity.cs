@@ -22,8 +22,4 @@ namespace MNPOSTAPI.Models
     {
         public Object data { get; set; }
     }
-    public class CalPrice : ResultInfo
-    {
-        public decimal Price { get; set; }
-    }
 }

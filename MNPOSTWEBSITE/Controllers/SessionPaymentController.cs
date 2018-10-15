@@ -31,7 +31,7 @@ namespace MNPOSTWEBSITE.Controllers
         public async Task<List<CODEntity>> getCOD(string customerid, string fromdate, string todate)
         {
             List<CODEntity> cod = new List<CODEntity>();
-            string api = "http://221.133.7.74:90/api/cod/GetCODDebitvoucher?customerid="+customerid+"&fromdate="+fromdate+"&todate="+todate;
+            string api = "http://221.133.7.92:89/api/cod/GetCODDebitvoucher?customerid=" + customerid+"&fromdate="+fromdate+"&todate="+todate;
             if (customerid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -128,7 +128,7 @@ namespace MNPOSTWEBSITE.Controllers
         public async Task<List<CODDetail>> getDetailCOD(string documentid)
         {
             List<CODDetail> cod = new List<CODDetail>();
-            string api = "http://221.133.7.74:90/api/cod/GetCODDebitvoucherDetail?documentid="+documentid;
+            string api = "http://221.133.7.92:89/api/cod/GetCODDebitvoucherDetail?documentid=" + documentid;
             if (documentid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -187,7 +187,7 @@ namespace MNPOSTWEBSITE.Controllers
         public async Task<List<CODTotal>> getTransaction(string customerid)
         {
             List<CODTotal> cod = new List<CODTotal>();
-            string api = "http://221.133.7.74:90/api/cod/GetCODTotal?customerid=" + customerid;
+            string api = "http://221.133.7.92:89/api/cod/GetCODTotal?customerid=" + customerid;
             if (customerid != null)
             {
                 using (HttpClient client = new HttpClient())

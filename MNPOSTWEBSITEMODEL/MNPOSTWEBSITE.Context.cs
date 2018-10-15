@@ -12,8 +12,6 @@ namespace MNPOSTWEBSITEMODEL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class MNPOSTWEBSITEEntities : DbContext
     {
@@ -27,30 +25,15 @@ namespace MNPOSTWEBSITEMODEL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<UserProfile> UserProfile { get; set; }
-        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
-        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
-        public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
-        public virtual DbSet<WS_FacebookUser> WS_FacebookUser { get; set; }
-        public virtual DbSet<WS_Mailer> WS_Mailer { get; set; }
+        public virtual DbSet<WS_Contact> WS_Contact { get; set; }
         public virtual DbSet<WS_Post> WS_Post { get; set; }
+        public virtual DbSet<WS_Recruitment> WS_Recruitment { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<WS_AboutUs> WS_AboutUs { get; set; }
         public virtual DbSet<WS_ServiceType> WS_ServiceType { get; set; }
-        public virtual DbSet<WS_Recruitment> WS_Recruitment { get; set; }
-    
-        public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string user)
-        {
-            var userParameter = user != null ?
-                new ObjectParameter("user", user) :
-                new ObjectParameter("user", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETALL_Result>("MAILER_GETALL", userParameter);
-        }
     }
 }

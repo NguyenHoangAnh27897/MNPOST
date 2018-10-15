@@ -17,5 +17,6 @@ namespace MNPOSTWEBSITEMODEL
         public int ID { get; set; }
         public string Name { get; set; }
         public string ContentRecruitment { get; set; }
+        public Nullable<bool> Hide { get; set; }
     }
 }

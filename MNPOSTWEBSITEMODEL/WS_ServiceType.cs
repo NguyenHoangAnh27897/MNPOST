@@ -17,5 +17,7 @@ namespace MNPOSTWEBSITEMODEL
         public int ID { get; set; }
         public string Name { get; set; }
         public string ContentService { get; set; }
+        public string ExcelFile { get; set; }
+        public Nullable<bool> Hide { get; set; }
     }
 }
