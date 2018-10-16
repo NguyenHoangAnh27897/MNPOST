@@ -1005,6 +1005,7 @@
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
           <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

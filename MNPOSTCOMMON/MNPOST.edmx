@@ -2239,6 +2239,7 @@
           <Property Type="String" Name="EmployeeName" Nullable="true" />
           <Property Type="String" Name="EmployeePhone" Nullable="true" MaxLength="25" />
           <Property Type="String" Name="EmployeeEmail" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
         </ComplexType>
         <ComplexType Name="MAILER_GET_NOT_INVENTORY_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -3639,6 +3640,7 @@
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
                 <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

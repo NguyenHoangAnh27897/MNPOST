@@ -120,21 +120,21 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     findDetail.DeliveryTo = "";
                     findDetail.DeliveryNotes = findReason.ReasonName;
                     findDetail.ReturnReasonID = info.ReturnReasonID;
-                    findDetail.ConfirmDate = null;
+                    findDetail.ConfirmDate = deliverDate;
 
                    
                     mailerInfo.DeliveryTo = "";
-                    mailerInfo.DeliveryDate = null;
+                    mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = findReason.ReasonName;
                 }
                 else if (info.StatusID == 6)
                 {
                     findDetail.DeliveryTo = "";
-                    findDetail.ConfirmDate = null;
+                    findDetail.ConfirmDate = deliverDate;
                     findDetail.DeliveryNotes = info.Note;
 
                     mailerInfo.DeliveryTo = "";
-                    mailerInfo.DeliveryDate = null;
+                    mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = info.Note;
 
                 }

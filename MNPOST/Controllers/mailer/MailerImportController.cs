@@ -105,7 +105,7 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GetTakeMailers (string postId)
         {
-            var data = db.TAKEMAILER_GETLIST(postId, 7).ToList();
+            var data = db.TAKEMAILER_GETLIST(postId, 7).OrderByDescending(p=> p.CreateTime).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
