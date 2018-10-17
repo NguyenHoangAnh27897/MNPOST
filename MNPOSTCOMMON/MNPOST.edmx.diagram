@@ -67,6 +67,8 @@
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__540C7B00" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MNPOSTModel.EmpployeeDebitCOD" Width="1.5" PointX="3.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_Tracking" Width="1.5" PointX="19.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MailerImage" Width="1.5" PointX="21.375" PointY="21.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,6 +14,8 @@ namespace MNPOST.Controllers.mailer
     public class MailerInitController : MailerController
     {
 
+
+
         [HttpGet]
         public ActionResult Init()
         {
@@ -479,6 +481,9 @@ namespace MNPOST.Controllers.mailer
                 // 
                 db.MM_Mailers.Add(mailerIns);
                 db.SaveChanges();
+
+                // luu tracking
+                HandleHistory.AddTracking(0, item.MailerID, postId, "Nhận thông tin đơn hàng");
             }
 
 

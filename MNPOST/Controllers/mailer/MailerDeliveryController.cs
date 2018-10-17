@@ -155,6 +155,11 @@ namespace MNPOST.Controllers.mailer
                 db.Entry(delivery).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
 
+
+                // luu tracking
+                var employee = db.BS_Employees.Where(p => p.EmployeeID == delivery.EmployeeID).FirstOrDefault();
+                HandleHistory.AddTracking(3, mailerId, mailer.CurrentPostOfficeID, "Nhân viên " + employee.EmployeeName + "(" + employee.Phone + ") , đang đi phát hàng");
+
                 data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, mailerId).FirstOrDefault();
 
                 return Json(new ResultInfo()
@@ -180,7 +185,7 @@ namespace MNPOST.Controllers.mailer
         public ActionResult AddListMailer(List<string> mailers, string documentId)
         {
             var delivery = db.MM_MailerDelivery.Find(documentId);
-
+            var employee = db.BS_Employees.Where(p => p.EmployeeID == delivery.EmployeeID).FirstOrDefault();
             if (delivery == null || delivery.StatusID != 0)
             {
                 return Json(new ResultInfo()
@@ -219,6 +224,9 @@ namespace MNPOST.Controllers.mailer
                 db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
 
                 db.SaveChanges();
+
+              
+                HandleHistory.AddTracking(3, item, mailer.CurrentPostOfficeID, "Nhân viên " + employee.EmployeeName + "(" + employee.Phone + ") , đang đi phát hàng");
 
                 delivery.Quantity = delivery.Quantity + 1;
                 delivery.Weight = delivery.Weight + mailer.Weight;
@@ -260,7 +268,13 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
 
             // remove in tracking
+            var tracking = db.MM_Tracking.Where(p => p.StatusID == 3 && p.MailerID == mailer.MailerID).OrderByDescending(p=> p.CreateTime).FirstOrDefault();
 
+            if(tracking != null)
+            {
+                db.MM_Tracking.Remove(tracking);
+                db.SaveChanges();
+            }
 
             //
             db.MM_MailerDeliveryDetail.Remove(data);
@@ -298,6 +312,14 @@ namespace MNPOST.Controllers.mailer
             {
                 date = DateTime.Now;
             }
+
+            var checkEmployyee = db.BS_Employees.Find(employeeId);
+            if (checkEmployyee == null)
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai nhân viên"
+                }, JsonRequestBehavior.AllowGet);
 
             var insDocument = new MM_MailerDelivery()
             {
@@ -695,6 +717,8 @@ namespace MNPOST.Controllers.mailer
                         mailerInfo.DeliveryTo = "";
                         mailerInfo.DeliveryDate = deliveryDate;
                         mailerInfo.DeliveryNotes = findReason.ReasonName;
+
+                        HandleHistory.AddTracking(5, item.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
                     }
                     else if (item.DeliveryStatus == 6)
                     {
@@ -706,6 +730,7 @@ namespace MNPOST.Controllers.mailer
                         mailerInfo.DeliveryDate = deliveryDate;
                         mailerInfo.DeliveryNotes = item.DeliveryNotes;
 
+                        HandleHistory.AddTracking(6, item.MailerID, mailerInfo.CurrentPostOfficeID, "Chưa phát được vì " + item.DeliveryNotes);
                     }
                     else if (item.DeliveryStatus == 4)
                     {
@@ -718,7 +743,7 @@ namespace MNPOST.Controllers.mailer
                         mailerInfo.DeliveryDate = deliveryDate;
                         mailerInfo.DeliveryNotes = "Đã phát";
 
-
+                        HandleHistory.AddTracking(4, item.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày phát " + deliveryDate.ToString("dd/MM/yyyy") + " lúc " + deliveryDate.ToString("HH:mm") + ", người nhận: " + item.DeliveryTo);
                         // save nhung don co thu tien COD
                         if (mailerInfo.COD > 0)
                         {

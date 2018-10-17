@@ -19,7 +19,7 @@ namespace MNPOST.Controllers
     [Authorize(Roles = "user")]
     public class BaseController : Controller
     {
-
+       
         protected MNPOSTDS ds = new MNPOSTDS();
         protected SqlConnection conn;
         protected UserInfo EmployeeInfo;

@@ -84,6 +84,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
         public virtual DbSet<EmpployeeDebitCOD> EmpployeeDebitCODs { get; set; }
+        public virtual DbSet<MM_Tracking> MM_Tracking { get; set; }
+        public virtual DbSet<MailerImage> MailerImages { get; set; }
     
         public virtual ObjectResult<AC_CODDEBITVOUCHER_BYCUSTOMERID_Result> AC_CODDEBITVOUCHER_BYCUSTOMERID(string customerid, string fromdate, string todate)
         {
@@ -221,7 +223,7 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_NOT_INVENTORY_Result>("MAILER_GET_NOT_INVENTORY", postIdParameter);
         }
     
-        public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string fdate, string tdate, string postId, string customerId)
+        public virtual ObjectResult<MAILER_GETALL_Result> MAILER_GETALL(string fdate, string tdate, string postId, string mailerId)
         {
             var fdateParameter = fdate != null ?
                 new ObjectParameter("fdate", fdate) :
@@ -235,11 +237,11 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("postId", postId) :
                 new ObjectParameter("postId", typeof(string));
     
-            var customerIdParameter = customerId != null ?
-                new ObjectParameter("customerId", customerId) :
-                new ObjectParameter("customerId", typeof(string));
+            var mailerIdParameter = mailerId != null ?
+                new ObjectParameter("mailerId", mailerId) :
+                new ObjectParameter("mailerId", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETALL_Result>("MAILER_GETALL", fdateParameter, tdateParameter, postIdParameter, customerIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETALL_Result>("MAILER_GETALL", fdateParameter, tdateParameter, postIdParameter, mailerIdParameter);
         }
     
         public virtual ObjectResult<MAILER_GETINFO_BYID_Result> MAILER_GETINFO_BYID(string mailerId)
@@ -405,6 +407,32 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("date", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE_Result>("MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE", employeeIdParameter, dateParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GETTRACKING_Result> MAILER_GETTRACKING(string mailerId)
+        {
+            var mailerIdParameter = mailerId != null ?
+                new ObjectParameter("mailerId", mailerId) :
+                new ObjectParameter("mailerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETTRACKING_Result>("MAILER_GETTRACKING", mailerIdParameter);
+        }
+    
+        public virtual ObjectResult<TAKEMAILER_GETLIST_BY_EMPLOYEE_Result> TAKEMAILER_GETLIST_BY_EMPLOYEE(string employee, Nullable<int> statusId, string date)
+        {
+            var employeeParameter = employee != null ?
+                new ObjectParameter("employee", employee) :
+                new ObjectParameter("employee", typeof(string));
+    
+            var statusIdParameter = statusId.HasValue ?
+                new ObjectParameter("statusId", statusId) :
+                new ObjectParameter("statusId", typeof(int));
+    
+            var dateParameter = date != null ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_BY_EMPLOYEE_Result>("TAKEMAILER_GETLIST_BY_EMPLOYEE", employeeParameter, statusIdParameter, dateParameter);
         }
     }
 }

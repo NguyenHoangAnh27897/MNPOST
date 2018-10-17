@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 This file is used by the publish/package process of your Web project. You can customize the behavior of this process
 by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
@@ -47,14 +47,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:30</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.dll">
-<<<<<<< HEAD
-      <publishTime>10/16/2018 03:30:56</publishTime>
+      <publishTime>10/18/2018 06:04:38</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/16/2018 03:16:44</publishTime>
+      <publishTime>10/18/2018 05:54:23</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
-      <publishTime>10/12/2018 03:02:01</publishTime>
+      <publishTime>10/17/2018 23:57:42</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/23/2018 15:56:31</publishTime>
@@ -79,21 +78,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/System.Numerics.Vectors.dll">
       <publishTime>07/19/2017 10:01:36</publishTime>
-=======
-      <publishTime>10/14/2018 02:39:42</publishTime>
-    </File>
-    <File Include="bin/MNPOSTAPI.pdb">
-      <publishTime>10/14/2018 02:39:42</publishTime>
-    </File>
-    <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/14/2018 02:39:41</publishTime>
-    </File>
-    <File Include="bin/MNPOSTCOMMON.dll.config">
-      <publishTime>10/13/2018 01:37:05</publishTime>
-    </File>
-    <File Include="bin/MNPOSTCOMMON.pdb">
-      <publishTime>10/14/2018 02:39:41</publishTime>
->>>>>>> af920d02a1bc1a3484f11a56bb4beee72e47ed6e
     </File>
     <File Include="bin/System.Runtime.CompilerServices.Unsafe.dll">
       <publishTime>06/06/2018 13:29:04</publishTime>
@@ -144,11 +128,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/13/2018 03:41:57</publishTime>
     </File>
     <File Include="Web.config">
-<<<<<<< HEAD
-      <publishTime>10/14/2018 17:37:21</publishTime>
-=======
-      <publishTime>10/14/2018 02:39:42</publishTime>
->>>>>>> af920d02a1bc1a3484f11a56bb4beee72e47ed6e
+      <publishTime>10/18/2018 03:08:54</publishTime>
     </File>
   </ItemGroup>
 </Project>

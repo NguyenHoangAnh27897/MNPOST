@@ -73,16 +73,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:30</publishTime>
     </File>
     <File Include="bin/MNPOST.dll">
-      <publishTime>10/10/2018 18:39:13</publishTime>
+      <publishTime>10/18/2018 05:54:26</publishTime>
     </File>
     <File Include="bin/MNPOST.pdb">
       <publishTime>09/24/2018 11:21:29</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/10/2018 18:39:12</publishTime>
+      <publishTime>10/18/2018 05:54:23</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
-      <publishTime>10/07/2018 15:15:12</publishTime>
+      <publishTime>10/17/2018 23:57:42</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
       <publishTime>09/24/2018 11:21:28</publishTime>
@@ -12820,7 +12820,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Scripts/mask.js">
-      <publishTime>08/23/2018 15:56:13</publishTime>
+      <publishTime>10/17/2018 02:09:13</publishTime>
+    </File>
+    <File Include="Scripts/mask.min.js">
+      <publishTime>10/17/2018 02:10:31</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -12835,16 +12838,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/08/2018 04:47:19</publishTime>
     </File>
     <File Include="Scripts/order/mailerdelivery.js">
-      <publishTime>09/13/2018 13:50:44</publishTime>
+      <publishTime>10/17/2018 03:03:24</publishTime>
     </File>
     <File Include="Scripts/order/mailerimport.js">
-      <publishTime>10/08/2018 05:33:51</publishTime>
+      <publishTime>10/17/2018 03:30:16</publishTime>
     </File>
     <File Include="Scripts/order/mailershow.js">
-      <publishTime>09/24/2018 11:20:39</publishTime>
+      <publishTime>10/18/2018 01:40:45</publishTime>
     </File>
     <File Include="Scripts/order/orderinit.js">
-      <publishTime>10/10/2018 18:14:38</publishTime>
+      <publishTime>10/18/2018 00:13:09</publishTime>
     </File>
     <File Include="Scripts/respond.js">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -12943,22 +12946,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Views/Mailer/ShowMailer.cshtml">
-      <publishTime>09/10/2018 18:17:18</publishTime>
+      <publishTime>10/18/2018 01:45:15</publishTime>
     </File>
     <File Include="Views/Mailer/ShowReportMailer.cshtml">
       <publishTime>09/10/2018 18:15:56</publishTime>
     </File>
     <File Include="Views/MailerDelivery/Show.cshtml">
-      <publishTime>09/13/2018 13:51:58</publishTime>
+      <publishTime>10/17/2018 02:57:40</publishTime>
     </File>
     <File Include="Views/MailerDeliveryConfirm/Show.cshtml">
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Views/MailerImport/Show.cshtml">
-      <publishTime>10/08/2018 05:35:32</publishTime>
+      <publishTime>10/17/2018 03:28:45</publishTime>
     </File>
     <File Include="Views/MailerInit/Init.cshtml">
-      <publishTime>10/10/2018 17:51:40</publishTime>
+      <publishTime>10/17/2018 03:41:17</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -12997,7 +13000,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/10/2018 15:40:02</publishTime>
+      <publishTime>10/17/2018 02:10:39</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>08/23/2018 15:56:13</publishTime>
@@ -13024,7 +13027,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2018 15:56:13</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/07/2018 18:41:25</publishTime>
+      <publishTime>10/18/2018 05:40:48</publishTime>
     </File>
   </ItemGroup>
 </Project>

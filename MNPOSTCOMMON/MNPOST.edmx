@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -488,6 +488,16 @@
           <Property Name="PreNumber" Type="int" />
           <Property Name="Code" Type="varchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="MailerImages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MailerID" Type="nvarchar" MaxLength="128" />
+          <Property Name="PathImage" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="UserSend" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="MM_CustomerMoneyAdvances">
           <Key>
             <PropertyRef Name="DocumentID" />
@@ -740,6 +750,17 @@
           <Property Name="StatusID" Type="int" />
           <Property Name="PostID" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="MM_Tracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="Describe" Type="nvarchar(max)" />
+          <Property Name="PostOffice" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="MM_TroubleTickets">
           <Key>
             <PropertyRef Name="TicketID" />
@@ -939,13 +960,16 @@
           <Parameter Name="fdate" Type="varchar" Mode="In" />
           <Parameter Name="tdate" Type="varchar" Mode="In" />
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
-          <Parameter Name="customerId" Type="nvarchar" Mode="In" />
+          <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="MAILER_GETINFO_BYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="MAILER_GETINFO_BYLISTID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mailers" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="MAILER_GETTRACKING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documentID" Type="nvarchar" Mode="In" />
@@ -976,6 +1000,11 @@
         <Function Name="TAKEMAILER_GETLIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
           <Parameter Name="statusId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee" Type="nvarchar" Mode="In" />
+          <Parameter Name="statusId" Type="int" Mode="In" />
+          <Parameter Name="date" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="nvarchar" Mode="In" />
@@ -1027,6 +1056,7 @@
           <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmpployeeDebitCOD" EntityType="Self.EmpployeeDebitCOD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
@@ -1040,6 +1070,7 @@
           <EntitySet Name="MM_PackingListDetail" EntityType="Self.MM_PackingListDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_TakeDetails" EntityType="Self.MM_TakeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_TakeMailers" EntityType="Self.MM_TakeMailers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MM_Tracking" EntityType="Self.MM_Tracking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />
@@ -2048,7 +2079,7 @@
             <Parameter Name="fdate" Mode="In" Type="String" />
             <Parameter Name="tdate" Mode="In" Type="String" />
             <Parameter Name="postId" Mode="In" Type="String" />
-            <Parameter Name="customerId" Mode="In" Type="String" />
+            <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GETINFO_BYID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYID_Result)">
           <Parameter Name="mailerId" Mode="In" Type="String" />
@@ -2102,6 +2133,16 @@
             <Parameter Name="employeeId" Mode="In" Type="String" />
             <Parameter Name="date" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="MM_Tracking" EntityType="MNPOSTModel.MM_Tracking" />
+          <FunctionImport Name="MAILER_GETTRACKING" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_Result)">
+          <Parameter Name="mailerId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_Result)">
+            <Parameter Name="employee" Mode="In" Type="String" />
+            <Parameter Name="statusId" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="MailerImages" EntityType="MNPOSTModel.MailerImage" />
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -2630,6 +2671,45 @@
           <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
         </ComplexType>
+        <EntityType Name="MM_Tracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MailerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostOffice" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="MAILER_GETTRACKING_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="String" Name="Describe" Nullable="true" />
+          <Property Type="String" Name="PostOffice" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CustomerName" Nullable="true" />
+          <Property Type="String" Name="CustomerAddress" Nullable="true" />
+          <Property Type="String" Name="CustomerPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Content" Nullable="true" />
+          <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="MailerImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PathImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="UserSend" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4107,6 +4187,55 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MM_Tracking">
+            <EntityTypeMapping TypeName="MNPOSTModel.MM_Tracking">
+              <MappingFragment StoreEntitySet="MM_Tracking">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="PostOffice" ColumnName="PostOffice" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_GETTRACKING" FunctionName="MNPOSTModel.Store.MAILER_GETTRACKING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GETTRACKING_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="PostOffice" ColumnName="PostOffice" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TAKEMAILER_GETLIST_BY_EMPLOYEE" FunctionName="MNPOSTModel.Store.TAKEMAILER_GETLIST_BY_EMPLOYEE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="MailerImages">
+            <EntityTypeMapping TypeName="MNPOSTModel.MailerImage">
+              <MappingFragment StoreEntitySet="MailerImages">
+                <ScalarProperty Name="UserSend" ColumnName="UserSend" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="PathImage" ColumnName="PathImage" />
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
