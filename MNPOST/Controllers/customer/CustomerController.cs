@@ -15,7 +15,6 @@ namespace MNPOST.Controllers.customer
             ViewBag.AllDistrict = db.BS_Districts.ToList();
             ViewBag.AllProvince = db.BS_Provinces.ToList();
             ViewBag.AllCountry = db.BS_Countries.ToList();
-            ViewBag.AllZone = db.BS_Zones.ToList();
             ViewBag.AllPostOffice = db.BS_PostOffices.ToList();
             return View();
         }
@@ -48,9 +47,6 @@ namespace MNPOST.Controllers.customer
         [HttpPost]
         public ActionResult create(BS_Customers cus)
         {
-
-            if (String.IsNullOrEmpty(cus.CustomerCode))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
 
             var check = db.BS_Customers.Find(cus.CustomerCode);
 

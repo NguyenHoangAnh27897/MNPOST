@@ -95,5 +95,37 @@ namespace MNPOSTAPI.Controllers.web
             }
 
         }
+
+        //tinh cuoc
+        [HttpGet]
+        public CalPriceResult CalculatePrice(double Weight, string CustomerID, string ProvinceID, string ServiceTypeID, string PostOfficeID, string Ngay)
+        {
+            var weight = new SqlParameter("@Weight", Weight);
+            var cusid = new SqlParameter("@CustomerID", CustomerID);
+            var proid = new SqlParameter("@ProvinceID", ProvinceID);
+            var serviceid = new SqlParameter("@ServiceTypeID", ServiceTypeID);
+            var postid = new SqlParameter("@PostOfficeID", PostOfficeID);
+            var ngay = new SqlParameter("@Ngay", Ngay);
+
+            try
+            {
+                CalPriceResult result = new CalPriceResult()
+                {
+                    error = 0,
+                    msg = "400-OK",
+                    calprice = db.Database.SqlQuery<CalPrice>("CalPrice @Weight,@CustomerID,@ProvinceID,@ServiceTypeID,@PostOfficeID,@Ngay", weight, cusid, proid, serviceid, postid, ngay).FirstOrDefault()
+                };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CalPriceResult result = new CalPriceResult()
+                {
+                    error = 1,
+                    msg = "Khong ket noi he thong"
+                };
+                return result;
+            }
+        }
     }
 }

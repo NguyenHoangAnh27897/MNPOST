@@ -60,7 +60,7 @@
                                             <td>@item.PostOfficeID</td>
                                             <td>@item.DocumentDate</td>
                                             <td>@item.PaymentID</td>
-                                            <td>@item.Total</td>
+                                            <td>@string.Format("{0:n0}", item.Total)</td>
                                         </tr>
                                     }
                                     else

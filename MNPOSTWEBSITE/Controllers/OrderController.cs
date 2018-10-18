@@ -75,16 +75,23 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", int? Quantity = 0, double? Weight = 0, string Purchase = "", string MerchandiseValue = "", string COD = "", string Note = "", string MailerDescription = "", int? Length = 0, int? Width = 0, int? Height = 0, string MailerTypeID = "", string MerchandiseID = "", int? PriceMain = 0, int? CODPrice = 0, int? PriceDefault = 0)
+        public async Task<ActionResult> Create(string SenderName = "", string SenderAddress = "", string SenderPhone = "", string SenderWardID = "", string SenderDistrictID = "", string SenderProvinceID = "", string RecieverName = "", string RecieverAddress = "", string RecieverPhone = "", string RecieverWardID = "", string RecieverDistrictID = "", string RecieverProvinceID = "", string Quantity = "", string Weight = "", string Purchase = "", string MerchandiseValue = "", string COD = "", string Note = "", string MailerDescription = "", int? Length = 0, int? Width = 0, int? Height = 0, string MailerTypeID = "", string MerchandiseID = "", string PriceMain = "", string CODPrice = "", string PriceDefault ="")
         {
             try
             {
                 decimal? cod = decimal.Parse(COD);
                 decimal? MerchandiseVal = decimal.Parse(MerchandiseValue);
+                string wei = Weight.Replace(",","");
+                string quan = Quantity.Replace(",", "");
+                string pdef = PriceDefault.Replace(",", "");
+                int weight = int.Parse(wei);
+                int quanti = int.Parse(quan);
+                int pdefault = int.Parse(pdef);
                 if(SenderWardID.Count() > 10)
                 {
                     SenderWardID = "";
-                }else if(RecieverWardID.Count() > 10)
+                }
+                if (RecieverWardID.Count() > 10)
                 {
                     RecieverWardID = "";
                 }
@@ -103,8 +110,8 @@ namespace MNPOSTWEBSITE.Controllers
                     RecieverDistrictID = RecieverDistrictID,
                     RecieverProvinceID = RecieverProvinceID,
                     RecieverWardID = RecieverWardID,
-                    Weight = Weight,
-                    Quantity = Quantity,
+                    Weight = weight,
+                    Quantity = quanti,
                     PaymentMethodID = Purchase,
                     MerchandiseValue = MerchandiseVal,
                     COD = cod,
@@ -115,8 +122,9 @@ namespace MNPOSTWEBSITE.Controllers
                     WidthSize = Width,
                     MailerTypeID = MailerTypeID,
                     MerchandiseID = MerchandiseID,
-                    PriceDefault = PriceDefault,
-                    SenderID = Session["CustomerID"].ToString()
+                    PriceDefault = pdefault,
+                    SenderID = Session["CustomerID"].ToString(),
+                    AcceptDate = DateTime.Now
                 };
                 await AddorUpdateMailer(0, mailers);
                 return RedirectToAction("List", "Order");
@@ -212,11 +220,11 @@ namespace MNPOSTWEBSITE.Controllers
             string api = "";
             if (choose == 0)
             {
-                api = "http://221.133.7.74:90/api/mailer/AddMailer";
+                api = "http://221.133.7.92:89/api/mailer/AddMailer";
             }
             else
             {
-                api = "http://221.133.7.74:90/api/mailer/UpdateMailer";
+                api = "http://221.133.7.92:89/api/mailer/UpdateMailer";
             }
             if (mailers != null)
             {
@@ -299,7 +307,7 @@ namespace MNPOSTWEBSITE.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.74:90/api/mailer/GetMailerbyCustomerID?customerid=" + cusid).ConfigureAwait(continueOnCapturedContext: false))
+                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/mailer/GetMailerbyCustomerID?customerid=" + cusid).ConfigureAwait(continueOnCapturedContext: false))
                     {
 
                         using (HttpContent content = response.Content)
@@ -326,7 +334,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             string cusid = Session["CustomerID"].ToString();
             List<Mailer> mailer = new List<Mailer>();
-            string api = "http://221.133.7.74:90/api/mailer/GetMailerbyCustomerIDandDate?customerid=" + cusid + "&fromdate=" + fromdate + "&todate=" + todate;
+            string api = "http://221.133.7.92:89/api/mailer/GetMailerbyCustomerIDandDate?customerid=" + cusid + "&fromdate=" + fromdate + "&todate=" + todate;
             if (cusid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -363,7 +371,7 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://221.133.7.74:90/api/mailer/DeleteCustomerByCustomerID";
+            string api = "http://221.133.7.92:89/api/mailer/DeleteCustomerByCustomerID";
             var response = await client.PostAsJsonAsync(api, new { mailer = mailers }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
@@ -406,7 +414,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             Mailer mailer = new Mailer();
             string cusid = Session["CustomerID"].ToString();
-            string api = "http://221.133.7.74:90/api/mailer/GetMailerbyID?id=" + mailerid + "&customerid=" + cusid;
+            string api = "http://221.133.7.92:89/api/mailer/GetMailerbyID?id=" + mailerid + "&customerid=" + cusid;
             if (mailerid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -498,7 +506,7 @@ namespace MNPOSTWEBSITE.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> SendMailerCheck(IEnumerable<string> mailerid)
+        public async Task<JsonResult> SendMailerCheck(IEnumerable<string> mailerid)
         {
             try
             {
@@ -543,21 +551,21 @@ namespace MNPOSTWEBSITE.Controllers
                             };
                             await AddorUpdateMailer(1, mailers);
                         }
-                        return RedirectToAction("List");
+                        return Json(new { msg = "Thành công", status = "200" }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Manage");
+                        return Json(new { msg = "Thất bại", status = "500" }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
+                    return Json(new { msg = "Thất bại", status = "500" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                return RedirectToAction("ErrorPage", "Error");
+                return Json(new { msg = "Thất bại", status = "500" }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -607,21 +615,21 @@ namespace MNPOSTWEBSITE.Controllers
                             };
                             await AddorUpdateMailer(1, mailers);
                         }
-                        return RedirectToAction("List","Order");
+                        return Json(new { msg = "Thành công", status = "200" }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Manage");
+                        return Json(new { msg = "Thất bại", status = "500" }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
+                    return Json(new { msg = "Thất bại", status = "500" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                return RedirectToAction("ErrorPage", "Error");
+                return Json(new { msg = "Thất bại", status = "500" }, JsonRequestBehavior.AllowGet);
             }
         }
 

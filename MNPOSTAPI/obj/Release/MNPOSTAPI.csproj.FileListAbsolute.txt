@@ -55,6 +55,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.WebPages.Razor.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Release\MNPOSTAPI.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 D:\LAPTRINH\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb

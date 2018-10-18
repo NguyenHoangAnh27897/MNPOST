@@ -213,6 +213,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810120306597_Init.cs" />
+    <Compile Include="Migrations\201810120306597_Init.Designer.cs">
+      <DependentUpon>201810120306597_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -537,6 +542,8 @@
     <Content Include="Content\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Content\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
+    <Content Include="Content\cleave-phone.i18n.js" />
+    <Content Include="Content\cleave.min.js" />
     <Content Include="Content\contact_me.js" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\main.css" />
@@ -602,6 +609,8 @@
     <Content Include="Content\img\list\hue.jpg" />
     <Content Include="Content\img\mnpost.jpg" />
     <Content Include="Content\img\slider\2.jpg" />
+    <Content Include="Content\img\slider\news1.jpg" />
+    <Content Include="Content\img\slider\news2.jpg" />
     <Content Include="Content\img\user.jpg" />
     <Content Include="Content\jqBootstrapValidation.js" />
     <Content Include="Content\jquery.min.js" />
@@ -813,6 +822,8 @@
     <Content Include="Content\js\chart-master\Chart.js" />
     <Content Include="Content\js\chartjs-conf.js" />
     <Content Include="Content\js\ckeditor\ckeditor.js" />
+    <Content Include="Content\js\cleave-phone.i18n.js" />
+    <Content Include="Content\js\cleave.min.js" />
     <Content Include="Content\js\common-scripts.js" />
     <Content Include="Content\js\dropzone\css\dropzone.css" />
     <Content Include="Content\js\dropzone\dropzone.js" />
@@ -1061,6 +1072,7 @@
     <Content Include="Views\SessionPayment\SearchCOD.cshtml" />
     <Content Include="Views\SessionPayment\Detail.cshtml" />
     <Content Include="Views\SessionPayment\Transaction.cshtml" />
+    <Content Include="Views\Account\SuccessfulRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1093,6 +1105,11 @@
       <Project>{1fd8ddc3-5702-462c-bac6-c9f3ea8fbb14}</Project>
       <Name>MNPOSTWEBSITEMODEL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201810120306597_Init.resx">
+      <DependentUpon>201810120306597_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

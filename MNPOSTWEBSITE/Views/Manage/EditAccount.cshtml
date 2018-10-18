@@ -5,9 +5,52 @@
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
     MNPOSTWEBSITE.Controllers.HomeController home = new MNPOSTWEBSITE.Controllers.HomeController();
     List<Province> lstpro = home.getProvince(Session["token"].ToString()).Result;
-    List<District> lstdist = home.getDistrict(Session["token"].ToString()).Result;
-    List<Ward> lstward = home.getWard(Session["token"].ToString()).Result;
+
 }
+<head>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script>
+        $(function () {
+            $("#SenderProvinceID").change(function () {
+                $("select[name='SenderDistrictID'] option").remove()
+                var proid = $('#SenderProvinceID').val();
+                $.ajax({
+                    url: "/Order/GetDistrict",
+                    data: { provinceid: proid },
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        debugger;
+                        $("#SenderDistrictID").prepend("<option>Chọn quận/huyện</option>");
+                        for (var i = 0; i < data.length; i++) {
+                            $("#SenderDistrictID").append('<option value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+
+        $(function () {
+            $("#SenderDistrictID").change(function () {
+                $("select[name='SenderWardID'] option").remove()
+                var disid = $('#SenderDistrictID').val();
+                $.ajax({
+                    url: "/Order/GetWard",
+                    data: { districtid: disid },
+                    datatype: "JSON",
+                    type: "Get",
+                    success: function (data) {
+                        debugger;
+                        $("#SenderWardID").prepend("<option>Chọn phường</option>");
+                        for (var i = 0; i < data.length; i++) {
+                            $("#SenderWardID").append('<option value="' + data[i].WardID + '">' + data[i].WardName + '</option>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
 
 <!--main content start-->
 <section id="main-content">
@@ -41,33 +84,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">Phường</label>
-                            <div class="col-sm-4">
-                                <select class="form-control select2 no-radius" name="SenderWardID">
-                                    <option value="">Chọn phường</option>
-                                    @foreach (var item in lstward)
-                                    {
-                                        <option value="@item.WardID">@item.WardName</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
-                            <div class="col-sm-4">
-                                <select class="form-control select2 no-radius" name="SenderDistrictID">
-                                    <option value="">Chọn quận/huyện</option>
-                                    @foreach (var item in lstdist)
-                                    {
-                                        <option value="@item.DistrictID">@item.DistrictName</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
                             <div class="col-sm-4">
-                                <select class="form-control select2 no-radius" name="SenderProvinceID">
+                                <select class="form-control select2 no-radius" name="SenderProvinceID" id="SenderProvinceID">
                                     <option value="">Chọn thành phố</option>
                                     @foreach (var item in lstpro)
                                     {
@@ -76,6 +95,23 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
+                            <div class="col-sm-4">
+                                <select class="form-control select2 no-radius" name="SenderDistrictID" id="SenderDistrictID">
+                                    <option value="">Chọn quận/huyện</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Phường</label>
+                            <div class="col-sm-4">
+                                <select class="form-control select2 no-radius" name="SenderWardID" id="SenderWardID">
+                                    <option value="">Chọn phường</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-round btn-primary">Lưu</button>
                     </form>
                 </div>

@@ -105,16 +105,15 @@
         <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
             <div class="col-lg-12">
-                
                 <div class="form-panel" id="form0">
-                    <form class="form-horizontal style-form" method="post" action="/order/create" >
+                    <form class="form-horizontal style-form" method="post" action="/order/create">
                         <div class="row">
                             <div class="col-lg-5" style="margin-left:50px;">
                                 <h4 class="mb"><i class="fa fa-angle-right"></i> Người gửi</h4>
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Họ và tên</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="SenderName" placeholder="Nhập họ và tên..." value="@ViewBag.SenderName" required>
+                                        <input type="text" class="form-control round-form"  name="SenderName" placeholder="Nhập họ và tên..." value="@ViewBag.SenderName" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -217,7 +216,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 col-sm-4 control-label">Tiền thu</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control round-form" name="COD" placeholder="Nhập CoD...">
+                                        <input class="form-control round-form input-cod" name="COD" placeholder="Nhập CoD...">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -273,7 +272,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Dài</label>
                                             <div class="col-sm-8">
-                                                <input type="number" class="form-control round-form" name="Length" step="any">
+                                                <input type="number" class="form-control round-form" name="Length" step="any" required>
                                             </div>
                                         </div>
                                     </div>
@@ -281,7 +280,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Rộng</label>
                                             <div class="col-sm-8">
-                                                <input type="number" class="form-control round-form" name="Width" step="any">
+                                                <input type="number" class="form-control round-form" name="Width" step="any" required>
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +288,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Cao</label>
                                             <div class="col-sm-8">
-                                                <input type="number" class="form-control round-form" name="Height" step="any">
+                                                <input type="number" class="form-control round-form" name="Height" step="any" required>
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +298,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control round-form" name="Weight" placeholder="Nhập trọng lượng..." step="any">
+                                                <input class="form-control round-form input-weight" name="Weight" placeholder="Nhập trọng lượng..." required>
                                             </div>
                                         </div>
                                     </div>
@@ -307,7 +306,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control round-form" name="Quantity" placeholder="Nhập số lượng..." step="any">
+                                                <input class="form-control round-form input-quantity" name="Quantity" placeholder="Nhập số lượng..." required>
                                             </div>
                                         </div>
                                     </div>
@@ -315,7 +314,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control select2 no-radius" name="MerchandiseID">
+                                                <select class="form-control select2 no-radius" name="MerchandiseID" required>
                                                     <option value="">Chọn loại hàng</option>
                                                     <option value="H">Hàng hóa</option>
                                                     <option value="T">Thư từ</option>
@@ -329,7 +328,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control round-form" name="Weight" placeholder="Nhập trọng lượng..." step="any">
+                                                <input class="form-control round-form input-weight1" name="WeightOther" placeholder="Nhập trọng lượng...">
                                             </div>
                                         </div>
                                     </div>
@@ -337,7 +336,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
                                             <div class="col-sm-10">
-                                                <input type="number" class="form-control round-form" name="Quantity" placeholder="Nhập số lượng..." step="any">
+                                                <input class="form-control round-form input-quantity1" name="QuantityOther" placeholder="Nhập số lượng...">
                                             </div>
                                         </div>
                                     </div>
@@ -345,10 +344,10 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control select2 no-radius" name="Purchase" required>
+                                                <select class="form-control select2 no-radius" name="PurchaseOther">
                                                     <option value="">Chọn loại hàng</option>
-                                                    <option value="">Hàng hóa</option>
-                                                    <option value="">Thư từ</option>
+                                                    <option value="H">Hàng hóa</option>
+                                                    <option value="T">Thư từ</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -362,7 +361,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Cước chính</label>
                                     <div class="col-sm-10">
-                                        <input type="number" id="PriceMain" class="form-control round-form" name="PriceMain" placeholder="Nhập cước..." step="any" onclick="sum()">
+                                        <input id="PriceMain" class="form-control round-form input-pricemain" name="PriceMain" placeholder="Nhập cước..." required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
@@ -371,7 +370,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Cước CoD</label>
                                     <div class="col-sm-10">
-                                        <input type="number" id="CODPrice" class="form-control round-form" name="CODPrice" placeholder="Nhập cước..." step="any" onclick="sum()">
+                                        <input id="CODPrice" class="form-control round-form input-codprice" name="CODPrice" placeholder="Nhập cước..." required >
                                     </div>
                                 </div>
                             </div>
@@ -379,13 +378,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">Tổng cước</label>
                                     <div class="col-sm-10">
-                                        <input type="number" id="PriceDefault" class="form-control round-form" name="PriceDefault" placeholder="Tổng cước..." step="any">
+                                        <input id="PriceDefault" class="form-control round-form input-pricedefault" name="PriceDefault" placeholder="Tổng cước..." required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    </div>
+                </div>
                 <div class="form-panel" id="form1" style="display:none; width:40%">
                     <form class="form-horizontal style-form" method="post" action="/order/getexcel" enctype="multipart/form-data">
                         <h4 class="mb" style="margin-left:50px"><i class="fa fa-angle-right"></i> Tải file lên (<strong style="color:red">Excel</strong>)</h4>
@@ -406,6 +405,8 @@
 <!--main content end-->
 @*<a href="~/Controllers/ManageController.cs">~/Controllers/ManageController.cs</a>*@
 <!--custom tagsinput-->
+<script src="~/Content/js/cleave.min.js"></script>
+<script src="~/Content/js/cleave-phone.i18n.js"></script>
 <script>
     function myFunction() {
         var x = document.getElementById("myDIV");
@@ -415,13 +416,13 @@
             x.style.display = "none";
         }
     }
-    function sum() {
-        var pricemain = document.getElementById("PriceMain").value;
-        var codprice = document.getElementById("CODPrice").value;
-        var total = 0;
-        total = parseInt(pricemain) + parseInt(codprice);
-        document.getElementById("PriceDefault").value = total;
-    }
+    //function sum() {
+    //    var pricemain = document.getElementById("PriceMain").value;
+    //    var codprice = document.getElementById("CODPrice").value;
+    //    var total = 0;
+    //    total = parseInt(pricemain) + parseInt(codprice);
+    //    document.getElementById("PriceDefault").value = total;
+    //}
 </script>
 <script src="/Content/js/jquery.tagsinput.js"></script>
 <script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
@@ -429,6 +430,64 @@
     $("#opt").on("change", function () {
         $("#" + $(this).val()).show().siblings().hide();
     })
+</script>
+
+<script>
+    var cleaveNumeral = new Cleave('.input-cod', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+  
+</script>
+
+<script>
+    var cleaveNumeral = new Cleave('.input-weight', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+  
+</script>
+
+<script>
+    var cleaveNumeral = new Cleave('.input-quantity', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+   
+</script>
+<script>
+    var cleaveNumeral = new Cleave('.input-pricemain', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+
+</script>
+<script>
+    var cleaveNumeral = new Cleave('.input-codprice', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+    
+</script>
+<script>
+    var cleaveNumeral = new Cleave('.input-pricedefault', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+    
+</script>
+<script>
+    var cleaveNumeral = new Cleave('.input-weight1', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+</script>
+
+<script>
+    var cleaveNumeral = new Cleave('.input-quantity1', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
 </script>
 
 

@@ -283,3 +283,12 @@
 .icon-db-shape:before { content: '\f600'; } /* '' */
 .icon-sweden:before { content: '\f601'; } /* '' */
 .icon-logo-db:before { content: '\f603'; } /* '' */
+
+.icon-truck:before {
+    content: '\e8eb';
+}
+/* '' */
+.icon-subway:before {
+    content: '\f239';
+}
+/* '' */

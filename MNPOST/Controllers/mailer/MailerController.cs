@@ -138,9 +138,12 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public JsonResult CalBillPrice(float weight = 0, float volume = 0, float cod = 0, float merchandiseValue = 0) 
+        public JsonResult CalBillPrice(float weight = 0, string customerId = "", string provinceId = "",string serviceTypeId = "", string postId = "", float cod = 0, float merchandiseValue = 0) 
         {
-            return Json(new { price =0, codPrice = 0 }, JsonRequestBehavior.AllowGet);
+
+            var price = db.CalPrice(weight, customerId, provinceId, serviceTypeId, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+
+            return Json(new { price = price, codPrice = 0 }, JsonRequestBehavior.AllowGet);
         }
 
         protected bool CheckPostOffice(string postId)

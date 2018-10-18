@@ -17,9 +17,9 @@ namespace MNPOSTWEBSITEMODEL
         public int ID { get; set; }
         public string PostName { get; set; }
         public string PostBy { get; set; }
-        public string Images { get; set; }
-        public string PostContent { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
         public string Service { get; set; }
+        public string Avatar { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string ContentPost { get; set; }
     }
 }

@@ -17,7 +17,7 @@ body, body .avia-tooltip {
 }
 
 .socket_color, .socket_color div, .socket_color header, .socket_color main, .socket_color aside, .socket_color footer, .socket_color article, .socket_color nav, .socket_color section, .socket_color span, .socket_color applet, .socket_color object, .socket_color iframe, .socket_color h1, .socket_color h2, .socket_color h3, .socket_color h4, .socket_color h5, .socket_color h6, .socket_color p, .socket_color blockquote, .socket_color pre, .socket_color a, .socket_color abbr, .socket_color acronym, .socket_color address, .socket_color big, .socket_color cite, .socket_color code, .socket_color del, .socket_color dfn, .socket_color em, .socket_color img, .socket_color ins, .socket_color kbd, .socket_color q, .socket_color s, .socket_color samp, .socket_color small, .socket_color strike, .socket_color strong, .socket_color sub, .socket_color sup, .socket_color tt, .socket_color var, .socket_color b, .socket_color u, .socket_color i, .socket_color center, .socket_color dl, .socket_color dt, .socket_color dd, .socket_color ol, .socket_color ul, .socket_color li, .socket_color fieldset, .socket_color form, .socket_color label, .socket_color legend, .socket_color table, .socket_color caption, .socket_color tbody, .socket_color tfoot, .socket_color thead, .socket_color tr, .socket_color th, .socket_color td, .socket_color article, .socket_color aside, .socket_color canvas, .socket_color details, .socket_color embed, .socket_color figure, .socket_color fieldset, .socket_color figcaption, .socket_color footer, .socket_color header, .socket_color hgroup, .socket_color menu, .socket_color nav, .socket_color output, .socket_color ruby, .socket_color section, .socket_color summary, .socket_color time, .socket_color mark, .socket_color audio, .socket_color video, #top .socket_color .pullquote_boxed, .responsive #top .socket_color .avia-testimonial, .responsive #top.avia-blank #main .socket_color.container_wrap:first-child, #top .socket_color.fullsize .template-blog .post_delimiter, .socket_color .related_posts.av-related-style-full a {
-    border-color: #e1e1e1;
+    border-color: #f6a81e;
 }
 
     .socket_color .rounded-container, #top .socket_color .pagination a:hover, .socket_color .small-preview, .socket_color .fallback-post-type-icon {
@@ -30,7 +30,7 @@ body, body .avia-tooltip {
     }
 
     .socket_color, .socket_color .site-background, .socket_color .first-quote, .socket_color .related_image_wrap, .socket_color .gravatar img .socket_color .hr_content, .socket_color .news-thumb, .socket_color .post-format-icon, .socket_color .ajax_controlls a, .socket_color .tweet-text.avatar_no, .socket_color .toggler, .socket_color .toggler.activeTitle:hover, .socket_color #js_sort_items, .socket_color.inner-entry, .socket_color .grid-entry-title, .socket_color .related-format-icon, .grid-entry .socket_color .avia-arrow, .socket_color .avia-gallery-big, .socket_color .avia-gallery-big, .socket_color .avia-gallery img, .socket_color .grid-content, .socket_color .av-share-box ul, #top .socket_color .av-related-style-full .related-format-icon, .socket_color .related_posts.av-related-style-full a:hover, .socket_color.avia-fullwidth-portfolio .pagination .current, .socket_color.avia-fullwidth-portfolio .pagination a, .socket_color .av-hotspot-fallback-tooltip-inner, .socket_color .av-hotspot-fallback-tooltip-count {
-        background-color: #ff7700;
+        background-color: #f6a81e;
         color: #ffffff;
     }
 
@@ -1319,7 +1319,7 @@ body .alternate_color .mejs-controls .mejs-time-rail .mejs-time-float-corner {
 }
 
 .main_color, .main_color div, .main_color header, .main_color main, .main_color aside, .main_color footer, .main_color article, .main_color nav, .main_color section, .main_color span, .main_color applet, .main_color object, .main_color iframe, .main_color h1, .main_color h2, .main_color h3, .main_color h4, .main_color h5, .main_color h6, .main_color p, .main_color blockquote, .main_color pre, .main_color a, .main_color abbr, .main_color acronym, .main_color address, .main_color big, .main_color cite, .main_color code, .main_color del, .main_color dfn, .main_color em, .main_color img, .main_color ins, .main_color kbd, .main_color q, .main_color s, .main_color samp, .main_color small, .main_color strike, .main_color strong, .main_color sub, .main_color sup, .main_color tt, .main_color var, .main_color b, .main_color u, .main_color i, .main_color center, .main_color dl, .main_color dt, .main_color dd, .main_color ol, .main_color ul, .main_color li, .main_color fieldset, .main_color form, .main_color label, .main_color legend, .main_color table, .main_color caption, .main_color tbody, .main_color tfoot, .main_color thead, .main_color tr, .main_color th, .main_color td, .main_color article, .main_color aside, .main_color canvas, .main_color details, .main_color embed, .main_color figure, .main_color fieldset, .main_color figcaption, .main_color footer, .main_color header, .main_color hgroup, .main_color menu, .main_color nav, .main_color output, .main_color ruby, .main_color section, .main_color summary, .main_color time, .main_color mark, .main_color audio, .main_color video, #top .main_color .pullquote_boxed, .responsive #top .main_color .avia-testimonial, .responsive #top.avia-blank #main .main_color.container_wrap:first-child, #top .main_color.fullsize .template-blog .post_delimiter, .main_color .related_posts.av-related-style-full a {
-    border-color: #eeeeee;
+    border-color: #f6a81e;
 }
 
     .main_color .rounded-container, #top .main_color .pagination a:hover, .main_color .small-preview, .main_color .fallback-post-type-icon {
@@ -1353,7 +1353,7 @@ body .alternate_color .mejs-controls .mejs-time-rail .mejs-time-float-corner {
         }
 
         .main_color a, .main_color .widget_first, .main_color strong, .main_color b, .main_color b a, .main_color strong a, .main_color #js_sort_items a:hover, .main_color #js_sort_items a.active_sort, .main_color .av-sort-by-term a.active_sort, .main_color .special_amp, .main_color .taglist a.activeFilter, .main_color #commentform .required, #top .main_color .av-no-color.av-icon-style-border a.av-icon-char, .html_elegant-blog #top .main_color .blog-categories a, .html_elegant-blog #top .main_color .blog-categories a:hover {
-            color: #0048ad;
+            color: #334898;
         }
 
             .main_color a:hover, .main_color h1 a:hover, .main_color h2 a:hover, .main_color h3 a:hover, .main_color h4 a:hover, .main_color h5 a:hover, .main_color h6 a:hover, .main_color .template-search a.news-content:hover, .main_color .wp-playlist-item .wp-playlist-caption:hover {
@@ -1848,7 +1848,7 @@ body .main_color .mejs-controls .mejs-time-rail .mejs-time-float-corner {
         }
 
         .header_color .meta-color, .header_color .sidebar, .header_color .sidebar a, .header_color .minor-meta, .header_color .minor-meta a, .header_color .text-sep, .header_color blockquote, .header_color .post_nav a, .header_color .comment-text, .header_color .side-container-inner, .header_color .news-time, .header_color .pagination a, .header_color .pagination span, .header_color .tweet-text.avatar_no .tweet-time, #top .header_color .extra-mini-title, .header_color .team-member-job-title, .header_color .team-social a, .header_color #js_sort_items a, .grid-entry-excerpt, .header_color .avia-testimonial-subtitle, .header_color .commentmetadata a, .header_color .social_bookmarks a, .header_color .meta-heading > *, .header_color .slide-meta, .header_color .slide-meta a, .header_color .taglist, .header_color .taglist a, .header_color .phone-info, .header_color .phone-info a, .header_color .av-sort-by-term a, .header_color .av-magazine-time, .header_color .av-magazine .av-magazine-entry-icon, .header_color .av-catalogue-content, .header_color .wp-playlist-item-length, .html_modern-blog #top div .header_color .blog-categories a, .html_modern-blog #top div .header_color .blog-categories a:hover {
-            color: #ff7700;
+            color: #f6a81e;
         }
 
         .header_color .special-heading-inner-border {
@@ -1868,8 +1868,8 @@ body .main_color .mejs-controls .mejs-time-rail .mejs-time-float-corner {
             }
 
         .header_color .primary-background, .header_color .primary-background a, div .header_color .button, .header_color #submit, .header_color input[type='submit'], .header_color .small-preview:hover, .header_color .avia-menu-fx, .header_color .avia-menu-fx .avia-arrow, .header_color.iconbox_top .iconbox_icon, .header_color .iconbox_top a.iconbox_icon:hover, .header_color .avia-data-table th.avia-highlight-col, .header_color .avia-color-theme-color, .header_color .avia-color-theme-color:hover, .header_color .image-overlay .image-overlay-inside:before, .header_color .comment-count, .header_color .av_dropcap2, #top #wrap_all .header_color .av-menu-button-colored > a .avia-menu-text, .header_color .av-colored-style .av-countdown-cell-inner, .responsive #top .header_color .av-open-submenu.av-subnav-menu > li > a:hover, #top .header_color .av-open-submenu.av-subnav-menu li > ul a:hover {
-            background-color: #ff7700;
-            color: #ffffff;
+            background-color: #f6a81e;
+            color: #f6a81e;
             border-color: #dd5500;
         }
 

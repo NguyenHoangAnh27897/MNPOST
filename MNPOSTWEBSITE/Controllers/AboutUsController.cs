@@ -21,5 +21,19 @@ namespace MNPOSTWEBSITE.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Contact(string fullname = "", string Phone = "", string Email = "", string Title = "", string ContentContact = "")
+        {
+            MNPOSTWEBSITEMODEL.WS_Contact ct = new MNPOSTWEBSITEMODEL.WS_Contact();
+            ct.Fullname = fullname;
+            ct.Phone = Phone;
+            ct.Email = Email;
+            ct.Title = Title;
+            ct.ContentContact = ContentContact;
+            db.WS_Contact.Add(ct);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
 	}
 }

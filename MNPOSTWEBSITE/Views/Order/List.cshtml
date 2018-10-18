@@ -4,8 +4,6 @@
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
-    int i = 0;
-    int j = 0;
 }
 <head>
     <style>
@@ -104,21 +102,20 @@
                                     if (Model.Count() > 0 && item.CurrentStatusID == 0)
                                     {
                                         <tr>
-                                            <td id="@i"><a href="/order/edit/@item.MailerID">@item.MailerID</a></td>
+                                            <td><a href="/order/edit/@item.MailerID">@item.MailerID</a></td>
                                             <td>@item.AcceptDate</td>
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
-                                            <td><input type="checkbox" /></td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
+                                            <td><input type="checkbox" data-id="@item.MailerID" /></td>
                                             <td>
                                                 <form action="/order/deletemailer/@item.MailerID" method="get">
                                                     <button class="btn btn-primary btn-xs"><i class="fa fa-eraser"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
-                                        i++;
                                     }
                                 }
                             </tbody>                  
@@ -126,8 +123,8 @@
                         <button style="margin-left:10px; margin-bottom:10px" class="btn btn-primary btn-xs" id="getMailer">Gửi phiếu xác nhận</button>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -178,7 +175,7 @@
                                     <th><i class="fa fa-home"></i> Địa chỉ người nhận</th>
                                     <th><i class="fa fa-money"></i> COD</th>
                                     <th><i class="fa fa-money"></i> Giá</th>
-                                    <th><i class="fa fa-check-square-o"></i> Chọn</th>
+                                    @*<th><i class="fa fa-check-square-o"></i> Chọn</th>*@
                                 </tr>
                             </thead>
                             <tbody>
@@ -187,16 +184,15 @@
                                     if (Model.Count() > 0 && item.CurrentStatusID == 1)
                                     {
                                         <tr>
-                                            <td id="@j">@item.MailerID</td>
+                                            <td>@item.MailerID</td>
                                             <td>@item.AcceptDate</td>
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
-                                            <td><input type="checkbox" /></td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
+                                            @*<td><input type="checkbox" data-id="@item.MailerID" /></td>*@
                                         </tr>
-                                        j++;
                                     }
                                 }
                             </tbody>
@@ -204,8 +200,8 @@
                         <button style="margin-left:10px; margin-bottom:10px" class="btn btn-primary btn-xs" id="returnMailer">Gửi phiếu xác nhận</button>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -271,8 +267,8 @@
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -282,8 +278,8 @@
                         </table>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -349,8 +345,8 @@
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -360,8 +356,8 @@
                         </table>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -427,8 +423,8 @@
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -438,8 +434,8 @@
                         </table>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -505,8 +501,8 @@
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -516,8 +512,8 @@
                         </table>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -583,8 +579,8 @@
                                             <td>@item.RecieverName</td>
                                             <td>@item.RecieverPhone</td>
                                             <td>@item.RecieverAddress</td>
-                                            <td>@item.COD</td>
-                                            <td>@item.Price</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
+                                            <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
                                             <td>@item.DeliveryTo</td>
                                             <td>@item.DeliveryDate</td>
                                         </tr>
@@ -594,8 +590,8 @@
                         </table>
                     </div><!-- /content-panel -->
                     <br />
-                    <strong style="margin: 12px;"> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</strong>
-                    @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, Page => Url.Action("List", new { Page }))
                 </div><!-- /col-md-12 -->
             </div><!-- /row -->
         </div>
@@ -611,10 +607,10 @@
     $(document).ready(function () {
         $('#getMailer').on('click', function () {
             var mailer = [];
-            var i = 0;
-            $('input:checked').each(function () {
-                mailer.push($('#tablemailer #' + i).text());
-                i++;
+            $('input[type=checkbox]').each(function () {
+                if ($(this).is(':checked')) {
+                    mailer.push($(this).data("id"));
+                }
             });
             $.ajax({
                 url: "/Order/SendMailerCheck",
@@ -623,32 +619,37 @@
                 dataType: "json",
                 traditional: true,
                 success: function () {
-                    alert("ajax request to server succeed");
+                    window.location.href = "/Order/List";
+                }, error: function (error) {
+                    alert(JSON.stringify(error));
                 }
             });
         });
     });
 
-    $(document).ready(function () {
-        $('#returnMailer').on('click', function () {
-            var mailer = [];
-            var i = 0;
-            $('input:checked').each(function () {
-                mailer.push($('#tablemailer1 #' + i).text());
-                i++;
-            });
-            $.ajax({
-                url: "/Order/ReturnMailer",
-                type: "POST",
-                data: { mailerid: mailer },
-                dataType: "json",
-                traditional: true,
-                success: function () {
-                    alert("ajax request to server succeed");
-                }
-            });
-        });
-    });
+    //$(document).ready(function () {
+    //    $('#returnMailer').on('click', function () {
+    //        var mailer = [];
+    //        var i = 0;
+    //        $('input[type=checkbox]').each(function () {
+    //            if ($(this).is(':checked')) {
+    //                mailer.push($(this).data("id"));
+    //            }
+    //        });
+    //        $.ajax({
+    //            url: "/Order/ReturnMailer",
+    //            type: "POST",
+    //            data: { mailerid: mailer },
+    //            dataType: "json",
+    //            traditional: true,
+    //            success: function () {
+    //                window.location.href = "/Order/List";
+    //            }, error: function (error) {
+    //                alert(JSON.stringify(error));
+    //            }
+    //        });
+    //    });
+    //});
 
     
 </script>

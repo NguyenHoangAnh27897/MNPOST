@@ -70,5 +70,6 @@ namespace MNPOSTCOMMON
         public string DeliveryTo { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public string DeliveryNotes { get; set; }
+        public Nullable<int> CreateType { get; set; }
     }
 }

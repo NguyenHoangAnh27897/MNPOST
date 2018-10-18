@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MNPOSTWEBSITEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MNPOSTWEBSITEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -54,73 +54,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="FullName" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar(max)" />
-          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="IDRole" Type="nvarchar" MaxLength="128" />
+          <Property Name="IDRole" Type="nvarchar(max)" />
+          <Property Name="IDClient" Type="nvarchar(max)" />
           <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
-          <Property Name="IDClient" Type="nvarchar" MaxLength="128" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="56" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Membership">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
-          <Property Name="IsConfirmed" Type="bit" />
-          <Property Name="LastPasswordFailureDate" Type="datetime" />
-          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PasswordChangedDate" Type="datetime" />
-          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
-          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="webpages_OAuthMembership">
-          <Key>
-            <PropertyRef Name="Provider" />
-            <PropertyRef Name="ProviderUserId" />
-          </Key>
-          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Roles">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_UsersInRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="WS_AboutUs">
           <Key>
@@ -128,91 +71,38 @@
           </Key>
           <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ContentAbout" Type="nvarchar(max)" />
-          <Property Name="EditedBy" Type="nvarchar" MaxLength="15" />
         </EntityType>
-        <EntityType Name="WS_FacebookUser">
+        <EntityType Name="WS_Contact">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="PictureUrl" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="WS_Mailer">
-          <Key>
-            <PropertyRef Name="MailerID" />
-          </Key>
-          <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="PostOfficeAcceptID" Type="nvarchar" MaxLength="10" />
-          <Property Name="SenderID" Type="nvarchar" MaxLength="20" />
-          <Property Name="SenderName" Type="nvarchar" MaxLength="100" />
-          <Property Name="SenderAddress" Type="nvarchar" MaxLength="200" />
-          <Property Name="SenderWardID" Type="nvarchar" MaxLength="10" />
-          <Property Name="SenderDistrictID" Type="nvarchar" MaxLength="10" />
-          <Property Name="SenderProvinceID" Type="nvarchar" MaxLength="10" />
-          <Property Name="SenderPhone" Type="nvarchar" MaxLength="20" />
-          <Property Name="RecieverName" Type="nvarchar" MaxLength="100" />
-          <Property Name="RecieverAddress" Type="nvarchar" MaxLength="200" />
-          <Property Name="RecieverWardID" Type="nvarchar" MaxLength="10" />
-          <Property Name="RecieverDistrictID" Type="nvarchar" MaxLength="10" />
-          <Property Name="RecieverProvinceID" Type="nvarchar" MaxLength="10" />
-          <Property Name="RecieverPhone" Type="nvarchar" MaxLength="20" />
-          <Property Name="EmployeeAcceptID" Type="nvarchar" MaxLength="20" />
-          <Property Name="AcceptDate" Type="date" />
-          <Property Name="AcceptTime" Type="datetime" />
-          <Property Name="MailerTypeID" Type="nvarchar" MaxLength="10" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="Weight" Type="float" />
-          <Property Name="ReWeight" Type="float" />
-          <Property Name="PriceDefault" Type="money" />
-          <Property Name="Price" Type="money" />
-          <Property Name="PriceService" Type="money" />
-          <Property Name="Discount" Type="float" />
-          <Property Name="BefVATAmount" Type="money" />
-          <Property Name="VATPercent" Type="float" />
-          <Property Name="VATAmount" Type="money" />
-          <Property Name="Amount" Type="money" />
-          <Property Name="AmountBefDiscount" Type="money" />
-          <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="5" />
-          <Property Name="MailerDescription" Type="nvarchar" MaxLength="200" />
-          <Property Name="ThirdpartyDocID" Type="nvarchar" MaxLength="20" />
-          <Property Name="ThirdpartyCost" Type="money" />
-          <Property Name="ThirdpartyPaymentMethodID" Type="nvarchar" MaxLength="5" />
-          <Property Name="CurrentStatusID" Type="int" />
-          <Property Name="CurrentPostOfficeID" Type="nvarchar" MaxLength="10" />
-          <Property Name="PriceType" Type="nvarchar" MaxLength="1" />
-          <Property Name="PriceIncludeVAT" Type="bit" />
-          <Property Name="CommissionAmt" Type="money" />
-          <Property Name="CommissionPercent" Type="float" />
-          <Property Name="CostAmt" Type="money" />
-          <Property Name="SalesClosingDate" Type="date" />
-          <Property Name="DiscountPercent" Type="float" />
-          <Property Name="CreationDate" Type="datetime" />
-          <Property Name="LastUpdateDate" Type="datetime" />
-          <Property Name="MerchandiseID" Type="nvarchar" MaxLength="10" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="CustomerAccount" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContentContact" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="WS_Post">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PostName" Type="nvarchar" MaxLength="500" />
+          <Property Name="PostName" Type="nvarchar" MaxLength="100" />
           <Property Name="PostBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="Images" Type="nvarchar" MaxLength="100" />
-          <Property Name="PostContent" Type="nvarchar(max)" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="Service" Type="nvarchar" MaxLength="50" />
+          <Property Name="Service" Type="nvarchar" MaxLength="100" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="ContentPost" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="WS_Recruitment">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="ContentRecruitment" Type="nvarchar(max)" />
+          <Property Name="Hide" Type="bit" />
         </EntityType>
         <EntityType Name="WS_ServiceType">
           <Key>
@@ -221,6 +111,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="ContentService" Type="nvarchar(max)" />
+          <Property Name="ExcelFile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hide" Type="bit" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -278,33 +170,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_RoleId">
-          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="webpages_Roles">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="webpages_UsersInRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_UserId">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="webpages_UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Function Name="MAILER_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="user" Type="nvarchar" Mode="In" />
-        </Function>
         <EntityContainer Name="MNPOSTWEBSITEModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -312,15 +177,8 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WS_AboutUs" EntityType="Self.WS_AboutUs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WS_Mailer" EntityType="Self.WS_Mailer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WS_Contact" EntityType="Self.WS_Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WS_Recruitment" EntityType="Self.WS_Recruitment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WS_ServiceType" EntityType="Self.WS_ServiceType" Schema="dbo" store:Type="Tables" />
@@ -340,337 +198,164 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
-          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNPOSTWEBSITEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaims">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogins">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-          </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="AspNetUsers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IDRole" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="ResetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <Property Name="IDClient" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
-        </EntityType>
-        <EntityType Name="webpages_Membership">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IsConfirmed" Type="Boolean" />
-          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
-          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
-          <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="webpages_OAuthMembership">
-          <Key>
-            <PropertyRef Name="Provider" />
-            <PropertyRef Name="ProviderUserId" />
-          </Key>
-          <Property Name="Provider" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderUserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webpages_Roles">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
-        </EntityType>
-        <EntityType Name="WS_FacebookUser">
+        <EntityContainer Name="MNPOSTWEBSITEEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="WS_Contact" EntityType="MNPOSTWEBSITEModel.WS_Contact" />
+          <EntitySet Name="WS_Post" EntityType="MNPOSTWEBSITEModel.WS_Post" />
+          <EntitySet Name="WS_Recruitment" EntityType="MNPOSTWEBSITEModel.WS_Recruitment" />
+          <EntitySet Name="C__MigrationHistory" EntityType="MNPOSTWEBSITEModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="MNPOSTWEBSITEModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="MNPOSTWEBSITEModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="MNPOSTWEBSITEModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="MNPOSTWEBSITEModel.AspNetUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="MNPOSTWEBSITEModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="WS_AboutUs" EntityType="MNPOSTWEBSITEModel.WS_AboutUs" />
+          <EntitySet Name="WS_ServiceType" EntityType="MNPOSTWEBSITEModel.WS_ServiceType" />
+        </EntityContainer>
+        <EntityType Name="WS_Contact">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PictureUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="WS_Mailer">
-          <Key>
-            <PropertyRef Name="MailerID" />
-          </Key>
-          <Property Name="MailerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PostOfficeAcceptID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SenderID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SenderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SenderAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SenderWardID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SenderDistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SenderProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SenderPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="RecieverName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RecieverAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="RecieverWardID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="RecieverDistrictID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="RecieverProvinceID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="RecieverPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeAcceptID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AcceptDate" Type="DateTime" Precision="0" />
-          <Property Name="AcceptTime" Type="DateTime" Precision="3" />
-          <Property Name="MailerTypeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Weight" Type="Double" />
-          <Property Name="ReWeight" Type="Double" />
-          <Property Name="PriceDefault" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PriceService" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Discount" Type="Double" />
-          <Property Name="BefVATAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="VATPercent" Type="Double" />
-          <Property Name="VATAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AmountBefDiscount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PaymentMethodID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="MailerDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ThirdpartyDocID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ThirdpartyCost" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ThirdpartyPaymentMethodID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentStatusID" Type="Int32" />
-          <Property Name="CurrentPostOfficeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="PriceType" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="PriceIncludeVAT" Type="Boolean" />
-          <Property Name="CommissionAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="CommissionPercent" Type="Double" />
-          <Property Name="CostAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SalesClosingDate" Type="DateTime" Precision="0" />
-          <Property Name="DiscountPercent" Type="Double" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="MerchandiseID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="CustomerAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContentContact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WS_Post">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PostName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PostName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PostBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PostContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Service" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Service" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ContentPost" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WS_Recruitment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContentRecruitment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Hide" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MNPOSTWEBSITEModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDRole" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IDClient" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="AspNetRoles" Relationship="MNPOSTWEBSITEModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+          <End Type="MNPOSTWEBSITEModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <End Type="MNPOSTWEBSITEModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaims">
+            <Dependent Role="AspNetUserClaim">
               <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+          <End Type="MNPOSTWEBSITEModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <End Type="MNPOSTWEBSITEModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogins">
+            <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <End Type="MNPOSTWEBSITEModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="MNPOSTWEBSITEModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <Association Name="webpages_UsersInRoles">
-          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="MNPOSTWEBSITEEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" />
-          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
-          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
-          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
-          <EntitySet Name="WS_FacebookUser" EntityType="Self.WS_FacebookUser" />
-          <EntitySet Name="WS_Mailer" EntityType="Self.WS_Mailer" />
-          <EntitySet Name="WS_Post" EntityType="Self.WS_Post" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <AssociationSet Name="webpages_UsersInRoles" Association="Self.webpages_UsersInRoles">
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
-          </AssociationSet>
-          <EntitySet Name="WS_AboutUs" EntityType="MNPOSTWEBSITEModel.WS_AboutUs" />
-          <FunctionImport Name="MAILER_GETALL" ReturnType="Collection(MNPOSTWEBSITEModel.MAILER_GETALL_Result)">
-          <Parameter Name="user" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="WS_ServiceType" EntityType="MNPOSTWEBSITEModel.WS_ServiceType" />
-          <EntitySet Name="WS_Recruitment" EntityType="MNPOSTWEBSITEModel.WS_Recruitment" />
-        </EntityContainer>
         <EntityType Name="WS_AboutUs">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ContentAbout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EditedBy" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
-        <ComplexType Name="MAILER_GETALL_Result">
-          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="SenderID" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="SenderName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="SenderAddress" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="SenderWardID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="SenderDistrictID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="SenderProvinceID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="SenderPhone" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="RecieverName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EmployeeAcceptID" Nullable="true" MaxLength="20" />
-          <Property Type="DateTime" Name="AcceptDate" Nullable="true" />
-          <Property Type="DateTime" Name="AcceptTime" Nullable="true" Precision="23" />
-          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
-          <Property Type="Int32" Name="Quantity" Nullable="true" />
-          <Property Type="Double" Name="Weight" Nullable="true" />
-          <Property Type="Double" Name="ReWeight" Nullable="true" />
-          <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="Discount" Nullable="true" />
-          <Property Type="Decimal" Name="BefVATAmount" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="VATPercent" Nullable="true" />
-          <Property Type="Decimal" Name="VATAmount" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="AmountBefDiscount" Nullable="true" Precision="19" />
-          <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
-          <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
-          <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
-          <Property Type="String" Name="ThirdpartyPaymentMethodID" Nullable="true" MaxLength="5" />
-          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
-          <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="PriceType" Nullable="true" MaxLength="1" />
-          <Property Type="Boolean" Name="PriceIncludeVAT" Nullable="true" />
-          <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="CommissionPercent" Nullable="true" />
-          <Property Type="Decimal" Name="CostAmt" Nullable="true" Precision="19" />
-          <Property Type="DateTime" Name="SalesClosingDate" Nullable="true" />
-          <Property Type="Double" Name="DiscountPercent" Nullable="true" />
-          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="LastUpdateDate" Nullable="true" Precision="23" />
-          <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
-          <Property Type="Boolean" Name="IsActive" Nullable="true" />
-          <Property Type="String" Name="CustomerAccount" Nullable="true" />
-        </ComplexType>
         <EntityType Name="WS_ServiceType">
           <Key>
             <PropertyRef Name="ID" />
@@ -678,293 +363,36 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ContentService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="WS_Recruitment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContentRecruitment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExcelFile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hide" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MNPOSTWEBSITEModelStoreContainer" CdmEntityContainer="MNPOSTWEBSITEEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetRoles">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUserClaims">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUserLogins">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUsers">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
-                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
-                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserProfile">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.UserProfile">
-              <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="webpages_Membership">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.webpages_Membership">
-              <MappingFragment StoreEntitySet="webpages_Membership">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
-                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
-                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
-                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
-                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="webpages_OAuthMembership">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.webpages_OAuthMembership">
-              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
-                <ScalarProperty Name="Provider" ColumnName="Provider" />
-                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="webpages_Roles">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.webpages_Roles">
-              <MappingFragment StoreEntitySet="webpages_Roles">
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WS_FacebookUser">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_FacebookUser">
-              <MappingFragment StoreEntitySet="WS_FacebookUser">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="PictureUrl" ColumnName="PictureUrl" />
+        <EntityContainerMapping StorageEntityContainer="MNPOSTWEBSITEModelStoreContainer" CdmEntityContainer="MNPOSTWEBSITEEntities" >
+          <EntitySetMapping Name="WS_Contact">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Contact">
+              <MappingFragment StoreEntitySet="WS_Contact">
+                <ScalarProperty Name="ContentContact" ColumnName="ContentContact" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WS_Mailer">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Mailer">
-              <MappingFragment StoreEntitySet="WS_Mailer">
-                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-                <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
-                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
-                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
-                <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
-                <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
-                <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
-                <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
-                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
-                <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
-                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
-                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
-                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
-                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
-                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
-                <ScalarProperty Name="EmployeeAcceptID" ColumnName="EmployeeAcceptID" />
-                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
-                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
-                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
-                <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="PriceService" ColumnName="PriceService" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="BefVATAmount" ColumnName="BefVATAmount" />
-                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
-                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="AmountBefDiscount" ColumnName="AmountBefDiscount" />
-                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-                <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
-                <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
-                <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
-                <ScalarProperty Name="ThirdpartyPaymentMethodID" ColumnName="ThirdpartyPaymentMethodID" />
-                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
-                <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
-                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
-                <ScalarProperty Name="PriceIncludeVAT" ColumnName="PriceIncludeVAT" />
-                <ScalarProperty Name="CommissionAmt" ColumnName="CommissionAmt" />
-                <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
-                <ScalarProperty Name="CostAmt" ColumnName="CostAmt" />
-                <ScalarProperty Name="SalesClosingDate" ColumnName="SalesClosingDate" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CustomerAccount" ColumnName="CustomerAccount" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WS_Post">
             <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Post">
               <MappingFragment StoreEntitySet="WS_Post">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PostName" ColumnName="PostName" />
-                <ScalarProperty Name="PostBy" ColumnName="PostBy" />
-                <ScalarProperty Name="Images" ColumnName="Images" />
-                <ScalarProperty Name="PostContent" ColumnName="PostContent" />
+                <ScalarProperty Name="ContentPost" ColumnName="ContentPost" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Service" ColumnName="Service" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MNPOSTWEBSITEModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="MNPOSTWEBSITEModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
-            <EndProperty Name="webpages_Roles">
-              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="UserProfile">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="WS_AboutUs">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_AboutUs">
-              <MappingFragment StoreEntitySet="WS_AboutUs">
-                <ScalarProperty Name="EditedBy" ColumnName="EditedBy" />
-                <ScalarProperty Name="ContentAbout" ColumnName="ContentAbout" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="MAILER_GETALL" FunctionName="MNPOSTWEBSITEModel.Store.MAILER_GETALL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MNPOSTWEBSITEModel.MAILER_GETALL_Result">
-                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-                <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
-                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
-                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
-                <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
-                <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
-                <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
-                <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
-                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
-                <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
-                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
-                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
-                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
-                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
-                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
-                <ScalarProperty Name="EmployeeAcceptID" ColumnName="EmployeeAcceptID" />
-                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
-                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
-                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
-                <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="PriceService" ColumnName="PriceService" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="BefVATAmount" ColumnName="BefVATAmount" />
-                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
-                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="AmountBefDiscount" ColumnName="AmountBefDiscount" />
-                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-                <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
-                <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
-                <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
-                <ScalarProperty Name="ThirdpartyPaymentMethodID" ColumnName="ThirdpartyPaymentMethodID" />
-                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
-                <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
-                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
-                <ScalarProperty Name="PriceIncludeVAT" ColumnName="PriceIncludeVAT" />
-                <ScalarProperty Name="CommissionAmt" ColumnName="CommissionAmt" />
-                <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
-                <ScalarProperty Name="CostAmt" ColumnName="CostAmt" />
-                <ScalarProperty Name="SalesClosingDate" ColumnName="SalesClosingDate" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
-                <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CustomerAccount" ColumnName="CustomerAccount" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="WS_ServiceType">
-            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_ServiceType">
-              <MappingFragment StoreEntitySet="WS_ServiceType">
-                <ScalarProperty Name="ContentService" ColumnName="ContentService" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PostBy" ColumnName="PostBy" />
+                <ScalarProperty Name="PostName" ColumnName="PostName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -972,7 +400,89 @@
           <EntitySetMapping Name="WS_Recruitment">
             <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Recruitment">
               <MappingFragment StoreEntitySet="WS_Recruitment">
+                <ScalarProperty Name="Hide" ColumnName="Hide" />
                 <ScalarProperty Name="ContentRecruitment" ColumnName="ContentRecruitment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="IDClient" ColumnName="IDClient" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MNPOSTWEBSITEModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="WS_AboutUs">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_AboutUs">
+              <MappingFragment StoreEntitySet="WS_AboutUs">
+                <ScalarProperty Name="ContentAbout" ColumnName="ContentAbout" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WS_ServiceType">
+            <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_ServiceType">
+              <MappingFragment StoreEntitySet="WS_ServiceType">
+                <ScalarProperty Name="Hide" ColumnName="Hide" />
+                <ScalarProperty Name="ExcelFile" ColumnName="ExcelFile" />
+                <ScalarProperty Name="ContentService" ColumnName="ContentService" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -992,7 +502,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
