@@ -12,6 +12,8 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
 
         MNPOSTEntities db = new MNPOSTEntities();
 
+        MNHistory HandleHistory = new MNHistory();
+
         public ResponseInfo GetListDelivery(string employeeId)
         {
             var data = db.MAILER_DELIVERY_GETMAILER_EMPLOYEE(employeeId).ToList();
@@ -126,6 +128,9 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     mailerInfo.DeliveryTo = "";
                     mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = findReason.ReasonName;
+
+                    HandleHistory.AddTracking(5, info.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
+
                 }
                 else if (info.StatusID == 6)
                 {
@@ -136,6 +141,8 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     mailerInfo.DeliveryTo = "";
                     mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = info.Note;
+
+                    HandleHistory.AddTracking(6, info.MailerID, mailerInfo.CurrentPostOfficeID, "Chưa phát được vì " + info.Note);
 
                 }
                 else if (info.StatusID == 4)
@@ -149,6 +156,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = "Đã phát";
 
+                    HandleHistory.AddTracking(4, info.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày phát " + deliverDate.ToString("dd/MM/yyyy") + " lúc " + deliverDate.ToString("HH:mm") + ", người nhận: " + info.Reciever);
 
                     // save nhung don co thu tien COD
                     if (mailerInfo.COD > 0)
@@ -169,7 +177,23 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     }
                 }
 
+                if(info.images != null)
+                {
+                    foreach(var image in info.images)
+                    {
+                        var saveImage = new MailerImage()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            CreateTime = DateTime.Now,
+                            MailerID = info.MailerID,
+                            PathImage = image,
+                            UserSend = user
+                        };
 
+                        db.MailerImages.Add(saveImage);
+                    }
+                    db.SaveChanges();
+                }
 
                 db.Entry(mailerInfo).State = System.Data.Entity.EntityState.Modified;
                 db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
@@ -217,5 +241,117 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
             db.SaveChanges();
         }
 
+
+        // lay hang
+        public ResultInfo GetTakeMailer(string user, string date, int statusId)
+        {
+            var checkUser = db.BS_Employees.Where(p => p.UserLogin == user).FirstOrDefault();
+
+            if (checkUser == null)
+            {
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                };
+
+            }
+       
+
+
+            var data = db.TAKEMAILER_GETLIST_BY_EMPLOYEE(checkUser.EmployeeID, statusId, date).ToList();
+
+            return new ResponseInfo()
+            {
+                error = 0,
+                msg = "",
+                data = data
+            };
+
+        }
+
+        public ResultInfo GetTakeMailerDetail(string documentID)
+        {
+            var data = db.TAKEMAILER_GETDETAILs(documentID).ToList();
+
+            return new ResponseInfo()
+            {
+                error = 0,
+                msg = "",
+                data = data
+            };
+
+        }
+
+        public ResultInfo UpdateTakeMailer(string user, UpdateTakeMailerReceive info)
+        {
+            var result = new ResultInfo()
+            {
+                error = 0,
+                msg = "success"
+            };
+            var checkUser = db.BS_Employees.Where(p => p.UserLogin == user).FirstOrDefault();
+
+            if (checkUser == null)
+            {
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                };
+
+            }
+            try
+            {
+                var checkDocument = db.MM_TakeMailers.Find(info.documentId);
+
+                if (checkDocument == null)
+                    throw new Exception("Sai thông tin");
+
+                foreach (var item in info.mailers)
+                {
+
+                    var checkMailer = db.MM_Mailers.Find(item);
+
+                    if (checkMailer == null)
+                        continue;
+
+                    var findDetail = db.MM_TakeDetails.Where(p => p.DocumentID == checkDocument.DocumentID && p.MailerID == item).FirstOrDefault();
+
+                    if (findDetail == null)
+                        continue;
+
+                    findDetail.StatusID = 8;
+                    findDetail.TimeTake = DateTime.Now;
+                    db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
+                    checkMailer.CurrentStatusID = 8;
+                    checkMailer.LastUpdateDate = DateTime.Now;
+                    db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
+                    HandleHistory.AddTracking(8, item, checkMailer.CurrentPostOfficeID, "Đã lấy hàng, đang giao về kho");
+
+                }
+
+                var checkCount = db.TAKEMAILER_GETDETAILs(checkDocument.DocumentID).Where(p=> p.CurrentStatusID == 7).ToList();
+
+                if (checkCount.Count() == 0)
+                {
+                    checkDocument.StatusID = 8;
+                    db.Entry(checkDocument).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.msg = e.Message;
+                result.error = 1;
+            }
+
+            return result;
+
+        }
     }
 }

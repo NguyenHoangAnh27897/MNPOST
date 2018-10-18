@@ -229,3 +229,5 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.Migrations.Init.resources
+D:\LAPTRINH\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.GenerateResource.Cache

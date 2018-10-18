@@ -201,6 +201,7 @@
     <Compile Include="Controllers\mailer\MailerDeliveryController.cs" />
     <Compile Include="Controllers\mailer\MailerImportController.cs" />
     <Compile Include="Controllers\mailer\MailerInitController.cs" />
+    <Compile Include="Controllers\mailer\SendPartnerController.cs" />
     <Compile Include="Controllers\mailer\TrackingController.cs" />
     <Compile Include="Controllers\manage\AdminController.cs" />
     <Compile Include="Controllers\manage\ManageController.cs" />
@@ -4565,6 +4566,7 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CustomerDebitVoucher\" />
+    <Folder Include="Views\SendPartner\" />
     <Folder Include="Views\Tracking\" />
   </ItemGroup>
   <ItemGroup>

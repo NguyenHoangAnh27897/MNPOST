@@ -71,6 +71,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
+<<<<<<< HEAD
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb
@@ -303,3 +304,5 @@ C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\bin\Antlr3.Runtime.pdb
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csprojResolveAssemblyReference.cache
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
 C:\Users\kris\Documents\GitHub\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb
+=======
+>>>>>>> 01a7ce4b119494258a36bf701ce9d75afcfde0d7

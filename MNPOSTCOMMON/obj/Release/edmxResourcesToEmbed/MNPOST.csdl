@@ -972,7 +972,7 @@
       <Parameter Name="fdate" Mode="In" Type="String" />
       <Parameter Name="tdate" Mode="In" Type="String" />
       <Parameter Name="postId" Mode="In" Type="String" />
-      <Parameter Name="customerId" Mode="In" Type="String" />
+      <Parameter Name="mailerId" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="MAILER_GETINFO_BYID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYID_Result)">
       <Parameter Name="mailerId" Mode="In" Type="String" />
@@ -1026,6 +1026,16 @@
       <Parameter Name="employeeId" Mode="In" Type="String" />
       <Parameter Name="date" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="MM_Tracking" EntityType="MNPOSTModel.MM_Tracking" />
+    <FunctionImport Name="MAILER_GETTRACKING" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_Result)">
+      <Parameter Name="mailerId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_Result)">
+      <Parameter Name="employee" Mode="In" Type="String" />
+      <Parameter Name="statusId" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="MailerImages" EntityType="MNPOSTModel.MailerImage" />
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -1163,6 +1173,7 @@
     <Property Type="String" Name="EmployeeName" Nullable="true" />
     <Property Type="String" Name="EmployeePhone" Nullable="true" MaxLength="25" />
     <Property Type="String" Name="EmployeeEmail" Nullable="true" MaxLength="512" />
+    <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
   </ComplexType>
   <ComplexType Name="MAILER_GET_NOT_INVENTORY_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -1553,4 +1564,43 @@
     <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
   </ComplexType>
+  <EntityType Name="MM_Tracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StatusID" Type="Int32" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PostOffice" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <ComplexType Name="MAILER_GETTRACKING_Result">
+    <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="StatusID" Nullable="true" />
+    <Property Type="String" Name="Describe" Nullable="true" />
+    <Property Type="String" Name="PostOffice" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_Result">
+    <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="CustomerName" Nullable="true" />
+    <Property Type="String" Name="CustomerAddress" Nullable="true" />
+    <Property Type="String" Name="CustomerPhone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Content" Nullable="true" />
+    <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="MailerImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PathImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="UserSend" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

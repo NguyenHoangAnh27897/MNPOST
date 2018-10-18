@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -483,6 +483,16 @@
     <Property Name="PreNumber" Type="int" />
     <Property Name="Code" Type="varchar" MaxLength="128" />
   </EntityType>
+  <EntityType Name="MailerImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" />
+    <Property Name="PathImage" Type="nvarchar(max)" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="UserSend" Type="nvarchar" MaxLength="128" />
+  </EntityType>
   <EntityType Name="MM_CustomerMoneyAdvances">
     <Key>
       <PropertyRef Name="DocumentID" />
@@ -735,6 +745,17 @@
     <Property Name="StatusID" Type="int" />
     <Property Name="PostID" Type="nvarchar" MaxLength="128" />
   </EntityType>
+  <EntityType Name="MM_Tracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="PostOffice" Type="nvarchar" MaxLength="128" />
+    <Property Name="CreateTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
       <PropertyRef Name="TicketID" />
@@ -934,13 +955,16 @@
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
-    <Parameter Name="customerId" Type="nvarchar" Mode="In" />
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILER_GETINFO_BYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILER_GETINFO_BYLISTID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="mailers" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="MAILER_GETTRACKING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
@@ -971,6 +995,11 @@
   <Function Name="TAKEMAILER_GETLIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="statusId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employee" Type="nvarchar" Mode="In" />
+    <Parameter Name="statusId" Type="int" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
@@ -1022,6 +1051,7 @@
     <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmpployeeDebitCOD" EntityType="Self.EmpployeeDebitCOD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
@@ -1035,6 +1065,7 @@
     <EntitySet Name="MM_PackingListDetail" EntityType="Self.MM_PackingListDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TakeDetails" EntityType="Self.MM_TakeDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TakeMailers" EntityType="Self.MM_TakeMailers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_Tracking" EntityType="Self.MM_Tracking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />

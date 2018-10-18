@@ -28,4 +28,11 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
 
         public string Note { get; set; }
     }
+
+    public class UpdateTakeMailerReceive
+    {
+        public string documentId { get; set; }
+
+        public List<string> mailers { get; set; }
+    }
 }

@@ -100,6 +100,8 @@ namespace MNPOSTWEBSITE.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            HomeController home = new HomeController();
+            Session["token"] = home.getToken().Result;
             return View();
         }
 
@@ -118,16 +120,15 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     await SignInAsync(user, isPersistent: false);                
                     System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                    new System.Net.Mail.MailAddress("cskh@miennampost.vn", "Đăng ký tài khoản"),
+                    new System.Net.Mail.MailAddress("mnpostvn@gmail.com", "Đăng ký tài khoản"),
                     new System.Net.Mail.MailAddress(user.UserName));
                     m.Subject = "Đăng ký tài khoản";
-                    m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin click vào link dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
+                    m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin nhấp vào đường dẫn dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
                     user.UserName, Url.Action("ConfirmEmail", "Account",
                     new { Token = user.Id, Email = user.UserName }, Request.Url.Scheme)) ;
                     m.IsBodyHtml = true;
-                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("mail92100.maychuemail.com");
-                    smtp.Port = 465;
-                    smtp.Credentials = new System.Net.NetworkCredential("cskh@miennampost.vn", "cskh@mnp");
+                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                    smtp.Credentials = new System.Net.NetworkCredential("mnpostvn@gmail.com", "Mnpost_2018");
                     smtp.EnableSsl = true;
                     smtp.Send(m);
                     string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
@@ -202,7 +203,7 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://221.133.7.92:89/api/customer/addcustomer";
+            string api = "http://noiboapi.miennampost.vn/api/customer/addcustomer";
             var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
@@ -227,7 +228,7 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://221.133.7.92:89/api/customer/updatecustomer";
+            string api = "http://noiboapi.miennampost.vn/api/customer/updatecustomer";
             var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {

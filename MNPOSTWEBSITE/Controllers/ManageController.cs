@@ -58,7 +58,7 @@ namespace MNPOSTWEBSITE.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/customer/getcustomerinfo/" + cusid).ConfigureAwait(continueOnCapturedContext: false))
+                    using (HttpResponseMessage response = await client.GetAsync("http://noiboapi.miennampost.vn/api/customer/getcustomerinfo/" + cusid).ConfigureAwait(continueOnCapturedContext: false))
                     {
 
                         using (HttpContent content = response.Content)
@@ -289,7 +289,7 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://221.133.7.92:89/api/customer/updatecustomer";
+            string api = "http://noiboapi.miennampost.vn/api/customer/updatecustomer";
             var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
