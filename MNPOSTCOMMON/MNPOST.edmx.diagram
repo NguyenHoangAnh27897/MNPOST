@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ee4ce0b1ccea43f59fb59d73d63ee3f2" Name="Diagram1">
+      <Diagram DiagramId="bb27be594ad345a38fc2978b71789fc6" Name="Diagram1">
         <EntityTypeShape EntityType="MNPOSTModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucher" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucherDetails" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
@@ -52,20 +52,23 @@
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerServices" Width="1.5" PointX="18.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingList" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingListDetail" Width="1.5" PointX="8.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTickets" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_TakeDetails" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_TakeMailers" Width="1.5" PointX="20.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTickets" Width="1.5" PointX="20.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.UMS_GroupMenu" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.UMS_Menu" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.UMS_MenuGroupUser" Width="1.5" PointX="20.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.UMS_UserGroups" Width="1.5" PointX="20.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.UserLevel" Width="1.5" PointX="20.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.UserPostOption" Width="1.5" PointX="20.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.UMS_MenuGroupUser" Width="1.5" PointX="20.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.UMS_UserGroups" Width="1.5" PointX="20.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.UserLevel" Width="1.5" PointX="20.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.UserPostOption" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="MNPOSTModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__5BAD9CC8" ManuallyRouted="false" />
-        <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__531856C7" ManuallyRouted="false" />
+        <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__540C7B00" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_TakeDetails" Width="1.5" PointX="19.375" PointY="20.75" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_TakeMailers" Width="1.5" PointX="3.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.EmpployeeDebitCOD" Width="1.5" PointX="3.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_Tracking" Width="1.5" PointX="19.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MailerImage" Width="1.5" PointX="21.375" PointY="21.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

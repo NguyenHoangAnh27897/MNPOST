@@ -296,6 +296,7 @@
     <Property Name="BankAccount" Type="varchar" MaxLength="50" />
     <Property Name="BankName" Type="nvarchar" MaxLength="100" />
     <Property Name="Type" Type="int" />
+    <Property Name="AreaChar" Type="varchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="BS_PriceCustomers">
     <Key>
@@ -460,13 +461,37 @@
     <Property Name="CNotes" Type="nvarchar(max)" />
     <Property Name="Active" Type="int" />
   </EntityType>
+  <EntityType Name="EmpployeeDebitCOD">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="COD" Type="float" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="AccountantConfirm" Type="int" />
+    <Property Name="ConfirmDate" Type="datetime" />
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
   <EntityType Name="GeneralCodeInfo">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="FirstChar" Type="varchar" MaxLength="5" />
+    <Property Name="FirstChar" Type="varchar" MaxLength="50" />
     <Property Name="PreNumber" Type="int" />
+    <Property Name="Code" Type="varchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="MailerImages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" />
+    <Property Name="PathImage" Type="nvarchar(max)" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="UserSend" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="MM_CustomerMoneyAdvances">
     <Key>
@@ -720,6 +745,17 @@
     <Property Name="StatusID" Type="int" />
     <Property Name="PostID" Type="nvarchar" MaxLength="128" />
   </EntityType>
+  <EntityType Name="MM_Tracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="PostOffice" Type="nvarchar" MaxLength="128" />
+    <Property Name="CreateTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
       <PropertyRef Name="TicketID" />
@@ -790,7 +826,7 @@
     <Property Name="TUser" Type="nvarchar" MaxLength="128" />
     <Property Name="TPostId" Type="nvarchar" MaxLength="129" />
   </EntityType>
-  <Association Name="FK__MM_Mailer__Emplo__5BAD9CC8">
+  <Association Name="FK__MM_Mailer__Emplo__531856C7">
     <End Role="BS_Employees" Type="Self.BS_Employees" Multiplicity="0..1" />
     <End Role="MM_MailerDelivery" Type="Self.MM_MailerDelivery" Multiplicity="*" />
     <ReferentialConstraint>
@@ -802,7 +838,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__UMS_Menu__GroupM__628FA481">
+  <Association Name="FK__UMS_Menu__GroupM__540C7B00">
     <End Role="UMS_GroupMenu" Type="Self.UMS_GroupMenu" Multiplicity="0..1" />
     <End Role="UMS_Menu" Type="Self.UMS_Menu" Multiplicity="*" />
     <ReferentialConstraint>
@@ -904,6 +940,10 @@
   <Function Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="MAILER_GET_ALL_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
@@ -915,13 +955,16 @@
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
-    <Parameter Name="customerId" Type="nvarchar" Mode="In" />
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILER_GETINFO_BYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILER_GETINFO_BYLISTID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="mailers" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="MAILER_GETTRACKING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
@@ -946,23 +989,17 @@
     <Parameter Name="type" Type="nvarchar" Mode="In" />
     <Parameter Name="districtId" Type="nvarchar" Mode="In" />
   </Function>
-  <Function Name="SplitList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="list" Type="varchar(max)" Mode="In" />
-    <Parameter Name="separator" Type="varchar(max)" Mode="In" />
-    <ReturnType>
-      <CollectionType>
-        <RowType>
-          <Property Name="Value" Type="varchar(max)" />
-        </RowType>
-      </CollectionType>
-    </ReturnType>
-  </Function>
   <Function Name="TAKEMAILER_GETDETAILs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="TAKEMAILER_GETLIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="statusId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employee" Type="nvarchar" Mode="In" />
+    <Parameter Name="statusId" Type="int" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
@@ -1012,7 +1049,9 @@
     <EntitySet Name="BS_Wards" EntityType="Self.BS_Wards" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpployeeDebitCOD" EntityType="Self.EmpployeeDebitCOD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
@@ -1026,6 +1065,7 @@
     <EntitySet Name="MM_PackingListDetail" EntityType="Self.MM_PackingListDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TakeDetails" EntityType="Self.MM_TakeDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TakeMailers" EntityType="Self.MM_TakeMailers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_Tracking" EntityType="Self.MM_Tracking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />
@@ -1033,11 +1073,11 @@
     <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__MM_Mailer__Emplo__5BAD9CC8" Association="Self.FK__MM_Mailer__Emplo__5BAD9CC8">
+    <AssociationSet Name="FK__MM_Mailer__Emplo__531856C7" Association="Self.FK__MM_Mailer__Emplo__531856C7">
       <End Role="BS_Employees" EntitySet="BS_Employees" />
       <End Role="MM_MailerDelivery" EntitySet="MM_MailerDelivery" />
     </AssociationSet>
-    <AssociationSet Name="FK__UMS_Menu__GroupM__628FA481" Association="Self.FK__UMS_Menu__GroupM__628FA481">
+    <AssociationSet Name="FK__UMS_Menu__GroupM__540C7B00" Association="Self.FK__UMS_Menu__GroupM__540C7B00">
       <End Role="UMS_GroupMenu" EntitySet="UMS_GroupMenu" />
       <End Role="UMS_Menu" EntitySet="UMS_Menu" />
     </AssociationSet>

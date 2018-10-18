@@ -175,16 +175,26 @@
     <Compile Include="EMPLOYEE_GETBYID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmpployeeDebitCOD.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneralCodeInfo.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="HistoryHandle.cs" />
     <Compile Include="MAILERDELIVERY_GETMAILER_BY_ID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailerImage.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result.cs">
@@ -196,7 +206,7 @@
     <Compile Include="MAILER_GETINFO_BYID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="MAILER_GETINFO_BYLISTID_Result.cs">
+    <Compile Include="MAILER_GETTRACKING_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_ALL_DELIVERY_Result.cs">
@@ -244,6 +254,9 @@
     <Compile Include="MM_TakeMailers.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MM_Tracking.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_TroubleTickets.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -281,10 +294,10 @@
     <Compile Include="ROUTE_GET_ALLEMPLOYEE_ROUTE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="SplitList_Result.cs">
+    <Compile Include="TAKEMAILER_GETDETAILs_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="TAKEMAILER_GETDETAILs_Result.cs">
+    <Compile Include="TAKEMAILER_GETLIST_BY_EMPLOYEE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="TAKEMAILER_GETLIST_Result.cs">
@@ -341,6 +354,7 @@
       <DependentUpon>MNPOST.edmx</DependentUpon>
       <LastGenOutput>MNPOST.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="MNPOST.edmx.sql" />
     <Content Include="MNPOST.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MNPOST.edmx</DependentUpon>

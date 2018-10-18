@@ -31,7 +31,7 @@ namespace MNPOSTAPI.Models
         public decimal DaChuyen { get; set; }
     }
 
-    public class CalPrice
+    public class CalPrice : ResultInfo
     {
         public decimal Price { get; set; }
     }

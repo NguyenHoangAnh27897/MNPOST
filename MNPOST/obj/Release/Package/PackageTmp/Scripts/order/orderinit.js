@@ -1,6 +1,6 @@
 ﻿
 // tao controller
-var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'ui.uploader']);
+var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'ui.uploader', 'ui.select2']);
 
 app.service('mailerService', function () {
     var mailerList = [];
@@ -31,7 +31,11 @@ app.service('mailerService', function () {
     };
 
     var addNewMailer = function () {
-        mailerList.unshift(getNewMailer());
+        var data = getNewMailer();
+        data.ListProvinceSend = provinceSendGet;
+        data.ListProvinceRecive = provinceSendGet;
+
+        mailerList.unshift(data);
 
     };
 
@@ -119,6 +123,13 @@ app.service('mailerService', function () {
 // controller main --> gird mailer
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
+    $scope.select2Options = {
+        theme: "classic"
+    };
+
+
+    $scope.hideSenderDetail = false;
+
     $scope.mailers = mailerService.getMailers();
     $scope.customers = mailerService.getCustomers();
     $scope.mailerTypes = mailerService.getMailerTypes();
@@ -131,6 +142,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     $scope.addNewMailer = function () {
         mailerService.addNewMailer();
+
     };
 
     $scope.removeMailer = function (idx) {
@@ -191,59 +203,22 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     };
 
-    // 
-    $scope.getLocation = function (val) {
-        return $http.get('//maps.googleapis.com/maps/api/geocode/json?components=country:VN', {
-            params: {
-                address: val,
-                sensor: false
-            }
-        }).then(function (response) {
-            return response.data.results.map(function (item) {
-                return item;
-            });
-        });
-    };
-
-    $scope.onSelectAddress = function ($item, $model, $label, idx, type) {
-        console.log($item);
-        var result = handleAutoCompleteAddress($item);
-
-        console.log(result);
-
-        var url = "/MailerInit/GetProvinceFromAddress?province=" + result.administrative_area_level_1 + "&district=" + result.administrative_area_level_2 + "&ward=" + result.political;
-
-        $http.get(url).then(function (response) {
-
-            if (type === "send") {
-                $scope.mailers[idx].SenderProvinceID = response.data.provinceId;
-                $scope.mailers[idx].SenderDistrictID = response.data.districtId;
-                $scope.mailers[idx].SenderWardID = response.data.wardId;
-            } else {
-                $scope.mailers[idx].RecieverProvinceID = response.data.provinceId;
-                $scope.mailers[idx].RecieverDistrictID = response.data.districtId;
-                $scope.mailers[idx].RecieverWardID = response.data.wardId;
-            }
 
 
-        });
-    };
 
     $scope.getMailerCode = function (idx) {
         var mailer = $scope.mailers[idx];
 
-        if (mailer.MailerID === "" || mailer.MailerID === null) {
-            showLoader(true);
-            var url = "/MailerInit/GeneralCode?cusId=" + mailer.SenderID;
 
-            $http.get(url).then(function (response) {
+        showLoader(true);
+        var url = "/MailerInit/GeneralCode?postId=" + mailerService.getPost();
 
-                $scope.mailers[idx].MailerID = response.data.code;
-                showLoader(false);
-            });
-        } else {
-            showNotify('Xóa mã đang nhập nếu muốn tạo mới');
-        }
+        $http.get(url).then(function (response) {
+
+            $scope.mailers[idx].MailerID = response.data.code;
+            showLoader(false);
+        });
+
 
     };
 
@@ -306,6 +281,56 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         showModel('insertbyexcel');
     };
 
+
+    $scope.provinceChange = function (pType, type, idx) {
+
+        var url = '/mailerinit/GetProvinces?';
+
+        if (type === 'send') {
+
+            if (pType === "district") {
+                url = url + "parentId=" + $scope.mailers[idx].SenderProvinceID + "&type=district";
+            }
+
+            if (pType === "ward") {
+                url = url + "parentId=" + $scope.mailers[idx].SenderDistrictID + "&type=ward";
+            }
+
+        } else {
+            if (pType === "district") {
+                url = url + "parentId=" + $scope.mailers[idx].RecieverProvinceID + "&type=district";
+            }
+
+            if (pType === "ward") {
+                url = url + "parentId=" + $scope.mailers[idx].RecieverDistrictID + "&type=ward";
+            }
+        }
+
+        $http.get(url).then(function (response) {
+
+            if (type === 'send') {
+
+                if (pType === "district") {
+                    $scope.mailers[idx].ListDistrictSend = angular.copy(response.data);
+                }
+
+                if (pType === "ward") {
+                    $scope.mailers[idx].ListWardSend = angular.copy(response.data);
+                }
+
+            } else {
+                if (pType === "district") {
+                    $scope.mailers[idx].ListDistrictReceive = angular.copy(response.data);
+                }
+
+                if (pType === "ward") {
+                    $scope.mailers[idx].ListWardRecive = angular.copy(response.data);
+                }
+            }
+
+        });
+
+    };
 
     $scope.changeExcelCus = function (idx) {
 
@@ -427,6 +452,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 // controller detail --> create, edit mailer
 app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerService) {
 
+    $scope.select2Options = {
+        theme: "classic"
+    };
+
     $scope.customers = mailerService.getCustomers();
     $scope.mailerTypes = mailerService.getMailerTypes();
     $scope.payments = mailerService.getPayments();
@@ -458,9 +487,9 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
 
 
-
-    $scope.provinceRecei = angular.copy($scope.provinceSend);
     $scope.provinceSend = provinceSendGet;
+    $scope.provinceRecei = angular.copy($scope.provinceSend);
+
     $scope.districtSend = [];
     $scope.wardSend = [];
 
@@ -608,22 +637,19 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
     $scope.getMailerCode = function () {
 
-        if ($scope.mailer.MailerID === "") {
-            showLoader(true);
-            var url = "/MailerInit/GeneralCode?cusId=" + $scope.mailer.SenderID;
+        showLoader(true);
+        var url = "/MailerInit/GeneralCode?postId=" + mailerService.getPost();
 
-            $http.get(url).then(function (response) {
+        $http.get(url).then(function (response) {
 
-                $scope.mailer.MailerID = response.data.code;
-                showLoader(false);
-            });
-        } else {
-            alert('Xóa mã đang nhập nếu muốn tạo mới');
-        }
+            $scope.mailer.MailerID = response.data.code;
+            showLoader(false);
+        });
 
     };
 
     $scope.calPrice = function () {
+
         $http({
             method: "POST",
             url: "/mailer/calbillprice",
@@ -634,7 +660,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
                 'serviceTypeId': $scope.mailer.MailerTypeID,
                 'postId': mailerService.getPost(),
                 'cod': $scope.mailer.COD,
-                'goodPrice': $scope.mailer.MerchandiseValue
+                'merchandiseValue': $scope.mailer.MerchandiseValue
             }
         }).then(function mySuccess(response) {
 

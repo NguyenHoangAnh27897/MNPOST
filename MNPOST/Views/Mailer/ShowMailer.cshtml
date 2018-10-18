@@ -15,7 +15,7 @@
                     <a class="btn btn-primary" href="/mailerinit/init" target="_blank" ng-hide="showEdit">Tạo vận đơn</a>
                     <a class="btn btn-warning" ng-hide="showEdit" ng-click="printMailers()">Print</a>
                     <a class="btn btn-primary" ng-click="" ng-show="showEdit">Cập nhật</a>
-                    <a class="btn btn-warning" ng-show="showEdit">Xem lịch sử</a>
+                    <a class="btn btn-warning" ng-show="showEdit" ng-click="getTracking()">Xem lịch sử</a>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -39,11 +39,11 @@
                                             <label>Tìm kiếm</label>
                                             <div class="row">
                                                 <div class="col-sm-7">
-                                                    <input type="text" my-tool-tip="Tìm kiếm" class="form-control" ng-model="searchInfo.search" my-enter="GetData()">
+                                                    <input type="text" class="form-control" ng-model="searchInfo.search" my-enter="GetData()">
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <select class="form-control" ng-model="searchInfo.customer">
-                                                        <option ng-repeat="item in customers" value="{{item.code}}">{{item.name | uppercase}}</option>
+                                                    <select class="form-control" ng-model="searchInfo.status" convert-to-number>
+                                                        <option ng-repeat="item in status" value="{{item.code}}" >{{item.name | uppercase}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -446,6 +446,48 @@
         </div>
     </div>
     <!-- end show report -->
+
+
+    <!-- show tracking-->
+    <div id="showtracking" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th>STT</th>
+                                    <th>Tình trạng</th>
+                                    <th>Ngày giờ</th>
+                                    <th>Bưu cục hiện tại</th>
+                                    <th>Diễn dãi</th>
+                                </tr>
+                            </thead>
+                                    
+                            <tbody>
+                                <tr ng-repeat="item in tracks">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{findStatus(item.StatusID)}}</td>
+                                    <td>{{item.CreateDate}}</td>
+                                    <td>{{item.PostOffice}}</td>
+                                    <td>{{item.Describe}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- end show tracking -->
 
 </div>
 @section styles {

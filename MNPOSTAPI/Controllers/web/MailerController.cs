@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using MNPOSTAPI.Models;
 using System.Web.Script.Serialization;
+using System.Data.SqlClient;
 namespace MNPOSTAPI.Controllers.web
 {
     public class MailerController : WebBaseController
@@ -78,7 +79,39 @@ namespace MNPOSTAPI.Controllers.web
             }
         }
 
-        [HttpPost]
+        [HttpGet]
+        public CalPrice GetPrice(decimal weight,string customerid,string provinceid,string servicetypeid,string postofficeid,string date)
+        {
+            try
+            {
+                var pweight = new SqlParameter("@Weight", weight);
+                var pcus = new SqlParameter("@CustomerID", customerid);
+                var ppro = new SqlParameter("@ProvinceID", provinceid);
+                var pser = new SqlParameter("@CustomerID", servicetypeid);
+                var ppos = new SqlParameter("@PostOfficeID", postofficeid);
+                var ddate = new SqlParameter("@Ngay", date);
+             
+               // var data = db.Database.SqlQuery<TieuChiDuKien>("GET_TIEUCHI_DUKIEN @MaTruong,@NamHoc", matruong, namhoc).ToList();
+                CalPrice result = new CalPrice()
+                {
+                    error = 0,
+                    msg = "400-OK",
+                   // Price = db.MM_Mailers.Where(p => p.SenderID == customerid).ToList()
+                   Price = 0
+                };
+                return result;
+            }
+            catch
+            {
+                CalPrice result = new CalPrice()
+                {
+                    error = 1,
+                    msg = "Khong ket noi he thong"
+                };
+                return result;
+            }
+        }
+
         public ResultInfo DeleteCustomerByCustomerID()
         {
             ResultInfo result = new ResultInfo()
@@ -111,7 +144,7 @@ namespace MNPOSTAPI.Controllers.web
             return result;
         }
 
-        [HttpPost]
+
         public ResultInfo AddMailer()
         {
             ResultInfo result = new ResultInfo()

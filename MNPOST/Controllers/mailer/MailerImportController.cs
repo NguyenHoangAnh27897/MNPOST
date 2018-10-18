@@ -44,6 +44,15 @@ namespace MNPOST.Controllers.mailer
         [HttpPost]
         public ActionResult CreateTakeMailer(string postId, string cusCode, string cusName, string cusAddress, string cusPhone, string content, string employeeId, List<string> mailers)
         {
+            var findEmployee = db.BS_Employees.Where(p => p.EmployeeID == employeeId).FirstOrDefault();
+
+            if(findEmployee == null)
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin nhân viên lấy hàng"
+                }, JsonRequestBehavior.AllowGet);
+
 
             var takeMaileInfo = new MM_TakeMailers()
             {
@@ -70,7 +79,7 @@ namespace MNPOST.Controllers.mailer
             {
                 var findMailer = db.MM_Mailers.Find(item);
 
-                if(findMailer != null)
+                if(findMailer != null && findMailer.CurrentStatusID == 0)
                 {
                     var deltail = new MM_TakeDetails()
                     {
@@ -89,6 +98,10 @@ namespace MNPOST.Controllers.mailer
                     db.Entry(findMailer).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
+
+                    // luu tracking
+                    HandleHistory.AddTracking(7, item, postId, "Giao nhân viên " + findEmployee.EmployeeName + " số điện thoại " + findEmployee.Phone + " , đi lấy hàng");
+
                 }
 
             }
@@ -105,7 +118,7 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GetTakeMailers (string postId)
         {
-            var data = db.TAKEMAILER_GETLIST(postId, 7).ToList();
+            var data = db.TAKEMAILER_GETLIST(postId, 7).OrderByDescending(p=> p.CreateTime).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -135,12 +148,14 @@ namespace MNPOST.Controllers.mailer
             {
                 var find = db.MM_Mailers.Where(p => p.MailerID == item && p.PostOfficeAcceptID == postId).FirstOrDefault();
 
-                if (find != null && find.CurrentStatusID == 0)
+                if (find != null && (find.CurrentStatusID == 0 || find.CurrentStatusID == 8))
                 {
                     find.CurrentStatusID = 2; // nhap kho
                     find.LastUpdateDate = DateTime.Now;
                     db.Entry(find).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+
+                    HandleHistory.AddTracking(2, item, find.CurrentPostOfficeID, "Lưu kho và chuẩn bị phát hàng");
 
                     listAdds.Add(item);
                 }
@@ -159,8 +174,8 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult ShowTakeDetail (string documentID)
         {
-
-            var data = db.TAKEMAILER_GETDETAILs(documentID).ToList();
+            // lay nhung don chua lay
+            var data = db.TAKEMAILER_GETDETAILs(documentID).Where(p=> p.CurrentStatusID == 7).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -206,6 +221,9 @@ namespace MNPOST.Controllers.mailer
                 checkMailer.LastUpdateDate = DateTime.Now;
                 db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+
+                HandleHistory.AddTracking(8, item, checkMailer.CurrentPostOfficeID, "Đã lấy hàng, đang giao về kho");
+
 
             }
 

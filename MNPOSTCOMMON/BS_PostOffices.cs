@@ -30,5 +30,6 @@ namespace MNPOSTCOMMON
         public string BankAccount { get; set; }
         public string BankName { get; set; }
         public Nullable<int> Type { get; set; }
+        public string AreaChar { get; set; }
     }
 }

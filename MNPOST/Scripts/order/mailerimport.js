@@ -1,6 +1,10 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'ui.select2']);
 
 app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
+
+    $scope.select2Options = {
+    
+    };
 
     $scope.mailers = [];
 
@@ -88,12 +92,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                 }
             }).then(function sucess(response) {
                 showLoader(false);
-                for (i = 0; i < response.data.data.length; i++) {
-                    var findIndex = getSelectedIndex(listSends[i]);
 
-                    $scope.mailers.shift(findIndex);
-
-                }
+                $scope.getData();
                 showNotify("Đã nhập kho");
             }, function error(response, error) {
                 showNotify("connect has disconnect");
@@ -126,7 +126,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                         postId: $scope.postHandle
                     }
                 }).then(function sucess(response) {
-                    $scope.mailers.shift(findIndex);
+                   // $scope.mailers.shift(findIndex);
+                    $scope.getData();
                     $scope.mailerId = '';
                 }, function error(response, error) {
                     showNotify("connect has disconnect");
@@ -150,12 +151,19 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.getData();
             $scope.sendGetEmployees();
             $scope.sendGetTakeMailers();
-            $interval(function () { $scope.getData(); }, 1000*60);
+            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers();}, 1000*60);
         } else {
             showModelFix('choosePostOfficeModal');
         }
 
     };
+
+    $scope.refeshData = function () {
+        $scope.getData();
+        $scope.sendGetEmployees();
+        $scope.sendGetTakeMailers();
+    };
+
     $scope.sendGetEmployees = function () {
 
         $http.get("/MailerImport/GetEmployee?postId=" + $scope.postHandle).then(function (response) {
@@ -181,7 +189,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.sendGetEmployees();
             $scope.getData();
             $scope.sendGetTakeMailers();
-            $interval(function () { $scope.getData(); }, 1000 * 60);
+            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers(); }, 1000 * 60);
             hideModel('choosePostOfficeModal');
         }
     };
@@ -298,7 +306,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
 
     $scope.sendUpdateTake= function () {
-
+        showLoader(true);
         var listSends = [];
         for (i = 0; i < $scope.takeDetailDatas.length; i++) {
             if ($scope.takeDetailDatas[i].isCheck) {
@@ -333,9 +341,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                 } else {
                     showNotify(response.data.msg);
                 }
-
+                showLoader(false);
             }, function error(response) {
                 showNotify('disconnected internet')
+                showLoader(false);
             });
 
         }

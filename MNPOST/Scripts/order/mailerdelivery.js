@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective', 'ui.mask']);
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     // phan trang
@@ -125,7 +125,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     // xư ly bang ke
     $scope.createDelivery = function () {
-        $('.selectpicker').selectpicker('refresh');
+
         showModel('createDelivery');
 
     };
@@ -176,7 +176,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         $scope.currentDocument = angular.copy($scope.allDeliveries[idx]);
 
         $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
+        $scope.getDocumentDetail();
 
+    };
+
+    $scope.getDocumentDetail = function () {
         $http.get("/mailerdelivery/GetDeliveryMailerDetail?documentID=" + $scope.currentDocument.DocumentID).then(
             function (response) {
                 console.log(response.data);
@@ -189,6 +193,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         if ($scope.currentDocument.DocumentID === '') {
             alert("Không thể thêm");
         } else {
+            showLoader(true);
             $http({
                 method: "POST",
                 url: "/mailerdelivery/AddMailer",
@@ -207,14 +212,38 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
                 }
                 $scope.mailerId = "";
 
+                showLoader(false);
+
             }, function error() {
                 alert("connect error");
+                showLoader(false);
             });
         }
     };
 
+    // huy phat
+    $scope.detroyMailerDelivery = function (mailerId) {
+        showLoader(true);
+        $http({
+            method: 'POST',
+            url: '/mailerdelivery/DetroyMailerDelivery',
+            data: {
+                mailerId: mailerId,
+                documentId: $scope.currentDocument.DocumentID
+            }
+        }).then(function success(response) {
+            showLoader(false);
+            $scope.getDocumentDetail();
+            showNotify('Đã xóa');
 
-    // 
+        }, function error(response) {
+            alert("connect error");
+            showLoader(false);
+
+        });
+    };
+
+    //  cap nhat mailer
     $scope.mailerUpdates = [];
     $scope.mailerIdUpdate = '';
     $scope.returnReasons = angular.copy(reasonReturnDatas);
@@ -234,9 +263,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
                         response.data[i].DeliveryStatus = 4;
                         $scope.mailerUpdates.push(response.data[i]);
                     }
-                 
+
                 }
-            
+
             }
         );
 
@@ -268,44 +297,88 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
                     $scope.mailerUpdates.push(result.data);
 
-                   
+
 
                 }
                 showNotify('Đã thêm ' + $scope.mailerIdUpdate);
                 $scope.mailerIdUpdate = '';
             }
-        
-           
+
+
         });
 
     };
 
-    $scope.updateDeliveryMailer = function () {
-        showLoader(true);
-        $http({
-            method: 'POST',
-            url: '/mailerdelivery/ConfirmDeliveyMailer',
-            data: {
-                detail: $scope.mailerUpdates
-            }
-        }).then(function sucess(response) {
 
-            showLoader(false);
-            $scope.mailerUpdates = [];
-            showNotify('Đã cập nhật phát');
-            $scope.mailers = [];
-            $scope.currentDocument = {};
-            $scope.GetData();
+    $scope.updateDeliveryMailer = function () {
+
+        var sendUpdate = true;
+
+        for (var i = 0; i < $scope.mailerUpdates.length; i++) {
+            // check dieu kien update
+            var mailer = $scope.mailerUpdates[i];
+
+            if (mailer.DeliveryDate === "" || mailer.DeliveryTime === "") {
+                showNotify(mailer.MailerID + ' chưa nhập ngày giờ');
+                sendUpdate = false;
+                break;
+            }
+
+            if (mailer.DeliveryStatus === 4) {
+                // da phat
+                if (mailer.DeliveryTo === '') {
+                    showNotify(mailer.MailerID + ' chưa nhập người nhận');
+                    sendUpdate = false;
+                    break;
+                }
+            }
+
+            if (mailer.DeliveryStatus === 5) {
+                // chuyen hoan
+                if (mailer.ReturnReasonID === '') {
+                    showNotify(mailer.MailerID + ' chưa nhập lý do');
+                    sendUpdate = false;
+                    break;
+                }
+            }
+            if (mailer.DeliveryStatus === 6) {
+                // chuyen hoan
+                if (mailer.DeliveryNotes === '') {
+                    showNotify(mailer.MailerID + ' chưa nhập ghi chú');
+                    sendUpdate = false;
+                    break;
+                }
+            }
+        }
+
+        if (sendUpdate) {
+            showLoader(true);
+            $http({
+                method: 'POST',
+                url: '/mailerdelivery/ConfirmDeliveyMailer',
+                data: {
+                    detail: $scope.mailerUpdates
+                }
+            }).then(function sucess(response) {
+
+                showLoader(false);
+                $scope.mailerUpdates = [];
+                showNotify('Đã cập nhật phát');
+                $scope.mailers = [];
+                $scope.currentDocument = {};
+                $scope.GetData();
 
             }, function error(response) {
                 showLoader(false);
                 alert("connect error");
             });
+        }
 
     };
 
     $scope.init();
 
+    // tao tu dong
     $scope.autoRoutes = [];
     $scope.countMailers = 0;
     $scope.getAutoRoutes = function () {
@@ -344,12 +417,14 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             }
             showLoader(false);
             hideModel('autoRoutes');
-            }, function error(response) {
-                showLoader(false);
-                alert("connect error");
-            });
+        }, function error(response) {
+            showLoader(false);
+            alert("connect error");
+        });
 
     };
+
+
     $scope.createAutoAllEmployee = function () {
 
         var date = $('#deliveryRouteDate').val();
@@ -378,7 +453,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     };
 
 
-     
+    // do danh sach tu dong
     $scope.fillMailerForEmployee = function () {
 
 
@@ -397,12 +472,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
         });
 
-        
+
 
     };
-
-
-
     $scope.provincesearch = '';
     $scope.districtsearch = '';
 
@@ -413,7 +485,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
         $http.get(url).then(function (response) {
 
-            
+
 
             $scope.districts = angular.copy(response.data);
 
@@ -448,6 +520,57 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             $scope.mailerEmployeeFinds[i].IsCheck = $scope.checkAllMailerForEmployee;
         }
     };
+
+    // do danh sach tu danh sach lay tuyen tu donng
+    // type : route --> lay tu employeeMailerFromRoutes
+    // type : province --> lay tu mailerEmployeeFinds
+    $scope.addMailerAutoFromRoutes = function (type) {
+        showLoader(true);
+
+        var listMailer = [];
+        var listTemp = [];
+        if (type === 'route') {
+            listTemp = $scope.employeeMailerFromRoutes.Mailers;
+        } else {
+            listTemp = $scope.mailerEmployeeFinds;
+        }
+
+        for (var i = 0; i < listTemp.length; i++) {
+            if (listTemp[i].IsCheck) {
+                listMailer.push(listTemp[i].MailerID);
+            }
+        }
+
+        $http(
+            {
+                method: 'POST',
+                url: '/mailerdelivery/AddListMailer',
+                data: {
+                    documentId: $scope.currentDocument.DocumentID,
+                    mailers: listMailer
+                }
+            }
+        ).then(function sucess(response) {
+
+            var result = response.data;
+            hideModel("getmailerdelivery");
+            showLoader(false);
+
+            if (result.error === 1) {
+                showNotifyWarm(result.msg);
+            } else {
+                $scope.getDocumentDetail();
+                $scope.GetData();
+            }
+
+        }, function error(response) {
+            showLoader(false);
+            showNotify('internet disconnect');
+        });
+
+    };
+
+    //
 
 
 });

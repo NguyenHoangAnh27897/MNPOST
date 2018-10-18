@@ -12,6 +12,8 @@ namespace MNPOST.Controllers.mailer
 {
     public class MailerController : BaseController
     {
+        protected MNHistory HandleHistory = new MNHistory();
+
 
         [HttpGet]
         public ActionResult ShowMailer()
@@ -25,20 +27,11 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public JsonResult GetMailers(int? page, string search, string fromDate, string toDate, string customer, string postId)
+        public JsonResult GetMailers(int? page, string search, string fromDate, string toDate, int status, string postId)
         {
             int pageSize = 50;
 
             int pageNumber = (page ?? 1);
-
-            if (!CheckPostOffice(postId))
-                return Json(new { error = 1, msg = "Không phải bưu cục" }, JsonRequestBehavior.AllowGet);
-
-            if (String.IsNullOrEmpty(fromDate) || String.IsNullOrEmpty(toDate))
-            {
-                fromDate = DateTime.Now.ToString("dd/MM/yyyy");
-                toDate = DateTime.Now.ToString("dd/MM/yyyy");
-            }
 
             DateTime paserFromDate = DateTime.Now;
             DateTime paserToDate = DateTime.Now;
@@ -54,7 +47,12 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + customer + "%").ToList();
+            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + search + "%").ToList();
+
+            if(status != -1)
+            {
+                data = data.Where(p => p.CurrentStatusID == status).ToList();
+            }
 
             ResultInfo result = new ResultWithPaging()
             {
@@ -71,13 +69,19 @@ namespace MNPOST.Controllers.mailer
         }
 
 
-        public JsonResult GetCustomers(string postId)
+       [HttpGet]
+       public ActionResult GetTracking(string mailerId)
         {
-            var data = db.BS_Customers.Where(p => p.PostOfficeID == postId).Select(p => new CommonData() { name = p.CustomerName, code = p.CustomerCode }).ToList();
+            var data = db.MAILER_GETTRACKING(mailerId).ToList();
 
-            return Json(new ResultInfo() { error = 0, msg = "", data = data }, JsonRequestBehavior.AllowGet);
-
+            return Json(new ResultInfo()
+            {
+                data = data,
+                error = 0
+            }, JsonRequestBehavior.AllowGet);
         }
+
+
 
         [HttpGet]
         public ActionResult ShowReportMailer(string mailers)
@@ -92,34 +96,41 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
-        public string GeneralMailerCode(string cusId)
+        public string GeneralMailerCode(string postId)
         {
+            var post = db.BS_PostOffices.Where(p => p.PostOfficeID == postId).FirstOrDefault();
 
-            var find = db.GeneralCodeInfoes.Where(p=> p.Id == "mailer" && p.FirstChar == "MN").FirstOrDefault();
+            if(post == null)
+            {
+                return "";
+            }
+
+            var charFirst = post.AreaChar + DateTime.Now.ToString("ddMMyy");
+            var codeSearch = "mailer" + post.AreaChar;
+
+            var find = db.GeneralCodeInfoes.Where(p=> p.Code == codeSearch && p.FirstChar == charFirst).FirstOrDefault();
 
             if (find == null)
             {
                 var generalCode = new GeneralCodeInfo()
                 {
-                    Id = "mailer",
+                    Id = Guid.NewGuid().ToString(),
                     PreNumber = 0,
-                    FirstChar = "MN"
+                    FirstChar = charFirst,
+                    Code = codeSearch
                 };
                 db.GeneralCodeInfoes.Add(generalCode);
                 db.SaveChanges();
 
-                return GeneralMailerCode(cusId);
+                return GeneralMailerCode(postId);
             }
 
             var number = find.PreNumber + 1;
 
             string code = number.ToString();
-            int count = 6;
-            if (code.Count() < 6)
+            int count = 5;
+            if (code.Count() < 5)
             {
-
-                // quy dinh chi 6 ki tu
-
                 count = count - code.Count();
 
                 while (count > 0)

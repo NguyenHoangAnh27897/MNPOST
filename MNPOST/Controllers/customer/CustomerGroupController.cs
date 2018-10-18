@@ -54,6 +54,7 @@ namespace MNPOST.Controllers.customer
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
 
             customergroup.CreationDate = DateTime.Now;
+            customergroup.CustomerGroupID = GeneralCusGroupCode();
             db.BS_CustomerGroups.Add(customergroup);
 
             db.SaveChanges();
@@ -62,6 +63,55 @@ namespace MNPOST.Controllers.customer
 
         }
 
+
+        private string GeneralCusGroupCode()
+        {
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == "GCUSTOMER").FirstOrDefault();
+
+            if (find == null)
+            {
+                var data = new GeneralCodeInfo()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = "GCUSTOMER",
+                    FirstChar = "",
+                    PreNumber = 0
+                };
+
+                db.GeneralCodeInfoes.Add(data);
+                db.SaveChanges();
+
+                GeneralCusGroupCode();
+            }
+
+
+            var number = find.PreNumber + 1;
+
+            string code = number.ToString();
+
+            int count = 4;
+
+            if (code.Count() < 4)
+            {
+                count = count - code.Count();
+
+                while (count > 0)
+                {
+                    code = "0" + code;
+                    count--;
+                }
+            }
+
+
+            find.PreNumber = find.PreNumber + 1;
+            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return code;
+
+        }
+
+      
 
         [HttpPost]
         public ActionResult edit(BS_CustomerGroups customergroup)

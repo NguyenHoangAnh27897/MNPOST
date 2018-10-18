@@ -11,10 +11,12 @@
             <div class="x_title">
                 <h2>ĐƠN HÀNG MỚI {{postHandle}}</h2>
                 <div class="nav navbar-right">
-                    <button type="button" class="btn btn-danger" ng-click="sendUpdateTake()" ng-init="updateTake=false" ng-show="updateTake">XÁC NHẬN ĐÃ LẤY HÀNG</button>
-                    <button type="button" class="btn btn-danger" ng-click="takeMailers()" ng-show="customerSearch.SenderID!==''">LẤY HÀNG</button>
-                    <button type="button" class="btn btn-primary" ng-click="sendImport()" >NHẬP KHO</button>
-                    <button type="button" class="btn btn-warning" ng-click="getData()" >TẢI LẠI</button>
+                    <button type="button" class="btn btn-danger" ng-init="tabds=true" ng-show="tabds"> CHUYỂN ĐỐI TÁC</button>
+                    <button type="button" class="btn btn-success" ng-click="sendUpdateTake()" ng-init="updateTake=false" ng-show="updateTake">XÁC NHẬN ĐÃ LẤY HÀNG</button>
+                    <button type="button" class="btn btn-danger" ng-click="takeMailers()" ng-show="customerSearch.SenderID!=='' && tabds">LẤY HÀNG</button>
+                    <button type="button" class="btn btn-primary" ng-click="sendImport()"  ng-show="tabds">NHẬP KHO</button>
+                   
+                    <button type="button" class="btn btn-warning" ng-click="refeshData()" >TẢI LẠI</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -23,27 +25,32 @@
                 <div class="" role="tabpanel" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active">
-                            <a href="#tab_sophat" role="tab" data-toggle="tab" aria-expanded="false" ng-click="updateTake=false" >Chưa nhập kho <span class="badge">{{mailers.length}}</span></a>
+                            <a href="#tab_sophat" role="tab" data-toggle="tab" aria-expanded="false" ng-click="updateTake=false; tabds = true" >Chưa nhập kho <span class="badge">{{mailers.length}}</span></a>
                         </li>
                         <li role="presentation" >
-                            <a href="#tab_layhang" role="tab" data-toggle="tab" aria-expanded="false" ng-click="updateTake=false">Danh dách điều lấy hàng</a>
+                            <a href="#tab_layhang" role="tab" data-toggle="tab" aria-expanded="false" ng-click="updateTake=false; tabds = false">Danh dách điều lấy hàng</a>
                         </li>
                         <li role="presentation" >
-                            <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false">Chi tiết</a>
+                            <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false" ng-click="updateTake=true; tabds = false">Chi tiết</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active in" id="tab_sophat" aria-labelledby="home-tab">
                            <div class="row">
-                               <div class="col-md-6">
+                               <div class="col-md-4">
                                    <div class="form-group">
                                        <label>Lọc theo khách hàng</label>
-                                       <select ng-model="customerSearch.SenderID" class="form-control" ng-change="removeCheck()">
+                                       <select ui-select2="select2Options" ng-model="customerSearch.SenderID" class="form-control" ng-change="removeCheck()">
                                            <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
                                        </select>
                                    </div>
                                </div>
-
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label>Tìm theo mã vận đơn</label>
+                                       <input type="text" ng-model="customerSearch.MailerID" class="form-control" />
+                                   </div>
+                               </div>
                                <div class="col-md-12">
                                    <div class="table-responsive">
                                        <table class="table table-striped jambo_table bulk_action scrollmenu">
@@ -75,7 +82,7 @@
                                                    <td><input type="checkbox" ng-model="item.isCheck" /></td>
                                                    <td>{{$index + 1}}</td>
                                                    <td>{{item.MailerID}}</td>
-                                                   <td>{{status[item.CurrentStatusID].name}}</td>
+                                                   <td><strong class="label" ng-class="{'label-success' : item.CurrentStatusID === 0, 'label-warning': item.CurrentStatusID === 8}">{{status[item.CurrentStatusID].name}}</strong></td>
                                                    <td>{{item.AcceptDate}}</td>
                                                    <td>{{item.SenderID}}</td>
                                                    <td>{{item.SenderName}}</td>
@@ -104,7 +111,6 @@
                                 <table class="table table-striped jambo_table bulk_action scrollmenu">
                                     <thead>
                                         <tr class="headings">
-                                           
                                             <th>STT</th>
                                             <th>Ngày tạo</th>
                                             <th>Nhân viên lấy</th>
@@ -181,11 +187,11 @@
 
     <!-- giao nhan vien nhan -->
 
-    <div id="takemailers" class="modal fade" role="dialog">
+    <div id="takemailers" class="modal fade" role="dialog" tabindex="-1">
         <div class="modal-dialog SenderID">
 
             <!-- Modal content-->
-            <div class="modal-content">
+            <div class="modal-content" >
                 <form name="takemailersform" ng-submit="sendTake(takemailersform.$valid)">
                     <div class="modal-body">
                         <div class="row">
@@ -265,6 +271,7 @@
             overflow: auto;
             white-space: nowrap;
         }
+
     </style>
 }
 @section scripts {
@@ -272,7 +279,12 @@
     <script type="text/javascript">
         var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
 
-        var customerDatas= angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllCustomer)));
+        var customerDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllCustomer)));
+
+
+        $.fn.modal.Constructor.prototype.enforceFocus = function () { };
+
+
     </script>
 
     <script src="~/Scripts/order/mailerimport.js" type="text/javascript"></script>

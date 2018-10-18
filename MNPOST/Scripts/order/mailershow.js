@@ -18,7 +18,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         "search": "",
         "fromDate": fromDate,
         "toDate": toDate,
-        "customer": "",
+        "status": -1,
         "page": $scope.currentPage,
         "postId": ""
     };
@@ -80,17 +80,28 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     };
 
-    $scope.customers = [{ code: '', name: 'Tất cả' }];
-    $scope.getCustomerData = function () {
-        $http.get("/mailer/GetCustomers?postId=" + $scope.postHandle).then(function (response) {
-            if (response.data.error === 0) {
-                $scope.customers.push.apply($scope.customers, response.data.data)
+    $scope.tracks = [];
+
+    $scope.getTracking = function () {
+        showLoader(true);
+        var mailerId = $scope.mailer.MailerID;
+        $http.get('/mailer/GetTracking?mailerId=' + mailerId).then(function (response) {
+            showLoader(false);
+            var result = response.data;
+            if (result.error === 0) {
+                $scope.tracks = result.data;
+                showModel('showtracking');
+            } else {
+                showNotify("Không lấy được")
             }
+
         });
+
     };
 
-    $scope.status = angular.copy(mailerStatusData);
 
+    $scope.status = angular.copy(mailerStatusData);
+    $scope.status.unshift({ "code": -1, "name": "TẤT CẢ" });
     $scope.findStatus = function (code) {
         for (var i = 0; i < $scope.status.length; i++) {
             if ($scope.status[i].code === code)
@@ -105,7 +116,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
         if ($scope.postOffices.length === 1) {
             $scope.postHandle = $scope.postOffices[0];
-            $scope.getCustomerData();
         } else {
             showModelFix('choosePostOfficeModal');
         }
