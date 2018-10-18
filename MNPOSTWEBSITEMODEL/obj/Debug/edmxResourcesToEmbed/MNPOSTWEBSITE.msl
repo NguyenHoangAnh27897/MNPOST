@@ -117,5 +117,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="WS_Slider">
+      <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.WS_Slider">
+        <MappingFragment StoreEntitySet="WS_Slider">
+          <ScalarProperty Name="Caption03" ColumnName="Caption03" />
+          <ScalarProperty Name="Caption02" ColumnName="Caption02" />
+          <ScalarProperty Name="Caption01" ColumnName="Caption01" />
+          <ScalarProperty Name="Image03" ColumnName="Image03" />
+          <ScalarProperty Name="Image02" ColumnName="Image02" />
+          <ScalarProperty Name="Image01" ColumnName="Image01" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

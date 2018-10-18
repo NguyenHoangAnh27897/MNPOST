@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<MNPOSTWEBSITEMODEL.WS_ServiceType>
+    @using MNPOSTWEBSITEMODEL
 @{
     ViewBag.Title = "Home Page";
+    MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
+    var rs = db.WS_Slider.Where(s => s.ID == 1);
 }
 
 
@@ -13,17 +16,20 @@
                     <ul class='avia-slideshow-inner' style='padding-bottom: 37.988165680473%;'>
                         <li class=' slide-1 '>
                             <div data-rel='slideshow-1' class='avia-slide-wrap'>
-                                <img src='~/Content/img/slider/2.jpg' width='845' height='321' title='' alt='' itemprop="thumbnailUrl" />
+                                <img src='~/images/slider/@rs.FirstOrDefault().Image01' width='845' style="height:600px" height="200" title='' alt='' itemprop="thumbnailUrl" />
+                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.FirstOrDefault().Caption01</h1>
                             </div>
                         </li>
                         <li class=' slide-2 '>
                             <div data-rel='slideshow-1' class='avia-slide-wrap'>
-                                <img src='~/Content/img/slider/3.jpg' width='845' height='321' title='' alt='' itemprop="thumbnailUrl" />
+                                <img src='~/images/slider/@rs.FirstOrDefault().Image02' width='845' style="height:600px" height='200' title='' alt='' itemprop="thumbnailUrl" />
+                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.FirstOrDefault().Caption02</h1>
                             </div>
                         </li>
                         <li class=' slide-3 '>
                             <div data-rel='slideshow-1' class='avia-slide-wrap'>
-                                <img src='~/Content/img/slider/news2.jpg' width='845' height='321' title='banner2' alt='' itemprop="thumbnailUrl" />
+                                <img src='~/images/slider/@rs.FirstOrDefault().Image03' width='845' style="height:600px" height='200' title='banner2' alt='' itemprop="thumbnailUrl" />
+                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.FirstOrDefault().Caption03</h1>
                             </div>
                         </li>
                     </ul>
@@ -44,7 +50,7 @@
             <div class='flex_cell_inner'>
                 <section class="av_textblock_section " itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
                     <div class='avia_textblock  ' itemprop="text">
-                        <h6 style="text-align: center;">DANH SÁCH DỊCH VỤ</h6>
+                        <h6 style="text-align:center;">DANH SÁCH DỊCH VỤ</h6>
                     </div>
                 </section>
                 <div class='avia-icon-list-container   avia-builder-el-16  el_after_av_textblock  avia-builder-el-last ' style="text-align:center">
@@ -61,48 +67,16 @@
                                         </div>
                                         @if (item.ContentService.Length > 150)
                                         {
-                                            <footer class="entry-footer">@Html.Raw(item.ContentService.Substring(0, 150))...<a href='/transport/service?sv=fast'>Tìm hiểu thêm</a></footer>
+                                            <footer class="entry-footer">@Html.Raw(item.ContentService.Substring(0, 150))...<a href='/transport/service?sv=fast'>Xem chi tiết</a></footer>
                                         }
                                         else
                                         {
-                                            <footer class="entry-footer">@Html.Raw(item.ContentService)...<a href='/transport/service?sv=fast'>Tìm hiểu thêm</a></footer>
+                                            <footer class="entry-footer">@Html.Raw(item.ContentService) <a href='/transport/service?sv=fast'>Xem chi tiết</a></footer>
                                         }
                                     </article>
                                 </li>
                             }
-                        }
-
-                        @*<li>
-            <a href='/transport/service?sv=fast' title='Quản lý đơn hàng' target="_self" style='background-color:#f6a81e; color:#ffffff;position:absolute; top:8%;left:25%; ' class='iconlist_icon  avia-font-entypo-fontello'><span class='iconlist-char ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span></a><article class="article-icon-entry " itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-                <div class='iconlist_content_wrap'>
-                    <header class="entry-content-header" style="margin-right:70px"><h4 class='av_iconlist_title iconlist_title  ' itemprop="headline" style='font-size:13px; '><a href='/transport/service?sv=fast' title='' target="_self" style="position:absolute;left:40%">DỊCH VỤ CHUYỂN PHÁT THU HỘ</a></h4></header>
-                </div><footer class="entry-footer"></footer>
-            </article>
-        </li>
-        <li>
-            <a href='/transport/service?sv=fast' title='Quản lý tiền thu hộ' target="_self" style='background-color:#f6a81e; color:#ffffff;position:absolute; top:8%;left:25%; ' class='iconlist_icon  avia-font-entypo-fontello'><span class='iconlist-char ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span></a><article class="article-icon-entry " itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-                <div class='iconlist_content_wrap'>
-                    <header class="entry-content-header" style="margin-right:70px"><h4 class='av_iconlist_title iconlist_title  ' itemprop="headline" style='font-size:13px; '><a href='/transport/service?sv=fast' title='' target="_self" style="position:absolute;left:40%">DỊCH VỤ CHUYỂN PHÁT HOẢ TỐC</a></h4></header><div class='iconlist_content  ' itemprop="text" style='font-size:12px; '>
-                    </div>
-                </div><footer class="entry-footer"></footer>
-            </article>
-        </li>
-        <li>
-            <a href='/transport/service?sv=fast' title='Xem bảng giá' target="_self" style='background-color:#f6a81e; color:#ffffff;position:absolute; top:8%;left:25%; ' class='iconlist_icon  avia-font-entypo-fontello'><span class='iconlist-char ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span></a><article class="article-icon-entry " itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-                <div class='iconlist_content_wrap'>
-                    <header class="entry-content-header" style="margin-right:70px"><h4 class='av_iconlist_title iconlist_title  ' itemprop="headline" style='font-size:13px; '><a href='/transport/service?sv=fast' title='' target="_self" style="position:absolute;left:40%">DỊCH VỤ VẬN TẢI ĐƯỜNG BỘ</a></h4></header><div class='iconlist_content  ' itemprop="text" style='font-size:12px; '>
-                    </div>
-                </div><footer class="entry-footer"></footer>
-            </article>
-        </li>
-        <li>
-            <a href='/transport/service?sv=fast' title='Xem bảng giá' target="_self" style='background-color:#f6a81e; color:#ffffff;position:absolute; top:8%;left:25%; ' class='iconlist_icon  avia-font-entypo-fontello'><span class='iconlist-char ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span></a><article class="article-icon-entry " itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-                <div class='iconlist_content_wrap'>
-                    <header class="entry-content-header" style="margin-right:70px"><h4 class='av_iconlist_title iconlist_title  ' itemprop="headline" style='font-size:13px; '><a href='/transport/service?sv=fast' title='' target="_self" style="position:absolute;left:40%">DỊCH VỤ CHUYỂN PHÁT QUỐC TẾ</a></h4></header><div class='iconlist_content  ' itemprop="text" style='font-size:12px; '>
-                    </div>
-                </div><footer class="entry-footer"></footer>
-            </article>
-        </li>*@
+                        }                    
                     </ul>
                 </div>
             </div>
@@ -112,7 +86,7 @@
                     <section class="avia_codeblock_section  avia_code_block_0" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
                         <div class='avia_codeblock ' itemprop="text">
                             <div class="avia-button-wrap avia-button-center el_after_av_heading el_before_av_hr" style="background-color: #2e4496">
-                                <h3 class="widgettitle" style="padding: 30px; color: #ffffff;">TRA CỨU VẬN ĐƠN</h3>
+                                <h3 class="widgettitle" style="padding:30px; color:#ffffff;">TRA CỨU VẬN ĐƠN</h3>
                                 <div class="textwidget">
                                     <form class="home-lookup _form first_form form_element" style="display: block; margin: 0 35px;" action="/order/searchmailer" target="_blank" method="get" role="search">
                                         <input class="home-lookup _text" style=" border-radius: 5px;" name="mailerid" required="required" type="text" autofocus="" placeholder="Nhập số phiếu gửi của bạn" />
@@ -124,7 +98,7 @@
                     </section>
                 </div>
                 <br />
-                <hr style="color:#f6a81e; border-color: #f6a81e;" />
+                <hr style="color:#f6a81e; border-color:#f6a81e;" />
                 <div data-autoplay='false' data-interval='5' data-animation='slide' class='avia-logo-element-container  avia-logo-slider avia-content-slider avia-smallarrow-slider avia-content-slider-active noHover avia-content-slider1 avia-content-slider-odd  avia-builder-el-20  el_after_av_one_full  avia-builder-el-last  '>
                     <div class='avia-smallarrow-slider-heading  no-logo-slider-heading '></div><div class='avia-content-slider-inner'>
                         <div class='slide-entry-wrap' itemscope="itemscope" itemtype="https://schema.org/ImageObject">
@@ -134,7 +108,7 @@
                                     <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/register' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG KÝ</span></a></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div style='padding-bottom:10px;color:#ffffff; margin-top:30px' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-4  el_after_av_button  el_before_av_button   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn đã có tài khoản?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
+                                    <div style='padding-bottom:10px; color:#ffffff; margin-top:30px' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-4  el_after_av_button  el_before_av_button   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn đã có tài khoản?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
                                     <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/login' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG NHẬP</span></a></div>
                                 </div>
 

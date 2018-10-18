@@ -71,7 +71,7 @@ namespace MNPOST.Controllers.mailer
         }
 
 
-        public JsonResult GetCustomers(string postId)
+        public ActionResult GetCustomers(string postId)
         {
             var data = db.BS_Customers.Where(p => p.PostOfficeID == postId).Select(p => new CommonData() { name = p.CustomerName, code = p.CustomerCode }).ToList();
 
@@ -92,34 +92,41 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
-        public string GeneralMailerCode(string cusId)
+        public string GeneralMailerCode(string postId)
         {
+            var post = db.BS_PostOffices.Where(p => p.PostOfficeID == postId).FirstOrDefault();
 
-            var find = db.GeneralCodeInfoes.Where(p=> p.Id == "mailer" && p.FirstChar == "MN").FirstOrDefault();
+            if(post == null)
+            {
+                return "";
+            }
+
+            var charFirst = post.AreaChar + DateTime.Now.ToString("ddMMyy");
+            var codeSearch = "mailer" + post.AreaChar;
+
+            var find = db.GeneralCodeInfoes.Where(p=> p.Code == codeSearch && p.FirstChar == charFirst).FirstOrDefault();
 
             if (find == null)
             {
                 var generalCode = new GeneralCodeInfo()
                 {
-                    Id = "mailer",
+                    Id = Guid.NewGuid().ToString(),
                     PreNumber = 0,
-                    FirstChar = "MN"
+                    FirstChar = charFirst,
+                    Code = codeSearch
                 };
                 db.GeneralCodeInfoes.Add(generalCode);
                 db.SaveChanges();
 
-                return GeneralMailerCode(cusId);
+                return GeneralMailerCode(postId);
             }
 
             var number = find.PreNumber + 1;
 
             string code = number.ToString();
-            int count = 6;
-            if (code.Count() < 6)
+            int count = 5;
+            if (code.Count() < 5)
             {
-
-                // quy dinh chi 6 ki tu
-
                 count = count - code.Count();
 
                 while (count > 0)

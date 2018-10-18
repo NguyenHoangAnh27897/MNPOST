@@ -18,7 +18,51 @@ namespace MNPOST.Controllers.customer
             ViewBag.AllPostOffice = db.BS_PostOffices.ToList();
             return View();
         }
+        private string GeneralCusCode(string groupId)
+        {
 
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == "CUSTOMER").FirstOrDefault();
+
+            if (find == null)
+            {
+                var data = new GeneralCodeInfo()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = "CUSTOMER",
+                    FirstChar = groupId,
+                    PreNumber = 0
+                };
+
+                db.GeneralCodeInfoes.Add(data);
+                db.SaveChanges();
+
+                GeneralCusCode(groupId);
+            }
+
+            var number = find.PreNumber + 1;
+
+            string code = number.ToString();
+
+            int count = 2;
+
+            if (code.Count() < 2)
+            {
+                count = count - code.Count();
+
+                while (count > 0)
+                {
+                    code = "0" + code;
+                    count--;
+                }
+            }
+
+            find.PreNumber = find.PreNumber + 1;
+            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return groupId + code;
+
+        }
 
         [HttpGet]
         public ActionResult GetCustomer(int? page, string search = "")
@@ -52,6 +96,14 @@ namespace MNPOST.Controllers.customer
 
             if (check != null)
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
+
+
+            var checkGroup = db.BS_CustomerGroups.Find(cus.CustomerGroupID);
+
+            if (checkGroup == null)
+                return Json(new ResultInfo() { error = 1, msg = "Sai mã nhóm" }, JsonRequestBehavior.AllowGet);
+
+            cus.CustomerCode = GeneralCusCode(cus.CustomerGroupID);
 
             cus.CustomerID = Guid.NewGuid().ToString();
             cus.CreateDate = DateTime.Now;

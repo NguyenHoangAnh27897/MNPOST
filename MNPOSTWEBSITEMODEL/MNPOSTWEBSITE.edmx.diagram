@@ -18,6 +18,7 @@
         <AssociationConnector Association="MNPOSTWEBSITEModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_AboutUs" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_ServiceType" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MNPOSTWEBSITEModel.WS_Slider" Width="1.5" PointX="0.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

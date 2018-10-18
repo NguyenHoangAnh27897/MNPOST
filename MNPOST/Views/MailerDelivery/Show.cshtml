@@ -78,8 +78,8 @@
                                                 <tr class="headings">
                                                     <th>STT</th>
                                                     <th>Mã bảng kê</th>
+                                                    <th>Ngày phát</th>
                                                     <th>Ngày lập</th>
-                                                    <th>Giờ lập</th>
                                                     <th>Nhân viên</th>
                                                     <th>Số xe</th>
                                                     <th>Số lượng</th>
@@ -95,13 +95,13 @@
                                                         <a href="#" ng-click="showDocumentDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>
                                                     </td>
                                                     <td> <a href="#" ng-click="showDocumentDetail($index)">{{item.DocumentCode}}</a></td>
-                                                    <td>{{item.DocumentDate}}</td>
-                                                    <td>{{item.DocumentTime}}</td>
+                                                    <td><span class="label label-danger">{{item.DocumentDate}}</span></td>
+                                                    <td>{{item.CreateDate}}</td>
                                                     <td>{{item.EmployeeName + ' - ' + item.EmployeeID}}</td>
                                                     <td>{{item.NumberPlate}}</td>
                                                     <td>{{item.Quantity}}</td>
                                                     <td>{{item.Weight}}</td>
-                                                    <td>{{deliveryStatus[item.StatusID].name}}</td>
+                                                    <td><span class="label label-primary">{{deliveryStatus[item.StatusID].name}}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -170,18 +170,20 @@
                                                     <th>Nơi đến</th>
                                                     <th>Thụ hộ</th>
                                                     <th>Ghi chú</th>
+                                                    <th>#</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="item in mailers">
                                                     <td>{{$index + 1}}</td>
                                                     <td>{{item.MailerID}}</td>
-                                                    <td>{{mailerStatus[item.CurrentStatusID].name}}</td>
+                                                    <td><span class="label label-info">{{mailerStatus[item.CurrentStatusID].name}}</span></td>
                                                     <td>{{item.Weight}}</td>
                                                     <td>{{item.MailerTypeID}}</td>
                                                     <td>{{item.RecieverAddress}}</td>
                                                     <td>{{item.COD}}</td>
                                                     <td>{{item.Notes}}</td>
+                                                    <td><a class="label label-danger" ng-show="item.CurrentStatusID===3" href="#" ng-click="detroyMailerDelivery(item.MailerID)">Hủy phát</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -212,7 +214,10 @@
                                                 <tr class="headings">
                                                     <th>STT</th>
                                                     <th>Tình trạng</th>
+                                                    <th>Ngày phát</th>
+                                                    <th>Giờ phát</th>
                                                     <th>Người nhận</th>
+                                                    <th>Ghi chú</th>
                                                     <th>Lý do</th>
                                                     <th>Vận đơn</th>
                                                     <th>Khối lượng</th>
@@ -231,13 +236,16 @@
                                                             <option value="6">CHƯA PHÁT ĐƯỢC</option>
                                                         </select>
                                                     </td>
-                                                    <td><input type="text" ng-model="item.DeliveryTo" class="tableinput" /></td>
-                                                    <td>
-                                                        <select ng-model="item.ReturnReasonID" class="tableinput" convert-to-number>
+                                                    <td class="success"><input type="text" ui-mask="99/99/9999"  ui-mask-placeholder ui-mask-placeholder-char="" ng-model="item.DeliveryDate" required class="tableinput" /></td>
+                                                    <td class="success"><input type="text" ui-mask="99:99" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="item.DeliveryTime" required class="tableinput"/></td>
+                                                    <td class="success"><input type="text"  ng-disabled="item.DeliveryStatus != 4"  ng-model="item.DeliveryTo" class="tableinput"/></td>
+                                                    <td class="warning"><input type="text"  ng-model="item.DeliveryNotes"  class="tableinput"  ng-disabled="item.DeliveryStatus != 6" /></td>
+                                                    <td class="danger">
+                                                        <select ng-model="item.ReturnReasonID" class="tableinput" convert-to-number  ng-disabled="item.DeliveryStatus != 5" >
                                                             <option ng-repeat="item in returnReasons" value="{{item.code}}">{{item.name}}</option>
                                                         </select>
                                                     </td>
-                                                    <td>{{item.MailerID}}</td>
+                                                    <td><strong>{{item.MailerID}}</strong></td>
                                                     <td>{{item.Weight}}</td>
                                                     <td>{{item.MailerTypeID}}</td>
                                                     <td>{{item.RecieverAddress}}</td>
@@ -363,7 +371,7 @@
                                                     <td>{{$index + 1}}</td>
                                                     <td>{{mailer.MailerID}}</td>
                                                     <td>{{mailer.SenderName}}</td>
-                                                    <td>{{mailerStatus[mailer.CurrentStatusID].name}}</td>
+                                                    <td><span class="label label-info">{{mailerStatus[mailer.CurrentStatusID].name}}</span></td>
                                                     <td>{{mailer.MailerTypeID}}</td>
                                                     <td>{{mailer.RecieverAddress}}</td>
                                                 </tr>
@@ -420,7 +428,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-warning">Thêm vào danh sách</button>
+                                <button type="button" class="btn btn-warning" ng-click="addMailerAutoFromRoutes('route')">Thêm vào danh sách</button>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                                 <div class="row">
@@ -466,7 +474,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-primary">Thêm vào danh sách</button>
+                                        <button type="button" class="btn btn-primary" ng-click="addMailerAutoFromRoutes('province')">Thêm vào danh sách</button>
                                     </div>
                                 </div>
                             </div>

@@ -95,6 +95,12 @@ namespace MNPOST.Models
 
         public int? DeliveryStatus { get; set; }
 
+        public string DeliveryNotes { get; set; }
+
+        public string DeliveryDate { get; set; }
+
+        public string DeliveryTime { get; set; }
+
 
     }
 

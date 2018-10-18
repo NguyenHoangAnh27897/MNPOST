@@ -95,6 +95,9 @@
     <Compile Include="WS_ServiceType.cs">
       <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
     </Compile>
+    <Compile Include="WS_Slider.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
