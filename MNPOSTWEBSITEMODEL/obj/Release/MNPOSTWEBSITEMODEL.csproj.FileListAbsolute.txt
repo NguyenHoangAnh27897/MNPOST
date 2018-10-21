@@ -1,0 +1,12 @@
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\MNPOSTWEBSITEMODEL.dll.config
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\MNPOSTWEBSITEMODEL.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\MNPOSTWEBSITEMODEL.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.csprojAssemblyReference.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.csproj.CoreCompileInputs.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.csproj.CopyComplete
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.pdb

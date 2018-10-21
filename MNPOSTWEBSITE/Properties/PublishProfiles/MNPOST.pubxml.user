@@ -18,6 +18,51 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/ASPSnippets.FaceBookAPI.dll">
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
+    <File Include="bin/CrystalDecisions.CrystalReports.Engine.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.ClientDoc.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CommLayer.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CommonControls.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CommonObjectModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.Controllers.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CubeDefModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.DataDefModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.DataSetConversion.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.ObjectFactory.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.Prompting.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.ReportDefModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.XmlSerialize.dll">
+      <publishTime>06/12/2018 06:53:20</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportSource.dll">
+      <publishTime>06/12/2018 06:53:20</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.Shared.dll">
+      <publishTime>06/12/2018 06:53:20</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>09/19/2018 11:37:17</publishTime>
     </File>
@@ -70,28 +115,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:19</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/07/2018 16:07:50</publishTime>
+      <publishTime>10/18/2018 09:19:53</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
-      <publishTime>09/19/2018 11:37:02</publishTime>
+      <publishTime>10/13/2018 01:37:05</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
-      <publishTime>10/07/2018 16:07:50</publishTime>
+      <publishTime>10/18/2018 09:19:53</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.dll">
-      <publishTime>10/12/2018 10:34:27</publishTime>
+      <publishTime>10/21/2018 22:01:47</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.pdb">
-      <publishTime>10/12/2018 10:34:27</publishTime>
+      <publishTime>10/21/2018 22:01:47</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll">
-      <publishTime>10/12/2018 10:34:25</publishTime>
+      <publishTime>10/18/2018 10:39:35</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll.config">
       <publishTime>10/11/2018 22:07:07</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.pdb">
-      <publishTime>10/12/2018 10:34:25</publishTime>
+      <publishTime>10/18/2018 10:39:35</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>09/19/2018 11:37:20</publishTime>
@@ -104,6 +149,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/PagedList.Mvc.dll">
       <publishTime>09/19/2018 11:37:13</publishTime>
+    </File>
+    <File Include="bin/stdole.dll">
+      <publishTime>08/28/2018 10:20:41</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>09/19/2018 11:37:17</publishTime>
@@ -2599,7 +2647,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/10/2018 01:38:50</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/10/2018 01:27:41</publishTime>
+      <publishTime>10/18/2018 09:27:39</publishTime>
     </File>
     <File Include="Views/Manage/EditAboutus.cshtml">
       <publishTime>09/19/2018 14:54:44</publishTime>
@@ -2610,8 +2658,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Manage/EditService.cshtml">
       <publishTime>10/09/2018 23:42:08</publishTime>
     </File>
+    <File Include="Views/Manage/EditSlider.cshtml">
+      <publishTime>10/18/2018 01:09:57</publishTime>
+    </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>09/30/2018 22:35:38</publishTime>
+      <publishTime>10/18/2018 09:46:37</publishTime>
     </File>
     <File Include="Views/Manage/ManageService.cshtml">
       <publishTime>10/09/2018 00:12:56</publishTime>
@@ -2623,34 +2674,34 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/02/2018 00:30:50</publishTime>
     </File>
     <File Include="Views/Order/GetMailer.cshtml">
-      <publishTime>10/03/2018 01:33:17</publishTime>
+      <publishTime>10/18/2018 10:35:31</publishTime>
     </File>
     <File Include="Views/Order/List.cshtml">
-      <publishTime>10/09/2018 23:59:27</publishTime>
+      <publishTime>10/21/2018 11:45:21</publishTime>
     </File>
     <File Include="Views/Order/OrderList.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/18/2018 10:35:23</publishTime>
     </File>
     <File Include="Views/Order/SearchMailer.cshtml">
-      <publishTime>10/03/2018 01:31:17</publishTime>
+      <publishTime>10/21/2018 11:59:51</publishTime>
     </File>
     <File Include="Views/Post/AccountPost.cshtml">
-      <publishTime>10/03/2018 02:25:35</publishTime>
+      <publishTime>10/18/2018 10:33:44</publishTime>
     </File>
     <File Include="Views/Post/Create.cshtml">
-      <publishTime>10/03/2018 16:58:46</publishTime>
+      <publishTime>10/18/2018 09:19:53</publishTime>
     </File>
     <File Include="Views/Post/DetailPost.cshtml">
-      <publishTime>09/19/2018 11:37:13</publishTime>
+      <publishTime>10/18/2018 10:13:46</publishTime>
     </File>
     <File Include="Views/Post/Edit.cshtml">
-      <publishTime>09/19/2018 13:47:11</publishTime>
+      <publishTime>10/18/2018 10:19:03</publishTime>
     </File>
     <File Include="Views/Post/EditRecruitment.cshtml">
       <publishTime>09/26/2018 14:23:36</publishTime>
     </File>
     <File Include="Views/Post/PostList.cshtml">
-      <publishTime>10/07/2018 16:26:02</publishTime>
+      <publishTime>10/18/2018 10:53:15</publishTime>
     </File>
     <File Include="Views/Post/PricePage.cshtml">
       <publishTime>10/01/2018 12:33:46</publishTime>
@@ -2680,10 +2731,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/20/2018 15:11:06</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/06/2018 16:16:19</publishTime>
+      <publishTime>10/17/2018 18:22:36</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAccount.cshtml">
-      <publishTime>10/10/2018 10:25:21</publishTime>
+      <publishTime>10/18/2018 09:19:53</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>
@@ -2707,7 +2758,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:13</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/12/2018 10:34:28</publishTime>
+      <publishTime>10/18/2018 10:39:49</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -109,6 +109,18 @@
     <Property Name="ExcelFile" Type="nvarchar" MaxLength="50" />
     <Property Name="Hide" Type="bit" />
   </EntityType>
+  <EntityType Name="WS_Slider">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Image01" Type="nvarchar" MaxLength="100" />
+    <Property Name="Image02" Type="nvarchar" MaxLength="100" />
+    <Property Name="Image03" Type="nvarchar" MaxLength="100" />
+    <Property Name="Caption01" Type="nvarchar" MaxLength="100" />
+    <Property Name="Caption02" Type="nvarchar" MaxLength="100" />
+    <Property Name="Caption03" Type="nvarchar" MaxLength="100" />
+  </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -177,6 +189,7 @@
     <EntitySet Name="WS_Post" EntityType="Self.WS_Post" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_Recruitment" EntityType="Self.WS_Recruitment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WS_ServiceType" EntityType="Self.WS_ServiceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WS_Slider" EntityType="Self.WS_Slider" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />

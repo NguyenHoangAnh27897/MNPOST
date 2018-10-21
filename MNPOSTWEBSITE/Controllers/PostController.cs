@@ -281,12 +281,53 @@ namespace MNPOSTWEBSITE.Controllers
           
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Edit(int ID, string Title, string PostBy, string Service, string Postcontent, HttpPostedFileBase filepdf, HttpPostedFileBase avatar)
+        {
+            try
+            {
+                var data = db.WS_Post.Find(ID);
+                data.PostName = Title;
+                data.PostBy = PostBy;
+                data.Service = Service;
+                string Avatar = "";
+                if (avatar != null)
+                {
+                    if (avatar.ContentLength > 0)
+                    {
+                        var filename = Path.GetFileName(avatar.FileName);
+                        var fname = filename.Replace(" ", "_");
+                        var path = Path.Combine(Server.MapPath("~/images/post"), fname);
+                        avatar.SaveAs(path);
+                        Avatar += fname;
+                    }
+
+                }
+                if (Avatar != "")
+                {
+                    data.Avatar = Avatar;
+                }
+                data.CreatedDate = DateTime.Now;
+                data.ContentPost = Postcontent;
+                db.Entry(data).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                ViewBag.Message = "Chỉnh sửa bài thành công";
+                return RedirectToAction("AccountPost");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+
+        }
+
         public ActionResult Delete(int? id)
         {
             try
             {
                 var pst = db.WS_Post.Find(id);
-                db.WS_Post.Remove(pst);
+                db.Entry(pst).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
                 return RedirectToAction("AccountPost", "Post");
             }

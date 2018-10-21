@@ -125,3 +125,7 @@ D:\LAPTRINH\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\LAPTRINH\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\LAPTRINH\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOST\obj\Debug\MNPOST.csprojAssemblyReference.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOST\obj\Debug\MNPOST.csproj.CoreCompileInputs.cache
+C:\Users\hoang\source\repos\MNPOST\MNPOST\obj\Debug\MNPOST.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\obj\Debug\MNPOST.pdb

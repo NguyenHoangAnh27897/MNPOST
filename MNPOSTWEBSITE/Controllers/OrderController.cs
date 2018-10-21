@@ -18,6 +18,8 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Data.OleDb;
 using System.Xml;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -851,6 +853,82 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
-
+        [HttpGet]
+        public ActionResult Print(string id)
+        {
+            DataTable dt = new DataTable();
+            ReportClass rptH = new ReportClass();
+            rptH.FileName = Server.MapPath("~/Report/MNPOSTReport.rpt");
+            rptH.Load();
+            Mailer mailer = getMailerbyMailerID(id).Result;
+            TextObject _txtSenderName = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtSenderName"];
+            _txtSenderName.Text = mailer.SenderName;
+            TextObject _txtSenderAddres = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtSenderAddress"];
+            _txtSenderAddres.Text = mailer.SenderAddress;
+            TextObject _txtSenderPhone = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtSenderPhone"];
+            _txtSenderPhone.Text = mailer.SenderPhone;
+            TextObject _txtReceiverName = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtReceiverName"];
+            _txtReceiverName.Text = mailer.RecieverName;
+            TextObject _txtReceiverAddress = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtReceiverAddress"];
+            _txtReceiverAddress.Text = mailer.RecieverAddress;
+            TextObject _txtReceiverPhone = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtReceiverPhone"];
+            _txtReceiverPhone.Text = mailer.RecieverPhone;
+            TextObject _txtCOD = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtCOD"];
+            _txtCOD.Text = mailer.COD.ToString();
+            if (mailer.MerchandiseID == "H")
+            {
+                TextObject _txtTT = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTT"];
+                _txtTT.Text = "";
+                TextObject _txtHH = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtHH"];
+                _txtHH.Text = "X";
+                TextObject _txtMHang = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtMHang"];
+                _txtMHang.Text = "";
+                if (mailer.MailerTypeID == "SN")
+                {
+                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
+                    _txtNhanh.Text = "X";
+                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
+                    _txtDBo.Text = "";
+                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
+                    _txtTK.Text = "";
+                }else if(mailer.MailerTypeID == "ST")
+                {
+                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
+                    _txtNhanh.Text = "";
+                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
+                    _txtDBo.Text = "X";
+                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
+                    _txtTK.Text = "";
+                }
+            }
+            else if(mailer.MerchandiseID == "T")
+            {
+                TextObject _txtTT = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTT"];
+                _txtTT.Text = "X";
+                TextObject _txtHH = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtHH"];
+                _txtHH.Text = "";
+                if (mailer.MailerTypeID == "SN")
+                {
+                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
+                    _txtNhanh.Text = "X";
+                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
+                    _txtDBo.Text = "";
+                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
+                    _txtTK.Text = "";
+                }
+                else if (mailer.MailerTypeID == "ST")
+                {
+                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
+                    _txtNhanh.Text = "";
+                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
+                    _txtDBo.Text = "X";
+                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
+                    _txtTK.Text = "";
+                }
+            }
+            //rptH.SetDataSource(dt);
+            Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            return File(stream, "application/pdf");
+        }
     }
 }

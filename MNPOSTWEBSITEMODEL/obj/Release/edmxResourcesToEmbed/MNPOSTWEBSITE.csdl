@@ -23,6 +23,7 @@
     </AssociationSet>
     <EntitySet Name="WS_AboutUs" EntityType="MNPOSTWEBSITEModel.WS_AboutUs" />
     <EntitySet Name="WS_ServiceType" EntityType="MNPOSTWEBSITEModel.WS_ServiceType" />
+    <EntitySet Name="WS_Slider" EntityType="MNPOSTWEBSITEModel.WS_Slider" />
   </EntityContainer>
   <EntityType Name="WS_Contact">
     <Key>
@@ -162,5 +163,17 @@
     <Property Name="ContentService" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ExcelFile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Hide" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="WS_Slider">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Image01" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Image02" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Image03" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Caption01" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Caption02" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Caption03" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>
