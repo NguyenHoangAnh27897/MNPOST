@@ -11,6 +11,7 @@ using MNPOSTWEBSITE.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using System.IO;
 
 namespace MNPOSTWEBSITE.Controllers
 {
@@ -57,7 +58,7 @@ namespace MNPOSTWEBSITE.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/customer/getcustomerinfo/" + cusid).ConfigureAwait(continueOnCapturedContext: false))
+                    using (HttpResponseMessage response = await client.GetAsync("http://noiboapi.miennampost.vn/api/customer/getcustomerinfo/" + cusid).ConfigureAwait(continueOnCapturedContext: false))
                     {
 
                         using (HttpContent content = response.Content)
@@ -288,7 +289,7 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://221.133.7.92:89/api/customer/updatecustomer";
+            string api = "http://noiboapi.miennampost.vn/api/customer/updatecustomer";
             var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
@@ -494,6 +495,103 @@ namespace MNPOSTWEBSITE.Controllers
                         }
                     }
                     return RedirectToAction("Recruitment", "Post");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
+        public ActionResult EditSlider()
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    var rs = db.WS_Slider.Where(s => s.ID == 1);
+                    return View(rs);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditSlider(string caption01, string caption02, string caption03, HttpPostedFileBase image01, HttpPostedFileBase image02, HttpPostedFileBase image03)
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    string Image01 = "";
+                    if (image01 != null)
+                    {
+                        if (image01.ContentLength > 0)
+                        {
+                            var filename = Path.GetFileName(image01.FileName);
+                            var fname = filename.Replace(" ", "_");
+                            var path = Path.Combine(Server.MapPath("~/images/slider"), fname);
+                            image01.SaveAs(path);
+                            Image01 += fname;
+                        }
+
+                    }
+                    string Image02 = "";
+                    if (image02 != null)
+                    {
+                        if (image02.ContentLength > 0)
+                        {
+                            var filename = Path.GetFileName(image02.FileName);
+                            var fname = filename.Replace(" ", "_");
+                            var path = Path.Combine(Server.MapPath("~/images/slider"), fname);
+                            image02.SaveAs(path);
+                            Image02 += fname;
+                        }
+
+                    }
+                    string Image03 = "";
+                    if (image03 != null)
+                    {
+                        if (image03.ContentLength > 0)
+                        {
+                            var filename = Path.GetFileName(image03.FileName);
+                            var fname = filename.Replace(" ", "_");
+                            var path = Path.Combine(Server.MapPath("~/images/slider"), fname);
+                            image03.SaveAs(path);
+                            Image03 += fname;
+                        }
+
+                    }
+                    var rs = db.WS_Slider.Find(1);
+                    rs.Caption01 = caption01;
+                    rs.Caption02 = caption02;
+                    rs.Caption03 = caption03;
+                    if (Image01 != "")
+                    {
+                        rs.Image01 = Image01;
+                    }
+                    if (Image02 != "")
+                    {
+                        rs.Image02 = Image02;
+                    }
+                    if (Image03 != "")
+                    {
+                        rs.Image03 = Image03;
+                    }
+                    db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Manage");
                 }
                 else
                 {

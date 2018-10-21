@@ -1,5 +1,5 @@
 ﻿@using MNPOSTWEBSITEMODEL
-@model IEnumerable<MNPOSTWEBSITEMODEL.AspNetUsers>
+@model IEnumerable<MNPOSTWEBSITEMODEL.AspNetUser>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
@@ -13,20 +13,21 @@
     <section class="wrapper">
         <div class="row mt">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <! -- BASIC PROGRESS BARS -->
                 <div class="showback form-horizontal style-form">
+                @foreach (var item in Model)
+                {
                     <h4><i class="fa fa-angle-right"></i> Thông tin tài khoản</h4>
                     <div class="form-group">
                         <label class="col-sm-3 col-sm-3 control-label">Họ và tên:</label>
-                        <label class="col-sm-9 col-sm-9 control-label">@Model.FirstOrDefault().FullName</label>
+                        <label class="col-sm-9 col-sm-9 control-label">@item.FullName</label>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 col-sm-3 control-label">Số điện thoại:</label>
-                        <label class="col-sm-9 col-sm-9 control-label">@Model.FirstOrDefault().Phone</label>
+                        <label class="col-sm-9 col-sm-9 control-label">@item.Phone</label>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 col-sm-3 control-label">Email:</label>
-                        <label class="col-sm-9 col-sm-9 control-label">@Model.FirstOrDefault().UserName</label>
+                        <label class="col-sm-9 col-sm-9 control-label">@item.UserName</label>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 col-sm-3 control-label">Trạng thái:</label>
@@ -36,7 +37,9 @@
                         <label class="col-sm-3 col-sm-3 control-label">Customer ID:</label>
                         <label class="col-sm-9 col-sm-9 control-label">@ViewBag.CusInfo</label>
                     </div>
-                    <a class="btn btn-default" href="/manage/editaccount/@Model.FirstOrDefault().IDClient">Chỉnh sửa thông tin</a>
+                    <a class="btn btn-default" href="/manage/editaccount/@item.IDClient">Chỉnh sửa thông tin</a>
+                }
+                   
                 </div><!--/showback -->
               
             </div><!-- /col-lg-6 -->

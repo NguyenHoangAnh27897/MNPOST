@@ -35,5 +35,6 @@ namespace MNPOSTWEBSITEMODEL
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<WS_AboutUs> WS_AboutUs { get; set; }
         public virtual DbSet<WS_ServiceType> WS_ServiceType { get; set; }
+        public virtual DbSet<WS_Slider> WS_Slider { get; set; }
     }
 }

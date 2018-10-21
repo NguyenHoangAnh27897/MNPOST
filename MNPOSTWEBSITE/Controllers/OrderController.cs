@@ -220,11 +220,11 @@ namespace MNPOSTWEBSITE.Controllers
             string api = "";
             if (choose == 0)
             {
-                api = "http://221.133.7.92:89/api/mailer/AddMailer";
+                api = "http://noiboapi.miennampost.vn/api/mailer/AddMailer";
             }
             else
             {
-                api = "http://221.133.7.92:89/api/mailer/UpdateMailer";
+                api = "http://noiboapi.miennampost.vn/api/mailer/UpdateMailer";
             }
             if (mailers != null)
             {
@@ -307,7 +307,7 @@ namespace MNPOSTWEBSITE.Controllers
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-                    using (HttpResponseMessage response = await client.GetAsync("http://221.133.7.92:89/api/mailer/GetMailerbyCustomerID?customerid=" + cusid).ConfigureAwait(continueOnCapturedContext: false))
+                    using (HttpResponseMessage response = await client.GetAsync("http://noiboapi.miennampost.vn/api/mailer/GetMailerbyCustomerID?customerid=" + cusid).ConfigureAwait(continueOnCapturedContext: false))
                     {
 
                         using (HttpContent content = response.Content)
@@ -334,7 +334,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             string cusid = Session["CustomerID"].ToString();
             List<Mailer> mailer = new List<Mailer>();
-            string api = "http://221.133.7.92:89/api/mailer/GetMailerbyCustomerIDandDate?customerid=" + cusid + "&fromdate=" + fromdate + "&todate=" + todate;
+            string api = "http://noiboapi.miennampost.vn/api/mailer/GetMailerbyCustomerIDandDate?customerid=" + cusid + "&fromdate=" + fromdate + "&todate=" + todate;
             if (cusid != null)
             {
                 using (HttpClient client = new HttpClient())
@@ -371,7 +371,7 @@ namespace MNPOSTWEBSITE.Controllers
             };
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://221.133.7.92:89/api/mailer/DeleteCustomerByCustomerID";
+            string api = "http://noiboapi.miennampost.vn/api/mailer/DeleteCustomerByCustomerID";
             var response = await client.PostAsJsonAsync(api, new { mailer = mailers }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
@@ -414,7 +414,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             Mailer mailer = new Mailer();
             string cusid = Session["CustomerID"].ToString();
-            string api = "http://221.133.7.92:89/api/mailer/GetMailerbyID?id=" + mailerid + "&customerid=" + cusid;
+            string api = "http://noiboapi.miennampost.vn/api/mailer/GetMailerbyID?id=" + mailerid + "&customerid=" + cusid;
             if (mailerid != null)
             {
                 using (HttpClient client = new HttpClient())

@@ -1073,6 +1073,7 @@
     <Content Include="Views\SessionPayment\Detail.cshtml" />
     <Content Include="Views\SessionPayment\Transaction.cshtml" />
     <Content Include="Views\Account\SuccessfulRegister.cshtml" />
+    <Content Include="Views\Manage\EditSlider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1086,6 +1087,7 @@
     <Folder Include="document\excel\" />
     <Folder Include="document\pdf\" />
     <Folder Include="images\post\" />
+    <Folder Include="images\slider\" />
     <Folder Include="Report\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

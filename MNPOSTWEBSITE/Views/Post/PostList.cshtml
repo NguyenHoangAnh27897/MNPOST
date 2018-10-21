@@ -20,11 +20,19 @@
                                 <article class='post-entry post-entry-type-standard post-entry-4715 post-loop-1 post-parity-odd single-small with-slider post-4715 post type-post status-publish format-standard has-post-thumbnail hentry category-tin-tuc tag-ecotrans-ha-noi-tuyen-dung' itemscope="itemscope" itemtype="https://schema.org/BlogPosting">
                                     <div class='blog-meta'>
                                         <a href='/post/detailpost/@item.ID' class='small-preview' title='@item.PostName'>
-                                            <img width="180" height="180" src="~/images/post/@item.Images" class="attachment-square size-square wp-post-image" alt=""  sizes="(max-width: 180px) 100vw, 180px" /><span class="iconfont" aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span>
+                                            <img width="180" height="180" src="~/images/post/@item.Avatar" class="attachment-square size-square wp-post-image" alt=""  sizes="(max-width: 180px) 100vw, 180px" /><span class="iconfont" aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span>
                                         </a>
                                     </div><div class='entry-content-wrapper clearfix standard-content'>
-                                        <header class="entry-content-header"><h2 class='post-title entry-title' itemprop="headline"><a href='/post/detail/@item.ID' rel='bookmark' title='@item.PostName'>@item.PostName<span class='post-format-icon minor-meta'></span>	</a></h2><span class='post-meta-infos'><time class='date-container minor-meta updated'>14/08/2018</time><span class='text-sep text-sep-date'>/</span><span class="blog-categories minor-meta">Tin tức</span><span class="text-sep text-sep-cat">/</span><span class="blog-author minor-meta">đăng bởi <span class="entry-author-link"><span class="vcard author"><span class="fn"><a href="https://ecotrans.vn/author/khonguyen" title="Đăng bởi Khổng Văn Uyển" rel="author">@item.PostBy</a></span></span></span></span></span></header><div class="entry-content" itemprop="text">
-                                           @Html.Raw(item.PostContent)
+                                        <header class="entry-content-header"><h2 class='post-title entry-title' itemprop="headline"><a href='/post/detailpost/@item.ID' rel='bookmark' title='@item.PostName'>@item.PostName<span class='post-format-icon minor-meta'></span>	</a></h2><span class='post-meta-infos'><time class='date-container minor-meta updated'>14/08/2018</time><span class='text-sep text-sep-date'>/</span><span class="blog-categories minor-meta">Tin tức</span><span class="text-sep text-sep-cat">/</span><span class="blog-author minor-meta">đăng bởi <span class="entry-author-link"><span class="vcard author"><span class="fn"><a href="https://ecotrans.vn/author/khonguyen" title="Đăng bởi Khổng Văn Uyển" rel="author">@item.PostBy</a></span></span></span></span></span></header><div class="entry-content" itemprop="text">
+                                    @if (item.ContentPost.Length > 300)
+                                    {
+                                        @Html.Raw(item.ContentPost.Substring(0,300))
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(item.ContentPost)
+                                    }
+                                  
                                         </div><footer class="entry-footer"></footer><div class='post_delimiter'></div>
                                     </div><div class='post_author_timeline'></div><span class='hidden'>
                                         <span class='av-structured-data' itemscope="itemscope" itemtype="https://schema.org/ImageObject" itemprop='image'>
@@ -56,7 +64,7 @@
                     {
                         <li class="news-content post-format-standard">
                             <a class='news-link' title='Ecotrans Hà Nội &#8211; Tuyển Dụng' href='/post/detailpost/@item.ID'>
-                                <span class='news-thumb '><img width="36" height="36" src="~/images/post/@item.Images" class="attachment-widget size-widget wp-post-image" alt="" sizes="(max-width: 36px) 100vw, 36px" /></span>
+                                <span class='news-thumb '><img width="36" height="36" src="~/images/post/@item.Avatar" class="attachment-widget size-widget wp-post-image" alt="" sizes="(max-width: 36px) 100vw, 36px" /></span>
                                 <strong class='news-headline'>@item.PostName<span class='news-time'>@item.CreatedDate</span></strong>
                             </a>
                         </li>

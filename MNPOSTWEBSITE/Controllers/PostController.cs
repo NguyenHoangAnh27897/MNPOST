@@ -39,7 +39,7 @@ namespace MNPOSTWEBSITE.Controllers
         public string picturename= "";
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(string Title, string PostBy,string Service, string Postcontent, HttpPostedFileBase filepdf)
+        public ActionResult Create(string Title, string PostBy,string Service, string Postcontent, HttpPostedFileBase filepdf, HttpPostedFileBase avatar)
         {
             try
             {
@@ -47,10 +47,23 @@ namespace MNPOSTWEBSITE.Controllers
                 data.PostName = Title;
                 data.PostBy = PostBy;
                 data.Service = Service;
-                if(Session["PictureName"] != null)
+                string Avatar = "";
+                if (avatar != null)
                 {
-                    data.Avatar = Session["PictureName"].ToString();
-                }         
+                    if (avatar.ContentLength > 0)
+                    {
+                        var filename = Path.GetFileName(avatar.FileName);
+                        var fname = filename.Replace(" ", "_");
+                        var path = Path.Combine(Server.MapPath("~/images/post"), fname);
+                        avatar.SaveAs(path);
+                        Avatar += fname;
+                    }
+
+                }
+                if (Avatar != "")
+                {
+                    data.Avatar = Avatar;
+                }
                 data.CreatedDate = DateTime.Now;
                 data.ContentPost = Postcontent;
                 db.WS_Post.Add(data);
