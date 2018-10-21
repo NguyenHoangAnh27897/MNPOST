@@ -54,7 +54,13 @@ namespace MNPOST.Models
 
     }
 
+    public class MailerPartnerDetailUpdate
+    {
+        public string MailerID { get; set; }
+        public string OrderReference { get; set; }
 
+        public float OrderCosst { get; set; }
+    }
 
     public class MailerDeliveryIdentity
     {

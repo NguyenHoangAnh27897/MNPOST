@@ -8,6 +8,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServe
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+<<<<<<< HEAD
+=======
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.pdb
@@ -30,3 +32,4 @@ D:\LAPTRINH\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.xml
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\LAPTRINH\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
+>>>>>>> ce2dd3347d3aa4d99a30cd7dde6035e7e305026a

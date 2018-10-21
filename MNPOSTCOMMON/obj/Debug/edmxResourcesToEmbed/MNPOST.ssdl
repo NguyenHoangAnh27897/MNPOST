@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -223,12 +223,11 @@
     <Key>
       <PropertyRef Name="DistrictID" />
     </Key>
-    <Property Name="DistrictID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="DistrictName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ProvinceID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-    <Property Name="UpdateDate" Type="datetime" />
-    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="DistrictID" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="DistrictName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProvinceID" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="DistrictValue" Type="nvarchar" MaxLength="128" />
+    <Property Name="DistrictCode" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_Employees">
     <Key>
@@ -267,6 +266,20 @@
     <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Price" Type="money" />
+  </EntityType>
+  <EntityType Name="BS_Partners">
+    <Key>
+      <PropertyRef Name="PartnerID" />
+    </Key>
+    <Property Name="PartnerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PartnerCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserLogin" Type="nvarchar" MaxLength="128" />
+    <Property Name="PassLogin" Type="nvarchar" MaxLength="128" />
+    <Property Name="TokenLogin" Type="nvarchar(max)" />
+    <Property Name="ParterName" Type="nvarchar(max)" />
+    <Property Name="ParterPhoneSP" Type="varchar" MaxLength="20" />
+    <Property Name="PartnerAddress" Type="nvarchar(max)" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_Positions">
     <Key>
@@ -343,14 +356,11 @@
     <Key>
       <PropertyRef Name="ProvinceID" />
     </Key>
-    <Property Name="ProvinceID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="ProvinceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProvinceID" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProvinceName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CountryID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="PhoneCode" Type="nvarchar" MaxLength="10" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-    <Property Name="UpdateDate" Type="datetime" />
-    <Property Name="CreationDate" Type="datetime" />
     <Property Name="ZoneID" Type="nvarchar" MaxLength="10" />
+    <Property Name="ProvinceCode" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_RangeValues">
     <Key>
@@ -433,12 +443,9 @@
     <Key>
       <PropertyRef Name="WardID" />
     </Key>
-    <Property Name="WardID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="WardName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DistrictID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="IsActive" Type="bit" Nullable="false" />
-    <Property Name="UpdateDate" Type="datetime" />
-    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="WardID" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="WardName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DistrictID" Type="varchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="BS_Zones">
     <Key>
@@ -600,6 +607,29 @@
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ReturnReasonID" Type="int" />
+  </EntityType>
+  <EntityType Name="MM_MailerPartner">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DocumentCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="PartnerID" Type="nvarchar" MaxLength="128" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="MM_MailerPartnerDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="StatusID" Type="int" />
+    <Property Name="OrderReference" Type="nvarchar(max)" />
+    <Property Name="OrderCosst" Type="float" />
   </EntityType>
   <EntityType Name="MM_Mailers">
     <Key>
@@ -966,6 +996,18 @@
   <Function Name="MAILER_GETTRACKING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_PARTNER_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fromDate" Type="varchar" Mode="In" />
+    <Parameter Name="toDate" Type="varchar" Mode="In" />
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="MAILER_PARTNER_GETDETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="documentId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="MAILER_PARTNER_GETDETAIL_BY_MAILERID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="documentId" Type="nvarchar" Mode="In" />
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="MAILERDELIVERY_GETMAILER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>
@@ -1012,6 +1054,11 @@
     <Parameter Name="user" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="WARD_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="WIN_GET_MAILER_BY_DATE_POST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="FromDate" Type="nvarchar" Mode="In" />
+    <Parameter Name="ToDate" Type="nvarchar" Mode="In" />
+    <Parameter Name="PostOfficeID" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="MNPOSTModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CODDebitVoucher" EntityType="Self.AC_CODDebitVoucher" Schema="dbo" store:Type="Tables" />
@@ -1031,6 +1078,7 @@
     <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_Partners" EntityType="Self.BS_Partners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PriceCustomers" EntityType="Self.BS_PriceCustomers" Schema="dbo" store:Type="Tables" />
@@ -1059,6 +1107,8 @@
     <EntitySet Name="MM_History" EntityType="Self.MM_History" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDelivery" EntityType="Self.MM_MailerDelivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDeliveryDetail" EntityType="Self.MM_MailerDeliveryDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_MailerPartner" EntityType="Self.MM_MailerPartner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_MailerPartnerDetail" EntityType="Self.MM_MailerPartnerDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerServices" EntityType="Self.MM_MailerServices" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_PackingList" EntityType="Self.MM_PackingList" Schema="dbo" store:Type="Tables" />

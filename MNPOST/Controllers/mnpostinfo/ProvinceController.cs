@@ -53,9 +53,6 @@ namespace MNPOST.Controllers.mnpostinfo
             if (check != null)
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
 
-
-            province.IsActive = true;
-            province.CreationDate = DateTime.Now;
             db.BS_Provinces.Add(province);
 
             db.SaveChanges();

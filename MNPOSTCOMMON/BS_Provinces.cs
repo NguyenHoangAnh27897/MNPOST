@@ -17,10 +17,7 @@ namespace MNPOSTCOMMON
         public string ProvinceID { get; set; }
         public string ProvinceName { get; set; }
         public string CountryID { get; set; }
-        public string PhoneCode { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<System.DateTime> CreationDate { get; set; }
         public string ZoneID { get; set; }
+        public string ProvinceCode { get; set; }
     }
 }

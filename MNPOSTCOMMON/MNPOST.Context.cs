@@ -86,6 +86,9 @@ namespace MNPOSTCOMMON
         public virtual DbSet<EmpployeeDebitCOD> EmpployeeDebitCODs { get; set; }
         public virtual DbSet<MM_Tracking> MM_Tracking { get; set; }
         public virtual DbSet<MailerImage> MailerImages { get; set; }
+        public virtual DbSet<BS_Partners> BS_Partners { get; set; }
+        public virtual DbSet<MM_MailerPartnerDetail> MM_MailerPartnerDetail { get; set; }
+        public virtual DbSet<MM_MailerPartner> MM_MailerPartner { get; set; }
     
         public virtual ObjectResult<AC_CODDEBITVOUCHER_BYCUSTOMERID_Result> AC_CODDEBITVOUCHER_BYCUSTOMERID(string customerid, string fromdate, string todate)
         {
@@ -433,6 +436,62 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("date", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_BY_EMPLOYEE_Result>("TAKEMAILER_GETLIST_BY_EMPLOYEE", employeeParameter, statusIdParameter, dateParameter);
+        }
+    
+        public virtual ObjectResult<WIN_GET_MAILER_BY_DATE_POST_Result> WIN_GET_MAILER_BY_DATE_POST(string fromDate, string toDate, string postOfficeID)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            var postOfficeIDParameter = postOfficeID != null ?
+                new ObjectParameter("PostOfficeID", postOfficeID) :
+                new ObjectParameter("PostOfficeID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WIN_GET_MAILER_BY_DATE_POST_Result>("WIN_GET_MAILER_BY_DATE_POST", fromDateParameter, toDateParameter, postOfficeIDParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_PARTNER_GETALL_Result> MAILER_PARTNER_GETALL(string fromDate, string toDate, string postId)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("fromDate", fromDate) :
+                new ObjectParameter("fromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("toDate", toDate) :
+                new ObjectParameter("toDate", typeof(string));
+    
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_PARTNER_GETALL_Result>("MAILER_PARTNER_GETALL", fromDateParameter, toDateParameter, postIdParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_PARTNER_GETDETAIL_Result> MAILER_PARTNER_GETDETAIL(string documentId)
+        {
+            var documentIdParameter = documentId != null ?
+                new ObjectParameter("documentId", documentId) :
+                new ObjectParameter("documentId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_PARTNER_GETDETAIL_Result>("MAILER_PARTNER_GETDETAIL", documentIdParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result> MAILER_PARTNER_GETDETAIL_BY_MAILERID(string documentId, string mailerId)
+        {
+            var documentIdParameter = documentId != null ?
+                new ObjectParameter("documentId", documentId) :
+                new ObjectParameter("documentId", typeof(string));
+    
+            var mailerIdParameter = mailerId != null ?
+                new ObjectParameter("mailerId", mailerId) :
+                new ObjectParameter("mailerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result>("MAILER_PARTNER_GETDETAIL_BY_MAILERID", documentIdParameter, mailerIdParameter);
         }
     }
 }

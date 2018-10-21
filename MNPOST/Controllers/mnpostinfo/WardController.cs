@@ -52,9 +52,6 @@ namespace MNPOST.Controllers.mnpostinfo
             if (check != null)
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
 
-
-            ward.IsActive = true;
-            ward.CreationDate = DateTime.Now;
             db.BS_Wards.Add(ward);
 
             db.SaveChanges();
