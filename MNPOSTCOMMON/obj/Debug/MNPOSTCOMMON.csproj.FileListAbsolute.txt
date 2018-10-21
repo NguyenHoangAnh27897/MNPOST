@@ -8,15 +8,3 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServe
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll.config
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.dll
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\MNPOSTCOMMON.pdb
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.dll
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.xml
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojAssemblyReference.cache
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.CoreCompileInputs.cache
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csproj.CopyComplete
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
-C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb

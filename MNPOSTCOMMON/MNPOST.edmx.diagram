@@ -69,6 +69,9 @@
         <EntityTypeShape EntityType="MNPOSTModel.EmpployeeDebitCOD" Width="1.5" PointX="3.375" PointY="21.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_Tracking" Width="1.5" PointX="19.375" PointY="21.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MailerImage" Width="1.5" PointX="21.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Partners" Width="1.5" PointX="5.375" PointY="22.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerPartnerDetail" Width="1.5" PointX="11.375" PointY="22.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_MailerPartner" Width="1.5" PointX="23.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

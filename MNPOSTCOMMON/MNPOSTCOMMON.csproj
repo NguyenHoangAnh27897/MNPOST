@@ -102,6 +102,9 @@
     <Compile Include="BS_MailerModeraters.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="BS_Partners.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="BS_Positions.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -215,6 +218,15 @@
     <Compile Include="MAILER_GET_NOT_INVENTORY_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILER_PARTNER_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_PARTNER_GETDETAIL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_CustomerMoneyAdvances.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -234,6 +246,12 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_MailerDeliveryDetail.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_MailerPartner.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_MailerPartnerDetail.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_Mailers.cs">
@@ -331,6 +349,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="WARD_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WIN_GET_MAILER_BY_DATE_POST_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
   </ItemGroup>

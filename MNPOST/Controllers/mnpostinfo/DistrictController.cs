@@ -59,9 +59,6 @@ namespace MNPOST.Controllers.mnpostinfo
             if (check != null)
                 return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
 
-
-            district.IsActive = true;
-            district.CreationDate = DateTime.Now;
             db.BS_Districts.Add(district);
 
             db.SaveChanges();
@@ -84,8 +81,6 @@ namespace MNPOST.Controllers.mnpostinfo
 
             check.DistrictName = district.DistrictName;
             check.ProvinceID = district.ProvinceID;
-            check.IsActive = district.IsActive;
-            check.UpdateDate = DateTime.Now;
 
             db.Entry(check).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
