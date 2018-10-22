@@ -856,7 +856,6 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpGet]
         public ActionResult Print(string id)
         {
-            DataTable dt = new DataTable();
             ReportClass rptH = new ReportClass();
             rptH.FileName = Server.MapPath("~/Report/MNPOSTReport.rpt");
             rptH.Load();
@@ -926,7 +925,6 @@ namespace MNPOSTWEBSITE.Controllers
                     _txtTK.Text = "";
                 }
             }
-            //rptH.SetDataSource(dt);
             Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             return File(stream, "application/pdf");
         }

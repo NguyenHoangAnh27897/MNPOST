@@ -92,3 +92,5 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\CrystalDecisions.ReportAppS
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\stdole.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\log4net.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\log4net.xml
