@@ -19,37 +19,27 @@
                             {
                                 <article class='post-entry post-entry-type-standard post-entry-4715 post-loop-1 post-parity-odd single-small with-slider post-4715 post type-post status-publish format-standard has-post-thumbnail hentry category-tin-tuc tag-ecotrans-ha-noi-tuyen-dung' itemscope="itemscope" itemtype="https://schema.org/BlogPosting">
                                     <div class='blog-meta'>
-                                        <a href='/post/detailpost/@item.ID' class='small-preview' title='@item.PostName'>
-                                            <img width="180" height="180" src="~/images/post/@item.Avatar" class="attachment-square size-square wp-post-image" alt=""  sizes="(max-width: 180px) 100vw, 180px" /><span class="iconfont" aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span>
+                                        <a href='/post/detailpost/@item.ID' title='@item.PostName'>
+                                            <img width="180" height="180" src="~/images/post/@item.Avatar" class="attachment-square size-square wp-post-image" alt=""  sizes="(max-width: 180px) 100vw, 180px" />
                                         </a>
                                     </div><div class='entry-content-wrapper clearfix standard-content'>
-                                        <header class="entry-content-header"><h2 class='post-title entry-title' itemprop="headline"><a href='/post/detailpost/@item.ID' rel='bookmark' title='@item.PostName'>@item.PostName<span class='post-format-icon minor-meta'></span>	</a></h2><span class='post-meta-infos'><time class='date-container minor-meta updated'>14/08/2018</time><span class='text-sep text-sep-date'>/</span><span class="blog-categories minor-meta">Tin tức</span><span class="text-sep text-sep-cat">/</span><span class="blog-author minor-meta">đăng bởi <span class="entry-author-link"><span class="vcard author"><span class="fn"><a href="https://ecotrans.vn/author/khonguyen" title="Đăng bởi Khổng Văn Uyển" rel="author">@item.PostBy</a></span></span></span></span></span></header><div class="entry-content" itemprop="text">
+                                        <header class="entry-content-header"><h2 class='post-title entry-title' itemprop="headline"><a href='/post/detailpost/@item.ID' rel='bookmark' title='@item.PostName'>@item.PostName<span class='post-format-icon minor-meta'></span>	</a></h2><span class='post-meta-infos'><time class='date-container minor-meta updated'>@item.CreatedDate.Value.ToString("dd/MM/yyyy")</time><span class='text-sep text-sep-date'>/</span><span class="blog-categories minor-meta">@item.Service</span><span class="text-sep text-sep-cat">/</span></span></header><div class="entry-content" itemprop="text">
                                     @if (item.ContentPost.Length > 300)
                                     {
-                                        @Html.Raw(item.ContentPost.Substring(0,300))
+                                        @Html.Raw(item.ContentPost.Substring(0,300)) <a  href='/post/detailpost/@item.ID'>... Xem chi tiết</a>
                                     }
                                     else
-                                    {
-                                        @Html.Raw(item.ContentPost)
+                                    {   
+                                        @Html.Raw(item.ContentPost) <a href='/post/detailpost/@item.ID'>Xem chi tiết</a>
                                     }
                                   
-                                        </div><footer class="entry-footer"></footer><div class='post_delimiter'></div>
-                                    </div><div class='post_author_timeline'></div><span class='hidden'>
-                                        <span class='av-structured-data' itemscope="itemscope" itemtype="https://schema.org/ImageObject" itemprop='image'>
-                                            <span itemprop='url'></span>
-                                            <span itemprop='height'>1717</span>
-                                            <span itemprop='width'>2048</span>
-                                        </span><span class='av-structured-data' itemprop="publisher" itemtype="https://schema.org/Organization" itemscope="itemscope">
-                                            <span itemprop='name'>Khổng Văn Uyển</span>
-                                            <span itemprop='logo' itemscope itemtype='http://schema.org/ImageObject'>
-                                                <span itemprop='url'></span>
-                                            </span>
-                                        </span><span class='av-structured-data' itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"><span itemprop='name'>Khổng Văn Uyển</span></span><span class='av-structured-data' itemprop="datePublished" datetime="2018-08-14T10:28:20+00:00">2018-08-14 10:28:20</span><span class='av-structured-data' itemprop="dateModified" itemtype="https://schema.org/dateModified">2018-08-14 10:28:20</span><span class='av-structured-data' itemprop="mainEntityOfPage" itemtype="https://schema.org/mainEntityOfPage"><span itemprop='name'>@item.PostName</span></span>
-                                    </span>
+                                        </div>
+                                    </div>
                                 </article>
                             }
-                                <div class='single-small'>
-                                    @Html.PagedListPager(Model, Page => Url.Action("PostList", new { Page }))
+                                <div>
+                                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                                    @Html.PagedListPager(Model, page => Url.Action("PostList", new { page }))
                                     @*<nav class='pagination'><span class='pagination-meta'>Page 1 of 63</span><span class='current'>1</span><a href='https://ecotrans.vn/tin-tuc/page/2' class='inactive'>2</a><a href='https://ecotrans.vn/tin-tuc/page/3' class='inactive'>3</a><a href='https://ecotrans.vn/tin-tuc/page/2'>&rsaquo;</a><a href='https://ecotrans.vn/tin-tuc/page/63'>&raquo;</a></nav>*@
                                 </div>
                         </div>

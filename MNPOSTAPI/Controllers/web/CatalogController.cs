@@ -18,7 +18,7 @@ namespace MNPOSTAPI.Controllers.web
             {
                 error = 0,
                 msg = "400-OK",
-                provinces = db.BS_Provinces.Where(p=> p.IsActive == true).ToList()
+                provinces = db.BS_Provinces.ToList()
             };
 
             return result;
@@ -29,7 +29,7 @@ namespace MNPOSTAPI.Controllers.web
             {
                 error = 0,
                 msg = "400-OK",
-                districts = db.BS_Districts.Where(p => p.IsActive == true && p.ProvinceID == provinceid).ToList()
+                districts = db.BS_Districts.Where(p => p.ProvinceID == provinceid).ToList()
             };
 
             return result;
@@ -40,7 +40,7 @@ namespace MNPOSTAPI.Controllers.web
             {
                 error = 0,
                 msg = "400-OK",
-                wards = db.BS_Wards.Where(p => p.IsActive == true && p.DistrictID == districtid).ToList()
+                wards = db.BS_Wards.Where(p => p.DistrictID == districtid).ToList()
             };
 
             return result;

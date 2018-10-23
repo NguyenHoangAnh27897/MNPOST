@@ -280,9 +280,12 @@
     <Property Name="ParterPhoneSP" Type="varchar" MaxLength="20" />
     <Property Name="PartnerAddress" Type="nvarchar(max)" />
     <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
+<<<<<<< HEAD
     <Property Name="Expired" Type="int" />
     <Property Name="LastModife" Type="datetime" />
     <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+=======
+>>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="BS_Positions">
     <Key>
@@ -696,8 +699,11 @@
     <Property Name="DeliveryDate" Type="datetime" />
     <Property Name="DeliveryNotes" Type="nvarchar(max)" />
     <Property Name="CreateType" Type="int" />
+<<<<<<< HEAD
     <Property Name="ThirdpartyCode" Type="nvarchar" MaxLength="128" />
     <Property Name="ThirdpartyID" Type="nvarchar" MaxLength="128" />
+=======
+>>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -790,7 +796,10 @@
     <Property Name="Describe" Type="nvarchar(max)" />
     <Property Name="PostOffice" Type="nvarchar" MaxLength="128" />
     <Property Name="CreateTime" Type="datetime" />
+<<<<<<< HEAD
     <Property Name="OrderReferece" Type="nvarchar" MaxLength="128" />
+=======
+>>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>

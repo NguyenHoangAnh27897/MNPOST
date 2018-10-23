@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MNPOSTWEBSITE.Models.CODDetail>
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<!-- **********************************************************************************************************************************************************
+     MAIN CONTENT
+     *********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row mt">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <! -- BASIC PROGRESS BARS -->
+                <div class="showback form-horizontal style-form">
+                    <h4><i class="fa fa-angle-right"></i> Thông tin phiên chi tiết</h4>
+                    @foreach (var item in Model)
+                    {
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-3 control-label">Người nhận:</label>
+                            <label class="col-sm-9 col-sm-9 control-label">@item.RecieverName</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-3 control-label">Ngày tạo phiên:</label>
+                            <label class="col-sm-9 col-sm-9 control-label">@item.DocumentDate</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-3 control-label">Số phiếu chi:</label>
+                            <label class="col-sm-9 col-sm-9 control-label">@item.PaymentID</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-3 control-label">Mã phiên:</label>
+                            <label class="col-sm-9 col-sm-9 control-label">@item.DocumentID</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-3 control-label">Mã bưu cục:</label>
+                            <label class="col-sm-9 col-sm-9 control-label">@item.PostOfficeID</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-3 control-label">Số phiếu:</label>
+                            <label class="col-sm-9 col-sm-9 control-label">@item.MailerID</label>
+                        </div>
+                    }
+
+
+                </div><!--/showback -->
+
+            </div><!-- /col-lg-6 -->
+
+        </div><!--/ row -->
+    </section><! --/wrapper -->
+</section><!-- /MAIN CONTENT -->
+
+<script src="/Content/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/Content/js/jquery.ui.touch-punch.min.js"></script>
+

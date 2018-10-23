@@ -423,6 +423,20 @@
     //    total = parseInt(pricemain) + parseInt(codprice);
     //    document.getElementById("PriceDefault").value = total;
     //}
+    $("input[name=CODPrice]").change(function (e) {
+        var pricemain = document.getElementById("PriceMain").value;
+        var codprice = document.getElementById("CODPrice").value;
+        var sum = 0;
+        sum += parseFloat(pricemain) + parseFloat(codprice);
+        $("input[name=PriceDefault]").val(sum);
+    });
+    $("input[name=PriceMain]").change(function (e) {
+        var pricemain = document.getElementById("PriceMain").value;
+        var codprice = document.getElementById("CODPrice").value;
+        var sum = 0;
+        sum += parseFloat(pricemain) + parseFloat(codprice);
+        $("input[name=PriceDefault]").val(sum);
+    });
 </script>
 <script src="/Content/js/jquery.tagsinput.js"></script>
 <script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
@@ -455,7 +469,7 @@
     });
    
 </script>
-<script>
+@*<script>
     var cleaveNumeral = new Cleave('.input-pricemain', {
         numeral: true,
         numeralThousandsGroupStyle: 'thousand'
@@ -475,7 +489,7 @@
         numeralThousandsGroupStyle: 'thousand'
     });
     
-</script>
+</script>*@
 <script>
     var cleaveNumeral = new Cleave('.input-weight1', {
         numeral: true,
