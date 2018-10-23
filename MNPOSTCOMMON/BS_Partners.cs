@@ -23,5 +23,8 @@ namespace MNPOSTCOMMON
         public string ParterPhoneSP { get; set; }
         public string PartnerAddress { get; set; }
         public string PostOfficeID { get; set; }
+        public Nullable<int> Expired { get; set; }
+        public Nullable<System.DateTime> LastModife { get; set; }
+        public string UserID { get; set; }
     }
 }

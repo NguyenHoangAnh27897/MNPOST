@@ -5,13 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using MNPOSTCOMMON;
 using MNPOST.Models;
+using MNPOST.Utils;
 
 namespace MNPOST.Controllers.mailer
 {
     public class MailerPartnerController : MailerController
     {
-
-        MNPOSTEntities db = new MNPOSTEntities();
         // GET: MailerPartner
         public ActionResult Show()
         {
@@ -26,6 +25,8 @@ namespace MNPOST.Controllers.mailer
             }).ToList();
 
             ViewBag.Partners = partner;
+            // tinh thanh
+            ViewBag.Provinces = GetProvinceDatas("", "province");
 
             return View();
         }
@@ -139,6 +140,17 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
             }
 
+            var checkDetail = db.MAILER_PARTNER_GETDETAIL_BY_MAILERID(documentId, mailer.MailerID).FirstOrDefault();
+
+            if (checkDetail != null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Đã tồn tại"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var detail = new MM_MailerPartnerDetail()
             {
                 DocumentID = documentId,
@@ -189,22 +201,28 @@ namespace MNPOST.Controllers.mailer
         {
             var find = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == mailerId).FirstOrDefault();
 
-            if(find != null)
+            if(find != null && find.StatusID == 0)
             {
                 db.MM_MailerPartnerDetail.Remove(find);
                 db.SaveChanges();
+
+                return Json(new ResultInfo()
+                {
+                    error = 0,
+                    msg = ""
+                }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new ResultInfo()
             {
-                error = 0,
-                msg = ""
+                error = 1,
+                msg = "Không xóa được"
             }, JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpPost]
-        public ActionResult SendPartner(string documentId)
+        public ActionResult SendPartner(string documentId, MyAddressInfo address)
         {
             var checkDocument = db.MM_MailerPartner.Find(documentId);
 
@@ -232,6 +250,8 @@ namespace MNPOST.Controllers.mailer
             switch(partner.PartnerCode)
             {
                 case "VIETTEL":
+                    SendViettelHandle viettelHandle = new SendViettelHandle(db, partner, HandleHistory);
+                    viettelHandle.SendViettelPost(checkDocument.DocumentID, address);
                     break;
                 default:
                     break;

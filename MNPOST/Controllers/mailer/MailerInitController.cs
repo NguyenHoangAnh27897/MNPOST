@@ -24,7 +24,7 @@ namespace MNPOST.Controllers.mailer
             {
                 code = item.CustomerCode,
                 name = item.CustomerName,
-                phone = item.Phone,
+                phone = item.Mobile,
                 provinceId = item.ProvinceID,
                 address = item.Address,
                 districtId = item.DistrictID,

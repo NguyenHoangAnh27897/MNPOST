@@ -24,7 +24,8 @@ namespace MNPOSTCOMMON
                 CreateTime = DateTime.Now,
                 PostOffice = postId,
                 StatusID = statusId,
-                Describe = describe
+                Describe = describe,
+                OrderReferece = mailerId
             };
 
 
@@ -33,6 +34,27 @@ namespace MNPOSTCOMMON
             db.SaveChanges();
 
         }
+
+        public void AddTracking(int statusId, string mailerId, string orderRefences, string postId, string describe)
+        {
+            var tracking = new MM_Tracking()
+            {
+                Id = Guid.NewGuid().ToString(),
+                MailerID = mailerId,
+                CreateTime = DateTime.Now,
+                PostOffice = postId,
+                StatusID = statusId,
+                Describe = describe,
+                OrderReferece = orderRefences
+            };
+
+
+            db.MM_Tracking.Add(tracking);
+
+            db.SaveChanges();
+
+        }
+
     }
 
 
