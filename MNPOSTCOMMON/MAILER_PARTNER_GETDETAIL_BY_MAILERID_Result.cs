@@ -33,5 +33,22 @@ namespace MNPOSTCOMMON
         public string OrderReference { get; set; }
         public Nullable<double> OrderCosst { get; set; }
         public Nullable<int> StatusID { get; set; }
+        public string PostOfficeAcceptID { get; set; }
+        public string SenderWardID { get; set; }
+        public string SenderDistrictID { get; set; }
+        public string SenderProvinceID { get; set; }
+        public string RecieverWardID { get; set; }
+        public string AcceptDate { get; set; }
+        public string AcceptTime { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<double> ReWeight { get; set; }
+        public Nullable<decimal> PriceDefault { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> PriceService { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public string PaymentMethodID { get; set; }
+        public string CurrentPostOfficeID { get; set; }
+        public string MerchandiseID { get; set; }
+        public Nullable<decimal> MerchandiseValue { get; set; }
     }
 }

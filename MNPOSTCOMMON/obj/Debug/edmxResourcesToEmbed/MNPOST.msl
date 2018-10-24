@@ -594,6 +594,8 @@
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
+          <ScalarProperty Name="ThirdpartyID" ColumnName="ThirdpartyID" />
+          <ScalarProperty Name="ThirdpartyCode" ColumnName="ThirdpartyCode" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -1468,6 +1470,7 @@
     <EntitySetMapping Name="MM_Tracking">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Tracking">
         <MappingFragment StoreEntitySet="MM_Tracking">
+          <ScalarProperty Name="OrderReferece" ColumnName="OrderReferece" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="PostOffice" ColumnName="PostOffice" />
           <ScalarProperty Name="Describe" ColumnName="Describe" />
@@ -1517,6 +1520,9 @@
     <EntitySetMapping Name="BS_Partners">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Partners">
         <MappingFragment StoreEntitySet="BS_Partners">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LastModife" ColumnName="LastModife" />
+          <ScalarProperty Name="Expired" ColumnName="Expired" />
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="PartnerAddress" ColumnName="PartnerAddress" />
           <ScalarProperty Name="ParterPhoneSP" ColumnName="ParterPhoneSP" />
@@ -1655,6 +1661,24 @@
           <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
           <ScalarProperty Name="OrderReference" ColumnName="OrderReference" />
           <ScalarProperty Name="OrderCosst" ColumnName="OrderCosst" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
+          <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
+          <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
+          <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
+          <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+          <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+          <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
+          <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
+          <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
+          <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1680,6 +1704,24 @@
           <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
           <ScalarProperty Name="OrderReference" ColumnName="OrderReference" />
           <ScalarProperty Name="OrderCosst" ColumnName="OrderCosst" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
+          <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
+          <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
+          <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
+          <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+          <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+          <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
+          <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
+          <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
+          <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

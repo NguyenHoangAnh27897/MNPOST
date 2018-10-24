@@ -12,8 +12,9 @@ namespace MNPOST.Controllers.customer
         public ActionResult Show()
         {
             ViewBag.AllCustomerGroup = db.BS_CustomerGroups.ToList();
-            ViewBag.AllDistrict = db.BS_Districts.ToList();
-            ViewBag.AllProvince = db.BS_Provinces.ToList();
+            // tinh thanh
+            ViewBag.Provinces = GetProvinceDatas("", "province");
+
             ViewBag.AllCountry = db.BS_Countries.ToList();
             ViewBag.AllPostOffice = db.BS_PostOffices.ToList();
             return View();
@@ -36,7 +37,7 @@ namespace MNPOST.Controllers.customer
                 db.GeneralCodeInfoes.Add(data);
                 db.SaveChanges();
 
-                GeneralCusCode(groupId);
+                return GeneralCusCode(groupId);
             }
 
             var number = find.PreNumber + 1;
@@ -91,12 +92,6 @@ namespace MNPOST.Controllers.customer
         [HttpPost]
         public ActionResult create(BS_Customers cus)
         {
-
-            var check = db.BS_Customers.Find(cus.CustomerCode);
-
-            if (check != null)
-                return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
-
 
             var checkGroup = db.BS_CustomerGroups.Find(cus.CustomerGroupID);
 

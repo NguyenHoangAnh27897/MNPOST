@@ -45,14 +45,6 @@ namespace MNPOST.Controllers.customer
         public ActionResult create(BS_CustomerGroups customergroup)
         {
 
-            if (String.IsNullOrEmpty(customergroup.CustomerGroupID))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
-            var check = db.BS_CustomerGroups.Find(customergroup.CustomerGroupID);
-
-            if (check != null)
-                return Json(new ResultInfo() { error = 1, msg = "Đã tồn tại" }, JsonRequestBehavior.AllowGet);
-
             customergroup.CreationDate = DateTime.Now;
             customergroup.CustomerGroupID = GeneralCusGroupCode();
             db.BS_CustomerGroups.Add(customergroup);
@@ -81,9 +73,8 @@ namespace MNPOST.Controllers.customer
                 db.GeneralCodeInfoes.Add(data);
                 db.SaveChanges();
 
-                GeneralCusGroupCode();
+                return GeneralCusGroupCode();
             }
-
 
             var number = find.PreNumber + 1;
 

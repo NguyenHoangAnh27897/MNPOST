@@ -20,5 +20,6 @@ namespace MNPOSTCOMMON
         public string Describe { get; set; }
         public string PostOffice { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
+        public string OrderReferece { get; set; }
     }
 }

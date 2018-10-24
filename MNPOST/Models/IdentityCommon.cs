@@ -88,4 +88,20 @@ namespace MNPOST.Models
 
         public string currentPost { get; set; }
     }
+
+    public class MyAddressInfo
+    {
+        public string address { get; set; }
+        public string phone { get; set; }
+
+        public string email { get; set; }
+
+        public string ward { get; set; }
+
+        public string district { get; set; }
+
+        public string province { get; set; }
+
+        public string name { get; set; }
+    }
 }
