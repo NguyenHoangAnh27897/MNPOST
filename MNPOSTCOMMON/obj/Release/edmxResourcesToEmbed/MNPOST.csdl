@@ -633,11 +633,8 @@
     <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
     <Property Name="DeliveryNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CreateType" Type="Int32" />
-<<<<<<< HEAD
     <Property Name="ThirdpartyCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="ThirdpartyID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -1007,6 +1004,7 @@
     <FunctionImport Name="TAKEMAILER_GETLIST" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_Result)">
       <Parameter Name="postId" Mode="In" Type="String" />
       <Parameter Name="statusId" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="USER_CHECKACCESS" ReturnType="Collection(MNPOSTModel.USER_CHECKACCESS_Result)">
       <Parameter Name="groupId" Mode="In" Type="String" />
@@ -1053,6 +1051,11 @@
     <FunctionImport Name="MAILER_PARTNER_GETDETAIL_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result)">
       <Parameter Name="documentId" Mode="In" Type="String" />
       <Parameter Name="mailerId" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="BS_PartnerMapInfo" EntityType="MNPOSTModel.BS_PartnerMapInfo" />
+    <FunctionImport Name="PARTNER_MAP_INFO" ReturnType="Collection(MNPOSTModel.PARTNER_MAP_INFO_Result)">
+      <Parameter Name="partnerCode" Mode="In" Type="String" />
+      <Parameter Name="form" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
@@ -1592,10 +1595,7 @@
     <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PostOffice" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
-<<<<<<< HEAD
     <Property Name="OrderReferece" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <ComplexType Name="MAILER_GETTRACKING_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
@@ -1638,12 +1638,9 @@
     <Property Name="ParterPhoneSP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="PartnerAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PostOfficeID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-<<<<<<< HEAD
     <Property Name="Expired" Type="Int32" />
     <Property Name="LastModife" Type="DateTime" Precision="3" />
     <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="MM_MailerPartnerDetail">
     <Key>
@@ -1761,7 +1758,6 @@
     <Property Type="String" Name="OrderReference" Nullable="true" />
     <Property Type="Double" Name="OrderCosst" Nullable="true" />
     <Property Type="Int32" Name="StatusID" Nullable="true" />
-<<<<<<< HEAD
     <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="SenderWardID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="SenderDistrictID" Nullable="true" MaxLength="10" />
@@ -1779,8 +1775,6 @@
     <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </ComplexType>
   <ComplexType Name="MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result">
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
@@ -1803,7 +1797,6 @@
     <Property Type="String" Name="OrderReference" Nullable="true" />
     <Property Type="Double" Name="OrderCosst" Nullable="true" />
     <Property Type="Int32" Name="StatusID" Nullable="true" />
-<<<<<<< HEAD
     <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="SenderWardID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="SenderDistrictID" Nullable="true" MaxLength="10" />
@@ -1821,7 +1814,22 @@
     <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
+  </ComplexType>
+  <EntityType Name="BS_PartnerMapInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PartnerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FormField" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MNPostData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PartnerData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="PARTNER_MAP_INFO_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="PartnerID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="FormField" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="MNPostData" Nullable="true" />
+    <Property Type="String" Name="PartnerData" Nullable="true" />
   </ComplexType>
 </Schema>

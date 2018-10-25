@@ -1004,6 +1004,7 @@
     <FunctionImport Name="TAKEMAILER_GETLIST" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_Result)">
       <Parameter Name="postId" Mode="In" Type="String" />
       <Parameter Name="statusId" Mode="In" Type="Int32" />
+      <Parameter Name="date" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="USER_CHECKACCESS" ReturnType="Collection(MNPOSTModel.USER_CHECKACCESS_Result)">
       <Parameter Name="groupId" Mode="In" Type="String" />
@@ -1050,6 +1051,11 @@
     <FunctionImport Name="MAILER_PARTNER_GETDETAIL_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result)">
       <Parameter Name="documentId" Mode="In" Type="String" />
       <Parameter Name="mailerId" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="BS_PartnerMapInfo" EntityType="MNPOSTModel.BS_PartnerMapInfo" />
+    <FunctionImport Name="PARTNER_MAP_INFO" ReturnType="Collection(MNPOSTModel.PARTNER_MAP_INFO_Result)">
+      <Parameter Name="partnerCode" Mode="In" Type="String" />
+      <Parameter Name="form" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
@@ -1808,5 +1814,22 @@
     <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+  </ComplexType>
+  <EntityType Name="BS_PartnerMapInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PartnerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FormField" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MNPostData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PartnerData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="PARTNER_MAP_INFO_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="PartnerID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="FormField" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="MNPostData" Nullable="true" />
+    <Property Type="String" Name="PartnerData" Nullable="true" />
   </ComplexType>
 </Schema>

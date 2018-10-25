@@ -594,11 +594,8 @@
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
-<<<<<<< HEAD
           <ScalarProperty Name="ThirdpartyID" ColumnName="ThirdpartyID" />
           <ScalarProperty Name="ThirdpartyCode" ColumnName="ThirdpartyCode" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -1473,10 +1470,7 @@
     <EntitySetMapping Name="MM_Tracking">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Tracking">
         <MappingFragment StoreEntitySet="MM_Tracking">
-<<<<<<< HEAD
           <ScalarProperty Name="OrderReferece" ColumnName="OrderReferece" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="PostOffice" ColumnName="PostOffice" />
           <ScalarProperty Name="Describe" ColumnName="Describe" />
@@ -1526,12 +1520,9 @@
     <EntitySetMapping Name="BS_Partners">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Partners">
         <MappingFragment StoreEntitySet="BS_Partners">
-<<<<<<< HEAD
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="LastModife" ColumnName="LastModife" />
           <ScalarProperty Name="Expired" ColumnName="Expired" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="PartnerAddress" ColumnName="PartnerAddress" />
           <ScalarProperty Name="ParterPhoneSP" ColumnName="ParterPhoneSP" />
@@ -1671,7 +1662,6 @@
           <ScalarProperty Name="OrderReference" ColumnName="OrderReference" />
           <ScalarProperty Name="OrderCosst" ColumnName="OrderCosst" />
           <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-<<<<<<< HEAD
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
           <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
@@ -1689,8 +1679,6 @@
           <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
           <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1717,7 +1705,6 @@
           <ScalarProperty Name="OrderReference" ColumnName="OrderReference" />
           <ScalarProperty Name="OrderCosst" ColumnName="OrderCosst" />
           <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-<<<<<<< HEAD
           <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
           <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
           <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
@@ -1735,8 +1722,28 @@
           <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
           <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
           <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="BS_PartnerMapInfo">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PartnerMapInfo">
+        <MappingFragment StoreEntitySet="BS_PartnerMapInfo">
+          <ScalarProperty Name="PartnerData" ColumnName="PartnerData" />
+          <ScalarProperty Name="MNPostData" ColumnName="MNPostData" />
+          <ScalarProperty Name="FormField" ColumnName="FormField" />
+          <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PARTNER_MAP_INFO" FunctionName="MNPOSTModel.Store.PARTNER_MAP_INFO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.PARTNER_MAP_INFO_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+          <ScalarProperty Name="FormField" ColumnName="FormField" />
+          <ScalarProperty Name="MNPostData" ColumnName="MNPostData" />
+          <ScalarProperty Name="PartnerData" ColumnName="PartnerData" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

@@ -236,8 +236,8 @@
                                                             <option value="6">CHƯA PHÁT ĐƯỢC</option>
                                                         </select>
                                                     </td>
-                                                    <td class="success"><input type="text" ui-mask="99/99/9999"  ui-mask-placeholder ui-mask-placeholder-char="" ng-model="item.DeliveryDate" required class="tableinput" /></td>
-                                                    <td class="success"><input type="text" ui-mask="99:99" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="item.DeliveryTime" required class="tableinput"/></td>
+                                                    <td class="success"><input type="text" ui-mask="99/99/9999"  model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="item.DeliveryDate" required class="tableinput" /></td>
+                                                    <td class="success"><input type="text" ui-mask="99:99" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="item.DeliveryTime" required class="tableinput"/></td>
                                                     <td class="success"><input type="text"  ng-disabled="item.DeliveryStatus != 4"  ng-model="item.DeliveryTo" class="tableinput"/></td>
                                                     <td class="warning"><input type="text"  ng-model="item.DeliveryNotes"  class="tableinput"  ng-disabled="item.DeliveryStatus != 6" /></td>
                                                     <td class="danger">

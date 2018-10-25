@@ -72,6 +72,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_Partners" Width="1.5" PointX="5.375" PointY="22.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerPartnerDetail" Width="1.5" PointX="11.375" PointY="22.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerPartner" Width="1.5" PointX="23.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_PartnerMapInfo" Width="1.5" PointX="23.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

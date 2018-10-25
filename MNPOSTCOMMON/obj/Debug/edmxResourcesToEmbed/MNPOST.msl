@@ -1725,5 +1725,27 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="BS_PartnerMapInfo">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_PartnerMapInfo">
+        <MappingFragment StoreEntitySet="BS_PartnerMapInfo">
+          <ScalarProperty Name="PartnerData" ColumnName="PartnerData" />
+          <ScalarProperty Name="MNPostData" ColumnName="MNPostData" />
+          <ScalarProperty Name="FormField" ColumnName="FormField" />
+          <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PARTNER_MAP_INFO" FunctionName="MNPOSTModel.Store.PARTNER_MAP_INFO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.PARTNER_MAP_INFO_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+          <ScalarProperty Name="FormField" ColumnName="FormField" />
+          <ScalarProperty Name="MNPostData" ColumnName="MNPostData" />
+          <ScalarProperty Name="PartnerData" ColumnName="PartnerData" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

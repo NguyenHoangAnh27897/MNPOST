@@ -11,7 +11,6 @@
             <div class="x_title">
                 <h2>ĐƠN HÀNG MỚI {{postHandle}}</h2>
                 <div class="nav navbar-right">
-                    <button type="button" class="btn btn-danger" ng-init="tabds=true" ng-show="tabds"> CHUYỂN ĐỐI TÁC</button>
                     <button type="button" class="btn btn-success" ng-click="sendUpdateTake()" ng-init="updateTake=false" ng-show="updateTake">XÁC NHẬN ĐÃ LẤY HÀNG</button>
                     <button type="button" class="btn btn-danger" ng-click="takeMailers()" ng-show="customerSearch.SenderID!=='' && tabds">LẤY HÀNG</button>
                     <button type="button" class="btn btn-primary" ng-click="sendImport()"  ng-show="tabds">NHẬP KHO</button>
@@ -107,7 +106,15 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="tab_layhang" aria-labelledby="home-tab">
+                            <form ng-submit="sendGetTakeMailers()">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" ui-mask="99/99/9999" ng-model="dateimport" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-disabled="isrungettake"/>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="table-responsive">
+                              
                                 <table class="table table-striped jambo_table bulk_action scrollmenu">
                                     <thead>
                                         <tr class="headings">
@@ -282,8 +289,7 @@
         var customerDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllCustomer)));
 
 
-        $.fn.modal.Constructor.prototype.enforceFocus = function () { };
-
+        var currentDate = '@DateTime.Now.ToString("dd/MM/yyyy")';
 
     </script>
 

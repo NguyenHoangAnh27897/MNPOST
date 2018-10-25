@@ -267,6 +267,16 @@
     <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Price" Type="money" />
   </EntityType>
+  <EntityType Name="BS_PartnerMapInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PartnerID" Type="nvarchar" MaxLength="128" />
+    <Property Name="FormField" Type="nvarchar" MaxLength="128" />
+    <Property Name="MNPostData" Type="nvarchar(max)" />
+    <Property Name="PartnerData" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="BS_Partners">
     <Key>
       <PropertyRef Name="PartnerID" />
@@ -280,12 +290,9 @@
     <Property Name="ParterPhoneSP" Type="varchar" MaxLength="20" />
     <Property Name="PartnerAddress" Type="nvarchar(max)" />
     <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
-<<<<<<< HEAD
     <Property Name="Expired" Type="int" />
     <Property Name="LastModife" Type="datetime" />
     <Property Name="UserID" Type="nvarchar" MaxLength="128" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="BS_Positions">
     <Key>
@@ -699,11 +706,8 @@
     <Property Name="DeliveryDate" Type="datetime" />
     <Property Name="DeliveryNotes" Type="nvarchar(max)" />
     <Property Name="CreateType" Type="int" />
-<<<<<<< HEAD
     <Property Name="ThirdpartyCode" Type="nvarchar" MaxLength="128" />
     <Property Name="ThirdpartyID" Type="nvarchar" MaxLength="128" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -796,10 +800,7 @@
     <Property Name="Describe" Type="nvarchar(max)" />
     <Property Name="PostOffice" Type="nvarchar" MaxLength="128" />
     <Property Name="CreateTime" Type="datetime" />
-<<<<<<< HEAD
     <Property Name="OrderReferece" Type="nvarchar" MaxLength="128" />
-=======
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96
   </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
@@ -1030,6 +1031,10 @@
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
     <Parameter Name="mailerID" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="PARTNER_MAP_INFO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partnerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="form" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1052,6 +1057,7 @@
   <Function Name="TAKEMAILER_GETLIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="statusId" Type="int" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employee" Type="nvarchar" Mode="In" />
@@ -1093,6 +1099,7 @@
     <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_PartnerMapInfo" EntityType="Self.BS_PartnerMapInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Partners" EntityType="Self.BS_Partners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />

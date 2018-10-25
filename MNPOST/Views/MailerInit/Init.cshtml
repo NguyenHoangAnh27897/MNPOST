@@ -34,7 +34,7 @@
                                                 <thead>
                                                     <tr class="headings">
                                                         <th>STT</th>
-                                                        <th>VẬN ĐƠN</th>
+                                                        <th>VẬN ĐƠN(Ctrl + K)</th>
                                                         <th>MÃ NG GỬI&nbsp;&nbsp;<input type="checkbox" ng-model="hideSenderDetail" ng-checked="hideSenderDetail" class="chkcustom" /></th>
                                                         <th ng-show="hideSenderDetail">TÊN (GỬI)</th>
                                                         <th ng-show="hideSenderDetail">SĐT (GỬI)</th>
@@ -86,7 +86,7 @@
                                                             </select>
                                                         </td>
                                                         <td ng-show="hideSenderDetail" class="info">
-                                                            <select ui-select2="select2Options" class="tableinput" ng-model="item.SenderDistrictID" required>
+                                                            <select ui-select2="select2Options" class="tableinput" ng-model="item.SenderDistrictID">
                                                                 <option ng-repeat="district in item.ListDistrictSend" value="{{district.code}}">{{district.name}}</option>
                                                             </select>
                                                         </td>

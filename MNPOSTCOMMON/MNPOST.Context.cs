@@ -89,6 +89,7 @@ namespace MNPOSTCOMMON
         public virtual DbSet<BS_Partners> BS_Partners { get; set; }
         public virtual DbSet<MM_MailerPartnerDetail> MM_MailerPartnerDetail { get; set; }
         public virtual DbSet<MM_MailerPartner> MM_MailerPartner { get; set; }
+        public virtual DbSet<BS_PartnerMapInfo> BS_PartnerMapInfo { get; set; }
     
         public virtual ObjectResult<AC_CODDEBITVOUCHER_BYCUSTOMERID_Result> AC_CODDEBITVOUCHER_BYCUSTOMERID(string customerid, string fromdate, string todate)
         {
@@ -350,7 +351,7 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETDETAILs_Result>("TAKEMAILER_GETDETAILs", documentIDParameter);
         }
     
-        public virtual ObjectResult<TAKEMAILER_GETLIST_Result> TAKEMAILER_GETLIST(string postId, Nullable<int> statusId)
+        public virtual ObjectResult<TAKEMAILER_GETLIST_Result> TAKEMAILER_GETLIST(string postId, Nullable<int> statusId, string date)
         {
             var postIdParameter = postId != null ?
                 new ObjectParameter("postId", postId) :
@@ -360,7 +361,11 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("statusId", statusId) :
                 new ObjectParameter("statusId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_Result>("TAKEMAILER_GETLIST", postIdParameter, statusIdParameter);
+            var dateParameter = date != null ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_Result>("TAKEMAILER_GETLIST", postIdParameter, statusIdParameter, dateParameter);
         }
     
         public virtual ObjectResult<USER_CHECKACCESS_Result> USER_CHECKACCESS(string groupId, string menuCode)
@@ -492,6 +497,19 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("mailerId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result>("MAILER_PARTNER_GETDETAIL_BY_MAILERID", documentIdParameter, mailerIdParameter);
+        }
+    
+        public virtual ObjectResult<PARTNER_MAP_INFO_Result> PARTNER_MAP_INFO(string partnerCode, string form)
+        {
+            var partnerCodeParameter = partnerCode != null ?
+                new ObjectParameter("partnerCode", partnerCode) :
+                new ObjectParameter("partnerCode", typeof(string));
+    
+            var formParameter = form != null ?
+                new ObjectParameter("form", form) :
+                new ObjectParameter("form", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PARTNER_MAP_INFO_Result>("PARTNER_MAP_INFO", partnerCodeParameter, formParameter);
         }
     }
 }

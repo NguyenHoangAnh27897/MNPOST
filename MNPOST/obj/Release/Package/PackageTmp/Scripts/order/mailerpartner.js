@@ -154,12 +154,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         showLoader(true);
 
         $http({
-            method: 'POST',
-            url: '/mailerpartner/AddMailer',
-            data: {
-                documentId: $scope.document.DocumentID,
-                mailerId: $scope.mailerId
-            }
+            method: 'GET',
+            url: '/mailerpartner/AddMailer?documentId=' + $scope.document.DocumentID + '&mailerId=' + $scope.mailerId
         }).then(function sucess(response) {
 
             var result = response.data;
@@ -227,8 +223,65 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         });
     };
 
+    
     $scope.showModalAddressInfo = function () {
+        $scope.mailerFinds = [];
         showModel('sendpartner');
+    };
+    $scope.mailerFinds = [];
+    $scope.findAllMailers = function () {
+
+        showLoader(true);
+
+        $http.get('/mailerpartner/GetMailerByProvince?postId=' + $scope.postHandle + '&province=' + $scope.provincesearch + '&district=' + $scope.districtsearch).then(function (response) {
+
+            showLoader(false);
+
+            $scope.mailerFinds = angular.copy(response.data);
+
+        });
+
+    };
+    $scope.addToListSend = function () {
+        showLoader(true);
+
+        var listSends = [];
+        for (var i = 0; i < $scope.mailerFinds.length; i++) {
+            if ($scope.mailerFinds[i].IsCheck) {
+                listSends.push($scope.mailerFinds[i].MailerID);
+            }
+        }
+
+        $http({
+            method: 'POST',
+            url: '/mailerpartner/AddMailers',
+            data: {
+                documentId: $scope.document.DocumentID,
+                mailers: listSends
+            }
+        }).then(function sucess(response) {
+
+            var result = response.data;
+            if (result.error === 1) {
+                showNotify(result.msg);
+            } else {
+                $scope.getDocumentDetail();
+                showNotify("Đã add");
+                hideModel('getmailerimport');
+            }
+
+            showLoader(false);
+        }, function erorr(response) {
+            showLoader(false);
+            showNotify('Connect error');
+        });
+
+    };
+
+    $scope.checkAllMailerFinds = function () {
+        for (var i = 0; i < $scope.mailerFinds.length; i++) {
+            $scope.mailerFinds[i].IsCheck = $scope.isCheckAllMailerFind;
+        }
     };
 
     $scope.sendToPartner = function (valid) {
@@ -258,5 +311,28 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         }
 
     };
+
+    $scope.showGetFromList = function () {
+        showModel('getmailerimport');
+    };
+
+    $scope.provincesearch = '';
+    $scope.districtsearch = '';
+    $scope.provinces = provinceSendGet;
+    $scope.districts = [];
+    $scope.changeProvince = function () {
+        var url = '/mailerinit/GetProvinces?';
+
+        url = url + "parentId=" + $scope.provincesearch + "&type=district";
+
+        $http.get(url).then(function (response) {
+
+
+
+            $scope.districts = angular.copy(response.data);
+
+        });
+    };
+
 
 });
