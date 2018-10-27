@@ -33,33 +33,33 @@
                                             <table class="table jambo_table bulk_action scrollmenu">
                                                 <thead>
                                                     <tr class="headings">
-                                                        <th>STT</th>
-                                                        <th>VẬN ĐƠN(Ctrl + K)</th>
-                                                        <th>MÃ NG GỬI&nbsp;&nbsp;<input type="checkbox" ng-model="hideSenderDetail" ng-checked="hideSenderDetail" class="chkcustom" /></th>
-                                                        <th ng-show="hideSenderDetail">TÊN (GỬI)</th>
-                                                        <th ng-show="hideSenderDetail">SĐT (GỬI)</th>
-                                                        <th>Đ/CHỈ (GỬI)</th>
-                                                        <th ng-show="hideSenderDetail">T/THÀNH (GỬI)</th>
-                                                        <th ng-show="hideSenderDetail">Q/HUYỆN (GỬI)</th>
-                                                        <th>NGƯỜI NHẬN</th>
-                                                        <th>SĐT(NHẬN)</th>
-                                                        <th>Đ/CHỈ (NHẬN)</th>
-                                                        <th>T/THÀNH(NHẬN)</th>
-                                                        <th>Q/HUYỆN(NHẬN)</th>
-                                                        <th>P/XÃ(NHẬN)</th>
-                                                        <th>DỊCH VỤ</th>
-                                                        <th>HÌNH THỨC</th>
-                                                        <th>TL</th>
-                                                        <th>SL</th>
-                                                        <th>COD</th>
-                                                        <th>LH</th>
-                                                        <th>MÔ TẢ</th>
-                                                        <th>GHI CHÚ</th>
-                                                        <th>PHỤ PHÍ</th>
-                                                        <th>CƯỚC</th>
-                                                        <th>CƯỚC COD</th>
-                                                        <th>TỔNG</th>
-                                                        <th>#</th>
+                                                        <th class="tableth">STT</th>
+                                                        <th class="tableth">VẬN ĐƠN(Ctrl + K)</th>
+                                                        <th class="tableth">MÃ NG GỬI&nbsp;&nbsp;<input type="checkbox" ng-model="hideSenderDetail" ng-checked="hideSenderDetail" class="chkcustom" /></th>
+                                                        <th class="tableth" ng-show="hideSenderDetail">TÊN (GỬI)</th>
+                                                        <th class="tableth" ng-show="hideSenderDetail">SĐT (GỬI)</th>
+                                                        <th class="tableth">Đ/CHỈ (GỬI)</th>
+                                                        <th class="tableth" ng-show="hideSenderDetail">T/THÀNH (GỬI)</th>
+                                                        <th class="tableth" ng-show="hideSenderDetail">Q/HUYỆN (GỬI)</th>
+                                                        <th class="tableth">NGƯỜI NHẬN</th>
+                                                        <th class="tableth">SĐT(NHẬN)</th>
+                                                        <th class="tableth">Đ/CHỈ (NHẬN)</th>
+                                                        <th class="tableth">T/THÀNH(NHẬN)</th>
+                                                        <th class="tableth">Q/HUYỆN(NHẬN)</th>
+                                                        <th class="tableth">P/XÃ(NHẬN)</th>
+                                                        <th class="tableth">DỊCH VỤ</th>
+                                                        <th class="tableth">HÌNH THỨC</th>
+                                                        <th class="tableth">TL</th>
+                                                        <th class="tableth">SL</th>
+                                                        <th class="tableth">COD</th>
+                                                        <th class="tableth">LH</th>
+                                                        <th class="tableth">MÔ TẢ</th>
+                                                        <th class="tableth">GHI CHÚ</th>
+                                                        <th class="tableth">PHỤ PHÍ</th>
+                                                        <th class="tableth">CƯỚC</th>
+                                                        <th class="tableth">CƯỚC COD</th>
+                                                        <th class="tableth">TỔNG</th>
+                                                        <th class="tableth">#</th>
                                                     </tr>
                                                 </thead>
 
@@ -518,6 +518,10 @@
 @section styles {
 
     <style type="text/css">
+        .tableth {
+            min-width: 200px;
+        }
+
         .scrollmenu {
             overflow-x: scroll;
             white-space: nowrap;

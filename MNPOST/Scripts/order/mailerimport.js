@@ -3,7 +3,7 @@
 app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.select2Options = {
-    
+        width: 'element'
     };
 
     $scope.mailers = [];
@@ -176,11 +176,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
     $scope.isrungettake = false;
     $scope.sendGetTakeMailers = function () {
-
+        $scope.isrungettake = true;
         $http.get("/MailerImport/GetTakeMailers?postId=" + $scope.postHandle + "&date=" + $scope.dateimport).then(function (response) {
 
             $scope.takeMailerDatas = response.data;
-            $scope.isrungettake = true;
+            $scope.isrungettake = false;
         });
 
     };

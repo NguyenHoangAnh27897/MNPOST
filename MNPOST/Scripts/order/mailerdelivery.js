@@ -1,5 +1,9 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective', 'ui.mask']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective', 'ui.mask', 'ui.select2']);
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
+
+    $scope.select2Options = {
+        width: '100%'
+    };
 
     // phan trang
     $scope.numPages;

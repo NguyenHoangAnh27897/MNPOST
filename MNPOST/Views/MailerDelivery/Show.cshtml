@@ -299,7 +299,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Nhân viên phát</label>
-                                    <select class="form-control selectpicker" data-live-search="true" required id="chooseEmployeeSelect">
+                                    <select class="form-control" ng-model="chooseEmployeeSelect" ui-select2="select2Options" >
                                         <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
                                     </select>
                                 </div>
@@ -514,7 +514,7 @@
 @section scripts {
 
     <script>
-        $(":input").inputmask();
+       
         // tao controller
         var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
         var fromDate = '@Html.Raw(ViewBag.FromDate)';
