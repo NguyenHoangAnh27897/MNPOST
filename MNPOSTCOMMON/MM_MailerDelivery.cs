@@ -26,6 +26,7 @@ namespace MNPOSTCOMMON
         public string RouteID { get; set; }
         public string NumberPlate { get; set; }
         public string DocumentCode { get; set; }
+        public string PostID { get; set; }
     
         public virtual BS_Employees BS_Employees { get; set; }
     }

@@ -23,6 +23,26 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
+        public ActionResult GetReportEmployeeDelivery(string postId, List<string> employees)
+        {
+            var allDatas = db.MAILER_DELIVERY__EMPLOYEE(postId).ToList();
+
+            if (employees == null)
+                employees = new List<string>();
+
+            if(employees.Count() > 0)
+            {
+                allDatas = allDatas.Where(p => employees.Contains(p.EmployeeID)).ToList();
+            }
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                data = allDatas
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult GetMailerDelivery(int? page, string search, string fromDate, string toDate, string optionSeach, string postId)
         {
             int pageSize = 50;
@@ -52,7 +72,7 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd")).ToList();
+            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId).ToList();
 
             ResultInfo result = new ResultWithPaging()
             {
@@ -332,7 +352,8 @@ namespace MNPOST.Controllers.mailer
                 NumberPlate = licensePlate,
                 Quantity = 0,
                 StatusID = 0,
-                Weight = 0
+                Weight = 0,
+                PostID = postId
             };
 
             db.MM_MailerDelivery.Add(insDocument);
@@ -365,7 +386,6 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GetDeliveryMailerDetail(string documentID)
         {
-
             var data = db.MAILERDELIVERY_GETMAILER(documentID).ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);

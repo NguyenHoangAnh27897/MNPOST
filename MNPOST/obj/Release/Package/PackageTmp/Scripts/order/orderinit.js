@@ -124,9 +124,7 @@ app.service('mailerService', function () {
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.select2Options = {
-        theme: "classic",
-        resetSearchInput: true,
-        appendToBody: true
+        theme: "classic"
     };
 
 

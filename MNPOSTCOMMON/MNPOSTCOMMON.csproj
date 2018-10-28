@@ -175,6 +175,9 @@
     <Compile Include="DISTRICT_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="EMPLOYEE_DEBIT_ALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="EMPLOYEE_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -204,6 +207,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_DELIVERY__EMPLOYEE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GETALL_Result.cs">
@@ -237,9 +243,6 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_EmployeeDebitVoucherDetails.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MM_EmployeeMoneyAdvances.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_History.cs">
@@ -304,6 +307,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PROVINCE_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REPORT_EMPLOYEE_DEBIT_COD_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="ROUTE_GETDETAIL_BYROUTEID_Result.cs">

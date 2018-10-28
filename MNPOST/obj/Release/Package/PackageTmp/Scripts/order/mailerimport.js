@@ -3,7 +3,7 @@
 app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.select2Options = {
-    
+        width: 'element'
     };
 
     $scope.mailers = [];
@@ -153,7 +153,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.getData();
             $scope.sendGetEmployees();
             $scope.sendGetTakeMailers();
-            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers();}, 1000*60);
+            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers();}, 1000*30);
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -176,11 +176,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
     $scope.isrungettake = false;
     $scope.sendGetTakeMailers = function () {
-
+        $scope.isrungettake = true;
         $http.get("/MailerImport/GetTakeMailers?postId=" + $scope.postHandle + "&date=" + $scope.dateimport).then(function (response) {
 
             $scope.takeMailerDatas = response.data;
-            $scope.isrungettake = true;
+            $scope.isrungettake = false;
         });
 
     };

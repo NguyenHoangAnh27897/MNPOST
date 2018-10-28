@@ -10,3 +10,13 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEM
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\MNPOSTWEBSITEMODEL.dll.config
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\MNPOSTWEBSITEMODEL.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\MNPOSTWEBSITEMODEL.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.SqlServer.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.xml
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Release\EntityFramework.SqlServer.xml
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Release\MNPOSTWEBSITEMODEL.pdb
