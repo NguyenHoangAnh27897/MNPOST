@@ -2,7 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-
+[assembly: OwinStartupAttribute("MNPOSTWEBSITE", typeof(MNPOSTWEBSITE.Startup))]
 namespace MNPOSTWEBSITE
 {
     public partial class Startup
@@ -34,5 +34,6 @@ namespace MNPOSTWEBSITE
 
             //app.UseGoogleAuthentication();
         }
+    
     }
 }

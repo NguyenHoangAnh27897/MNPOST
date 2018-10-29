@@ -33,6 +33,7 @@ namespace MNPOSTWEBSITEMODEL
         public string IDClient { get; set; }
         public string ResetPasswordCode { get; set; }
         public string Discriminator { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }

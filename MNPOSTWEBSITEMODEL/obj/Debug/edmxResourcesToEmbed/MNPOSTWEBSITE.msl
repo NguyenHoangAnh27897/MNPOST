@@ -76,6 +76,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
           <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
           <ScalarProperty Name="IDClient" ColumnName="IDClient" />

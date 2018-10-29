@@ -59,6 +59,7 @@
     <Property Name="IDClient" Type="nvarchar(max)" />
     <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
     <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="WS_AboutUs">
     <Key>

@@ -1086,6 +1086,7 @@
     <Content Include="Views\SessionPayment\Transaction.cshtml" />
     <Content Include="Views\Account\SuccessfulRegister.cshtml" />
     <Content Include="Views\Manage\EditSlider.cshtml" />
+    <Content Include="Views\Order\TrackingMailer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

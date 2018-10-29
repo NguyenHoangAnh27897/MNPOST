@@ -1,10 +1,12 @@
 ﻿using MNPOSTAPI.Models;
 using MNPOSTCOMMON;
+using MNPOSTWEBSITEMODEL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 
@@ -67,6 +69,41 @@ namespace MNPOSTAPI.Controllers.web
             }
             return result;
         }
+
+        [HttpPost]
+        public async Task<ResultInfo> AddCustomerFromWebsite()
+        {
+            ResultInfo result = new ResultInfo()
+            {
+                error = 0,
+                msg = "Them moi thanh cong"
+            };
+
+            try
+            {
+                var requestContent = Request.Content.ReadAsStringAsync().Result;
+
+                var jsonserializer = new JavaScriptSerializer();
+                var paser = jsonserializer.Deserialize<AddCustomerFromWebsiteRequest>(requestContent);
+
+                var data = paser.customer;
+
+                if (data == null)
+                    throw new Exception("Sai du lieu gui len");
+                MNPOSTWEBSITE.Models.RegisterViewModel md = new MNPOSTWEBSITE.Models.RegisterViewModel();
+                md.UserName = data.UserName;
+                md.Password = data.PasswordHash;
+                MNPOSTWEBSITE.Controllers.AccountController acc = new MNPOSTWEBSITE.Controllers.AccountController();
+                await acc.Register(md, data.FullName, data.Phone);
+            }
+            catch (Exception e)
+            {
+                result.error = 1;
+                result.msg = e.Message;
+            }
+            return result;
+        }
+
         public ResultInfo UpdateCustomer()
         {
             ResultInfo result = new ResultInfo()

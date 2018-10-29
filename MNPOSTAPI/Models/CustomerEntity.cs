@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MNPOSTCOMMON;
+using MNPOSTWEBSITEMODEL;
 
 namespace MNPOSTAPI.Models
 {
@@ -17,6 +18,11 @@ namespace MNPOSTAPI.Models
     public class AddCustomerRequest : RequestInfo
     {
         public BS_Customers customer { get; set; }
+    }
+
+    public class AddCustomerFromWebsiteRequest : RequestInfo
+    {
+        public MNPOSTWEBSITEMODEL.AspNetUser customer { get; set; }
     }
 
 }

@@ -287,33 +287,41 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
-                var data = db.WS_Post.Find(ID);
-                data.PostName = Title;
-                data.PostBy = PostBy;
-                data.Service = Service;
-                string Avatar = "";
-                if (avatar != null)
+                if (Session["Authentication"] != null)
                 {
-                    if (avatar.ContentLength > 0)
+                    if (Session["RoleID"].ToString().Equals("Admin"))
                     {
-                        var filename = Path.GetFileName(avatar.FileName);
-                        var fname = filename.Replace(" ", "_");
-                        var path = Path.Combine(Server.MapPath("~/images/post"), fname);
-                        avatar.SaveAs(path);
-                        Avatar += fname;
-                    }
+                        var data = db.WS_Post.Find(ID);
+                        data.PostName = Title;
+                        data.PostBy = PostBy;
+                        data.Service = Service;
+                        string Avatar = "";
+                        if (avatar != null)
+                        {
+                            if (avatar.ContentLength > 0)
+                            {
+                                var filename = Path.GetFileName(avatar.FileName);
+                                var fname = filename.Replace(" ", "_");
+                                var path = Path.Combine(Server.MapPath("~/images/post"), fname);
+                                avatar.SaveAs(path);
+                                Avatar += fname;
+                            }
 
+                        }
+                        if (Avatar != "")
+                        {
+                            data.Avatar = Avatar;
+                        }
+                        data.CreatedDate = DateTime.Now;
+                        data.ContentPost = Postcontent;
+                        db.Entry(data).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                        ViewBag.Message = "Chỉnh sửa bài thành công";
+                        return RedirectToAction("AccountPost");
+                    }
+                    return RedirectToAction("Login", "Account");
                 }
-                if (Avatar != "")
-                {
-                    data.Avatar = Avatar;
-                }
-                data.CreatedDate = DateTime.Now;
-                data.ContentPost = Postcontent;
-                db.Entry(data).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                ViewBag.Message = "Chỉnh sửa bài thành công";
-                return RedirectToAction("AccountPost");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {

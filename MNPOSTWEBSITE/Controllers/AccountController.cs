@@ -136,6 +136,7 @@ namespace MNPOSTWEBSITE.Controllers
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
                     db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = "2";
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().CreatedDate =DateTime.Now;
                     db.SaveChanges();
                     await AddCustomer(cusid,Fullname, Phone, false, model.UserName);
                     return RedirectToAction("SuccessfulRegister", "Account");
