@@ -94,6 +94,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.ReportViewer.WebForms.DLL
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Web.Infrastructure.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Newtonsoft.Json.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.Web.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Owin.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Mvc.dll
@@ -118,6 +120,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Com
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\stdole.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll.config
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.xml
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.Web.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Mvc.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Razor.xml

@@ -1776,5 +1776,19 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="MM_TrackingPartner">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_TrackingPartner">
+        <MappingFragment StoreEntitySet="MM_TrackingPartner">
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="OrderReferece" ColumnName="OrderReferece" />
+          <ScalarProperty Name="LocationCurrent" ColumnName="LocationCurrent" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

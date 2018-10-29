@@ -68,7 +68,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_EmployeeDebitVoucherDetails> MM_EmployeeDebitVoucherDetails { get; set; }
         public virtual DbSet<MM_History> MM_History { get; set; }
         public virtual DbSet<MM_MailerDelivery> MM_MailerDelivery { get; set; }
-        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
         public virtual DbSet<MM_Mailers> MM_Mailers { get; set; }
         public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
@@ -89,6 +88,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_MailerPartnerDetail> MM_MailerPartnerDetail { get; set; }
         public virtual DbSet<MM_MailerPartner> MM_MailerPartner { get; set; }
         public virtual DbSet<BS_PartnerMapInfo> BS_PartnerMapInfo { get; set; }
+        public virtual DbSet<MM_TrackingPartner> MM_TrackingPartner { get; set; }
+        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
     
         public virtual ObjectResult<AC_CODDEBITVOUCHER_BYCUSTOMERID_Result> AC_CODDEBITVOUCHER_BYCUSTOMERID(string customerid, string fromdate, string todate)
         {

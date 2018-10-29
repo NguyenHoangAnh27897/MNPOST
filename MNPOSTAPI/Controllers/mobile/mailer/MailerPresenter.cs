@@ -122,7 +122,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     findDetail.DeliveryTo = "";
                     findDetail.DeliveryNotes = findReason.ReasonName;
                     findDetail.ReturnReasonID = info.ReturnReasonID;
-                    findDetail.ConfirmDate = deliverDate;
+                    findDetail.DeliveryDate = deliverDate;
 
                    
                     mailerInfo.DeliveryTo = "";
@@ -135,7 +135,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                 else if (info.StatusID == 6)
                 {
                     findDetail.DeliveryTo = "";
-                    findDetail.ConfirmDate = deliverDate;
+                    findDetail.DeliveryDate = deliverDate;
                     findDetail.DeliveryNotes = info.Note;
 
                     mailerInfo.DeliveryTo = "";
@@ -150,7 +150,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     findDetail.DeliveryTo = info.Reciever;
                     findDetail.ReturnReasonID = null;
                     findDetail.DeliveryNotes = "Đã phát";
-                    findDetail.ConfirmDate = deliverDate;
+                    findDetail.DeliveryDate = deliverDate;
 
                     mailerInfo.DeliveryTo = info.Reciever;
                     mailerInfo.DeliveryDate = deliverDate;

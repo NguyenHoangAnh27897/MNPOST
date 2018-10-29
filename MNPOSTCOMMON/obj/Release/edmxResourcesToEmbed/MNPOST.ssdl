@@ -785,6 +785,19 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="OrderReferece" Type="nvarchar" MaxLength="128" />
   </EntityType>
+  <EntityType Name="MM_TrackingPartner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" />
+    <Property Name="StatusID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Describe" Type="nvarchar(max)" />
+    <Property Name="LocationCurrent" Type="nvarchar(max)" />
+    <Property Name="OrderReferece" Type="nvarchar" MaxLength="128" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="StatusName" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
       <PropertyRef Name="TicketID" />
@@ -1132,6 +1145,7 @@
     <EntitySet Name="MM_TakeDetails" EntityType="Self.MM_TakeDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TakeMailers" EntityType="Self.MM_TakeMailers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_Tracking" EntityType="Self.MM_Tracking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_TrackingPartner" EntityType="Self.MM_TrackingPartner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />

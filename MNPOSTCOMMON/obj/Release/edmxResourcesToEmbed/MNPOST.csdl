@@ -1051,6 +1051,7 @@
     <FunctionImport Name="REPORT_EMPLOYEE_DEBIT_COD" ReturnType="Collection(MNPOSTModel.REPORT_EMPLOYEE_DEBIT_COD_Result)">
       <Parameter Name="postId" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="MM_TrackingPartner" EntityType="MNPOSTModel.MM_TrackingPartner" />
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -1861,4 +1862,17 @@
     <Property Type="String" Name="PositionID" Nullable="true" MaxLength="20" />
     <Property Type="Double" Name="AllDebit" Nullable="true" />
   </ComplexType>
+  <EntityType Name="MM_TrackingPartner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StatusID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LocationCurrent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OrderReferece" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

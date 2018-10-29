@@ -50,13 +50,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:27</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.dll">
-      <publishTime>10/29/2018 12:50:21</publishTime>
+      <publishTime>10/29/2018 15:20:38</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.pdb">
       <publishTime>10/22/2018 00:25:24</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/29/2018 12:50:44</publishTime>
+      <publishTime>10/29/2018 15:20:13</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>10/27/2018 17:28:15</publishTime>
@@ -66,6 +66,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>08/05/2018 11:19:30</publishTime>
+    </File>
+    <File Include="bin/NLog.Web.dll">
+      <publishTime>09/22/2018 22:44:10</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
@@ -134,10 +140,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:12</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/27/2018 17:28:14</publishTime>
+      <publishTime>10/29/2018 14:29:56</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/29/2018 12:25:46</publishTime>
+      <publishTime>10/29/2018 15:21:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

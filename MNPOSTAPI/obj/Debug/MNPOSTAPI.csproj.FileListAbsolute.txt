@@ -262,6 +262,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.Owin.Security.OAuth.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.Web.Infrastructure.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Newtonsoft.Json.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\NLog.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\NLog.Web.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Owin.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\SixLabors.Core.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\SixLabors.ImageSharp.dll
@@ -295,6 +297,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.Owin.Host.SystemWeb.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.Owin.Security.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.Owin.Security.Cookies.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\Microsoft.Owin.Security.OAuth.xml
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\NLog.xml
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\NLog.Web.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\SixLabors.Core.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\SixLabors.ImageSharp.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Buffers.xml

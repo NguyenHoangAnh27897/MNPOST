@@ -20,7 +20,7 @@ namespace MNPOST.Controllers.mailer
         public ActionResult Init()
         {
 
-            ViewBag.Customers = db.BS_Customers.Where(p=> p.IsActive == true).Select(item => new
+            ViewBag.Customers = db.BS_Customers.Where(p => p.IsActive == true).Select(item => new
             {
                 code = item.CustomerCode,
                 name = item.CustomerName,
@@ -63,7 +63,7 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
-
+     
 
         #region
         [HttpPost]
@@ -306,23 +306,23 @@ namespace MNPOST.Controllers.mailer
 
                         // so luong
                         var quantityValue = sheet.Cells[i, quantityIdx].Value;
-                        var isQuantityNumber = quantityIdx == -1 ? false : Regex.IsMatch(quantityValue == null?"0":quantityValue.ToString(), @"^\d+$");
+                        var isQuantityNumber = quantityIdx == -1 ? false : Regex.IsMatch(quantityValue == null ? "0" : quantityValue.ToString(), @"^\d+$");
                         var quantity = isQuantityNumber ? Convert.ToInt32(quantityValue) : 0;
 
 
                         // dai
                         var lengthValue = sheet.Cells[i, lengthIdx].Value;
-                        var isLengthNumber = lengthIdx == -1 ? false : Regex.IsMatch(lengthValue == null?"0":lengthValue.ToString(), @"^\d+$");
+                        var isLengthNumber = lengthIdx == -1 ? false : Regex.IsMatch(lengthValue == null ? "0" : lengthValue.ToString(), @"^\d+$");
                         var length = isLengthNumber ? Convert.ToDouble(lengthValue) : 0;
 
                         // rong
                         var widthValue = sheet.Cells[i, widthIdx].Value;
-                        var isWidthNumber = widthIdx == -1 ? false : Regex.IsMatch(widthValue == null?"0":widthValue.ToString(), @"^\d+$");
+                        var isWidthNumber = widthIdx == -1 ? false : Regex.IsMatch(widthValue == null ? "0" : widthValue.ToString(), @"^\d+$");
                         var width = isWidthNumber ? Convert.ToDouble(widthValue) : 0;
 
                         //cao
                         var heightValue = sheet.Cells[i, heightIdx].Value;
-                        var isHeightNumber = heightIdx == -1 ? false : Regex.IsMatch(heightValue == null? "0":heightValue.ToString(), @"^\d+$");
+                        var isHeightNumber = heightIdx == -1 ? false : Regex.IsMatch(heightValue == null ? "0" : heightValue.ToString(), @"^\d+$");
                         var height = isHeightNumber ? Convert.ToDouble(heightValue) : 0;
 
                         //
@@ -333,11 +333,11 @@ namespace MNPOST.Controllers.mailer
 
                         // phu phi
                         var otherPriceValue = sheet.Cells[i, otherPriceIdx].Value;
-                        var isOtherPirce = otherPriceIdx == -1 ? false : Regex.IsMatch(otherPriceValue==null?"0":otherPriceValue.ToString(), @"^\d+$");
+                        var isOtherPirce = otherPriceIdx == -1 ? false : Regex.IsMatch(otherPriceValue == null ? "0" : otherPriceValue.ToString(), @"^\d+$");
                         var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
 
-                        
-                        var price = db.CalPrice(weight, senderID, senderProvince,mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+
+                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
                         var codPrice = 0;
 
                         otherPrice += codPrice;
@@ -484,24 +484,28 @@ namespace MNPOST.Controllers.mailer
                 db.SaveChanges();
 
                 // save service
-                foreach(var service in item.Services)
+                if (item.Services != null)
                 {
-                    var checkService = db.BS_Services.Where(p => p.ServiceID == service.code && p.IsActive == true).FirstOrDefault();
-                    if(checkService != null)
+                    foreach (var service in item.Services)
                     {
-                        var mailerService = new MM_MailerServices()
+                        var checkService = db.BS_Services.Where(p => p.ServiceID == service.code && p.IsActive == true).FirstOrDefault();
+                        if (checkService != null)
                         {
-                            MailerID = item.MailerID,
-                            LastUpDate = DateTime.Now,
-                            Price = service.price,
-                            PriceDefault = checkService.Price,
-                            ServiceID = service.code
-                        };
-                        db.MM_MailerServices.Add(mailerService);
+                            var mailerService = new MM_MailerServices()
+                            {
+                                MailerID = item.MailerID,
+                                LastUpDate = DateTime.Now,
+                                Price = service.price,
+                                PriceDefault = checkService.Price,
+                                ServiceID = service.code
+                            };
+                            db.MM_MailerServices.Add(mailerService);
+                        }
                     }
+
+                    db.SaveChanges();
                 }
 
-                db.SaveChanges();
 
                 // luu tracking
                 HandleHistory.AddTracking(0, item.MailerID, postId, "Nhận thông tin đơn hàng");

@@ -326,7 +326,7 @@ namespace MNPOST.Controllers.mailer
             DateTime date = DateTime.Now;
             try
             {
-                date = DateTime.ParseExact(deliveryDate, "dd/MM/yyyy", null);
+                date = DateTime.ParseExact(deliveryDate, "dd/M/yyyy", null);
             }
             catch
             {
@@ -363,22 +363,7 @@ namespace MNPOST.Controllers.mailer
             return Json(new ResultInfo()
             {
                 error = 0,
-                msg = "",
-                data = new MailerDeliveryIdentity()
-                {
-                    DocumentDate = insDocument.DocumentDate.Value.ToString("dd/MM/yyyy HH:mm"),
-                    DocumentID = insDocument.DocumentID,
-                    DocumentCode = insDocument.DocumentCode,
-                    EmployeeID = insDocument.EmployeeID,
-                    EmployeeName = insDocument.BS_Employees.EmployeeName,
-                    Notes = insDocument.Notes,
-                    NumberPlate = insDocument.NumberPlate,
-                    PostOfficeId = postId,
-                    Quantity = insDocument.Quantity,
-                    RouteID = insDocument.RouteID,
-                    StatusID = insDocument.StatusID,
-                    Weight = insDocument.Weight
-                }
+                msg = ""
             }, JsonRequestBehavior.AllowGet);
 
         }
@@ -695,7 +680,7 @@ namespace MNPOST.Controllers.mailer
                 });
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         // update phat
@@ -731,7 +716,7 @@ namespace MNPOST.Controllers.mailer
                         findDetail.DeliveryTo = "";
                         findDetail.DeliveryNotes = findReason.ReasonName;
                         findDetail.ReturnReasonID = item.ReturnReasonID;
-                        findDetail.ConfirmDate = deliveryDate;
+                        findDetail.DeliveryDate = deliveryDate;
 
 
                         mailerInfo.DeliveryTo = "";
@@ -744,7 +729,7 @@ namespace MNPOST.Controllers.mailer
                     {
                         findDetail.DeliveryTo = "";
                         findDetail.DeliveryNotes = item.DeliveryNotes;
-                        findDetail.ConfirmDate = deliveryDate;
+                        findDetail.DeliveryDate = deliveryDate;
 
                         mailerInfo.DeliveryTo = "";
                         mailerInfo.DeliveryDate = deliveryDate;
@@ -757,7 +742,7 @@ namespace MNPOST.Controllers.mailer
                         findDetail.DeliveryTo = item.DeliveryTo;
                         findDetail.ReturnReasonID = null;
                         findDetail.DeliveryNotes = "Đã phát";
-                        findDetail.ConfirmDate = deliveryDate;
+                        findDetail.DeliveryDate = deliveryDate;
 
                         mailerInfo.DeliveryTo = item.DeliveryTo;
                         mailerInfo.DeliveryDate = deliveryDate;

@@ -281,6 +281,9 @@
     <Compile Include="MM_Tracking.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MM_TrackingPartner.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_TroubleTickets.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

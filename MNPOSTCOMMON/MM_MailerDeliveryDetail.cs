@@ -16,18 +16,11 @@ namespace MNPOSTCOMMON
     {
         public string DocumentID { get; set; }
         public string MailerID { get; set; }
-        public Nullable<bool> IsDeliverOver { get; set; }
         public string DeliveryTo { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public Nullable<int> DeliveryStatus { get; set; }
-        public Nullable<bool> PaymentFinished { get; set; }
         public string DeliveryNotes { get; set; }
-        public Nullable<System.DateTime> ConfirmDate { get; set; }
-        public string ConfirmUserID { get; set; }
-        public string ConfirmIndex { get; set; }
-        public Nullable<System.DateTime> LastEditDate { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
-        public long ID { get; set; }
         public Nullable<int> ReturnReasonID { get; set; }
     }
 }
