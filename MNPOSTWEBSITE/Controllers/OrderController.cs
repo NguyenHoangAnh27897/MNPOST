@@ -436,12 +436,83 @@ namespace MNPOSTWEBSITE.Controllers
                                 mailer = (Mailer)serializer.Deserialize(jsonstring, typeof(Mailer));
                                 return mailer;
                             }
+                            if (response.IsSuccessStatusCode)
+                            {
+                                Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
+                            }
+                            Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
                             return mailer;
                         }
                     }
                 }
             }
             return mailer;
+        }
+
+        public async Task<List<Tracking>> getMailerTracking(string mailerid)
+        {
+            List<Tracking> mailer = new List<Tracking>();
+            string api = "http://noiboapi.miennampost.vn/api/track/find?mailerId=" + mailerid;
+            if (mailerid != null)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+                    using (HttpResponseMessage response = await client.GetAsync(api).ConfigureAwait(continueOnCapturedContext: false))
+                    {
+                        using (HttpContent content = response.Content)
+                        {
+                            string token = await content.ReadAsStringAsync();
+                            var obj = JObject.Parse(token);
+                            var jobj = obj["data"];
+                            var jsonstring = JsonConvert.SerializeObject(jobj);
+                            if (jsonstring != null)
+                            {
+                                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                                mailer = (List<Tracking>)serializer.Deserialize(jsonstring, typeof(List<Tracking>));
+                                return mailer;
+                            }
+                            if (response.IsSuccessStatusCode)
+                            {
+                                Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
+                            }
+                            Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+                            return mailer;
+                        }
+                    }
+                }
+            }
+            return mailer;
+        }
+
+        public ActionResult TrackingMailer(int? page = 1, string mailerid ="")
+        {
+            try
+            {
+                if (Session["Authentication"] != null)
+                {
+                    if (Session["RoleID"].ToString().Equals("Customer"))
+                    {
+                        int pageSize = 5;
+                        int pageNumber = (page ?? 1);
+                        List<Tracking> mailer = getMailerTracking(mailerid).Result;
+                        //Mailer mailer = getMailerbyMailerID(mailerid).Result;
+                        return View(mailer.ToPagedList(pageNumber, pageSize));
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Manage");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
         }
 
         [HttpPost]

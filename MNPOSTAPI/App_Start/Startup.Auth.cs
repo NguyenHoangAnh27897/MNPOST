@@ -10,11 +10,11 @@ using Owin;
 using MNPOSTAPI.Providers;
 using MNPOSTAPI.Models;
 
-
+[assembly: OwinStartupAttribute("MNPOSTAPI", typeof(MNPOSTAPI.Startup))]
 namespace MNPOSTAPI.App_Start
 {
     public partial class Startup
     {
-      
+       
     }
 }

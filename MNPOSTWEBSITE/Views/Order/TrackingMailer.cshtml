@@ -1,0 +1,81 @@
+﻿@using PagedList.Mvc;
+@using GridMvc.Html;
+@model PagedList.IPagedList<MNPOSTWEBSITE.Models.Tracking>
+@{
+    ViewBag.Title = "TrackingMailer";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+    int i = 1;
+}
+<head>
+    <style>
+        input[type=text] {
+            width: 180px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            background-color: white;
+            background-image: url('../../images/search.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+            margin: 10px;
+        }
+
+            input[type=text]:focus {
+                width: 15%;
+            }
+    </style>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+</head>
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Danh sách vận đơn theo hành trình</h3>
+        <div class="row">
+
+            <div class="row mt">
+                <div class="col-md-12">
+                    <div class="content-panel">
+                        <table class="table table-bordered table-striped table-condensed">
+                            <h4><i class="fa fa-angle-right"></i>Các vận đơn</h4>
+                            <hr />
+                            <form role="search" method="get" action="/order/trackingmailer">
+                                <input type="text" name="mailerid" placeholder="Nhập mã vận đơn">
+                                <button class="btn btn-success">Tìm kiếm</button>
+                            </form>
+                            <hr />
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-file"></i> STT</th>
+                                    <th><i class="fa fa-user"></i> Tình trạng</th>
+                                    <th><i class="fa fa-dropbox"></i> Ngày giờ</th>
+                                    <th><i class="fa fa-calendar"></i> Bưu cục hiện tại</th>
+                                    <th><i class="fa fa-edit"></i> Diễn giải</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@item.StatusName</td>
+                                        <td>@item.CreateDate</td>
+                                        <td>@item.PostOffice</td>
+                                        <td>@item.StatusDescribe</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- /content-panel -->
+                    <br />
+                    <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                    @Html.PagedListPager(Model, page => Url.Action("TrackingMailer", new { page }))
+                </div><!-- /col-md-12 -->
+            </div><!-- /row -->
+        </div>
+    </section><! --/wrapper -->
+</section><!-- /MAIN CONTENT -->

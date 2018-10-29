@@ -16,6 +16,54 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Antlr3.Runtime.pdb">
       <publishTime>09/19/2018 11:37:16</publishTime>
     </File>
+    <File Include="bin/ASPSnippets.FaceBookAPI.dll">
+      <publishTime>09/19/2018 11:37:13</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.CrystalReports.Engine.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.ClientDoc.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CommLayer.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CommonControls.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CommonObjectModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.Controllers.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.CubeDefModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.DataDefModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.DataSetConversion.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.ObjectFactory.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.Prompting.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.ReportDefModel.dll">
+      <publishTime>06/12/2018 06:53:18</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportAppServer.XmlSerialize.dll">
+      <publishTime>06/12/2018 06:53:20</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.ReportSource.dll">
+      <publishTime>06/12/2018 06:53:20</publishTime>
+    </File>
+    <File Include="bin/CrystalDecisions.Shared.dll">
+      <publishTime>06/12/2018 06:53:20</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>10/27/2018 17:28:26</publishTime>
     </File>
@@ -50,19 +98,53 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:27</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.dll">
+<<<<<<< HEAD
       <publishTime>10/29/2018 15:20:38</publishTime>
+=======
+<<<<<<< HEAD
+      <publishTime>10/29/2018 15:52:09</publishTime>
+=======
+      <publishTime>10/29/2018 12:50:21</publishTime>
+>>>>>>> ac516c3037793511dbbbab7c108a81e2c206246e
+>>>>>>> fd475eb6be52b572b9bb8143aafef9f573cc1e40
     </File>
     <File Include="bin/MNPOSTAPI.pdb">
-      <publishTime>10/22/2018 00:25:24</publishTime>
+      <publishTime>10/29/2018 15:52:09</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
+<<<<<<< HEAD
       <publishTime>10/29/2018 15:20:13</publishTime>
+=======
+<<<<<<< HEAD
+      <publishTime>10/24/2018 15:50:50</publishTime>
+=======
+      <publishTime>10/29/2018 12:50:44</publishTime>
+>>>>>>> ac516c3037793511dbbbab7c108a81e2c206246e
+>>>>>>> fd475eb6be52b572b9bb8143aafef9f573cc1e40
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>10/27/2018 17:28:15</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
-      <publishTime>10/22/2018 00:25:22</publishTime>
+      <publishTime>10/24/2018 15:50:50</publishTime>
+    </File>
+    <File Include="bin/MNPOSTWEBSITE.dll">
+      <publishTime>10/29/2018 15:52:07</publishTime>
+    </File>
+    <File Include="bin/MNPOSTWEBSITE.dll.config">
+      <publishTime>10/29/2018 15:43:54</publishTime>
+    </File>
+    <File Include="bin/MNPOSTWEBSITE.pdb">
+      <publishTime>10/29/2018 15:52:07</publishTime>
+    </File>
+    <File Include="bin/MNPOSTWEBSITEMODEL.dll">
+      <publishTime>10/29/2018 13:54:54</publishTime>
+    </File>
+    <File Include="bin/MNPOSTWEBSITEMODEL.dll.config">
+      <publishTime>10/11/2018 22:07:07</publishTime>
+    </File>
+    <File Include="bin/MNPOSTWEBSITEMODEL.pdb">
+      <publishTime>10/29/2018 13:54:54</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
@@ -76,11 +158,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Owin.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
     </File>
+    <File Include="bin/PagedList.dll">
+      <publishTime>09/19/2018 11:37:13</publishTime>
+    </File>
     <File Include="bin/SixLabors.Core.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
     </File>
     <File Include="bin/SixLabors.ImageSharp.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
+    </File>
+    <File Include="bin/stdole.dll">
+      <publishTime>08/28/2018 10:20:41</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
@@ -143,7 +231,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/29/2018 14:29:56</publishTime>
     </File>
     <File Include="Web.config">
+<<<<<<< HEAD
       <publishTime>10/29/2018 15:21:00</publishTime>
+=======
+<<<<<<< HEAD
+      <publishTime>10/29/2018 15:52:11</publishTime>
+=======
+      <publishTime>10/29/2018 12:25:46</publishTime>
+>>>>>>> ac516c3037793511dbbbab7c108a81e2c206246e
+>>>>>>> fd475eb6be52b572b9bb8143aafef9f573cc1e40
     </File>
   </ItemGroup>
 </Project>

@@ -64,6 +64,7 @@
           <Property Name="IDClient" Type="nvarchar(max)" />
           <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
           <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="WS_AboutUs">
           <Key>
@@ -330,6 +331,7 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="MNPOSTWEBSITEModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
           <End Type="MNPOSTWEBSITEModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -473,6 +475,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="MNPOSTWEBSITEModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
                 <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="IDClient" ColumnName="IDClient" />

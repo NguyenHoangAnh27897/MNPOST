@@ -13,6 +13,7 @@ namespace MNPOSTAPI.Controllers.web
     public class WebBaseController : ApiController
     {
         protected MNPOSTEntities db = new MNPOSTEntities();
+        protected MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dbws = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
 
         protected string generalCusCode()
         {

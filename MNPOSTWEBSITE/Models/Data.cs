@@ -196,4 +196,16 @@ namespace MNPOSTWEBSITE.Models
         public decimal DaGiao { get; set; }
         public decimal DaChuyen { get; set; }
     }
+
+    public class Tracking
+    {
+        public string MailerID { get; set; }
+        public int StatusID { get; set; }
+        public string Describe { get; set; }
+        public string PostOffice { get; set; }
+        public string CreateTime { get; set; }
+        public string CreateDate { get; set; }
+        public string StatusName { get; set; }
+        public string StatusDescribe { get; set; }
+    }
 }

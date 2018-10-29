@@ -259,6 +259,14 @@
       <Project>{86535a9f-fb29-4141-951a-30bcbedef8c0}</Project>
       <Name>MNPOSTCOMMON</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MNPOSTWEBSITEMODEL\MNPOSTWEBSITEMODEL.csproj">
+      <Project>{1fd8ddc3-5702-462c-bac6-c9f3ea8fbb14}</Project>
+      <Name>MNPOSTWEBSITEMODEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MNPOSTWEBSITE\MNPOSTWEBSITE.csproj">
+      <Project>{8920fffe-1d93-44bb-a2e6-d5af745871f9}</Project>
+      <Name>MNPOSTWEBSITE</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -118,28 +118,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2018 11:37:19</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>10/22/2018 00:25:22</publishTime>
+      <publishTime>10/24/2018 15:50:50</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>10/18/2018 09:19:53</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
-      <publishTime>10/22/2018 00:25:22</publishTime>
+      <publishTime>10/24/2018 15:50:50</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.dll">
-      <publishTime>10/22/2018 01:48:17</publishTime>
+      <publishTime>10/29/2018 13:55:57</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.pdb">
-      <publishTime>10/22/2018 01:48:17</publishTime>
+      <publishTime>10/29/2018 13:55:57</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll">
-      <publishTime>10/22/2018 00:37:37</publishTime>
+      <publishTime>10/29/2018 13:54:54</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll.config">
       <publishTime>10/11/2018 22:07:07</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.pdb">
-      <publishTime>10/22/2018 00:37:37</publishTime>
+      <publishTime>10/29/2018 13:54:54</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>09/19/2018 11:37:20</publishTime>
@@ -2688,17 +2688,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Order/SearchMailer.cshtml">
       <publishTime>10/21/2018 11:59:51</publishTime>
     </File>
+    <File Include="Views/Order/TrackingMailer.cshtml">
+      <publishTime>10/29/2018 13:40:23</publishTime>
+    </File>
     <File Include="Views/Post/AccountPost.cshtml">
       <publishTime>10/18/2018 10:33:44</publishTime>
     </File>
     <File Include="Views/Post/Create.cshtml">
-      <publishTime>10/18/2018 09:19:53</publishTime>
+      <publishTime>10/29/2018 13:55:38</publishTime>
     </File>
     <File Include="Views/Post/DetailPost.cshtml">
       <publishTime>10/18/2018 10:13:46</publishTime>
     </File>
     <File Include="Views/Post/Edit.cshtml">
-      <publishTime>10/18/2018 10:19:03</publishTime>
+      <publishTime>10/29/2018 13:55:43</publishTime>
     </File>
     <File Include="Views/Post/EditRecruitment.cshtml">
       <publishTime>09/26/2018 14:23:36</publishTime>
@@ -2737,7 +2740,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/17/2018 18:22:36</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAccount.cshtml">
-      <publishTime>10/18/2018 09:19:53</publishTime>
+      <publishTime>10/29/2018 13:52:16</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>09/19/2018 11:37:13</publishTime>

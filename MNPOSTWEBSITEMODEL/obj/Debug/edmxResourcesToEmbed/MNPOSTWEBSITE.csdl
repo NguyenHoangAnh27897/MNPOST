@@ -114,6 +114,7 @@
     <NavigationProperty Name="AspNetUserClaims" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="MNPOSTWEBSITEModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="MNPOSTWEBSITEModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Type="MNPOSTWEBSITEModel.AspNetUser" Role="AspNetUser" Multiplicity="1">

@@ -264,6 +264,12 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
+                string id = Session["ID"].ToString();
+                var rs = db.AspNetUsers.Find(id);
+                rs.FullName = Fullname;
+                rs.Phone = Phone;
+                db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
                 await UpdateCustomer(Fullname, Phone, Address, SenderWardID, SenderDistrictID, SenderProvinceID);
                 return RedirectToAction("Index","Manage");
             }
