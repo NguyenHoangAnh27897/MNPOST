@@ -162,7 +162,6 @@
     <Compile Include="CData.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="CODCUSTOMER_TRANSFER_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -200,6 +199,7 @@
     <Compile Include="MAILERDELIVERY_GETMAILER_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MailerHandleCommon.cs" />
     <Compile Include="MailerImage.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

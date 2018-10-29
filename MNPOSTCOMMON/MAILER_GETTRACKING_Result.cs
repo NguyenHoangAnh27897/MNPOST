@@ -19,5 +19,7 @@ namespace MNPOSTCOMMON
         public string PostOffice { get; set; }
         public string CreateTime { get; set; }
         public string CreateDate { get; set; }
+        public string StatusName { get; set; }
+        public string StatusDescribe { get; set; }
     }
 }

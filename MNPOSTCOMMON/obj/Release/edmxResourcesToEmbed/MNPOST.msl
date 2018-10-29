@@ -1477,6 +1477,8 @@
           <ScalarProperty Name="PostOffice" ColumnName="PostOffice" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusDescribe" ColumnName="StatusDescribe" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

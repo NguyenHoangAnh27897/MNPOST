@@ -191,7 +191,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\COD\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -209,6 +208,7 @@
     <Compile Include="Controllers\web\CODController.cs" />
     <Compile Include="Controllers\web\CustomerController.cs" />
     <Compile Include="Controllers\web\MailerController.cs" />
+    <Compile Include="Controllers\web\TrackController.cs" />
     <Compile Include="Controllers\web\WebBaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

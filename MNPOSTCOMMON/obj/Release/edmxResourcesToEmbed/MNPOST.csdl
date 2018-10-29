@@ -1601,9 +1601,11 @@
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
     <Property Type="Int32" Name="StatusID" Nullable="true" />
     <Property Type="String" Name="Describe" Nullable="true" />
-    <Property Type="String" Name="PostOffice" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="PostOffice" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="StatusName" Nullable="true" />
+    <Property Type="String" Name="StatusDescribe" Nullable="true" />
   </ComplexType>
   <ComplexType Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_Result">
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />

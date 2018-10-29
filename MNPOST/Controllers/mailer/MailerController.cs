@@ -13,7 +13,7 @@ namespace MNPOST.Controllers.mailer
     public class MailerController : BaseController
     {
         protected MNHistory HandleHistory = new MNHistory();
-
+        
 
         [HttpGet]
         public ActionResult ShowMailer()
@@ -130,6 +130,7 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
+        /*
         public string GeneralMailerCode(string postId)
         {
             var post = db.BS_PostOffices.Where(p => p.PostOfficeID == postId).FirstOrDefault();
@@ -180,7 +181,7 @@ namespace MNPOST.Controllers.mailer
 
             return find.FirstChar + code;
 
-        }
+        }*/
 
         [HttpPost]
         public JsonResult CalBillPrice(float weight = 0, string customerId = "", string provinceId = "", string serviceTypeId = "", string postId = "", float cod = 0, float merchandiseValue = 0)

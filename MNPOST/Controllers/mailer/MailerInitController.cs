@@ -69,6 +69,7 @@ namespace MNPOST.Controllers.mailer
         [HttpPost]
         public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string senderWard, string postId)
         {
+            MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
             List<MailerIdentity> mailers = new List<MailerIdentity>();
             var result = new ResultInfo()
             {
@@ -228,7 +229,7 @@ namespace MNPOST.Controllers.mailer
 
                     for (int i = 2; i <= totalRows; i++)
                     {
-                        string mailerId = mailerCodeIdx == -1 ? GeneralMailerCode("") : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
+                        string mailerId = mailerCodeIdx == -1 ? mailerHandle.GeneralMailerCode("") : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
 
                         //
                         string receiverPhone = Convert.ToString(sheet.Cells[i, receiPhoneIdx].Value);
@@ -526,7 +527,8 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GeneralCode(string postId)
         {
-            var code = GeneralMailerCode(postId);
+            MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
+            var code = mailerHandle.GeneralMailerCode(postId);
 
             return Json(new { error = 0, code = code }, JsonRequestBehavior.AllowGet);
         }

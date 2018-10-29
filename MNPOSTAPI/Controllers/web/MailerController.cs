@@ -7,10 +7,22 @@ using System.Web.Http;
 using MNPOSTAPI.Models;
 using System.Web.Script.Serialization;
 using System.Data.SqlClient;
+using MNPOSTCOMMON;
+
 namespace MNPOSTAPI.Controllers.web
 {
     public class MailerController : WebBaseController
     {
+
+        [HttpGet]
+        public ResultInfo GeneralCode(string postId)
+        {
+            MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
+            var code = mailerHandle.GeneralMailerCode(postId);
+
+            return new ResponseInfo { error = 0, data = code };
+        }
+
         [HttpGet]
         public MailerInfoResultbyID GetMailerbyID(string id, string customerid)
         {
