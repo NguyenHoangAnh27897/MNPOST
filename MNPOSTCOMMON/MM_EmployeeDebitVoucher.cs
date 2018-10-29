@@ -19,9 +19,6 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> DocumentDate { get; set; }
         public string MoneyColector { get; set; }
         public string EmployeeID { get; set; }
-        public Nullable<int> MailerAccount { get; set; }
-        public Nullable<decimal> TotalMoney { get; set; }
         public string PostOfficeID { get; set; }
-        public string Status { get; set; }
     }
 }

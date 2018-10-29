@@ -23,6 +23,52 @@ namespace MNPOST.Utils
             this.HandleHistory = HandleHistory;
         }
 
+
+        public int sendCalPrice(CalPriceVietle info)
+        {
+            var token = CheckTokenExpired(partner);
+
+            string url = @"https://api.viettelpost.vn/api/tmdt/getPrice";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.Headers["Token"] = token;
+
+            string json = new JavaScriptSerializer().Serialize(info);
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                var paser = new JavaScriptSerializer().Deserialize<List<CalPriceViettleResult>>(result);
+
+                var price = paser.Where(p => p.SERVICE_CODE == "ALL").FirstOrDefault();
+
+                if (price != null)
+                {
+                    try
+                    {
+                        return Convert.ToInt32(price.PRICE);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+            }
+
+            return 0;
+
+        }
+
         public void SendViettelPost(string documentId, MyAddressInfo infoAddress)
         {
             var token = CheckTokenExpired(partner);
@@ -74,12 +120,28 @@ namespace MNPOST.Utils
                         PRODUCT_DESCRIPTION = item.MailerDescription,
                         MONEY_COLLECTION = Convert.ToString(Convert.ToInt32(item.COD)),
                         ORDER_SERVICE = "VCN",
-                        ORDER_SERVICE_ADD = "GHG",
-                        ORDER_VOUCHER = "",
                         PRODUCT_TYPE = "HH",
                         PRODUCT_PRICE = Convert.ToInt32(item.MerchandiseValue),
                         ORDER_PAYMENT = 3
                     };
+
+                    var findServiceMap = db.PARTNER_MAP_INFO("VIETTEL", "SERVICE").ToList();
+                    info.ORDER_SERVICE = findServiceMap.Where(p => p.MNPostData == item.MailerTypeID).Select(p => p.PartnerData).FirstOrDefault();
+
+                    var priceSend = sendCalPrice(new CalPriceVietle()
+                    {
+                        SENDER_PROVINCE = info.SENDER_PROVINCE,
+                        SENDER_DISTRICT = info.SENDER_DISTRICT,
+                        RECEIVER_PROVINCE = info.RECEIVER_PROVINCE,
+                        RECEIVER_DISTRICT = info.RECEIVER_DISTRICT,
+                        PRODUCT_TYPE = "HH",
+                        ORDER_SERVICE = info.ORDER_SERVICE,
+                        PRODUCT_WEIGHT = info.PRODUCT_WEIGHT,
+                        PRODUCT_PRICE = info.PRODUCT_PRICE,
+                        MONEY_COLLECTION = info.MONEY_COLLECTION,
+                    });
+
+                    info.MONEY_TOTAL = priceSend;
 
                     string json = new JavaScriptSerializer().Serialize(info);
 
@@ -104,6 +166,7 @@ namespace MNPOST.Utils
 
                             checkDetail.StatusID = 1;
                             checkDetail.OrderReference = res.data.ORDER_NUMBER;
+                            checkDetail.OrderCosst = info.MONEY_TOTAL;
 
                             db.Entry(checkDetail).State = System.Data.Entity.EntityState.Modified;
 
@@ -111,6 +174,7 @@ namespace MNPOST.Utils
                             mailer.ThirdpartyCode = partner.PartnerCode;
                             mailer.ThirdpartyID = partner.PartnerID;
                             mailer.CurrentStatusID = 9;
+                            mailer.ThirdpartyCost = info.MONEY_TOTAL;
 
                             db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
@@ -194,6 +258,32 @@ namespace MNPOST.Utils
 
     }
 
+
+
+    public class CalPriceVietle
+    {
+
+        public int SENDER_PROVINCE { get; set; }
+        public int SENDER_DISTRICT { get; set; }
+        public int RECEIVER_PROVINCE { get; set; }
+        public int RECEIVER_DISTRICT { get; set; }
+        public string PRODUCT_TYPE { get; set; }
+        public string ORDER_SERVICE { get; set; }
+        public string ORDER_SERVICE_ADD { get; set; }
+        public int PRODUCT_WEIGHT { get; set; }
+        public int PRODUCT_PRICE { get; set; }
+        public string MONEY_COLLECTION { get; set; }
+        public int PRODUCT_QUANTITY { get; set; }
+        public int NATIONAL_TYPE { get; set; }
+
+    }
+
+    public class CalPriceViettleResult
+    {
+        public string SERVICE_CODE { get; set; }
+        public string SERVICE_NAME { get; set; }
+        public string PRICE { get; set; }
+    }
     public class ViettelOrderSend
     {
         public string ORDER_NUMBER { get; set; }

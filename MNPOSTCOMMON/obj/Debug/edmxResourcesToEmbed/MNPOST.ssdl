@@ -267,6 +267,16 @@
     <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Price" Type="money" />
   </EntityType>
+  <EntityType Name="BS_PartnerMapInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PartnerID" Type="nvarchar" MaxLength="128" />
+    <Property Name="FormField" Type="nvarchar" MaxLength="128" />
+    <Property Name="MNPostData" Type="nvarchar(max)" />
+    <Property Name="PartnerData" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="BS_Partners">
     <Key>
       <PropertyRef Name="PartnerID" />
@@ -523,41 +533,23 @@
     <Key>
       <PropertyRef Name="DocumentID" />
     </Key>
-    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="DocumentNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DocumentNumber" Type="nvarchar" MaxLength="128" />
     <Property Name="DocumentDate" Type="datetime" />
-    <Property Name="MoneyColector" Type="nvarchar" MaxLength="20" />
-    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="MailerAccount" Type="int" />
-    <Property Name="TotalMoney" Type="money" />
-    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="Status" Type="nvarchar" MaxLength="20" />
+    <Property Name="MoneyColector" Type="nvarchar" MaxLength="128" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" />
+    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="MM_EmployeeDebitVoucherDetails">
     <Key>
       <PropertyRef Name="DocumentID" />
       <PropertyRef Name="MailerID" />
     </Key>
-    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="MailerID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="ReciveCOD" Type="money" />
     <Property Name="LastUpDate" Type="datetime" />
     <Property Name="COD" Type="money" />
-  </EntityType>
-  <EntityType Name="MM_EmployeeMoneyAdvances">
-    <Key>
-      <PropertyRef Name="DocumentID" />
-    </Key>
-    <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="AcceptID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="AcceptDate" Type="datetime" />
-    <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-    <Property Name="PostOfficeID" Type="nvarchar" MaxLength="5" />
-    <Property Name="Total" Type="money" />
-    <Property Name="StatusID" Type="bit" />
-    <Property Name="ReturnMoney" Type="money" />
-    <Property Name="MailerID" Type="nvarchar" MaxLength="20" />
-    <Property Name="Type" Type="int" />
   </EntityType>
   <EntityType Name="MM_History">
     <Key>
@@ -589,6 +581,7 @@
     <Property Name="RouteID" Type="nvarchar" MaxLength="20" />
     <Property Name="NumberPlate" Type="nvarchar" MaxLength="20" />
     <Property Name="DocumentCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="PostID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="MM_MailerDeliveryDetail">
     <Key>
@@ -963,6 +956,11 @@
   </Function>
   <Function Name="COUNTRY_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="DISTRICT_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="EMPLOYEE_DEBIT_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fdate" Type="nvarchar" Mode="In" />
+    <Parameter Name="tdate" Type="nvarchar" Mode="In" />
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="search" Type="nvarchar" Mode="In" />
@@ -972,6 +970,9 @@
   </Function>
   <Function Name="GROUPUSER_GETLISTMENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="MAILER_DELIVERY__EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
@@ -983,6 +984,7 @@
   <Function Name="MAILER_GET_ALL_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
+    <Parameter Name="postId" Type="varchar" Mode="In" />
   </Function>
   <Function Name="MAILER_GET_NOT_INVENTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
@@ -1021,8 +1023,15 @@
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
     <Parameter Name="mailerID" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="PARTNER_MAP_INFO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="partnerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="form" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="REPORT_EMPLOYEE_DEBIT_COD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
   </Function>
@@ -1043,6 +1052,7 @@
   <Function Name="TAKEMAILER_GETLIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
     <Parameter Name="statusId" Type="int" Mode="In" />
+    <Parameter Name="date" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employee" Type="nvarchar" Mode="In" />
@@ -1084,6 +1094,7 @@
     <EntitySet Name="BS_Districts" EntityType="Self.BS_Districts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Employees" EntityType="Self.BS_Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_MailerModeraters" EntityType="Self.BS_MailerModeraters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BS_PartnerMapInfo" EntityType="Self.BS_PartnerMapInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Partners" EntityType="Self.BS_Partners" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_Positions" EntityType="Self.BS_Positions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BS_PostOffices" EntityType="Self.BS_PostOffices" Schema="dbo" store:Type="Tables" />
@@ -1109,7 +1120,6 @@
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MM_EmployeeMoneyAdvances" EntityType="Self.MM_EmployeeMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_History" EntityType="Self.MM_History" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDelivery" EntityType="Self.MM_MailerDelivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_MailerDeliveryDetail" EntityType="Self.MM_MailerDeliveryDetail" Schema="dbo" store:Type="Tables" />

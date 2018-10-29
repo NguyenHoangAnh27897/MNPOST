@@ -102,6 +102,32 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpGet]
+        public ActionResult GetMailerByProvince(string postId, string province, string district)
+        {
+            var mailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2) && p.RecieverProvinceID.Contains(province) && p.RecieverDistrictID.Contains(district)).ToList();
+            var data = new List<MailerIdentity>();
+            foreach (var mailer in mailers)
+            {
+                data.Add(new MailerIdentity()
+                {
+                    MailerID = mailer.MailerID,
+                    COD = mailer.COD,
+                    SenderName = mailer.SenderName,
+                    SenderAddress = mailer.SenderAddress,
+                    RecieverAddress = mailer.RecieverAddress,
+                    RecieverProvinceID = mailer.RecieverProvinceID,
+                    RecieverDistrictID = mailer.RecieverDistrictID,
+                    RecieverWardID = mailer.RecieverWardID,
+                    RecieverPhone = mailer.RecieverPhone,
+                    CurrentStatusID = mailer.CurrentStatusID,
+                    MailerTypeID = mailer.MailerTypeID
+                });
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult GetMailerPartnerDetail(string documentId)
         {
             var data = db.MAILER_PARTNER_GETDETAIL(documentId).ToList();
@@ -115,7 +141,7 @@ namespace MNPOST.Controllers.mailer
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult AddMailer (string documentId, string mailerId )
         {
             var checkDocument = db.MM_MailerPartner.Find(documentId);
@@ -168,6 +194,65 @@ namespace MNPOST.Controllers.mailer
                 error = 0,
                 msg = "",
                 data = db.MAILER_PARTNER_GETDETAIL_BY_MAILERID(documentId, mailer.MailerID).FirstOrDefault()
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult AddMailers(string documentId, List<string> mailers)
+        {
+            var checkDocument = db.MM_MailerPartner.Find(documentId);
+
+            if (checkDocument == null || checkDocument.StatusID == 1)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể cập nhật"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            foreach(var item in mailers)
+            {
+                var mailer = db.MM_Mailers.Find(item);
+
+                if (mailer == null || mailer.CurrentStatusID != 2)
+                {
+                    return Json(new ResultInfo()
+                    {
+                        error = 1,
+                        msg = "Sai mã hoặc chưa nhập kho"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                var checkDetail = db.MAILER_PARTNER_GETDETAIL_BY_MAILERID(documentId, mailer.MailerID).FirstOrDefault();
+
+                if (checkDetail != null)
+                {
+                    return Json(new ResultInfo()
+                    {
+                        error = 1,
+                        msg = "Đã tồn tại"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                var detail = new MM_MailerPartnerDetail()
+                {
+                    DocumentID = documentId,
+                    MailerID = mailer.MailerID,
+                    OrderCosst = 0,
+                    OrderReference = "",
+                    StatusID = 0
+                };
+
+                db.MM_MailerPartnerDetail.Add(detail);
+                db.SaveChanges();
+            }
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = ""
             }, JsonRequestBehavior.AllowGet);
 
         }

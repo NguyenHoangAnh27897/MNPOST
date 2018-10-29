@@ -116,11 +116,24 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpGet]
-        public ActionResult GetTakeMailers (string postId)
+        public ActionResult GetTakeMailers (string postId, string date)
         {
-            var data = db.TAKEMAILER_GETLIST(postId, 7).OrderByDescending(p=> p.CreateTime).ToList();
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            try
+            {
+
+                var checkDate = DateTime.ParseExact(date, "dd/M/yyyy", null);
+
+                checkDate = checkDate == null ? DateTime.Now : checkDate;
+
+                var data = db.TAKEMAILER_GETLIST(postId, 7, checkDate.ToString("yyyy-MM-dd")).OrderByDescending(p => p.CreateTime).ToList();
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            } catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
         }
        
 

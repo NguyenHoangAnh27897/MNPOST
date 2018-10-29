@@ -1,12 +1,14 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'ui.select2']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'ui.select2', 'ui.mask']);
 
 app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.select2Options = {
-    
+        width: 'element'
     };
 
     $scope.mailers = [];
+
+    $scope.dateimport = currentDate;
 
     $scope.customers = angular.copy(customerDatas);
     $scope.customers.unshift({
@@ -151,7 +153,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.getData();
             $scope.sendGetEmployees();
             $scope.sendGetTakeMailers();
-            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers();}, 1000*60);
+            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers();}, 1000*30);
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -166,18 +168,19 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.sendGetEmployees = function () {
 
-        $http.get("/MailerImport/GetEmployee?postId=" + $scope.postHandle).then(function (response) {
+        $http.get("/MailerImport/GetEmployee?postId=" + $scope.postHandle ).then(function (response) {
 
             $scope.employees = response.data;
         });
 
     };
-
+    $scope.isrungettake = false;
     $scope.sendGetTakeMailers = function () {
-
-        $http.get("/MailerImport/GetTakeMailers?postId=" + $scope.postHandle).then(function (response) {
+        $scope.isrungettake = true;
+        $http.get("/MailerImport/GetTakeMailers?postId=" + $scope.postHandle + "&date=" + $scope.dateimport).then(function (response) {
 
             $scope.takeMailerDatas = response.data;
+            $scope.isrungettake = false;
         });
 
     };

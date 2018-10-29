@@ -12,13 +12,10 @@ namespace MNPOST.Controllers.employeedebit
         // GET: EmployeeDebit
         public ActionResult Show()
         {
-            ViewBag.PostOffices = db.BS_PostOffices.ToList();
-            ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
-            ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
             return View();
         }
         [HttpGet]
-        public ActionResult getEmployeeDebit(int? page, string fromDate, string toDate, string search = "")
+        public ActionResult GetDocument(int? page, string fromDate, string toDate)
         {
             int pageSize = 50;
 
@@ -57,92 +54,6 @@ namespace MNPOST.Controllers.employeedebit
 
 
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        [HttpGet]
-        public ActionResult getDebitdetail(string DocumentID)
-        {
-            var coddetail = db.MM_EmployeeDebitVoucherDetails.Where(p => p.DocumentID == DocumentID).ToList();
-
-            List<IdentityCOD> codInfos = new List<IdentityCOD>();
-
-
-            foreach (var item in coddetail)
-            {
-                codInfos.Add(new IdentityCOD()
-                {
-                    MailerID = item.MailerID,
-                    COD = item.COD,
-                    ReciveCOD = item.ReciveCOD
-                });
-            }
-            return Json(new ResultInfo() { error = 0, msg = "", data = codInfos }, JsonRequestBehavior.AllowGet);
-        }
-
-        // update detail
-        [HttpPost]
-        public ActionResult UpdateDebitDetail(List<IdentityCOD> detail, string documentID)
-        {
-            foreach (var item in detail)
-            {
-                if (String.IsNullOrEmpty(item.MailerID))
-                    return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
-                var check = db.MM_EmployeeDebitVoucherDetails.Where(p => p.DocumentID == documentID && p.MailerID == item.MailerID).FirstOrDefault();
-
-                if (check == null)
-                    return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
-
-                check.ReciveCOD = item.ReciveCOD;
-                db.Entry(check).State = System.Data.Entity.EntityState.Modified;
-            }
-           
-            db.SaveChanges();
-            return Json(new ResultInfo() { }, JsonRequestBehavior.AllowGet);
-
-        }
-
-        [HttpPost]
-        public ActionResult edit(MM_EmployeeDebitVoucher remon)
-        {
-            if (String.IsNullOrEmpty(remon.DocumentID))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
-            var check = db.MM_EmployeeDebitVoucher.Find(remon.DocumentID);
-
-            if (check == null)
-                return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
-
-            check.DocumentID = remon.DocumentID;
-            check.DocumentNumber = remon.DocumentNumber;
-            check.DocumentDate = remon.DocumentDate;
-            check.MoneyColector = remon.MoneyColector;
-            check.EmployeeID = remon.EmployeeID;
-            check.MailerAccount = remon.MailerAccount;
-            check.TotalMoney = remon.TotalMoney;
-            check.PostOfficeID = remon.PostOfficeID;
-
-            db.Entry(check).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
-
-        }
-        [HttpPost]
-        public ActionResult delete(string DocumentID)
-        {
-            if (String.IsNullOrEmpty(DocumentID))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
-            var check = db.MM_EmployeeDebitVoucher.Find(DocumentID);
-
-            if (check == null)
-                return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
-
-            db.Entry(check).State = System.Data.Entity.EntityState.Deleted;
-            db.SaveChanges();
-
-
-            return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
         }
     }
 }

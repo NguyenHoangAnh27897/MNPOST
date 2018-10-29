@@ -47,7 +47,7 @@ app.service('mailerService', function () {
             , 'RecieverAddress': '', 'RecieverWardID': '', 'RecieverDistrictID': '', 'RecieverProvinceID': '',
             'RecieverPhone': '', 'Weight': 0.01, 'Quantity': 1, 'PaymentMethodID': 'NGTT', 'MailerTypeID': 'SN',
             'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'PriceMain': 0, 'CODPrice': 0,
-            'PriceDefault': 0
+            'PriceDefault': 0, 'ListWardSend': [], 'ListProvinceSend': [], 'ListDistrictSend': []
         };
     };
 
@@ -189,10 +189,12 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             $scope.mailers[idx].SenderPhone = cus.phone;
             $scope.mailers[idx].SenderProvinceID = cus.provinceId;
             $scope.mailers[idx].SenderAddress = cus.address;
-            $scope.mailers[idx].SenderDistrictID = cus.districtId;
+           
             $scope.mailers[idx].SenderWardID = cus.wardId;
 
-            $scope.provinceChange('district', 'send', idx);
+            $scope.provinceChange('district', 'send', idx, function (district) {
+                $scope.mailers[idx].SenderDistrictID = cus.districtId;
+            });
         }
     };
 
@@ -284,7 +286,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     };
 
 
-    $scope.provinceChange = function (pType, type, idx) {
+    $scope.provinceChange = function (pType, type, idx, callback) {
 
         var url = '/mailerinit/GetProvinces?';
 
@@ -329,6 +331,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
                     $scope.mailers[idx].ListWardRecive = angular.copy(response.data);
                 }
             }
+            if (typeof (callback) === typeof (Function)) {
+                callback();
+            }
+                  
 
         });
 
@@ -545,6 +551,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             $scope.mailer.SenderAddress = cus.address;
             $scope.mailer.SenderDistrictID = cus.districtId;
             $scope.mailer.SenderWardID = cus.wardId;
+            $scope.mailer.SenderName = cus.name;
 
             $scope.getDistrictAndWard('send');
 

@@ -42,16 +42,15 @@
         <EntityTypeShape EntityType="MNPOSTModel.CData" Width="1.5" PointX="18.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.GeneralCodeInfo" Width="1.5" PointX="4.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_CustomerMoneyAdvances" Width="1.5" PointX="18.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" Width="1.5" PointX="6.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucher" Width="3" PointX="6.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeDebitVoucherDetails" Width="1.5" PointX="18.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_EmployeeMoneyAdvances" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_History" Width="1.5" PointX="18.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDelivery" Width="1.5" PointX="8" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerDeliveryDetail" Width="1.5" PointX="14.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_Mailers" Width="1.5" PointX="16.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerServices" Width="1.5" PointX="18.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_PackingList" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_PackingListDetail" Width="1.5" PointX="8.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_PackingListDetail" Width="1.5" PointX="10.625" PointY="19.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TakeDetails" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TakeMailers" Width="1.5" PointX="20.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTickets" Width="1.5" PointX="20.75" PointY="8.75" IsExpanded="true" />
@@ -66,12 +65,13 @@
         <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__531856C7" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__540C7B00" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MNPOSTModel.EmpployeeDebitCOD" Width="1.5" PointX="3.375" PointY="21.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.EmpployeeDebitCOD" Width="1.875" PointX="3.375" PointY="21.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_Tracking" Width="1.5" PointX="19.375" PointY="21.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MailerImage" Width="1.5" PointX="21.375" PointY="21.75" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Partners" Width="1.5" PointX="5.375" PointY="22.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerPartnerDetail" Width="1.5" PointX="11.375" PointY="22.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_MailerPartner" Width="1.5" PointX="23.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_PartnerMapInfo" Width="1.5" PointX="23.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

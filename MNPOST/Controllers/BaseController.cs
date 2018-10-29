@@ -6,7 +6,6 @@ using MNPOSTCOMMON;
 using MNPOST.Utils;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MNPOST.DS;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
@@ -20,7 +19,6 @@ namespace MNPOST.Controllers
     public class BaseController : Controller
     {
        
-        protected MNPOSTDS ds = new MNPOSTDS();
         protected SqlConnection conn;
         protected UserInfo EmployeeInfo;
 
@@ -254,24 +252,6 @@ namespace MNPOST.Controllers
             SqlDataAdapter da = new SqlDataAdapter(cmd);
 
             return da;
-        }
-
-        protected ReportViewer GetReportViewer(SqlDataAdapter da, string tableName, string dataSetName, string reportName)
-        {
-            da.Fill(ds, tableName);
-
-            ReportViewer reportViewer = new ReportViewer();
-            reportViewer.ProcessingMode = ProcessingMode.Local;
-            reportViewer.SizeToReportContent = true;
-            reportViewer.Width = Unit.Percentage(100);
-            reportViewer.Height = Unit.Percentage(100);
-            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"\Report\" + reportName;
-
-            reportViewer.LocalReport.DataSources.Add(new ReportDataSource(dataSetName, ds.Tables[tableName]));
-
-            reportViewer.LocalReport.Refresh();
-
-            return reportViewer;
         }
 
 

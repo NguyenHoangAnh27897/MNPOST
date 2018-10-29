@@ -1,5 +1,9 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective', 'ui.mask']);
-app.controller('myCtrl', function ($scope, $http, $rootScope) {
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective', 'ui.mask', 'ui.select2']);
+app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
+
+    $scope.select2Options = {
+        width: '100%'
+    };
 
     // phan trang
     $scope.numPages;
@@ -8,7 +12,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.currentPage = 1;
     $scope.maxSize = 5;
     $scope.showEdit = false;
-    $scope.showDeliveries = true;
+    $scope.showDeliveries = false;
     $scope.showUpdate = false;
     $scope.provinces = provinceData;
     $scope.districts = [];
@@ -40,10 +44,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     };
 
     $scope.searchInfo = {
-        "search": "",
         "fromDate": fromDate,
         "toDate": toDate,
-        "optionSeach": "deliverycode",
         "page": $scope.currentPage,
         "postId": ""
     };
@@ -53,8 +55,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.GetData = function () {
         $scope.searchInfo.page = $scope.currentPage;
         $scope.searchInfo.postId = $scope.postHandle;
-        $scope.searchInfo.fromDate = $('#fromDate').val();
-        $scope.searchInfo.toDate = $('#toDate').val();
+
         showLoader(true);
         $http({
             method: "POST",
@@ -82,14 +83,76 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     $scope.title = '';
     //nhan vien
+    $scope.employeeFilter = { EmployeeID: '' };
     $scope.employees = [];
     $scope.licensePlates = [];
+    $scope.listEmployeeMonitor = [];
+
+    var findEmployeeIndex = function (code) {
+        for (var i = 0; i < $scope.employees.length; i++) {
+            if ($scope.employees[i].code === code) {
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
+    $scope.addEmployeeMonitor = function () {
+
+        var chek = true;
+
+        for (var i = 0; i < $scope.listEmployeeMonitor.length; i++) {
+            if ($scope.listEmployeeMonitor[i].code === $scope.monitorEmployeeChoose) {
+                chek = false;
+                break;
+            }
+        }
+
+        if (chek) {
+            $scope.listEmployeeMonitor.push($scope.employees[findEmployeeIndex($scope.monitorEmployeeChoose)]);
+        } else {
+            showNotify("Đã thêm");
+        }
+
+    };
+    $scope.deliveryReports = [];
+    $scope.getReportEmployeeDelivery = function () {
+
+        var listTemps = [];
+
+        for (var i = 0; i < $scope.listEmployeeMonitor.length; i++) {
+            listTemps.push($scope.listEmployeeMonitor[i].code);
+        }
+
+        $http({
+            method: "POST",
+            url: "/mailerdelivery/GetReportEmployeeDelivery",
+            data: {
+                postId: $scope.postHandle,
+                employees: listTemps
+            }
+        }).then(function sucess(response) {
+
+            $scope.deliveryReports = response.data.data;
+
+        }, function error(reponse) {
+
+        });
+
+    };
+
+    $scope.removeMonitor = function (idx) {
+        $scope.listEmployeeMonitor.splice(idx, 1);
+    };
+
     $scope.getFirstData = function () {
 
 
         $http.get("/mailerdelivery/GetDataHandle?postId=" + $scope.postHandle).then(function (response) {
 
             $scope.employees = angular.copy(response.data.employees);
+
             $scope.licensePlates = angular.copy(response.data.licensePlates);
 
             console.log($scope.employees);
@@ -105,6 +168,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
             $scope.GetData();
             $scope.getFirstData();
+            $scope.getReportEmployeeDelivery();
+            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 30);
             hideModel('choosePostOfficeModal');
         }
     };
@@ -117,6 +182,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             $scope.postHandle = $scope.postOffices[0];
             $scope.GetData();
             $scope.getFirstData();
+            $scope.getReportEmployeeDelivery();
+            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 30);
         } else {
             showModelFix('choosePostOfficeModal');
         }

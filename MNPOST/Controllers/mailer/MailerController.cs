@@ -13,7 +13,7 @@ namespace MNPOST.Controllers.mailer
     public class MailerController : BaseController
     {
         protected MNHistory HandleHistory = new MNHistory();
-
+        
 
         [HttpGet]
         public ActionResult ShowMailer()
@@ -23,6 +23,12 @@ namespace MNPOST.Controllers.mailer
             ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
             ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
 
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SearchMailer()
+        {
             return View();
         }
 
@@ -49,7 +55,7 @@ namespace MNPOST.Controllers.mailer
 
             var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + search + "%").ToList();
 
-            if(status != -1)
+            if (status != -1)
             {
                 data = data.Where(p => p.CurrentStatusID == status).ToList();
             }
@@ -69,8 +75,41 @@ namespace MNPOST.Controllers.mailer
         }
 
 
-       [HttpGet]
-       public ActionResult GetTracking(string mailerId)
+        [HttpGet]
+        public ActionResult FindMailer(string mailerId)
+        {
+            var mailer = db.MAILER_GETINFO_BYID(mailerId).FirstOrDefault();
+
+            if (mailer == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không tìm thấy"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = db.MAILER_GETTRACKING(mailerId).ToList();
+                var images = db.MailerImages.Where(p => p.MailerID == mailerId).Select(p => new {
+                        url = p.PathImage,
+                        time = p.CreateTime.Value.ToString("dd/MM/yyyy HH:mm")
+                });
+                return Json(new ResultInfo()
+                {
+                    error = 0,
+                    data = new
+                    {
+                        mailer = mailer,
+                        tracks = data
+                    }
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetTracking(string mailerId)
         {
             var data = db.MAILER_GETTRACKING(mailerId).ToList();
 
@@ -86,21 +125,17 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult ShowReportMailer(string mailers)
         {
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("@mailers", mailers);
-            var sqlAdapter = GetSqlDataAdapter("MAILER_GETINFO_BYLISTID", parameters);
 
-            var reportViewer = GetReportViewer(sqlAdapter, ds.MAILER_GETINFO_BYID.TableName, "MAILERINFO", "mailer.rdlc");
-            ViewBag.ReportViewer = reportViewer;
 
             return View();
         }
 
+        /*
         public string GeneralMailerCode(string postId)
         {
             var post = db.BS_PostOffices.Where(p => p.PostOfficeID == postId).FirstOrDefault();
 
-            if(post == null)
+            if (post == null)
             {
                 return "";
             }
@@ -108,7 +143,7 @@ namespace MNPOST.Controllers.mailer
             var charFirst = post.AreaChar + DateTime.Now.ToString("ddMMyy");
             var codeSearch = "mailer" + post.AreaChar;
 
-            var find = db.GeneralCodeInfoes.Where(p=> p.Code == codeSearch && p.FirstChar == charFirst).FirstOrDefault();
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == codeSearch && p.FirstChar == charFirst).FirstOrDefault();
 
             if (find == null)
             {
@@ -146,10 +181,10 @@ namespace MNPOST.Controllers.mailer
 
             return find.FirstChar + code;
 
-        }
+        }*/
 
         [HttpPost]
-        public JsonResult CalBillPrice(float weight = 0, string customerId = "", string provinceId = "",string serviceTypeId = "", string postId = "", float cod = 0, float merchandiseValue = 0) 
+        public JsonResult CalBillPrice(float weight = 0, string customerId = "", string provinceId = "", string serviceTypeId = "", string postId = "", float cod = 0, float merchandiseValue = 0)
         {
 
             var price = db.CalPrice(weight, customerId, provinceId, serviceTypeId, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();

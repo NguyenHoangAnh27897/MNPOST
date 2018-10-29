@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
@@ -9,7 +8,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Release\EntityFramework.SqlSer
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
-=======
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\bin\Release\MNPOSTCOMMON.pdb
@@ -22,4 +20,3 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.csproj.CopyComplete
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTCOMMON\obj\Release\MNPOSTCOMMON.pdb
->>>>>>> 1805b0ccf098abf7bf534efe22977eced15a5e96

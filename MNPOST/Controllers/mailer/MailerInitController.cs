@@ -69,6 +69,7 @@ namespace MNPOST.Controllers.mailer
         [HttpPost]
         public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string senderWard, string postId)
         {
+            MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
             List<MailerIdentity> mailers = new List<MailerIdentity>();
             var result = new ResultInfo()
             {
@@ -228,7 +229,7 @@ namespace MNPOST.Controllers.mailer
 
                     for (int i = 2; i <= totalRows; i++)
                     {
-                        string mailerId = mailerCodeIdx == -1 ? GeneralMailerCode("") : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
+                        string mailerId = mailerCodeIdx == -1 ? mailerHandle.GeneralMailerCode("") : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
 
                         //
                         string receiverPhone = Convert.ToString(sheet.Cells[i, receiPhoneIdx].Value);
@@ -482,6 +483,26 @@ namespace MNPOST.Controllers.mailer
                 db.MM_Mailers.Add(mailerIns);
                 db.SaveChanges();
 
+                // save service
+                foreach(var service in item.Services)
+                {
+                    var checkService = db.BS_Services.Where(p => p.ServiceID == service.code && p.IsActive == true).FirstOrDefault();
+                    if(checkService != null)
+                    {
+                        var mailerService = new MM_MailerServices()
+                        {
+                            MailerID = item.MailerID,
+                            LastUpDate = DateTime.Now,
+                            Price = service.price,
+                            PriceDefault = checkService.Price,
+                            ServiceID = service.code
+                        };
+                        db.MM_MailerServices.Add(mailerService);
+                    }
+                }
+
+                db.SaveChanges();
+
                 // luu tracking
                 HandleHistory.AddTracking(0, item.MailerID, postId, "Nhận thông tin đơn hàng");
             }
@@ -506,7 +527,8 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GeneralCode(string postId)
         {
-            var code = GeneralMailerCode(postId);
+            MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
+            var code = mailerHandle.GeneralMailerCode(postId);
 
             return Json(new { error = 0, code = code }, JsonRequestBehavior.AllowGet);
         }
