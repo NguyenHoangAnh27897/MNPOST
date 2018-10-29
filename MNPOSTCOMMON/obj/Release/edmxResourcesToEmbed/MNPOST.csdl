@@ -533,27 +533,6 @@
     <NavigationProperty Name="BS_Employees" Relationship="Self.FK__MM_Mailer__Emplo__531856C7" FromRole="MM_MailerDelivery" ToRole="BS_Employees" />
     <Property Name="PostID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="MM_MailerDeliveryDetail">
-    <Key>
-      <PropertyRef Name="DocumentID" />
-      <PropertyRef Name="MailerID" />
-    </Key>
-    <Property Name="DocumentID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="IsDeliverOver" Type="Boolean" />
-    <Property Name="DeliveryTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
-    <Property Name="DeliveryStatus" Type="Int32" />
-    <Property Name="PaymentFinished" Type="Boolean" />
-    <Property Name="DeliveryNotes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="ConfirmDate" Type="DateTime" Precision="3" />
-    <Property Name="ConfirmUserID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ConfirmIndex" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
-    <Property Name="CreationDate" Type="DateTime" Precision="3" />
-    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ReturnReasonID" Type="Int32" />
-  </EntityType>
   <EntityType Name="MM_Mailers">
     <Key>
       <PropertyRef Name="MailerID" />
@@ -618,6 +597,7 @@
     <Property Name="CreateType" Type="Int32" />
     <Property Name="ThirdpartyCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="ThirdpartyID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StatusNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -870,7 +850,6 @@
     <EntitySet Name="MM_EmployeeDebitVoucherDetails" EntityType="Self.MM_EmployeeDebitVoucherDetails" />
     <EntitySet Name="MM_History" EntityType="Self.MM_History" />
     <EntitySet Name="MM_MailerDelivery" EntityType="Self.MM_MailerDelivery" />
-    <EntitySet Name="MM_MailerDeliveryDetail" EntityType="Self.MM_MailerDeliveryDetail" />
     <EntitySet Name="MM_Mailers" EntityType="Self.MM_Mailers" />
     <EntitySet Name="MM_MailerServices" EntityType="Self.MM_MailerServices" />
     <EntitySet Name="MM_PackingList" EntityType="Self.MM_PackingList" />
@@ -1052,6 +1031,7 @@
       <Parameter Name="postId" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="MM_TrackingPartner" EntityType="MNPOSTModel.MM_TrackingPartner" />
+    <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -1874,5 +1854,19 @@
     <Property Name="OrderReferece" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="StatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MM_MailerDeliveryDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="DeliveryStatus" Type="Int32" />
+    <Property Name="DeliveryNotes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="ReturnReasonID" Type="Int32" />
   </EntityType>
 </Schema>

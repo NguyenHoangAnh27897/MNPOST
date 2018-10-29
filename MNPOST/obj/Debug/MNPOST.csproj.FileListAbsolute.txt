@@ -209,3 +209,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.Web.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.xml

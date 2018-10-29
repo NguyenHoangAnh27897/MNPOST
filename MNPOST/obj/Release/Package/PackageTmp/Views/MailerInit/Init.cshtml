@@ -92,7 +92,7 @@
                                                         </td>
                                                         <td class="warning"><input type="text" ng-model="item.RecieverName" required class="tableinput" /></td>
                                                         <td class="warning"><input type="tel" ng-model="item.RecieverPhone" class="tableinput" required /></td>
-                                                        <td class="warning"><input type="text" ng-model="item.RecieverAddress" required class="tableinput" /></td>
+                                                        <td class="warning"><input type="text" ng-model="item.RecieverAddress" required class="tableinput" uib-typeahead="address for address in getLocation($viewValue)"/></td>
                                                         <td class="warning">
                                                             <select ui-select2="select2Options" class="tableinput" ng-model="item.RecieverProvinceID" required ng-change="provinceChange('district', 'recei', $index)">
                                                                 <option ng-repeat="province in item.ListProvinceRecive" value="{{province.code}}">{{province.name}}</option>

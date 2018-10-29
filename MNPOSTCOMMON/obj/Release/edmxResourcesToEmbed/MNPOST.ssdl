@@ -590,18 +590,11 @@
     </Key>
     <Property Name="DocumentID" Type="varchar" MaxLength="128" Nullable="false" />
     <Property Name="MailerID" Type="varchar" MaxLength="128" Nullable="false" />
-    <Property Name="IsDeliverOver" Type="bit" />
     <Property Name="DeliveryTo" Type="nvarchar" MaxLength="50" />
     <Property Name="DeliveryDate" Type="datetime" />
     <Property Name="DeliveryStatus" Type="int" />
-    <Property Name="PaymentFinished" Type="bit" />
     <Property Name="DeliveryNotes" Type="nvarchar" MaxLength="200" />
-    <Property Name="ConfirmDate" Type="datetime" />
-    <Property Name="ConfirmUserID" Type="varchar" MaxLength="20" />
-    <Property Name="ConfirmIndex" Type="varchar" MaxLength="30" />
-    <Property Name="LastEditDate" Type="datetime" />
     <Property Name="CreationDate" Type="datetime" />
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ReturnReasonID" Type="int" />
   </EntityType>
   <EntityType Name="MM_MailerPartner">
@@ -691,6 +684,7 @@
     <Property Name="CreateType" Type="int" />
     <Property Name="ThirdpartyCode" Type="nvarchar" MaxLength="128" />
     <Property Name="ThirdpartyID" Type="nvarchar" MaxLength="128" />
+    <Property Name="StatusNotes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>

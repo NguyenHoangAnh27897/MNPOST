@@ -355,26 +355,26 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Nhân viên phát</label>
-                                    <select class="form-control" ng-model="chooseEmployeeSelect" ui-select2="select2Options">
+                                    <select class="form-control" ng-model="createDeliveryInfo.employeeId" ui-select2="select2Options">
                                         <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Xe vận chuyển</label>
-                                    <select class="form-control selectpicker" data-live-search="true" id="licenseplateChoose">
+                                    <select class="form-control selectpicker" data-live-search="true" ng-model="createDeliveryInfo.licensePlate">
                                         <option value="">KHÔNG CHỌN</option>
                                         <option ng-repeat="x in licensePlates" value="{{x.code}}">{{x.code}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Ghi chú</label>
-                                    <textarea rows="3" required class="form-control" id="deliveryNotes"></textarea>
+                                    <textarea rows="3" required class="form-control" ng-model="createDeliveryInfo.notes"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Thời gian phát</label>
-                                    <input type="text" id="deliveryDate" required class="form-control" data-inputmask="'mask': '99/99/9999'" value="@ViewBag.FromDate">
+                                    <input type="text" ng-model="createDeliveryInfo.deliveryDate" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" >
                                 </div>
                             </div>
                         </div>
@@ -578,6 +578,9 @@
 
         var reasonReturnDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.ReturnReasons)));
         var provinceData = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Provinces)));
+
+        var currentDate = '@DateTime.Now.ToString("dd/MM/yyyy")';
+
     </script>
     <script src="~/Scripts/order/mailerdelivery.js"></script>
 }

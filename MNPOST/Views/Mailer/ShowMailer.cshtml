@@ -113,7 +113,8 @@
                                                     <td><input type="checkbox" ng-model="item.isCheck" /></td>
                                                     <td>
                                                         {{$index + 1}}&nbsp;&nbsp;
-                                                        <a href="#" ng-click="showMailerDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>
+                                                        <a href="#" ng-click="showMailerDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>&nbsp;&nbsp;
+                                                        <a href="/Report/Viewer/MailerPrint.aspx?mailer={{item.MailerID}}" target="_blank">In phiếu</a>
                                                     </td>
                                                     <td>{{item.MailerID}}</td>
                                                     <td>{{item.AcceptDate}}</td>

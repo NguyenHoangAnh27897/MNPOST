@@ -208,7 +208,20 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
     };
 
 
-
+    $scope.getLocation = function (val) {
+        return $http.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/json', {
+            params: {
+                input : val,
+                key: 'AIzaSyADnh0hHCYqkIrqDaRoGtiSm04yd6PHkD4',
+                language: 'vi'
+            }
+        }).then(function (response) {
+            return response.data.results.map(function (item) {
+                console.log(item);
+                return item.formatted_address;
+            });
+        });
+    };
 
     $scope.getMailerCode = function (idx) {
         var mailer = $scope.mailers[idx];
