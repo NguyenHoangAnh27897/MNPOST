@@ -8,10 +8,12 @@
 <head runat="server">
     <title>Show Report</title>
 </head>
-<body>
+<body style="padding : 20px;">
      <form id="form1" runat="server">
-     <h1>XEM PHIẾU</h1>
-         <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
+     <h1>XEM PHIẾU&nbsp;
+         <asp:Button ID="btnprint" runat="server" OnClick="btnprint_Click" Text="In phiếu" />
+         </h1>
+         <CR:CrystalReportViewer ID="MailerRptViewer" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False" ToolPanelView="None" />
      </form>
     </body>
 </html>

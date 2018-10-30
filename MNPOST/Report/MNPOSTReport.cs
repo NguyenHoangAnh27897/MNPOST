@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MNPOSTWEBSITE.Report {
+namespace MNPOST.Report {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -41,7 +41,7 @@ namespace MNPOSTWEBSITE.Report {
         
         public override string FullResourceName {
             get {
-                return "MNPOSTWEBSITE.Report.MNPOSTReport.rpt";
+                return "MNPOST.Report.MNPOSTReport.rpt";
             }
             set {
                 // Do nothing

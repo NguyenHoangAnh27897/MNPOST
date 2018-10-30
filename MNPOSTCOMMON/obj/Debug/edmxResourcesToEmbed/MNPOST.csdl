@@ -934,9 +934,6 @@
     <FunctionImport Name="MAILER_GETINFO_BYID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYID_Result)">
       <Parameter Name="mailerId" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="MAILER_GETINFO_BYLISTID">
-      <Parameter Name="mailers" Mode="In" Type="String" />
-    </FunctionImport>
     <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
       <Parameter Name="documentID" Mode="In" Type="String" />
     </FunctionImport>
@@ -1032,6 +1029,13 @@
     </FunctionImport>
     <EntitySet Name="MM_TrackingPartner" EntityType="MNPOSTModel.MM_TrackingPartner" />
     <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
+    <FunctionImport Name="SplitList" IsComposable="true" ReturnType="Collection(String)">
+      <Parameter Name="list" Mode="In" Type="String" />
+      <Parameter Name="separator" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
+      <Parameter Name="mailers" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -1244,6 +1248,14 @@
     <Property Type="String" Name="Notes" Nullable="true" />
     <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+    <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
+    <Property Type="String" Name="DeliveryNotes" Nullable="true" />
+    <Property Type="String" Name="DeliveryTo" Nullable="true" />
+    <Property Type="String" Name="StatusNotes" Nullable="true" />
+    <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
   </ComplexType>
   <ComplexType Name="MAILER_GETINFO_BYID_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -1261,9 +1273,8 @@
     <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="EmployeeAcceptID" Nullable="true" MaxLength="20" />
-    <Property Type="DateTime" Name="AcceptDate" Nullable="true" />
-    <Property Type="DateTime" Name="AcceptTime" Nullable="true" Precision="23" />
+    <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
     <Property Type="Int32" Name="Quantity" Nullable="true" />
     <Property Type="Double" Name="Weight" Nullable="true" />
@@ -1271,41 +1282,23 @@
     <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="Discount" Nullable="true" />
-    <Property Type="Decimal" Name="BefVATAmount" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="VATPercent" Nullable="true" />
-    <Property Type="Decimal" Name="VATAmount" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
-    <Property Type="Decimal" Name="AmountBefDiscount" Nullable="true" Precision="19" />
     <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
     <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
     <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
     <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
-    <Property Type="String" Name="ThirdpartyPaymentMethodID" Nullable="true" MaxLength="5" />
     <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
     <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
-    <Property Type="String" Name="PriceType" Nullable="true" MaxLength="1" />
-    <Property Type="Boolean" Name="PriceIncludeVAT" Nullable="true" />
-    <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="CommissionPercent" Nullable="true" />
-    <Property Type="Decimal" Name="CostAmt" Nullable="true" Precision="19" />
-    <Property Type="DateTime" Name="SalesClosingDate" Nullable="true" />
-    <Property Type="Double" Name="DiscountPercent" Nullable="true" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="LastUpdateDate" Nullable="true" Precision="23" />
     <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Notes" Nullable="true" />
     <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="LengthSize" Nullable="true" />
-    <Property Type="Double" Name="WidthSize" Nullable="true" />
-    <Property Type="Double" Name="HeightSize" Nullable="true" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
     <Property Type="String" Name="DeliveryTo" Nullable="true" />
-    <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryNotes" Nullable="true" />
-    <Property Type="Int32" Name="CreateType" Nullable="true" />
     <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="ThirdpartyID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="StatusNotes" Nullable="true" />
+    <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
   </ComplexType>
   <ComplexType Name="MAILERDELIVERY_GETMAILER_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -1869,4 +1862,47 @@
     <Property Name="CreationDate" Type="DateTime" Precision="3" />
     <Property Name="ReturnReasonID" Type="Int32" />
   </EntityType>
+  <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
+    <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="SenderID" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="SenderName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="SenderAddress" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="SenderWardID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="SenderDistrictID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="SenderProvinceID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="SenderPhone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="RecieverName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Double" Name="Weight" Nullable="true" />
+    <Property Type="Double" Name="ReWeight" Nullable="true" />
+    <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+    <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
+    <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+    <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Notes" Nullable="true" />
+    <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+    <Property Type="String" Name="DeliveryTo" Nullable="true" />
+    <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="DeliveryNotes" Nullable="true" />
+    <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="StatusNotes" Nullable="true" />
+    <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+  </ComplexType>
 </Schema>

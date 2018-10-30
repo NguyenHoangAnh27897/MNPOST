@@ -1058,6 +1058,17 @@
           <Parameter Name="type" Type="nvarchar" Mode="In" />
           <Parameter Name="districtId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="SplitList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="list" Type="varchar(max)" Mode="In" />
+          <Parameter Name="separator" Type="varchar(max)" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Value" Type="varchar(max)" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="TAKEMAILER_GETDETAILs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documentID" Type="nvarchar" Mode="In" />
         </Function>
@@ -2115,9 +2126,6 @@
           <FunctionImport Name="MAILER_GETINFO_BYID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYID_Result)">
           <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="MAILER_GETINFO_BYLISTID">
-          <Parameter Name="mailers" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
           <Parameter Name="documentID" Mode="In" Type="String" />
           </FunctionImport>
@@ -2213,6 +2221,13 @@
           </FunctionImport>
           <EntitySet Name="MM_TrackingPartner" EntityType="MNPOSTModel.MM_TrackingPartner" />
           <EntitySet Name="MM_MailerDeliveryDetail" EntityType="MNPOSTModel.MM_MailerDeliveryDetail" />
+          <FunctionImport Name="SplitList" IsComposable="true" ReturnType="Collection(String)">
+            <Parameter Name="list" Mode="In" Type="String" />
+            <Parameter Name="separator" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
+          <Parameter Name="mailers" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -2425,6 +2440,14 @@
           <Property Type="String" Name="Notes" Nullable="true" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+          <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DeliveryNotes" Nullable="true" />
+          <Property Type="String" Name="DeliveryTo" Nullable="true" />
+          <Property Type="String" Name="StatusNotes" Nullable="true" />
+          <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
         </ComplexType>
         <ComplexType Name="MAILER_GETINFO_BYID_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -2442,9 +2465,8 @@
           <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="EmployeeAcceptID" Nullable="true" MaxLength="20" />
-          <Property Type="DateTime" Name="AcceptDate" Nullable="true" />
-          <Property Type="DateTime" Name="AcceptTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="Quantity" Nullable="true" />
           <Property Type="Double" Name="Weight" Nullable="true" />
@@ -2452,41 +2474,23 @@
           <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="Discount" Nullable="true" />
-          <Property Type="Decimal" Name="BefVATAmount" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="VATPercent" Nullable="true" />
-          <Property Type="Decimal" Name="VATAmount" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
-          <Property Type="Decimal" Name="AmountBefDiscount" Nullable="true" Precision="19" />
           <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
           <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
           <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
-          <Property Type="String" Name="ThirdpartyPaymentMethodID" Nullable="true" MaxLength="5" />
           <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
           <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="PriceType" Nullable="true" MaxLength="1" />
-          <Property Type="Boolean" Name="PriceIncludeVAT" Nullable="true" />
-          <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="CommissionPercent" Nullable="true" />
-          <Property Type="Decimal" Name="CostAmt" Nullable="true" Precision="19" />
-          <Property Type="DateTime" Name="SalesClosingDate" Nullable="true" />
-          <Property Type="Double" Name="DiscountPercent" Nullable="true" />
-          <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="LastUpdateDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Notes" Nullable="true" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
-          <Property Type="Double" Name="LengthSize" Nullable="true" />
-          <Property Type="Double" Name="WidthSize" Nullable="true" />
-          <Property Type="Double" Name="HeightSize" Nullable="true" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
           <Property Type="String" Name="DeliveryTo" Nullable="true" />
-          <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="DeliveryNotes" Nullable="true" />
-          <Property Type="Int32" Name="CreateType" Nullable="true" />
           <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="ThirdpartyID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="StatusNotes" Nullable="true" />
+          <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
         </ComplexType>
         <ComplexType Name="MAILERDELIVERY_GETMAILER_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -3050,6 +3054,49 @@
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="ReturnReasonID" Type="Int32" />
         </EntityType>
+        <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SenderName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SenderAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SenderWardID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SenderPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RecieverName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="RecieverWardID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Double" Name="ReWeight" Nullable="true" />
+          <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DeliveryTo" Nullable="true" />
+          <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DeliveryNotes" Nullable="true" />
+          <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="StatusNotes" Nullable="true" />
+          <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4100,6 +4147,14 @@
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+                <ScalarProperty Name="ThirdpartyCode" ColumnName="ThirdpartyCode" />
+                <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
+                <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
+                <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+                <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4121,7 +4176,6 @@
                 <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
                 <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
                 <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
-                <ScalarProperty Name="EmployeeAcceptID" ColumnName="EmployeeAcceptID" />
                 <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
                 <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
                 <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
@@ -4131,45 +4185,26 @@
                 <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="PriceService" ColumnName="PriceService" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="BefVATAmount" ColumnName="BefVATAmount" />
-                <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
-                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="AmountBefDiscount" ColumnName="AmountBefDiscount" />
                 <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
                 <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
                 <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
                 <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
-                <ScalarProperty Name="ThirdpartyPaymentMethodID" ColumnName="ThirdpartyPaymentMethodID" />
                 <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
                 <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
-                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
-                <ScalarProperty Name="PriceIncludeVAT" ColumnName="PriceIncludeVAT" />
-                <ScalarProperty Name="CommissionAmt" ColumnName="CommissionAmt" />
-                <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
-                <ScalarProperty Name="CostAmt" ColumnName="CostAmt" />
-                <ScalarProperty Name="SalesClosingDate" ColumnName="SalesClosingDate" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
                 <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
-                <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
-                <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
-                <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
                 <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
                 <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
                 <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
-                <ScalarProperty Name="CreateType" ColumnName="CreateType" />
                 <ScalarProperty Name="ThirdpartyCode" ColumnName="ThirdpartyCode" />
-                <ScalarProperty Name="ThirdpartyID" ColumnName="ThirdpartyID" />
+                <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="MAILER_GETINFO_BYLISTID" FunctionName="MNPOSTModel.Store.MAILER_GETINFO_BYLISTID" />
           <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
@@ -4839,6 +4874,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SplitList" FunctionName="MNPOSTModel.Store.SplitList" />
+          <FunctionImportMapping FunctionImportName="MAILER_GETINFO_BYLISTID" FunctionName="MNPOSTModel.Store.MAILER_GETINFO_BYLISTID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GETINFO_BYLISTID_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="PostOfficeAcceptID" ColumnName="PostOfficeAcceptID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+                <ScalarProperty Name="SenderWardID" ColumnName="SenderWardID" />
+                <ScalarProperty Name="SenderDistrictID" ColumnName="SenderDistrictID" />
+                <ScalarProperty Name="SenderProvinceID" ColumnName="SenderProvinceID" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
+                <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
+                <ScalarProperty Name="RecieverWardID" ColumnName="RecieverWardID" />
+                <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
+                <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
+                <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
+                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ReWeight" ColumnName="ReWeight" />
+                <ScalarProperty Name="PriceDefault" ColumnName="PriceDefault" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceService" ColumnName="PriceService" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="MailerDescription" ColumnName="MailerDescription" />
+                <ScalarProperty Name="ThirdpartyDocID" ColumnName="ThirdpartyDocID" />
+                <ScalarProperty Name="ThirdpartyCost" ColumnName="ThirdpartyCost" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="CurrentPostOfficeID" ColumnName="CurrentPostOfficeID" />
+                <ScalarProperty Name="MerchandiseID" ColumnName="MerchandiseID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DeliveryNotes" ColumnName="DeliveryNotes" />
+                <ScalarProperty Name="ThirdpartyCode" ColumnName="ThirdpartyCode" />
+                <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

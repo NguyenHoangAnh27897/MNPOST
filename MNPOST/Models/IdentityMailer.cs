@@ -10,7 +10,7 @@ namespace MNPOST.Models
 
         /*
           'MailerID': '', 'SenderID': '', 'SenderName': '', 'SenderAddress': '', 'SenderWardID': '', 'SenderDistrictID': '',
-                'SenderProvinceID': '', 'SenderPhone': '', 'RecieverName': ''
+                'SenderProvinceD:\work\Project\007MNPost\MNPOST\MNPOST\Models\IdentityMailer.csID': '', 'SenderPhone': '', 'RecieverName': ''
                 , 'RecieverAddress': '', 'RecieverWardID': '', 'RecieverDistrictID': '', 'RecieverProvinceID': '',
                 'RecieverPhone': '', 'Weight': 0.01, 'Quantity': 1, 'PaymentMethodID': 'NGTT', 'MailerTypeID': 'SN',
                 'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'PriceMain': 0, 'CODPrice': 0,

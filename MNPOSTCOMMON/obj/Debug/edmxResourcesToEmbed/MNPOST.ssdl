@@ -1053,6 +1053,17 @@
     <Parameter Name="type" Type="nvarchar" Mode="In" />
     <Parameter Name="districtId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="SplitList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="list" Type="varchar(max)" Mode="In" />
+    <Parameter Name="separator" Type="varchar(max)" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="Value" Type="varchar(max)" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
   <Function Name="TAKEMAILER_GETDETAILs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>

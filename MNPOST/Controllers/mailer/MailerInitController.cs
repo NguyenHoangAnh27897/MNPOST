@@ -439,7 +439,7 @@ namespace MNPOST.Controllers.mailer
                 }
 
                 // theem
-                var mailerIns = new MM_Mailers()
+                var mailerIns = new MNPOSTCOMMON.MM_Mailers()
                 {
                     MailerID = item.MailerID,
                     AcceptTime = DateTime.Now,

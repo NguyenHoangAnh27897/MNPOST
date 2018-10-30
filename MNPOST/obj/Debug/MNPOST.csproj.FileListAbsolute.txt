@@ -127,6 +127,7 @@ C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOST\obj\Debug\MNPOST.csproj.CopyComplete
+D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.pdb
@@ -134,9 +135,11 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Antlr3.Runtime.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.CrystalReports.Engine.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.ReportSource.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.Shared.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.Web.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\EntityFramework.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\EntityFramework.SqlServer.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\EPPlus.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.AspNet.Identity.Core.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -181,6 +184,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Com
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\stdole.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll.config
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.Web.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\System.Web.Helpers.xml
@@ -206,9 +210,5 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.OAuth.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Google.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Twitter.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.Web.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.dll
-D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.xml

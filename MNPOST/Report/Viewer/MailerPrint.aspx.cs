@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using MNPOSTCOMMON;
+using MNPOST.Models;
 using CrystalDecisions.CrystalReports.Engine;
 
 namespace MNPOST.Report.Viewer
@@ -13,6 +14,7 @@ namespace MNPOST.Report.Viewer
     {
 
         MNPOSTEntities db = new MNPOSTEntities();
+        ReportDocument rptH;
         string searchText = "";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,91 +24,51 @@ namespace MNPOST.Report.Viewer
 
         private void LoadReport()
         {
-            var mailer = db.MM_Mailers.Find(searchText);
+
+            var mailer = db.MAILER_GETINFO_BYLISTID(searchText).Select(p=> new MailerRpt()
+            {
+                SenderName = p.SenderName,
+                MailerID = p.MailerID,
+                SenderID = p.SenderID,
+                SenderPhone = p.SenderPhone,
+                SenderAddress = p.SenderAddress,
+                RecieverName = p.RecieverName,
+                RecieverAddress = p.RecieverAddress,
+                RecieverPhone = p.RecieverPhone
+            }).ToList();
 
             if (mailer == null)
                 return;
 
-            ReportDocument rptH = new ReportDocument();
+            if(rptH != null)
+            {
+                rptH.Close();
+                rptH.Dispose();
+            }
+
+            rptH = new ReportDocument();
             string reportPath = Server.MapPath("~/Report/MNPOSTReport.rpt");
             rptH.Load(reportPath);
-            TextObject _txtSenderName = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtSenderName"];
-            _txtSenderName.Text = mailer.SenderName;
-            TextObject _txtSenderAddres = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtSenderAddress"];
-            _txtSenderAddres.Text = mailer.SenderAddress;
-            TextObject _txtSenderPhone = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtSenderPhone"];
-            _txtSenderPhone.Text = mailer.SenderPhone;
-            TextObject _txtReceiverName = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtReceiverName"];
-            _txtReceiverName.Text = mailer.RecieverName;
-            TextObject _txtReceiverAddress = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtReceiverAddress"];
-            _txtReceiverAddress.Text = mailer.RecieverAddress;
-            TextObject _txtReceiverPhone = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtReceiverPhone"];
-            _txtReceiverPhone.Text = mailer.RecieverPhone;
-            TextObject _txtCOD = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtCOD"];
-            _txtCOD.Text = mailer.COD.ToString();
-            if (mailer.MerchandiseID == "H")
-            {
-                TextObject _txtTT = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTT"];
-                _txtTT.Text = "";
-                TextObject _txtHH = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtHH"];
-                _txtHH.Text = "X";
-                TextObject _txtMHang = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtMHang"];
-                _txtMHang.Text = "";
-                if (mailer.MailerTypeID == "SN")
-                {
-                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
-                    _txtNhanh.Text = "X";
-                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
-                    _txtDBo.Text = "";
-                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
-                    _txtTK.Text = "";
-                }
-                else if (mailer.MailerTypeID == "ST")
-                {
-                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
-                    _txtNhanh.Text = "";
-                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
-                    _txtDBo.Text = "X";
-                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
-                    _txtTK.Text = "";
-                }
-            }
-            else if (mailer.MerchandiseID == "T")
-            {
-                TextObject _txtTT = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTT"];
-                _txtTT.Text = "X";
-                TextObject _txtHH = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtHH"];
-                _txtHH.Text = "";
-                if (mailer.MailerTypeID == "SN")
-                {
-                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
-                    _txtNhanh.Text = "X";
-                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
-                    _txtDBo.Text = "";
-                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
-                    _txtTK.Text = "";
-                }
-                else if (mailer.MailerTypeID == "ST")
-                {
-                    TextObject _txtNhanh = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtNhanh"];
-                    _txtNhanh.Text = "";
-                    TextObject _txtDBo = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtDBo"];
-                    _txtDBo.Text = "X";
-                    TextObject _txtTK = (TextObject)rptH.ReportDefinition.Sections["Section3"].ReportObjects["txtTK"];
-                    _txtTK.Text = "";
-                }
-            }
+
+            rptH.SetDataSource(mailer);
 
 
-
-            CrystalReportViewer1.ReportSource = rptH;
+            MailerRptViewer.ReportSource = rptH;
         }
 
-
-
-        protected void mailercrytalviewer_PreRender(object sender, EventArgs e)
+        protected void btnprint_Click(object sender, EventArgs e)
         {
-
+            if(rptH != null)
+            {
+                try
+                {
+                    rptH.PrintToPrinter(1, false, 0, 0);
+                }
+                catch
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Không tìm thấy thiết bị in')", true);
+                }
+            }
         }
     }
 }
