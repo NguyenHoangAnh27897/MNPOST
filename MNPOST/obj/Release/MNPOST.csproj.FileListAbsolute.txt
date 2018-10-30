@@ -81,3 +81,5 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Com
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\stdole.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\NLog.Web.xml
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.dll
+D:\work\Project\007MNPost\MNPOST\MNPOST\bin\log4net.xml
