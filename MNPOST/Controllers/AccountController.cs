@@ -102,7 +102,6 @@ namespace MNPOST.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        [MyValidateAntiForgeryToken]
         public async Task<ActionResult> SignUpStaff(string UserName, string Password,string EmployeeID, string GroupId, string levelId)
         {
             var findEmployee = db.BS_Employees.Find(EmployeeID);

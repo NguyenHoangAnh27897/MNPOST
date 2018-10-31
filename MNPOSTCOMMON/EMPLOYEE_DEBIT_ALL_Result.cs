@@ -22,5 +22,7 @@ namespace MNPOSTCOMMON
         public string PostOfficeID { get; set; }
         public string DocumentDate { get; set; }
         public string DocumentTime { get; set; }
+        public Nullable<int> AllMailer { get; set; }
+        public string Notes { get; set; }
     }
 }

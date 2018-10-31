@@ -30,7 +30,7 @@
                                 <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false" ng-click="tabcreate = false">Chi tiết</a>
                             </li>
                             <li role="presentation">
-                                <a href="#tab_taodon" role="tab" data-toggle="tab" aria-expanded="false" ng-click="prepareCreate()">Tạo đơn</a>
+                                <a href="#tab_taodon" role="tab" data-toggle="tab" aria-expanded="false" ng-click="prepareCreate()">Tạo phiếu thu</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -193,7 +193,7 @@
                                                             <strong>Ký nhận: </strong> {{item.DeliveryTo}} 
                                                         </td>
                                                         <td>
-                                                            <span class="label label-info">{{item.PaidCoD === 0?'Chưa thanh toán':'Đã thanh toán'}}</span>
+                                                            <span class="label label-info">{{item.PaidCoD === 1?'Đã thanh toán':'Chưa thanh toán'}}</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>

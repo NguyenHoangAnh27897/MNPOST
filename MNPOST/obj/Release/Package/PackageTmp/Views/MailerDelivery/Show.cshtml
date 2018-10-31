@@ -14,7 +14,6 @@
                     <button type="button" class="btn btn-warning" ng-show="showDeliveries" ng-click="getAutoRoutes()">Tạo từ chia tuyến</button>
                     <button type="button" class="btn btn-warning" ng-show="showEdit" ng-click="fillMailerForEmployee()">Đổ danh sách</button>
                     <button type="button" class="btn btn-success" ng-show="showEdit" ng-click="confirmAllMailers()">Cập nhật phát</button>
-                    <button type="button" class="btn btn-success" ng-show="showUpdate" ng-click="updateDeliveryMailer()">Cập nhật</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -94,7 +93,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Lọc theo nhân viên</label>
-                                            <select class="form-control" ng-model="employeeFilter.EmployeeID" ui-select2="select2Options">
+                                            <select class="form-control" ng-model="searchInfo.employeeId" ui-select2="select2Options">
                                                 <option value="">Tất cả</option>
                                                 <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
                                             </select>
@@ -136,7 +135,7 @@
                                             </thead>
 
                                             <tbody>
-                                                <tr ng-repeat="item in allDeliveries  | filter: employeeFilter" ng-class="{'active': item.StatusID == 0, 'warning' : item.StatusID == 1,'danger' : item.StatusID == 2, 'success' : item.StatusID == 3}">
+                                                <tr ng-repeat="item in allDeliveries" ng-class="{'active': item.StatusID == 0, 'warning' : item.StatusID == 1,'danger' : item.StatusID == 2, 'success' : item.StatusID == 3}">
                                                     <td>
                                                         {{$index + 1}}&nbsp;&nbsp;
                                                         <a href="#" ng-click="showDocumentDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>
@@ -268,7 +267,7 @@
                                         <table class="table table-striped jambo_table bulk_action scrollmenu">
                                             <thead>
                                                 <tr class="headings">
-                                                    <th>STT</th>
+                                                    <th>STT </th>
                                                     <th>Tình trạng</th>
                                                     <th>Ngày phát</th>
                                                     <th>Giờ phát</th>
@@ -284,7 +283,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="item in mailerUpdates">
-                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{$index + 1}} <a href="#" class="label label-info" ng-click="confirmDeliveryMailer($index)">cập nhật</a></td>
                                                     <td>
                                                         <select ng-model="item.DeliveryStatus" class="tableinput" convert-to-number>
                                                             <option value="4">ĐÃ PHÁT</option>
@@ -580,6 +579,8 @@
         var provinceData = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Provinces)));
 
         var currentDate = '@DateTime.Now.ToString("dd/MM/yyyy")';
+
+        var currentTime = '@DateTime.Now.ToString("HH:mm")';
 
     </script>
     <script src="~/Scripts/order/mailerdelivery.js"></script>

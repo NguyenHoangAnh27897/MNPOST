@@ -539,6 +539,7 @@
     <Property Name="MoneyColector" Type="nvarchar" MaxLength="128" />
     <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" />
     <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Notes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="MM_EmployeeDebitVoucherDetails">
     <Key>
@@ -685,6 +686,10 @@
     <Property Name="ThirdpartyCode" Type="nvarchar" MaxLength="128" />
     <Property Name="ThirdpartyID" Type="nvarchar" MaxLength="128" />
     <Property Name="StatusNotes" Type="nvarchar(max)" />
+    <Property Name="PaidCoD" Type="int" />
+    <Property Name="PaidDate" Type="datetime" />
+    <Property Name="EmployeePaid" Type="nvarchar" MaxLength="128" />
+    <Property Name="PaidNotes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -966,6 +971,15 @@
   <Function Name="EMPLOYEE_DEBIT_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fdate" Type="nvarchar" Mode="In" />
     <Parameter Name="tdate" Type="nvarchar" Mode="In" />
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="EMPLOYEE_DEBIT_DETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="documentId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="EMPLOYEE_DEBIT_GET_NOTPAID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="EMPLOYEE_DEBIT_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

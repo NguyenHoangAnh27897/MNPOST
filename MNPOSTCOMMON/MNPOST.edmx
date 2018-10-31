@@ -2426,6 +2426,8 @@
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="DocumentTime" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" />
         </ComplexType>
         <ComplexType Name="EMPLOYEE_GETALL_Result">
           <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
@@ -4178,6 +4180,8 @@
                 <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
                 <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

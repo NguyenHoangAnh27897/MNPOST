@@ -20,25 +20,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     $scope.deliveryStatus = angular.copy(deliveryStatusData);
     $scope.mailerStatus = angular.copy(mailerStatusData);
 
-    $scope.optionSeaches = [
-        {
-            "code": "deliverycode",
-            "name": "Mã bảng kê"
-        },
-        {
-            "code": "mailer",
-            "name": "Mã vận đơn"
-        },
-        {
-            "code": "employee",
-            "name": "Nhân viên"
-        },
-        {
-            "code": "licenseplate",
-            "name": "Số xe"
-        }
-    ];
-
     $scope.pageChanged = function () {
         $scope.GetData();
     };
@@ -47,7 +28,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         "fromDate": fromDate,
         "toDate": toDate,
         "page": $scope.currentPage,
-        "postId": ""
+        "postId": "",
+        "employeeId": ""
     };
 
     $scope.allDeliveries = [];
@@ -81,9 +63,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         });
     };
 
-    $scope.title = '';
     //nhan vien
-    $scope.employeeFilter = { EmployeeID: '' };
     $scope.employees = [];
     $scope.licensePlates = [];
     $scope.listEmployeeMonitor = [];
@@ -169,7 +149,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.GetData();
             $scope.getFirstData();
             $scope.getReportEmployeeDelivery();
-            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 30);
+            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 60);
             hideModel('choosePostOfficeModal');
         }
     };
@@ -183,7 +163,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.GetData();
             $scope.getFirstData();
             $scope.getReportEmployeeDelivery();
-            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 30);
+            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 60);
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -251,6 +231,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             }
         );
     };
+
+
 
     $scope.addMailer = function (valid) {
         if ($scope.currentDocument.DocumentID === '') {
@@ -325,6 +307,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                     var mailerId = response.data[i].MailerID;
                     if (findMailerUpdatesIndex(mailerId) === -1) {
                         response.data[i].DeliveryStatus = 4;
+                        response.data[i].DeliveryDate = currentDate;
+                        response.data[i].DeliveryTime = currentTime;
                         $scope.mailerUpdates.push(response.data[i]);
                     }
 
@@ -374,71 +358,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
 
 
-    $scope.updateDeliveryMailer = function () {
-
-        var sendUpdate = true;
-
-        for (var i = 0; i < $scope.mailerUpdates.length; i++) {
-            // check dieu kien update
-            var mailer = $scope.mailerUpdates[i];
-
-            if (mailer.DeliveryDate === "" || mailer.DeliveryTime === "") {
-                showNotify(mailer.MailerID + ' chưa nhập ngày giờ');
-                sendUpdate = false;
-                break;
-            }
-
-            if (mailer.DeliveryStatus === 4) {
-                // da phat
-                if (mailer.DeliveryTo === '') {
-                    showNotify(mailer.MailerID + ' chưa nhập người nhận');
-                    sendUpdate = false;
-                    break;
-                }
-            }
-
-            if (mailer.DeliveryStatus === 5) {
-                // chuyen hoan
-                if (mailer.ReturnReasonID === '') {
-                    showNotify(mailer.MailerID + ' chưa nhập lý do');
-                    sendUpdate = false;
-                    break;
-                }
-            }
-            if (mailer.DeliveryStatus === 6) {
-                // chuyen hoan
-                if (mailer.DeliveryNotes === '') {
-                    showNotify(mailer.MailerID + ' chưa nhập ghi chú');
-                    sendUpdate = false;
-                    break;
-                }
-            }
-        }
-
-        if (sendUpdate) {
-            showLoader(true);
-            $http({
-                method: 'POST',
-                url: '/mailerdelivery/ConfirmDeliveyMailer',
-                data: {
-                    detail: $scope.mailerUpdates
-                }
-            }).then(function sucess(response) {
-
-                showLoader(false);
-                $scope.mailerUpdates = [];
-                showNotify('Đã cập nhật phát');
-                $scope.mailers = [];
-                $scope.currentDocument = {};
-                resfeshData();
-
-            }, function error(response) {
-                showLoader(false);
-                alert("connect error");
-            });
-        }
-
-    };
 
     $scope.init();
 
@@ -632,6 +551,64 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
 
     //
+    $scope.confirmDeliveryMailer = function (idx) {
 
+        var sendUpdate = true;
+        var mailer = $scope.mailerUpdates[idx];
+
+        if (mailer.DeliveryDate === "" || mailer.DeliveryTime === "") {
+            showNotify(mailer.MailerID + ' chưa nhập ngày giờ');
+            sendUpdate = false;
+        } else if (mailer.DeliveryStatus === 4) {
+            // da phat
+            if (mailer.DeliveryTo === '') {
+                showNotify(mailer.MailerID + ' chưa nhập người nhận');
+                sendUpdate = false;
+            }
+        } else if (mailer.DeliveryStatus === 5) {
+            // chuyen hoan
+            if (mailer.ReturnReasonID === '') {
+                showNotify(mailer.MailerID + ' chưa nhập lý do');
+                sendUpdate = false;
+
+            }
+        } else if (mailer.DeliveryStatus === 6) {
+            // chuyen hoan
+            if (mailer.DeliveryNotes === '') {
+                showNotify(mailer.MailerID + ' chưa nhập ghi chú');
+                sendUpdate = false;
+
+            }
+        }
+
+
+        if (sendUpdate) {
+            showLoader(true);
+            $http({
+                method: 'POST',
+                url: '/mailerdelivery/ConfirmDeliveyMailer',
+                data: {
+                    detail: mailer
+                }
+            }).then(function sucess(response) {
+
+                showLoader(false);
+                if (response.data.error === 1) {
+                    showNotify(response.data.msg);
+                } else {
+                    $scope.mailerUpdates.splice(idx, 1);
+                    showNotify('Đã cập nhật phát');
+                    // $scope.mailers = [];
+                    //   $scope.currentDocument = {};
+                    //resfeshData();
+                    $scope.getDocumentDetail();
+                }
+
+            }, function error(response) {
+                showLoader(false);
+                alert("connect error");
+            });
+        }
+    };
 
 });

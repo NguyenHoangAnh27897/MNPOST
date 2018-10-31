@@ -34,6 +34,12 @@ namespace MNPOST.Controllers.mnpostinfo
 
             ViewBag.GroupStaff = db.UMS_UserGroups.ToList();
 
+            ViewBag.AllLevel = db.UserLevels.Select(p => new
+            {
+                levelId = p.Id,
+                levelName = p.Name
+            }).ToList();
+
 
             var data = db.EMPLOYEE_GETALL("%" + post + "%", "%" + search + "%").ToList();
 

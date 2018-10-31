@@ -989,6 +989,8 @@
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
           <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

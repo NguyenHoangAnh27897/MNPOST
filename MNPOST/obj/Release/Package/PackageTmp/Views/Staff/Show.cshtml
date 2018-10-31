@@ -1,16 +1,7 @@
 ﻿@model PagedList.IPagedList<MNPOSTCOMMON.EMPLOYEE_GETALL_Result>
-@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Show";
-}
-@functions{
-    public string GetAntiForgeryToken()
-    {
-        string cookieToken, formToken;
-        AntiForgery.GetTokens(null, out cookieToken, out formToken);
-        return cookieToken + ":" + formToken;
-    }
 }
 <div ng-app="myApp" ng-controller="myCtrl">
     <div class="row">
@@ -27,7 +18,7 @@
 
                 <div class="x_content">
                     <!--form search-->
-                    <form class="form-label-left">
+                    <form class="form-label-left" method="get">
 
                         <div class="row">
                             <div class="col-sm-2">
@@ -91,19 +82,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-                        @Html.PagedListPager(Model, page => Url.Action("Show", new { page, search = ViewBag.SearchText, post = ViewBag.PostSearch }))
                     </div>
-                    <!--end table-->
-
-
                 </div>
             </div>
         </div>
-
-
-
     </div>
 
 
@@ -206,8 +188,6 @@
                     <h4 class="modal-title">Tạo tài khoản</h4>
                 </div>
                 <form ng-submit="createUserLogin()">
-
-                    <input id="antiForgeryToken" ng-model="antiForgeryToken" type="hidden" ng-init="antiForgeryToken='@GetAntiForgeryToken()'" />
                     <div class="modal-body">
                         <input type="hidden" value="{{userCreateIno.EmployeeID}}" name="StaffCode" />
                         <div class="form-group">
@@ -287,7 +267,7 @@
 
             $scope.GroupStaff = JSON.parse('@Html.Raw(Json.Encode(ViewBag.GroupStaff))');
 
-            $scope.StaffLevel = [{ levelId: 0, levelName: "Cá nhân" }, { levelId: 1, levelName: "Công ty" }, { levelId: 2, levelName: "Khu vực" }, { levelId: 3, levelName: "Bưu cục" }];
+            $scope.StaffLevel = JSON.parse('@Html.Raw(Json.Encode(ViewBag.AllLevel))');
 
             $scope.actionChoose = 1;
 
@@ -320,10 +300,7 @@
                 $http({
                     method: 'POST',
                     url: '/Account/SignUpStaff',
-                    data: $scope.userCreateIno,
-                    headers: {
-                        'RequestVerificationToken': $scope.antiForgeryToken
-                    }
+                    data: $scope.userCreateIno
                 }).then(
                     function sucess(response) {
                         showLoader(false);
@@ -369,7 +346,6 @@
                 $scope.ShowEmployeeID = true;
                 $('#Position').val(staff.PositionID);
                 $('#PostOfficeId').val(staff.PostOfficeId);
-                $('.selectpicker').selectpicker('refresh');
                 $scope.actionChoose = 2;
                 showModel("insertmodal");
 
