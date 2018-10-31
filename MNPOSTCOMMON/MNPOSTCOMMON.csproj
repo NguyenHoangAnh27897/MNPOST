@@ -227,6 +227,9 @@
     <Compile Include="MAILER_GETINFO_BYLISTID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MAILER_GETTRACKING_BY_MAILERID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MAILER_GETTRACKING_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

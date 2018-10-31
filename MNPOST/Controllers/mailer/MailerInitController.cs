@@ -53,11 +53,11 @@ namespace MNPOST.Controllers.mailer
 
             }).ToList(); ;
 
+            // tinh thanh
+            ViewBag.Provinces = GetProvinceDatas("", "province");
             // buu cuc
             ViewBag.PostOffices = EmployeeInfo.postOffices;
 
-            // tinh thanh
-            ViewBag.Provinces = GetProvinceDatas("", "province");
 
 
             return View();

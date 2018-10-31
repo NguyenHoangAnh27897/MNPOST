@@ -1036,11 +1036,16 @@
     <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
       <Parameter Name="mailers" Mode="In" Type="String" />
     </FunctionImport>
+<<<<<<< HEAD
     <FunctionImport Name="MAILER_GETINFO_BYLISTID1" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID1_Result)">
       <Parameter Name="mailers" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="MAILER_GETINFO_BYLISTID2" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID2_Result)">
       <Parameter Name="mailers" Mode="In" Type="String" />
+=======
+    <FunctionImport Name="MAILER_GETTRACKING_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_BY_MAILERID_Result)">
+      <Parameter Name="mailerId" Mode="In" Type="String" />
+>>>>>>> f4cd926314c0e0f54f5e28b472a6cabd972d4b7a
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
@@ -1911,6 +1916,7 @@
     <Property Type="String" Name="StatusNotes" Nullable="true" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
   </ComplexType>
+<<<<<<< HEAD
   <ComplexType Name="MAILER_GETINFO_BYLISTID1_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
     <Property Type="String" Name="PostOfficeAcceptID" Nullable="true" MaxLength="10" />
@@ -2006,5 +2012,17 @@
     <Property Type="String" Name="ReceiverProvinceName" Nullable="false" />
     <Property Type="String" Name="ReceiverDistrictName" Nullable="false" />
     <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
+=======
+  <ComplexType Name="MAILER_GETTRACKING_BY_MAILERID_Result">
+    <Property Type="String" Name="MailerID" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="StatusID" Nullable="true" />
+    <Property Type="String" Name="StatusName" Nullable="true" />
+    <Property Type="String" Name="StatusDescribe" Nullable="true" />
+    <Property Type="String" Name="Describe" Nullable="true" />
+    <Property Type="String" Name="PostOffice" Nullable="true" />
+    <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="StatusDate" Nullable="true" Precision="23" />
+>>>>>>> f4cd926314c0e0f54f5e28b472a6cabd972d4b7a
   </ComplexType>
 </Schema>

@@ -23,11 +23,11 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="bs-docs-section">
-                            <h4 class="page-header">Thông tin vận đơn</h4>
+                            <h4 class="page-header">Thông tin vận đơn <a class="label label-primary" ng-show="showPrint" href="/Report/Viewer/MailerPrint.aspx?mailer={{mailer.MailerID}}" target="_blank">In phiếu</a></h4>
                             <div class="row">
 
 
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <div class="x_title">
                                         <h2><i class="fa fa-align-left"></i> Thông tin gửi</h2>
                                         <div class="clearfix"></div>
@@ -50,7 +50,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <div class="x_title">
                                         <h2><i class="fa fa-align-left"></i> Thông tin nhận</h2>
                                         <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                                         <p>{{mailer.RecieverPhone}}</p>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
 
                                     <div class="row">
                                         <div class="x_title">
@@ -98,6 +98,16 @@
                                                 <label>Loại hàng</label>
                                                 <p>{{mailer.MerchandiseID}}</p>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Ghi chú</label>
+                                                <p>{{mailer.Notes}}</p>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Thông tin hàng</label>
+                                                <p>{{mailer.MailerDescription}}</p>
+                                            </div>
+
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
@@ -112,26 +122,19 @@
                                                 <label>Phụ phí</label>
                                                 <p>{{mailer.PriceService | currency : 'VND'}}</p>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label>Ghi chú</label>
-                                                <p>{{mailer.Notes}}</p>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Thông tin hàng</label>
-                                                <p>{{mailer.MailerDescription}}</p>
-                                            </div>
                                             <div class="form-group">
                                                 <label>Phí cước</label>
                                                 <p>{{mailer.Price | currency : 'VND'}}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Bưu cục hiện tại</label>
+                                                <p>{{mailer.CurrentPostOfficeID}}</p>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
 
                                     <div class="row">
                                         <div class="x_title">
@@ -144,14 +147,38 @@
                                                 <p>{{status[mailer.CurrentStatusID].name}}</p>
                                             </div>
                                             <div class="form-group">
+                                                <label>Thông tin trạng thái</label>
+                                                <p>{{item.StatusNotes}}</p>
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Ngày phát</label>
-                                                <p>{{status[mailer.CurrentStatusID].name}}</p>
+                                                <p>{{mailer.DeliveryDate}}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Giờ phát</label>
+                                                <p>{{mailer.DeliveryTime}}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Người nhận</label>
+                                                <p>{{mailer.DeliveryTo}}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ghi chú phát</label>
+                                                <p>{{mailer.DeliveryNotes}}</p>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Đổi tác</label>
                                                 <p>{{mailer.ThirdpartyCode}}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Mã đơn đối tác</label>
+                                                <p>{{mailer.ThirdpartyDocID}}</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Giá qua đối tác</label>
+                                                <p>{{mailer.ThirdpartyCost | currency: 'VND'}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +204,7 @@
                                     <tbody>
                                         <tr ng-repeat="item in tracks">
                                             <td>{{$index + 1}}</td>
-                                            <td>{{findStatus(item.StatusID)}}</td>
+                                            <td>{{item.StatusName}}</td>
                                             <td>{{item.CreateDate}}</td>
                                             <td>{{item.PostOffice}}</td>
                                             <td>{{item.Describe}}</td>
@@ -221,15 +248,25 @@
 
             $scope.images = [];
 
+            $scope.showPrint = false;
+
             $scope.status = angular.copy(mailerStatusData);
 
             $scope.findMailer = function () {
                 showLoader(true);
+                $scope.showPrint = false;
                 $http.get("/mailer/findmailer?mailerId=" + $scope.mailerId).then(function (response) {
                     var result = response.data;
                     if (result.error === 1) {
+                        $scope.mailer = {};
+
+                        $scope.tracks = [];
+
+                        $scope.images = [];
+
                         showNotify("Không tìm thấy");
                     } else {
+                        $scope.showPrint = true;
                         $scope.mailer = result.data.mailer;
                         $scope.tracks = result.data.tracks;
                         $scope.images = result.data.images;

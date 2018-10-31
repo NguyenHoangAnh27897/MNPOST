@@ -565,6 +565,16 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYLISTID_Result>("MAILER_GETINFO_BYLISTID", mailersParameter);
         }
     
+<<<<<<< HEAD
+        public virtual ObjectResult<MAILER_GETTRACKING_BY_MAILERID_Result> MAILER_GETTRACKING_BY_MAILERID(string mailerId)
+        {
+            var mailerIdParameter = mailerId != null ?
+                new ObjectParameter("mailerId", mailerId) :
+                new ObjectParameter("mailerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETTRACKING_BY_MAILERID_Result>("MAILER_GETTRACKING_BY_MAILERID", mailerIdParameter);
+        }
+=======
         public virtual ObjectResult<MAILER_GETINFO_BYLISTID1_Result> MAILER_GETINFO_BYLISTID1(string mailers)
         {
             var mailersParameter = mailers != null ?
@@ -574,5 +584,6 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYLISTID1_Result>("MAILER_GETINFO_BYLISTID", mailersParameter);
         }
 
+>>>>>>> 2abf430707e9d8458a17b671bcd22a341e50736c
     }
 }

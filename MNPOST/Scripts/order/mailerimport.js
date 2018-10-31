@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'ui.select2', 'ui.mask']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'ui.select2', 'ui.mask']);
 
 app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
@@ -70,7 +70,27 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     };
 
+    $scope.printMailers = function () {
 
+        var listMailers = '';
+        for (var i = 0; i < $scope.mailers.length; i++) {
+            if ($scope.mailers[i].isCheck) {
+                listMailers = listMailers + ',' + $scope.mailers[i].MailerID;
+            }
+        }
+
+        if (listMailers.charAt(0) === ',') {
+            listMailers = listMailers.substr(1);
+        }
+
+
+        if (listMailers === '') {
+            showNotify("Phải chọn vận đơn để in");
+        } else {
+            window.open("/Report/Viewer/MailerPrint.aspx?mailer=" + listMailers, "_blank");
+        }
+
+    };
 
     $scope.sendImport = function () {
 

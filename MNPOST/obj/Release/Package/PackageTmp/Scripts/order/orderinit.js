@@ -1,6 +1,6 @@
 ﻿
 // tao controller
-var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'ui.uploader', 'ui.select2']);
+var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'ui.uploader', 'ui.select2']);
 
 app.service('mailerService', function () {
     var mailerList = [];

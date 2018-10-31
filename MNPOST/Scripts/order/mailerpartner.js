@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress', 'myDirective', 'ui.mask']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'myDirective', 'ui.mask']);
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     // phan trang

@@ -34,16 +34,24 @@
                             <!-- begin tab-->
                             <div class="row">
                                 <form name="formSearch" ng-submit="GetData()">
-                                    <div class="col-sm-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Tìm kiếm</label>
+                                            <label>Lọc theo khách hàng</label>
+                                            <select ui-select2="select2Options" ng-model="searchInfo.customerId" class="form-control">
+                                                <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Nhập mã vận đơn</label>
                                             <div class="row">
                                                 <div class="col-sm-7">
                                                     <input type="text" class="form-control" ng-model="searchInfo.search" my-enter="GetData()">
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <select class="form-control" ng-model="searchInfo.status" convert-to-number>
-                                                        <option ng-repeat="item in status" value="{{item.code}}" >{{item.name | uppercase}}</option>
+                                                        <option ng-repeat="item in status" value="{{item.code}}">{{item.name | uppercase}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -53,11 +61,11 @@
                                         <div class="form-group">
                                             <label>Thời gian</label>
                                             <div class="row">
-                                                <div class="col-sm-5">
-                                                    <input type="text" id="fromDate" my-tool-tip="Từ ngày" required class="form-control" data-inputmask="'mask': '99/99/9999'" ng-model="searchInfo.fromDate" value="@ViewBag.FromDate">
+                                                <div class="col-sm-4">
+                                                    <input type="text" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="searchInfo.fromDate">
                                                 </div>
-                                                <div class="col-sm-5">
-                                                    <input type="text" id="toDate" my-tool-tip="Đến ngày" required class="form-control" data-inputmask="'mask': '99/99/9999'" ng-model="searchInfo.toDate" value="@ViewBag.ToDate">
+                                                <div class="col-sm-4">
+                                                    <input type="text" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="searchInfo.toDate">
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <button class="btn btn-primary" type="submit">Xem thông tin</button>
@@ -113,7 +121,7 @@
                                                     <td><input type="checkbox" ng-model="item.isCheck" /></td>
                                                     <td>
                                                         {{$index + 1}}&nbsp;&nbsp;
-                                                        <a href="#" ng-click="showMailerDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>&nbsp;&nbsp;
+                                                        <a href="#" class="label label-primary" ng-click="showMailerDetail($index)">Chi tiết</a>&nbsp;&nbsp;
                                                         <a href="/Report/Viewer/MailerPrint.aspx?mailer={{item.MailerID}}" target="_blank">In phiếu</a>
                                                     </td>
                                                     <td>{{item.MailerID}}</td>
@@ -172,9 +180,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Mã người gửi</label>
-                                        <select ng-model="mailer.SenderID" class="form-control" ng-change="changeCus()" required>
-                                            <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
-                                        </select>
+                                        <input type="text" disabled class="form-control" value="{{mailer.SenderID}}" />
                                     </div>
                                     <div class="form-group">
                                         <label>Tên người gửi</label>
@@ -188,7 +194,7 @@
 
                                     <div class="form-group">
                                         <label>Địa chỉ</label>
-                                        <input type="text" class="form-control" ng-model="mailer.SenderAddress" id="autocompleteSend" required />
+                                        <input type="text" class="form-control" ng-model="mailer.SenderAddress" required id="autocompleteSend" />
                                     </div>
                                     <div class="form-group">
                                         <label>Tỉnh thành</label>
@@ -430,8 +436,6 @@
         </div>
     </div>
     <!-- end chon buu cuc-->
-
-
     <!-- show tracking-->
     <div id="showtracking" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -453,7 +457,7 @@
                                     <th>Diễn dãi</th>
                                 </tr>
                             </thead>
-                                    
+
                             <tbody>
                                 <tr ng-repeat="item in tracks">
                                     <td>{{$index + 1}}</td>
@@ -481,6 +485,7 @@
             overflow: auto;
             white-space: nowrap;
         }
+
         iframe {
             width: 100%;
             height: 600px;
@@ -494,15 +499,21 @@
 
 <!-- end content-->
 @section scripts {
-    <script src="~/Content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMESJTjSQnZU8Q7J5AFDE2wP2wOm3hy1o&libraries=places&callback=initAutocomplete&language=vi"
+            async defer></script>
 
     <script>
-  
-        $(":input").inputmask();
         // tao controller
         var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
-        var fromDate = '@Html.Raw(ViewBag.FromDate)';
-        var toDate = '@Html.Raw(ViewBag.ToDate)';
+        var servicesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Services)));
+        var customerDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllCustomer)));
+          var mailerTypesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.MailerTypes)));
+
+        var paymentsGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Payments)));
+
+        var provinceSendGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Provinces)));
+        var currentDate = '@DateTime.Now.ToString("dd/MM/yyyy")';
 
 
     </script>

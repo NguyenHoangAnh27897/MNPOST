@@ -1,6 +1,11 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myKeyPress']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress' ,'ui.select2', 'ui.mask']);
 
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
+
+
+    $scope.select2Options = {
+        width: 'element'
+    };
 
     $scope.numPages;
     $scope.itemPerPage;
@@ -10,14 +15,31 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.showEdit = false;
     $scope.checkMailers = false;
 
+    $scope.customers = angular.copy(customerDatas);
+    $scope.customers.unshift({
+        name: 'Tất cả',
+        code: ''
+    });
+
+    $scope.status = angular.copy(mailerStatusData);
+    $scope.status.unshift({ "code": -1, "name": "TẤT CẢ" });
+    $scope.findStatus = function (code) {
+        for (var i = 0; i < $scope.status.length; i++) {
+            if ($scope.status[i].code === code)
+                return $scope.status[i].name;
+        }
+
+    };
+
     $scope.pageChanged = function () {
         $scope.GetData();
     };
 
     $scope.searchInfo = {
         "search": "",
-        "fromDate": fromDate,
-        "toDate": toDate,
+        "customerId": '',
+        "fromDate": currentDate,
+        "toDate": currentDate,
         "status": -1,
         "page": $scope.currentPage,
         "postId": ""
@@ -27,8 +49,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.GetData = function () {
         $scope.searchInfo.page = $scope.currentPage;
         $scope.searchInfo.postId = $scope.postHandle;
-        $scope.searchInfo.fromDate = $('#fromDate').val();
-        $scope.searchInfo.toDate = $('#toDate').val();
 
         showLoader(true);
         $http({
@@ -103,15 +123,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     };
 
 
-    $scope.status = angular.copy(mailerStatusData);
-    $scope.status.unshift({ "code": -1, "name": "TẤT CẢ" });
-    $scope.findStatus = function (code) {
-        for (var i = 0; i < $scope.status.length; i++) {
-            if ($scope.status[i].code === code)
-                return $scope.status[i].name;
-        }
-
-    };
     $scope.init = function () {
         $scope.postOffices = postOfficeDatas;
 
@@ -144,4 +155,94 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     };
 
     $scope.init();
+    $scope.provinceSend = provinceSendGet;
+    $scope.provinceRecei = angular.copy($scope.provinceSend);
+
+    $scope.districtSend = [];
+    $scope.wardSend = [];
+
+    $scope.districtRecei = [];
+    $scope.wardRecei = [];
+    $scope.provinceChange = function (pType, type) {
+
+        var url = '/mailerinit/GetProvinces?';
+
+        if (type === 'send') {
+
+            if (pType === "district") {
+                url = url + "parentId=" + $scope.mailer.SenderProvinceID + "&type=district";
+            }
+
+            if (pType === "ward") {
+                url = url + "parentId=" + $scope.mailer.SenderDistrictID + "&type=ward";
+            }
+
+        } else {
+            if (pType === "district") {
+                url = url + "parentId=" + $scope.mailer.RecieverProvinceID + "&type=district";
+            }
+
+            if (pType === "ward") {
+                url = url + "parentId=" + $scope.mailer.RecieverDistrictID + "&type=ward";
+            }
+        }
+
+        $http.get(url).then(function (response) {
+
+            if (type === 'send') {
+
+                if (pType === "district") {
+                    $scope.districtSend = angular.copy(response.data);
+                }
+
+                if (pType === "ward") {
+                    $scope.wardSend = angular.copy(response.data);
+                }
+
+            } else {
+                if (pType === "district") {
+                    $scope.districtRecei = angular.copy(response.data);
+                }
+
+                if (pType === "ward") {
+                    $scope.wardRecei = angular.copy(response.data);
+                }
+            }
+
+        });
+
+    };
+
+   
+
 });
+
+
+var autocompleteSend;
+var autocompleteRecei;
+
+function fillInAddressSend() {
+
+    var place = autocompleteSend.getPlace();
+
+    var result = handleAutoCompleteAddress(place);
+
+
+
+};
+
+function fillInAddressRecei() {
+
+    var place = autocompleteRecei.getPlace();
+    var result = handleAutoCompleteAddress(place);
+
+
+};
+
+
+
+function initAutocomplete() {
+    autocompleteSend = new createAutoCompleteAddress('autocompleteSend', fillInAddressSend);
+    autocompleteRecei = new createAutoCompleteAddress('autocompleteRecei', fillInAddressRecei);
+};
+
