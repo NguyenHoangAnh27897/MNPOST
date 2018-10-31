@@ -261,7 +261,7 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     try
                     {
-                        var pst = db.WS_Post.Where(s => s.ID == id);
+                        var pst = db.WS_Post.Find(id);
                         return View(pst);
                     }
                     catch (Exception ex)

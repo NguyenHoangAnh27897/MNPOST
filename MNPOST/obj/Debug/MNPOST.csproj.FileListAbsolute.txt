@@ -92,7 +92,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\MNPOSTCOMMON.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\Newtonsoft.Json.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\Owin.dll
-C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\ReportViewerForMvc.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\System.Web.Helpers.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\System.Web.Mvc.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\System.Web.Optimization.dll
@@ -205,3 +204,19 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportSource.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.Shared.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\stdole.dll

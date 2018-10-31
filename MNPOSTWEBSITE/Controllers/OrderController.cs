@@ -384,7 +384,7 @@ namespace MNPOSTWEBSITE.Controllers
 
         //Search Mailer by MailerID
         [HttpGet]
-        public ActionResult SearchMailer(string mailerid)
+        public ActionResult SearchMailer(string mailerid="", string check="")
         {
             try
             {
@@ -392,6 +392,11 @@ namespace MNPOSTWEBSITE.Controllers
                 {
                     if (Session["RoleID"].ToString().Equals("Customer"))
                     {
+                        if(Session["CheckSession"] != null)
+                        {
+                            mailerid = Session["MailerSession"].ToString();
+                            check = null;
+                        }
                         //api/mailer/GetMailerbyCustomerID?customerid=
                         Mailer mailer = getMailerbyMailerID(mailerid).Result;
                         return View(mailer);
@@ -403,6 +408,11 @@ namespace MNPOSTWEBSITE.Controllers
                 }
                 else
                 {
+                    if(check == "true")
+                    {
+                        Session["CheckSession"] = true;
+                        Session["MailerSession"] = mailerid;
+                    }
                     return RedirectToAction("Login", "Account");
                 }
             }
@@ -412,7 +422,7 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
-        public async Task<Mailer> getMailerbyMailerID(string mailerid)
+        public async Task<Mailer> getMailerbyMailerID(string mailerid="")
         {
             Mailer mailer = new Mailer();
             string cusid = Session["CustomerID"].ToString();
@@ -440,7 +450,10 @@ namespace MNPOSTWEBSITE.Controllers
                             {
                                 Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
                             }
-                            Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+                            else
+                            {
+                                Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+                            }                            
                             return mailer;
                         }
                     }
@@ -449,7 +462,7 @@ namespace MNPOSTWEBSITE.Controllers
             return mailer;
         }
 
-        public async Task<List<Tracking>> getMailerTracking(string mailerid)
+        public async Task<List<Tracking>> getMailerTracking(string mailerid="")
         {
             List<Tracking> mailer = new List<Tracking>();
             string api = "http://noiboapi.miennampost.vn/api/track/find?mailerId=" + mailerid;
@@ -476,7 +489,10 @@ namespace MNPOSTWEBSITE.Controllers
                             {
                                 Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
                             }
-                            Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+                            else
+                            {
+                                Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
+                            }
                             return mailer;
                         }
                     }

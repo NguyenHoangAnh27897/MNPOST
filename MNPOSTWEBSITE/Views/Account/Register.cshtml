@@ -41,7 +41,7 @@
                     ĐĂNG KÝ TÀI KHOẢN
                 </span>
 
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "login100-form validate-form", role = "form" }))
+                @using (Html.BeginForm("Test", "Manage", FormMethod.Post, new { @class = "login100-form validate-form", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary()
@@ -76,8 +76,6 @@
                                             <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
                                             <label class="custom-control-label" for="customControlAutosizing">I agree with all <a href="terms.html">Terms & Conditions</a></label>
                                         </div>
-
-
                                     </div>*@
                                 <br />
                                 <div class="container-login100-form-btn">
@@ -88,7 +86,7 @@
                                         </button>
                                     </div>
                                 </div>
-                }
+                         }
             </div>
         </div>
     </div>

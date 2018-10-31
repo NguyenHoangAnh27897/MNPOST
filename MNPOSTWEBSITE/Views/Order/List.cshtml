@@ -181,6 +181,7 @@
                                     <th><i class="fa fa-home"></i> Địa chỉ người nhận</th>
                                     <th><i class="fa fa-money"></i> COD</th>
                                     <th><i class="fa fa-money"></i> Giá</th>
+                                    <th><i class="fa fa-envelope"></i>Hành trính</th>
                                     @*<th><i class="fa fa-check-square-o"></i> Chọn</th>*@
                                 </tr>
                             </thead>
@@ -197,6 +198,11 @@
                                             <td>@item.RecieverAddress</td>
                                             <td>@string.Format("{0:n0}", Convert.ToInt32(item.COD))</td>
                                             <td>@string.Format("{0:n0}", Convert.ToInt32(item.Price))</td>
+                                            <td><form action="/order/trackingmailer" method="post">
+                                                <input type="hidden" name="mailerid" value="@item.MailerID" />
+                                                <button class="btn btn-primary btn-xs" value="Tra cứu"></button>
+                                                </form>
+                                            </td>
                                             @*<td><input type="checkbox" data-id="@item.MailerID" /></td>*@
                                         </tr>
                                     }
