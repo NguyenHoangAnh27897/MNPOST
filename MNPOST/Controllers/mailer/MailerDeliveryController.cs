@@ -14,8 +14,8 @@ namespace MNPOST.Controllers.mailer
         public ActionResult Show()
         {
             ViewBag.PostOffices = EmployeeInfo.postOffices;
-            ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
-            ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
+            ViewBag.ToDate = DateTime.Now.AddDays(7).ToString("dd/MM/yyyy");
+            ViewBag.FromDate = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");
             List<CommonData> allProvince = GetProvinceDatas("", "province");
             ViewBag.Provinces = allProvince;
             ViewBag.ReturnReasons = db.BS_ReturnReasons.Select(p => new { name = p.ReasonName, code = p.ReasonID }).ToList();
@@ -30,7 +30,7 @@ namespace MNPOST.Controllers.mailer
             if (employees == null)
                 employees = new List<string>();
 
-            if(employees.Count() > 0)
+            if (employees.Count() > 0)
             {
                 allDatas = allDatas.Where(p => employees.Contains(p.EmployeeID)).ToList();
             }
@@ -43,7 +43,7 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public ActionResult GetMailerDelivery(int? page, string search, string fromDate, string toDate, string optionSeach, string postId)
+        public ActionResult GetMailerDelivery(int? page, string fromDate, string toDate, string postId, string employeeId)
         {
             int pageSize = 50;
 
@@ -87,6 +87,8 @@ namespace MNPOST.Controllers.mailer
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
 
 
         [HttpGet]
@@ -245,7 +247,7 @@ namespace MNPOST.Controllers.mailer
 
                 db.SaveChanges();
 
-              
+
                 HandleHistory.AddTracking(3, item, mailer.CurrentPostOfficeID, "Nhân viên " + employee.EmployeeName + "(" + employee.Phone + ") , đang đi phát hàng");
 
                 delivery.Quantity = delivery.Quantity + 1;
@@ -279,8 +281,8 @@ namespace MNPOST.Controllers.mailer
                     msg = "Sai thông tin"
                 }, JsonRequestBehavior.AllowGet);
 
-          
-            if(mailer.CurrentStatusID != 3)
+
+            if (mailer.CurrentStatusID != 3)
                 return Json(new ResultInfo()
                 {
                     error = 1,
@@ -288,9 +290,9 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
 
             // remove in tracking
-            var tracking = db.MM_Tracking.Where(p => p.StatusID == 3 && p.MailerID == mailer.MailerID).OrderByDescending(p=> p.CreateTime).FirstOrDefault();
+            var tracking = db.MM_Tracking.Where(p => p.StatusID == 3 && p.MailerID == mailer.MailerID).OrderByDescending(p => p.CreateTime).FirstOrDefault();
 
-            if(tracking != null)
+            if (tracking != null)
             {
                 db.MM_Tracking.Remove(tracking);
                 db.SaveChanges();
@@ -298,7 +300,7 @@ namespace MNPOST.Controllers.mailer
 
             //
             db.MM_MailerDeliveryDetail.Remove(data);
-            
+
             mailer.CurrentStatusID = 2;
             mailer.LastUpdateDate = DateTime.Now;
 
@@ -408,7 +410,7 @@ namespace MNPOST.Controllers.mailer
 
             var data = db.MAILERDELIVERY_GETMAILER_BY_ID(findLastDelivery.DocumentID, findLastDelivery.MailerID).FirstOrDefault();
 
-            if(data.CurrentStatusID != 3)
+            if (data.CurrentStatusID != 3)
             {
                 return Json(new ResultInfo()
                 {
@@ -685,110 +687,110 @@ namespace MNPOST.Controllers.mailer
 
         // update phat
         [HttpPost]
-        public ActionResult ConfirmDeliveyMailer(List<MailerDeliveryConfirmInfo> detail)
+        public ActionResult ConfirmDeliveyMailer(MailerDeliveryConfirmInfo detail)
         {
-            List<string> documents = new List<string>();
-            foreach (var item in detail)
+
+            var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == detail.DocumentID && p.MailerID == detail.MailerID).FirstOrDefault();
+
+            if (findDetail != null)
             {
-                var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == item.DocumentID && p.MailerID == item.MailerID).FirstOrDefault();
+                var mailerInfo = db.MM_Mailers.Find(findDetail.MailerID);
 
-                if (findDetail != null)
+                var findDocument = db.MM_MailerDelivery.Where(p => p.DocumentID == detail.DocumentID).FirstOrDefault();
+
+                if (findDocument == null)
                 {
-                    var mailerInfo = db.MM_Mailers.Find(findDetail.MailerID);
-
-                    var findDocument = db.MM_MailerDelivery.Where(p => p.DocumentID == item.DocumentID).FirstOrDefault();
-
-                    if (findDocument == null)
-                        continue;
-
-                    findDetail.DeliveryStatus = item.DeliveryStatus;
-                    mailerInfo.CurrentStatusID = item.DeliveryStatus;
-
-                    var deliveryDate = DateTime.ParseExact(item.DeliveryDate + " " + item.DeliveryTime, "dd/M/yyyy HH:mm", null);
-
-                    if (deliveryDate == null)
-                        deliveryDate = DateTime.Now;
-
-                    if (item.DeliveryStatus == 5)
+                    return Json(new ResultInfo()
                     {
-                        var findReason = db.BS_ReturnReasons.Where(p => p.ReasonID == item.ReturnReasonID).FirstOrDefault();
+                        error = 1,
+                        msg = "Sai thông tin"
+                    }, JsonRequestBehavior.AllowGet);
+                }
 
-                        findDetail.DeliveryTo = "";
-                        findDetail.DeliveryNotes = findReason.ReasonName;
-                        findDetail.ReturnReasonID = item.ReturnReasonID;
-                        findDetail.DeliveryDate = deliveryDate;
+                findDetail.DeliveryStatus = detail.DeliveryStatus;
+                mailerInfo.CurrentStatusID = detail.DeliveryStatus;
+
+                var deliveryDate = DateTime.ParseExact(detail.DeliveryDate + " " + detail.DeliveryTime, "dd/M/yyyy HH:mm", null);
+
+                if (deliveryDate == null)
+                    deliveryDate = DateTime.Now;
+
+                if (detail.DeliveryStatus == 5)
+                {
+                    var findReason = db.BS_ReturnReasons.Where(p => p.ReasonID == detail.ReturnReasonID).FirstOrDefault();
+
+                    findDetail.DeliveryTo = "";
+                    findDetail.DeliveryNotes = findReason.ReasonName;
+                    findDetail.ReturnReasonID = detail.ReturnReasonID;
+                    findDetail.DeliveryDate = deliveryDate;
 
 
-                        mailerInfo.DeliveryTo = "";
-                        mailerInfo.DeliveryDate = deliveryDate;
-                        mailerInfo.DeliveryNotes = findReason.ReasonName;
+                    mailerInfo.DeliveryTo = "";
+                    mailerInfo.DeliveryDate = deliveryDate;
+                    mailerInfo.DeliveryNotes = findReason.ReasonName;
 
-                        HandleHistory.AddTracking(5, item.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
-                    }
-                    else if (item.DeliveryStatus == 6)
+                    HandleHistory.AddTracking(5, detail.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
+                }
+                else if (detail.DeliveryStatus == 6)
+                {
+                    findDetail.DeliveryTo = "";
+                    findDetail.DeliveryNotes = detail.DeliveryNotes;
+                    findDetail.DeliveryDate = deliveryDate;
+
+                    mailerInfo.DeliveryTo = "";
+                    mailerInfo.DeliveryDate = deliveryDate;
+                    mailerInfo.DeliveryNotes = detail.DeliveryNotes;
+
+                    HandleHistory.AddTracking(6, detail.MailerID, mailerInfo.CurrentPostOfficeID, "Chưa phát được vì " + detail.DeliveryNotes);
+                }
+                else if (detail.DeliveryStatus == 4)
+                {
+                    findDetail.DeliveryTo = detail.DeliveryTo;
+                    findDetail.ReturnReasonID = null;
+                    findDetail.DeliveryNotes = "Đã phát";
+                    findDetail.DeliveryDate = deliveryDate;
+
+                    mailerInfo.DeliveryTo = detail.DeliveryTo;
+                    mailerInfo.DeliveryDate = deliveryDate;
+                    mailerInfo.DeliveryNotes = "Đã phát";
+
+                    HandleHistory.AddTracking(4, detail.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày phát " + deliveryDate.ToString("dd/MM/yyyy") + " lúc " + deliveryDate.ToString("HH:mm") + ", người nhận: " + detail.DeliveryTo);
+                    // save nhung don co thu tien COD
+                    if (mailerInfo.COD > 0)
                     {
-                        findDetail.DeliveryTo = "";
-                        findDetail.DeliveryNotes = item.DeliveryNotes;
-                        findDetail.DeliveryDate = deliveryDate;
-
-                        mailerInfo.DeliveryTo = "";
-                        mailerInfo.DeliveryDate = deliveryDate;
-                        mailerInfo.DeliveryNotes = item.DeliveryNotes;
-
-                        HandleHistory.AddTracking(6, item.MailerID, mailerInfo.CurrentPostOfficeID, "Chưa phát được vì " + item.DeliveryNotes);
-                    }
-                    else if (item.DeliveryStatus == 4)
-                    {
-                        findDetail.DeliveryTo = item.DeliveryTo;
-                        findDetail.ReturnReasonID = null;
-                        findDetail.DeliveryNotes = "Đã phát";
-                        findDetail.DeliveryDate = deliveryDate;
-
-                        mailerInfo.DeliveryTo = item.DeliveryTo;
-                        mailerInfo.DeliveryDate = deliveryDate;
-                        mailerInfo.DeliveryNotes = "Đã phát";
-
-                        HandleHistory.AddTracking(4, item.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày phát " + deliveryDate.ToString("dd/MM/yyyy") + " lúc " + deliveryDate.ToString("HH:mm") + ", người nhận: " + item.DeliveryTo);
-                        // save nhung don co thu tien COD
-                        if (mailerInfo.COD > 0)
+                        var saveCoDDebit = new EmpployeeDebitCOD()
                         {
-                            var saveCoDDebit = new EmpployeeDebitCOD()
-                            {
-                                Id = Guid.NewGuid().ToString(),
-                                AccountantConfirm = 0,
-                                COD = Convert.ToDouble(mailerInfo.COD),
-                                ConfirmDate = DateTime.Now,
-                                CreateDate = DateTime.Now,
-                                DocumentID = item.DocumentID,
-                                EmployeeID = findDocument.EmployeeID,
-                                MailerID = mailerInfo.MailerID
-                            };
+                            Id = Guid.NewGuid().ToString(),
+                            AccountantConfirm = 0,
+                            COD = Convert.ToDouble(mailerInfo.COD),
+                            ConfirmDate = DateTime.Now,
+                            CreateDate = DateTime.Now,
+                            DocumentID = detail.DocumentID,
+                            EmployeeID = findDocument.EmployeeID,
+                            MailerID = mailerInfo.MailerID
+                        };
 
-                            db.EmpployeeDebitCODs.Add(saveCoDDebit);
-                        }
-                    }
-
-
-                    db.Entry(mailerInfo).State = System.Data.Entity.EntityState.Modified;
-                    db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-
-                    if (!documents.Contains(findDetail.DocumentID))
-                    {
-                        documents.Add(findDetail.DocumentID);
+                        db.EmpployeeDebitCODs.Add(saveCoDDebit);
                     }
                 }
-            }
 
-            foreach (var item in documents)
-            {
-                UpdateDeliveryStatus(item);
+
+                db.Entry(mailerInfo).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                UpdateDeliveryStatus(findDetail.DocumentID);
+
+                return Json(new ResultInfo()
+                {
+                    error = 0,
+                    msg = ""
+                }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new ResultInfo()
             {
-                error = 0,
-                msg = ""
+                error = 1,
+                msg = "Sai thông tin"
             }, JsonRequestBehavior.AllowGet);
         }
 

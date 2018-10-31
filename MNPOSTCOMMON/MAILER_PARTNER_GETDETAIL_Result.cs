@@ -15,40 +15,40 @@ namespace MNPOSTCOMMON
     {
         public string DocumentID { get; set; }
         public string MailerID { get; set; }
-        public Nullable<decimal> COD { get; set; }
-        public string RecieverAddress { get; set; }
-        public string RecieverProvinceID { get; set; }
-        public string RecieverPhone { get; set; }
-        public string RecieverName { get; set; }
-        public string RecieverDistrictID { get; set; }
-        public Nullable<int> CurrentStatusID { get; set; }
+        public string PostOfficeAcceptID { get; set; }
         public string SenderID { get; set; }
         public string SenderName { get; set; }
         public string SenderAddress { get; set; }
-        public string SenderPhone { get; set; }
-        public string MailerDescription { get; set; }
-        public string Notes { get; set; }
-        public Nullable<double> Weight { get; set; }
-        public string MailerTypeID { get; set; }
-        public string OrderReference { get; set; }
-        public Nullable<double> OrderCosst { get; set; }
-        public Nullable<int> StatusID { get; set; }
-        public string PostOfficeAcceptID { get; set; }
         public string SenderWardID { get; set; }
         public string SenderDistrictID { get; set; }
         public string SenderProvinceID { get; set; }
+        public string SenderPhone { get; set; }
+        public string RecieverName { get; set; }
+        public string RecieverAddress { get; set; }
         public string RecieverWardID { get; set; }
+        public string RecieverDistrictID { get; set; }
+        public string RecieverProvinceID { get; set; }
+        public string RecieverPhone { get; set; }
         public string AcceptDate { get; set; }
         public string AcceptTime { get; set; }
+        public string MailerTypeID { get; set; }
         public Nullable<int> Quantity { get; set; }
+        public Nullable<double> Weight { get; set; }
         public Nullable<double> ReWeight { get; set; }
         public Nullable<decimal> PriceDefault { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> PriceService { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public string PaymentMethodID { get; set; }
+        public string MailerDescription { get; set; }
+        public Nullable<int> CurrentStatusID { get; set; }
         public string CurrentPostOfficeID { get; set; }
         public string MerchandiseID { get; set; }
+        public string Notes { get; set; }
+        public Nullable<decimal> COD { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
+        public string OrderReference { get; set; }
+        public Nullable<double> OrderCosst { get; set; }
+        public Nullable<int> StatusID { get; set; }
     }
 }

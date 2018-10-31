@@ -16,8 +16,7 @@ namespace MNPOSTCOMMON
         public string DistrictID { get; set; }
         public string DistrictName { get; set; }
         public string ProvinceID { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<System.DateTime> CreationDate { get; set; }
+        public string DistrictValue { get; set; }
+        public string DistrictCode { get; set; }
     }
 }

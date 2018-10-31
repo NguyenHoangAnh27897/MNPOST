@@ -209,7 +209,6 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\mailer\MailerController.cs" />
-    <Compile Include="Controllers\mailer\MailerDeliveryConfirmController.cs" />
     <Compile Include="Controllers\mailer\MailerDeliveryController.cs" />
     <Compile Include="Controllers\mailer\MailerImportController.cs" />
     <Compile Include="Controllers\mailer\MailerInitController.cs" />

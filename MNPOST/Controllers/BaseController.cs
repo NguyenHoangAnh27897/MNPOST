@@ -277,5 +277,16 @@ namespace MNPOST.Controllers
             }).ToList();
 
         }
+
+        protected List<EmployeeInfoCommon> GetEmployeeByPost(string postId)
+        {
+            return db.BS_Employees.Where(p => p.PostOfficeID == postId && p.IsActive == true).Select(p => new EmployeeInfoCommon()
+            {
+                code = p.EmployeeID,
+                name = p.EmployeeName,
+                email = p.Email,
+                phone = p.Phone
+            }).ToList();
+        }
     }
 }

@@ -337,7 +337,7 @@ namespace MNPOST.Controllers.mailer
                         var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
 
 
-                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd"));
                         var codPrice = 0;
 
                         otherPrice += codPrice;

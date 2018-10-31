@@ -218,7 +218,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.getData();
             $scope.sendGetEmployees();
             $scope.sendGetTakeMailers();
-            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers(); }, 1000 * 30);
+            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers(); }, 1000 * 60);
         } else {
             showModelFix('choosePostOfficeModal');
         }

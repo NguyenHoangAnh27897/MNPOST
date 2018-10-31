@@ -71,5 +71,8 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public string DeliveryNotes { get; set; }
         public Nullable<int> CreateType { get; set; }
+        public string ThirdpartyCode { get; set; }
+        public string ThirdpartyID { get; set; }
+        public string StatusNotes { get; set; }
     }
 }
