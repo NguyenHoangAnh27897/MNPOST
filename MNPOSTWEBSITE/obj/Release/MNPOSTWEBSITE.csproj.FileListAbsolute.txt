@@ -42,8 +42,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\MNPOSTWEBSITEMODEL.dll.conf
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\EntityFramework.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\EntityFramework.SqlServer.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\Newtonsoft.Json.xml
-C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\PagedList.xml
-C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\PagedList.Mvc.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\System.Net.Http.Formatting.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\System.Web.Helpers.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.xml

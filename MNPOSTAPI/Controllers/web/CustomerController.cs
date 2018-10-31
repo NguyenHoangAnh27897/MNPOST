@@ -90,11 +90,15 @@ namespace MNPOSTAPI.Controllers.web
 
                 if (data == null)
                     throw new Exception("Sai du lieu gui len");
-                MNPOSTWEBSITE.Models.RegisterViewModel md = new MNPOSTWEBSITE.Models.RegisterViewModel();
-                md.UserName = data.UserName;
-                md.Password = data.PasswordHash;
-                MNPOSTWEBSITE.Controllers.AccountController acc = new MNPOSTWEBSITE.Controllers.AccountController();
-                await acc.Register(md, data.FullName, data.Phone);
+                //MNPOSTWEBSITE.Models.RegisterViewModel md = new MNPOSTWEBSITE.Models.RegisterViewModel();
+                //md.UserName = data.UserName;
+                //md.Password = data.PasswordHash;
+                //MNPOSTWEBSITE.Controllers.AccountController acc = new MNPOSTWEBSITE.Controllers.AccountController();
+                //await acc.Register(md, data.FullName, data.Phone);
+                data.Id = Guid.NewGuid().ToString();
+                data.CreatedDate = DateTime.Now;
+                dbws.AspNetUsers.Add(data);
+                dbws.SaveChanges();
             }
             catch (Exception e)
             {

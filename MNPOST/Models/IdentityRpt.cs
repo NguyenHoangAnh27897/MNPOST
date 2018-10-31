@@ -23,5 +23,10 @@ namespace MNPOST.Models
         public string RecieverProvinceID { get; set; }
         public string RecieverPhone { get; set; }
         public string EmployeeAcceptID { get; set; }
+        public string SenderProvinceName { get; set; }
+        public string SenderDistrictName { get; set; }
+        public string ReceiverProvinceName { get; set; }
+        public string ReceiverDistrictName { get; set; }
+        public string PostOfficeName { get; set; }
     }
 }

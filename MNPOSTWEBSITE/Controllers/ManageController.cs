@@ -50,6 +50,30 @@ namespace MNPOSTWEBSITE.Controllers
 
         }
 
+        public ActionResult PassValue()
+        {
+            if (Session["Authentication"] != null)
+            {
+                try
+                {
+                    string id = Session["ID"].ToString();
+                    var cusid = db.AspNetUsers.Where(s => s.Id == id).FirstOrDefault().IDClient;
+                    Session["CustomerID"] = getcusinfo(cusid).Result.CustomerCode;
+                    return RedirectToAction("SearchMailer", "Order");
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("ErrorPage", "Error");
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+        }
+
         public async Task<CustomerInfo> getcusinfo(string cusid)
         {
             CustomerInfo cus = new CustomerInfo();
@@ -608,6 +632,26 @@ namespace MNPOSTWEBSITE.Controllers
             {
                 return RedirectToAction("ErrorPage", "Error");
             }
+        }
+
+        public async Task<ActionResult> Test(string Fullname, string Phone, RegisterViewModel model)
+        {
+            AspNetUser cus = new AspNetUser
+            {
+                FullName = Fullname,
+                Phone = Phone,
+                UserName = model.UserName,
+                PasswordHash = model.Password,
+            };
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
+            string api = "http://localhost:1519/api/customer/AddCustomerFromWebsite";
+            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
+            if (response.IsSuccessStatusCode)
+            {
+                Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

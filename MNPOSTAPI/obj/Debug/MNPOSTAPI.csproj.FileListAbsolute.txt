@@ -269,7 +269,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\CrystalDecisions.ReportAppServe
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\stdole.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.pdb
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.dll.config
-C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\PagedList.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTAPI.pdb
@@ -371,3 +370,7 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITEMODEL.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITEMODEL.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.dll.config
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.Web.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.Web.xml

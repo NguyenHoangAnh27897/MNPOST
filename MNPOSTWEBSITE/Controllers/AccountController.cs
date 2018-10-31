@@ -71,6 +71,10 @@ namespace MNPOSTWEBSITE.Controllers
                             Session["RoleID"] = db.AspNetRoles.Where(s => s.Id == idrole).FirstOrDefault().Name;
                             Session["Authentication"] = "True";
                             await SignInAsync(user, model.RememberMe);
+                            if(Session["CheckSession"] != null)
+                            {
+                            return RedirectToAction("PassValue", "Manage");
+                            }
                             return RedirectToAction("Index","Manage");
                         }else
                         {

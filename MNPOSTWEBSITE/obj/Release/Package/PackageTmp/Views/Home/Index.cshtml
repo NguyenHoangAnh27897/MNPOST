@@ -90,6 +90,7 @@
                                 <div class="textwidget">
                                     <form class="home-lookup _form first_form form_element" style="display: block; margin: 0 35px;" action="/order/searchmailer" target="_blank" method="get" role="search">
                                         <input class="home-lookup _text" style=" border-radius: 5px;" name="mailerid" required="required" type="text" autofocus="" placeholder="Nhập số phiếu gửi của bạn" />
+                                        <input type="hidden" name="check" value="true" />
                                         <button class="avia_iconbox_title avia-button avia-color-custom avia-size-small avia-position-center" style="background-color: #f6a81e; border: #f6a81e; color: #ffffff;" type="submit">TRA CỨU</button>
                                     </form>
                                 </div>
@@ -103,15 +104,24 @@
                     <div class='avia-smallarrow-slider-heading  no-logo-slider-heading '></div><div class='avia-content-slider-inner'>
                         <div class='slide-entry-wrap' itemscope="itemscope" itemtype="https://schema.org/ImageObject">
                             <div class='slide-entry flex_column no_margin post-entry slide-entry-overview slide-loop-1 slide-parity-odd  post-entry-last  av_fullwidth first real-thumbnail'>
-                                <div class="col-lg-6">
-                                    <div style='padding-bottom:10px;color:#ffffff;' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-2  el_before_av_button  avia-builder-el-first   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn là khách hàng mới?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
-                                    <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/register' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG KÝ</span></a></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div style='padding-bottom:10px; color:#ffffff; margin-top:30px' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-4  el_after_av_button  el_before_av_button   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn đã có tài khoản?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
-                                    <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/login' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG NHẬP</span></a></div>
-                                </div>
-
+                                @if (Session["Authentication"] != null)
+                                {
+                                    <div class="col-lg-12">
+                                        <h2 style="color:#ffffff; text-align:center">Xin chào @Session["Username"]</h2><br />
+                                        <a class="avia_iconbox_title avia-button avia-color-custom avia-size-small avia-position-center" style="background-color: #f6a81e; border: #f6a81e; color: #ffffff; margin-left:150px" href="/account/logoff">Thoát</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-lg-6">
+                                        <div style='padding-bottom:10px;color:#ffffff;' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-2  el_before_av_button  avia-builder-el-first   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn là khách hàng mới?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
+                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/register' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG KÝ</span></a></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div style='padding-bottom:10px; color:#ffffff; margin-top:30px' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-4  el_after_av_button  el_before_av_button   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn đã có tài khoản?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
+                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/login' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG NHẬP</span></a></div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

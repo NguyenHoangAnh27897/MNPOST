@@ -25,16 +25,21 @@ namespace MNPOST.Report.Viewer
         private void LoadReport()
         {
 
-            var mailer = db.MAILER_GETINFO_BYLISTID(searchText).Select(p=> new MailerRpt()
+            var mailer = db.MAILER_GETINFO_BYLISTID1(searchText).Select(p=> new MailerRpt()
             {
                 SenderName = p.SenderName,
-                MailerID = p.MailerID,
+                MailerID = "*"+ p.MailerID +"*",
                 SenderID = p.SenderID,
                 SenderPhone = p.SenderPhone,
                 SenderAddress = p.SenderAddress,
                 RecieverName = p.RecieverName,
                 RecieverAddress = p.RecieverAddress,
-                RecieverPhone = p.RecieverPhone
+                RecieverPhone = p.RecieverPhone,
+                ReceiverDistrictName = p.ReceiverDistrictName,
+                ReceiverProvinceName = p.ReceiverProvinceName,
+                SenderDistrictName = p.SenderDistrictName,
+                SenderProvinceName = p.SenderProvinceName,
+                PostOfficeName = p.PostOfficeName
             }).ToList();
 
             if (mailer == null)
