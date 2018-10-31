@@ -14,7 +14,7 @@
                     <button type="button" class="btn btn-success" ng-click="sendUpdateTake()" ng-init="updateTake=false" ng-show="updateTake">XÁC NHẬN ĐÃ LẤY HÀNG</button>
                     <button type="button" class="btn btn-danger" ng-click="takeMailers()" ng-show="customerSearch.SenderID!=='' && tabds">LẤY HÀNG</button>
                     <button type="button" class="btn btn-primary" ng-click="sendImport()"  ng-show="tabds">NHẬP KHO</button>
-                   
+                    <button class="btn btn-info" ng-show="tabds" ng-click="printMailers()">Print</button>
                     <button type="button" class="btn btn-warning" ng-click="refeshData()" >TẢI LẠI</button>
                     <button type="button" class="btn btn-danger" ng-click="cancelMailer()" ng-show="findCheck()" title="Hủy đơn" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Hủy không nhận phát">HỦY ĐƠN</button>
                 </div>

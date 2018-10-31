@@ -1036,6 +1036,9 @@
     <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
       <Parameter Name="mailers" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="MAILER_GETTRACKING_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_BY_MAILERID_Result)">
+      <Parameter Name="mailerId" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -1904,5 +1907,16 @@
     <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="StatusNotes" Nullable="true" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="MAILER_GETTRACKING_BY_MAILERID_Result">
+    <Property Type="String" Name="MailerID" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="StatusID" Nullable="true" />
+    <Property Type="String" Name="StatusName" Nullable="true" />
+    <Property Type="String" Name="StatusDescribe" Nullable="true" />
+    <Property Type="String" Name="Describe" Nullable="true" />
+    <Property Type="String" Name="PostOffice" Nullable="true" />
+    <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="StatusDate" Nullable="true" Precision="23" />
   </ComplexType>
 </Schema>

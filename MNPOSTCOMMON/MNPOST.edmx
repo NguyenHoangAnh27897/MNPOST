@@ -1016,6 +1016,9 @@
         <Function Name="MAILER_GETTRACKING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="MAILER_GETTRACKING_BY_MAILERID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="MAILER_PARTNER_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fromDate" Type="varchar" Mode="In" />
           <Parameter Name="toDate" Type="varchar" Mode="In" />
@@ -2228,6 +2231,9 @@
           <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
           <Parameter Name="mailers" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="MAILER_GETTRACKING_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_BY_MAILERID_Result)">
+            <Parameter Name="mailerId" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -3096,6 +3102,17 @@
           <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="StatusNotes" Nullable="true" />
           <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="MAILER_GETTRACKING_BY_MAILERID_Result">
+          <Property Type="String" Name="MailerID" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="String" Name="StatusName" Nullable="true" />
+          <Property Type="String" Name="StatusDescribe" Nullable="true" />
+          <Property Type="String" Name="Describe" Nullable="true" />
+          <Property Type="String" Name="PostOffice" Nullable="true" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="StatusDate" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4919,6 +4936,21 @@
                 <ScalarProperty Name="ThirdpartyCode" ColumnName="ThirdpartyCode" />
                 <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_GETTRACKING_BY_MAILERID" FunctionName="MNPOSTModel.Store.MAILER_GETTRACKING_BY_MAILERID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GETTRACKING_BY_MAILERID_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusDescribe" ColumnName="StatusDescribe" />
+                <ScalarProperty Name="Describe" ColumnName="Describe" />
+                <ScalarProperty Name="PostOffice" ColumnName="PostOffice" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

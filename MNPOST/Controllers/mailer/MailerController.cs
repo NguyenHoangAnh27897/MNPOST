@@ -19,9 +19,39 @@ namespace MNPOST.Controllers.mailer
         public ActionResult ShowMailer()
         {
             ViewBag.PostOffices = EmployeeInfo.postOffices;
+            var customers = db.BS_Customers.Select(p => new {
+                name = p.CustomerName,
+                code = p.CustomerCode,
+                address = p.Address,
+                phone = p.Phone
+            }).ToList();
 
-            ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
-            ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
+            // dịch vu
+
+            ViewBag.MailerTypes = db.BS_ServiceTypes.Select(p => new CommonData()
+            {
+                code = p.ServiceID,
+                name = p.ServiceName
+            }).ToList();
+
+            // hinh thuc thanh toan
+            ViewBag.Payments = db.CDatas.Where(p => p.CType == "MAILERPAY").Select(p => new CommonData() { code = p.Code, name = p.Name }).ToList();
+
+
+            // danh sach phu phi
+            ViewBag.Services = db.BS_Services.Select(p => new ItemPriceCommon()
+            {
+                code = p.ServiceID,
+                name = p.ServiceName,
+                price = p.Price,
+                choose = false
+
+            }).ToList(); ;
+
+            // tinh thanh
+            ViewBag.Provinces = GetProvinceDatas("", "province");
+
+            ViewBag.AllCustomer = customers;
 
             return View();
         }
@@ -33,7 +63,7 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public JsonResult GetMailers(int? page, string search, string fromDate, string toDate, int status, string postId)
+        public JsonResult GetMailers(int? page, string search, string fromDate, string toDate, int status, string postId, string customerId)
         {
             int pageSize = 50;
 
@@ -53,7 +83,7 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + search + "%").ToList();
+            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + search + "%").Where(p=> p.SenderID.Contains(customerId)).ToList();
 
             if (status != -1)
             {
@@ -111,7 +141,7 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GetTracking(string mailerId)
         {
-            var data = db.MAILER_GETTRACKING(mailerId).ToList();
+            var data = db.MAILER_GETTRACKING_BY_MAILERID(mailerId).ToList();
 
             return Json(new ResultInfo()
             {
