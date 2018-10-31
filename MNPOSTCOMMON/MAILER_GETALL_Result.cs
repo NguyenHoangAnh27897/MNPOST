@@ -46,5 +46,13 @@ namespace MNPOSTCOMMON
         public string Notes { get; set; }
         public Nullable<decimal> COD { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
+        public string ThirdpartyCode { get; set; }
+        public string ThirdpartyDocID { get; set; }
+        public Nullable<decimal> ThirdpartyCost { get; set; }
+        public string DeliveryNotes { get; set; }
+        public string DeliveryTo { get; set; }
+        public string StatusNotes { get; set; }
+        public string DeliveryDate { get; set; }
+        public string DeliveryTime { get; set; }
     }
 }

@@ -68,7 +68,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_EmployeeDebitVoucherDetails> MM_EmployeeDebitVoucherDetails { get; set; }
         public virtual DbSet<MM_History> MM_History { get; set; }
         public virtual DbSet<MM_MailerDelivery> MM_MailerDelivery { get; set; }
-        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
         public virtual DbSet<MM_Mailers> MM_Mailers { get; set; }
         public virtual DbSet<MM_MailerServices> MM_MailerServices { get; set; }
         public virtual DbSet<MM_PackingList> MM_PackingList { get; set; }
@@ -89,6 +88,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_MailerPartnerDetail> MM_MailerPartnerDetail { get; set; }
         public virtual DbSet<MM_MailerPartner> MM_MailerPartner { get; set; }
         public virtual DbSet<BS_PartnerMapInfo> BS_PartnerMapInfo { get; set; }
+        public virtual DbSet<MM_TrackingPartner> MM_TrackingPartner { get; set; }
+        public virtual DbSet<MM_MailerDeliveryDetail> MM_MailerDeliveryDetail { get; set; }
     
         public virtual ObjectResult<AC_CODDEBITVOUCHER_BYCUSTOMERID_Result> AC_CODDEBITVOUCHER_BYCUSTOMERID(string customerid, string fromdate, string todate)
         {
@@ -258,15 +259,6 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("mailerId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYID_Result>("MAILER_GETINFO_BYID", mailerIdParameter);
-        }
-    
-        public virtual int MAILER_GETINFO_BYLISTID(string mailers)
-        {
-            var mailersParameter = mailers != null ?
-                new ObjectParameter("mailers", mailers) :
-                new ObjectParameter("mailers", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("MAILER_GETINFO_BYLISTID", mailersParameter);
         }
     
         public virtual ObjectResult<MAILERDELIVERY_GETMAILER_Result> MAILERDELIVERY_GETMAILER(string documentID)
@@ -549,5 +541,38 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<REPORT_EMPLOYEE_DEBIT_COD_Result>("REPORT_EMPLOYEE_DEBIT_COD", postIdParameter);
         }
+    
+        [DbFunction("MNPOSTEntities", "SplitList")]
+        public virtual IQueryable<string> SplitList(string list, string separator)
+        {
+            var listParameter = list != null ?
+                new ObjectParameter("list", list) :
+                new ObjectParameter("list", typeof(string));
+    
+            var separatorParameter = separator != null ?
+                new ObjectParameter("separator", separator) :
+                new ObjectParameter("separator", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[MNPOSTEntities].[SplitList](@list, @separator)", listParameter, separatorParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GETINFO_BYLISTID_Result> MAILER_GETINFO_BYLISTID(string mailers)
+        {
+            var mailersParameter = mailers != null ?
+                new ObjectParameter("mailers", mailers) :
+                new ObjectParameter("mailers", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYLISTID_Result>("MAILER_GETINFO_BYLISTID", mailersParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GETINFO_BYLISTID1_Result> MAILER_GETINFO_BYLISTID1(string mailers)
+        {
+            var mailersParameter = mailers != null ?
+                new ObjectParameter("mailers", mailers) :
+                new ObjectParameter("mailers", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GETINFO_BYLISTID1_Result>("MAILER_GETINFO_BYLISTID", mailersParameter);
+        }
+
     }
 }

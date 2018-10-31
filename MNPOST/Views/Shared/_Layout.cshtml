@@ -208,6 +208,12 @@
 
 
     <script src="~/Scripts/myscripts.js"></script>
+   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
 
     @RenderSection("Scripts", false)
 

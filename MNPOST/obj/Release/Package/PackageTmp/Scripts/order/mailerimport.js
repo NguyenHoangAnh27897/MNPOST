@@ -5,7 +5,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     $scope.select2Options = {
         width: 'element'
     };
-
+    $scope.tabds = true;
     $scope.mailers = [];
 
     $scope.dateimport = currentDate;
@@ -50,6 +50,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
         }
     };
+
 
     function getSelectedIndex(mailerId) {
         for (var i = 0; i < $scope.mailers.length; i++)
@@ -109,6 +110,50 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     };
 
+    $scope.cancelMailer = function () {
+        showModel('cancelMailerModal');
+    };
+
+    $scope.findCheck = function () {
+        for (i = 0; i < $scope.mailers.length; i++) {
+            if ($scope.mailers[i].isCheck) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    $scope.finishCancalMailer = function () {
+
+        var listSends = [];
+        for (i = 0; i < $scope.mailers.length; i++) {
+            if ($scope.mailers[i].isCheck) {
+                listSends.push($scope.mailers[i].MailerID);
+            }
+        }
+        showLoader(true);
+        $http({
+            method: "POST",
+            url: "/MailerImport/CancelMailers",
+            data: {
+                mailers: listSends,
+                reason: $scope.reasonCancel
+            }
+
+        }).then(function sucess(response) {
+            showLoader(false);
+
+            $scope.getData();
+
+        }, function error() {
+            showNotify("connect has disconnect");
+            showLoader(false);
+
+        });
+
+    };
+
     $scope.addMailerImport = function (isValid) {
 
         if (isValid) {
@@ -128,7 +173,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                         postId: $scope.postHandle
                     }
                 }).then(function sucess(response) {
-                   // $scope.mailers.shift(findIndex);
+                    // $scope.mailers.shift(findIndex);
                     $scope.getData();
                     $scope.mailerId = '';
                 }, function error(response, error) {
@@ -153,7 +198,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             $scope.getData();
             $scope.sendGetEmployees();
             $scope.sendGetTakeMailers();
-            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers();}, 1000*30);
+            $interval(function () { $scope.getData(); $scope.sendGetTakeMailers(); }, 1000 * 30);
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -168,7 +213,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.sendGetEmployees = function () {
 
-        $http.get("/MailerImport/GetEmployee?postId=" + $scope.postHandle ).then(function (response) {
+        $http.get("/MailerImport/GetEmployee?postId=" + $scope.postHandle).then(function (response) {
 
             $scope.employees = response.data;
         });
@@ -299,7 +344,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         $scope.takeInfo = $scope.takeMailerDatas[idx];
 
         $http.get('/mailerimport/showtakedetail?documentID=' + documentID).then(function (response) {
-             $scope.updateTake = true;
+            $scope.updateTake = true;
             $scope.takeDetailDatas = response.data;
 
         });
@@ -308,7 +353,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
 
 
-    $scope.sendUpdateTake= function () {
+    $scope.sendUpdateTake = function () {
         showLoader(true);
         var listSends = [];
         for (i = 0; i < $scope.takeDetailDatas.length; i++) {

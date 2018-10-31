@@ -74,10 +74,13 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             listMailers = listMailers.substr(1);
         }
 
-        $scope.reportUrl = "/mailer/ShowReportMailer?mailers=" + listMailers;
-        document.getElementById('framereport').contentDocument.location.reload(true);
-        showModel('showreport');
 
+        if (listMailers === '') {
+            showNotify("Phải chọn vận đơn để in");
+        } else {
+            window.open("/Report/Viewer/MailerPrint.aspx?mailer=" + listMailers, "_blank");
+        }
+        
     };
 
     $scope.tracks = [];

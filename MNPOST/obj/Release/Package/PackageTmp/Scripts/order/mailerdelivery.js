@@ -192,31 +192,22 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     // xư ly bang ke
     $scope.createDelivery = function () {
-
+        $scope.createDeliveryInfo = { deliveryDate: currentDate, postId: $scope.postHandle, licensePlate: '' };
         showModel('createDelivery');
 
     };
-
+    $scope.createDeliveryInfo = {};
     $scope.finishCreateDelivery = function () {
-        var employeeId = $('#chooseEmployeeSelect').val();
-        var licensePlateCode = $('#licenseplateChoose').val();
-        var notes = $('#deliveryNotes').val();
-        var date = $('#deliveryDate').val();
+
         showLoader(true);
         $http({
             method: "POST",
             url: "/mailerdelivery/create",
-            data: {
-                employeeId: employeeId,
-                deliveryDate: date,
-                licensePlate: licensePlateCode,
-                notes: notes,
-                postId: $scope.postHandle
-            }
+            data: $scope.createDeliveryInfo
         }).then(function sucess(response) {
             showLoader(false);
             if (response.data.error === 0) {
-                $scope.allDeliveries.unshift(response.data.data);
+                resfeshData();
                 hideModel('createDelivery');
             } else {
                 alert(response.data.msg);
@@ -230,6 +221,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     };
 
+
+    var resfeshData = function () {
+        $scope.GetData();
+        $scope.getReportEmployeeDelivery();
+    };
 
     // xu ly chi tiet
     $scope.currentDocument = {};
@@ -301,6 +297,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         }).then(function success(response) {
             showLoader(false);
             $scope.getDocumentDetail();
+            resfeshData();
             showNotify('Đã xóa');
 
         }, function error(response) {
@@ -433,7 +430,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                 showNotify('Đã cập nhật phát');
                 $scope.mailers = [];
                 $scope.currentDocument = {};
-                $scope.GetData();
+                resfeshData();
 
             }, function error(response) {
                 showLoader(false);
@@ -506,10 +503,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             }
         }).then(function sucess(response) {
 
-            for (var i = 0; i < response.data.length; i++) {
-                $scope.allDeliveries.unshift(response.data[i]);
-
-            }
+            resfeshData();
             showLoader(false);
             hideModel('autoRoutes');
         }, function error(response) {
@@ -627,7 +621,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                 showNotifyWarm(result.msg);
             } else {
                 $scope.getDocumentDetail();
-                $scope.GetData();
+                resfeshData();
             }
 
         }, function error(response) {

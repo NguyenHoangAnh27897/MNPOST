@@ -195,6 +195,32 @@ namespace MNPOST.Controllers.mailer
 
         }
 
+        [HttpPost]
+        public ActionResult CancelMailers(List<string> mailers, string reason)
+        {
+            foreach(var item in mailers)
+            {
+                var findMailer = db.MM_Mailers.Find(item);
+
+                if(findMailer != null && findMailer.CurrentStatusID == 0)
+                {
+                    // moi tao moi dc huy
+                    findMailer.CurrentStatusID = 10;
+                    findMailer.LastUpdateDate = DateTime.Now;
+                    findMailer.StatusNotes = reason;
+                    db.Entry(findMailer).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
+                    HandleHistory.AddTracking(10, item, findMailer.CurrentPostOfficeID, "Hủy đơn với lý do " + reason);
+                }
+            }
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = ""
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult UpdateTakeDetails(string documentID, List<string> mailers)

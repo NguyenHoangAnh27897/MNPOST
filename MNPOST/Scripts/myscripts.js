@@ -159,7 +159,7 @@ $(document).ready(function () {
 
 
 //
-var mailerStatusData = [{ "code": 0, "name": "KHỞI TẠO" }, { "code": 1, "name": "ĐANG GỬI LIÊN TUYÊN" }, { "code": 2, "name": "ĐÃ NHẬN" }, { "code": 3, "name": "ĐANG PHÁT" }, { "code": 4, "name": "ĐÃ PHÁT" }, { "code": 5, "name": "CHUYỂN HOÀN" }, { "code": 6, "name": "CHƯA PHÁT ĐƯỢC" }, { "code": 7, "name": "ĐANG ĐI LẤY HÀNG" }, { "code": 8, "name": "ĐÃ LẤY HÀNG" }, { "code": 9, "name": "GIAO ĐỐI TÁC PHÁT" }];
+var mailerStatusData = [{ "code": 0, "name": "KHỞI TẠO" }, { "code": 1, "name": "ĐANG GỬI LIÊN TUYÊN" }, { "code": 2, "name": "ĐÃ NHẬN" }, { "code": 3, "name": "ĐANG PHÁT" }, { "code": 4, "name": "ĐÃ PHÁT" }, { "code": 5, "name": "CHUYỂN HOÀN" }, { "code": 6, "name": "CHƯA PHÁT ĐƯỢC" }, { "code": 7, "name": "ĐANG ĐI LẤY HÀNG" }, { "code": 8, "name": "ĐÃ LẤY HÀNG" }, { "code": 9, "name": "GIAO ĐỐI TÁC PHÁT" }, { "code": 10, "name": "HỦY ĐƠN" }];
 var deliveryStatusData = [
     {
         "code": "0",

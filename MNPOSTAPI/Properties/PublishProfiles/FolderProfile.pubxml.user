@@ -99,20 +99,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/MNPOSTAPI.dll">
 <<<<<<< HEAD
+      <publishTime>10/29/2018 15:20:38</publishTime>
+=======
+<<<<<<< HEAD
       <publishTime>10/29/2018 15:52:09</publishTime>
 =======
       <publishTime>10/29/2018 12:50:21</publishTime>
 >>>>>>> ac516c3037793511dbbbab7c108a81e2c206246e
+>>>>>>> fd475eb6be52b572b9bb8143aafef9f573cc1e40
     </File>
     <File Include="bin/MNPOSTAPI.pdb">
       <publishTime>10/29/2018 15:52:09</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
 <<<<<<< HEAD
+      <publishTime>10/29/2018 15:20:13</publishTime>
+=======
+<<<<<<< HEAD
       <publishTime>10/24/2018 15:50:50</publishTime>
 =======
       <publishTime>10/29/2018 12:50:44</publishTime>
 >>>>>>> ac516c3037793511dbbbab7c108a81e2c206246e
+>>>>>>> fd475eb6be52b572b9bb8143aafef9f573cc1e40
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
       <publishTime>10/27/2018 17:28:15</publishTime>
@@ -140,6 +148,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>08/05/2018 11:19:30</publishTime>
+    </File>
+    <File Include="bin/NLog.Web.dll">
+      <publishTime>09/22/2018 22:44:10</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>10/27/2018 17:28:28</publishTime>
@@ -214,14 +228,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:12</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/27/2018 17:28:14</publishTime>
+      <publishTime>10/29/2018 14:29:56</publishTime>
     </File>
     <File Include="Web.config">
+<<<<<<< HEAD
+      <publishTime>10/29/2018 15:21:00</publishTime>
+=======
 <<<<<<< HEAD
       <publishTime>10/29/2018 15:52:11</publishTime>
 =======
       <publishTime>10/29/2018 12:25:46</publishTime>
 >>>>>>> ac516c3037793511dbbbab7c108a81e2c206246e
+>>>>>>> fd475eb6be52b572b9bb8143aafef9f573cc1e40
     </File>
   </ItemGroup>
 </Project>

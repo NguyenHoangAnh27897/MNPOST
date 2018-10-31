@@ -113,7 +113,8 @@
                                                     <td><input type="checkbox" ng-model="item.isCheck" /></td>
                                                     <td>
                                                         {{$index + 1}}&nbsp;&nbsp;
-                                                        <a href="#" ng-click="showMailerDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>
+                                                        <a href="#" ng-click="showMailerDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>&nbsp;&nbsp;
+                                                        <a href="/Report/Viewer/MailerPrint.aspx?mailer={{item.MailerID}}" target="_blank">In phiếu</a>
                                                     </td>
                                                     <td>{{item.MailerID}}</td>
                                                     <td>{{item.AcceptDate}}</td>
@@ -429,23 +430,6 @@
         </div>
     </div>
     <!-- end chon buu cuc-->
-    <!-- show report -->
-    <div id="showreport" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <iframe id="framereport" scrolling="no" src="{{reportUrl}}" width="100%" frameborder="0" marginheight="0" marginwidth="0">iframes not supported.</iframe>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- end show report -->
 
 
     <!-- show tracking-->

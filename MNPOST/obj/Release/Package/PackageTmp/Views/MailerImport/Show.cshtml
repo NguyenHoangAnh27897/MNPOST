@@ -16,6 +16,7 @@
                     <button type="button" class="btn btn-primary" ng-click="sendImport()"  ng-show="tabds">NHẬP KHO</button>
                    
                     <button type="button" class="btn btn-warning" ng-click="refeshData()" >TẢI LẠI</button>
+                    <button type="button" class="btn btn-danger" ng-click="cancelMailer()" ng-show="findCheck()" title="Hủy đơn" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="Hủy không nhận phát">HỦY ĐƠN</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -267,6 +268,28 @@
         </div>
     </div>
     <!-- end chon buu cuc-->
+
+    <!-- cancel đơn -->
+    <div id="cancelMailerModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Lý do hủy đơn</label>
+                        <textarea class="form-control" ng-model="reasonCancel"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="finishCancalMailer()">Xác nhận</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 </div>
 

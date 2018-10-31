@@ -18,7 +18,7 @@ namespace MNPOST.Controllers
     [Authorize(Roles = "user")]
     public class BaseController : Controller
     {
-       
+        protected static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         protected SqlConnection conn;
         protected UserInfo EmployeeInfo;
 
