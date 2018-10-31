@@ -287,4 +287,7 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITEMODEL.pdb
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITEMODEL.dll.config
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.pdb
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.dll.config
-C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\PagedList.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.Web.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.xml
+C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.Web.xml

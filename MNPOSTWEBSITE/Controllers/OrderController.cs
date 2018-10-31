@@ -504,26 +504,13 @@ namespace MNPOSTWEBSITE.Controllers
         public ActionResult TrackingMailer(int? page = 1, string mailerid ="")
         {
             try
-            {
-                if (Session["Authentication"] != null)
-                {
-                    if (Session["RoleID"].ToString().Equals("Customer"))
-                    {
+            {    
                         int pageSize = 5;
                         int pageNumber = (page ?? 1);
-                        List<Tracking> mailer = getMailerTracking(mailerid).Result;
+                         Session["token"] = home.getToken().Result;
+                         List<Tracking> mailer = getMailerTracking(mailerid).Result;
                         //Mailer mailer = getMailerbyMailerID(mailerid).Result;
                         return View(mailer.ToPagedList(pageNumber, pageSize));
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Manage");
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Account");
-                }
             }
             catch (Exception ex)
             {
