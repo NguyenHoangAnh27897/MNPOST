@@ -28,5 +28,17 @@ namespace MNPOST.Models
         public string ReceiverProvinceName { get; set; }
         public string ReceiverDistrictName { get; set; }
         public string PostOfficeName { get; set; }
+        //tai lieu
+        public string TL { get; set; }
+        //hang hoa
+        public string HH { get; set; }
+        //mau hang
+        public string MH { get; set; }
+        //nhanh
+        public string N { get; set; }
+        //duong bo
+        public string DB { get; set; }
+        //tiet kiem
+        public string TK { get; set; }
     }
 }

@@ -3,33 +3,10 @@
 @model PagedList.IPagedList<MNPOSTWEBSITE.Models.Tracking>
 @{
     ViewBag.Title = "TrackingMailer";
-    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     int i = 1;
 }
-<head>
-    <style>
-        input[type=text] {
-            width: 180px;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            font-size: 12px;
-            background-color: white;
-            background-image: url('../../images/search.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            padding: 12px 20px 12px 40px;
-            -webkit-transition: width 0.4s ease-in-out;
-            transition: width 0.4s ease-in-out;
-            margin: 10px;
-        }
-
-            input[type=text]:focus {
-                width: 15%;
-            }
-    </style>
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
-</head>
+@*
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
@@ -78,4 +55,78 @@
             </div><!-- /row -->
         </div>
     </section><! --/wrapper -->
-</section><!-- /MAIN CONTENT -->
+</section><!-- /MAIN CONTENT -->*@  
+<div id='main' class='all_colors' data-scroll-offset='60'>
+
+    <div class='stretch_full container_wrap alternate_color light_bg_color title_container'><div class='container'><h1 class='main-title entry-title'><a href='/aboutus/introduce' rel='bookmark' title='Permanent Link: Giới thiệu' itemprop="headline">Giới thiệu</a></h1><div class="breadcrumb breadcrumbs avia-breadcrumbs"><div class="breadcrumb-trail" xmlns:v="http://rdf.data-vocabulary.org/#"><span class="trail-before"><span class="breadcrumb-title"></span></span> <a href="/home/index" title="Chuyển phát nhanh Ecotrans" rel="home" class="trail-begin">Trang chủ</a> <span class="sep">/</span> <span class="trail-end">Giới thiệu</span></div></div></div></div>
+    <div class='container_wrap container_wrap_first main_color sidebar_right'>
+
+        <div class='container'>
+
+            <main class='template-page content  av-content-small alpha units' role="main" itemprop="mainContentOfPage">
+
+
+                <article class='post-entry post-entry-type-page post-entry-2' itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+
+                    <div class="entry-content-wrapper clearfix">
+                        <section id="main-content">
+                            <section class="wrapper">
+                                <h3><i class="fa fa-angle-right"></i> TRA CỨU VẬN ĐƠN</h3>
+                                <div class="row">
+
+                                    <div class="row mt">
+                                        <div class="col-md-12">
+                                            <div class="content-panel">
+                                                <table class="table table-bordered table-striped table-condensed">
+                                                    <hr />
+                                                    <form role="search" method="get" action="/order/trackingmailer">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <input type="text" name="mailerid" placeholder="Nhập mã vận đơn" style="width:40%;display:inline">
+                                                                <button class="avia_iconbox_title avia-button avia-color-custom avia-size-small avia-position-center" style="background-color: #f6a81e; border: #f6a81e; color: #ffffff;">Tìm kiếm</button>
+                                                            </div>
+                                                        </div>                                                   
+                                                    </form>
+                                                    <hr />
+                                                    <thead>
+                                                        <tr>
+                                                            <th><i class="fa fa-file"></i> STT</th>
+                                                            <th><i class="fa fa-user"></i> Tình trạng</th>
+                                                            <th><i class="fa fa-dropbox"></i> Ngày giờ</th>
+                                                            <th><i class="fa fa-calendar"></i> Bưu cục hiện tại</th>
+                                                            <th><i class="fa fa-edit"></i> Diễn giải</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>@i</td>
+                                                                <td>@item.StatusName</td>
+                                                                <td>@item.CreateDate</td>
+                                                                <td>@item.PostOffice</td>
+                                                                <td>@item.StatusDescribe</td>
+                                                            </tr>
+                                                            i++;
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div><!-- /content-panel -->
+                                            <br />
+                                            <strong style="margin: 12px;"> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</strong>
+                                            @Html.PagedListPager(Model, page => Url.Action("TrackingMailer", new { page }))
+                                        </div><!-- /col-md-12 -->
+                                    </div><!-- /row -->
+                                </div>
+                            </section><! --/wrapper -->
+                        </section><!-- /MAIN CONTENT -->
+                    </div>
+
+                </article><!--end post-entry-->
+                <!--end content-->
+            </main>
+        </div><!--end container-->
+
+    </div><!-- close default .container_wrap element -->
+
+</div>
