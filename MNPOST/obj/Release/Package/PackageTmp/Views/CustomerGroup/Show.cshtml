@@ -6,9 +6,14 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Danh sách nhóm khách hàng&nbsp;&nbsp;&nbsp;<a href="#" ng-click="addNew()"><i my-tool-tip="Thêm mới" class="fa fa-plus"></i></a></h2>
+                <h2>Danh sách nhóm khách hàng</h2>
+                <div class="nav navbar-right">
+                    <a class="btn btn-primary" href="#" ng-click="addNew()">Thêm khách hàng</a>
+                    <div class="clearfix"></div>
+                </div>
                 <div class="clearfix"></div>
             </div>
+
             <!-- end x_title-->
             <div class="x_content">
                 <div class="row">
@@ -27,22 +32,24 @@
                         <thead>
                             <tr class="headings">
                                 <th>STT</th>
-                                <th>Mã nhóm khách hàng</th>
-                                <th>Tên nhóm khách hàng</th>
-                                <th>Ghi chú</th>
-                                <th>#</th>
-                                <th>#</th>
+                                <th>Mã KH</th>
+                                <th>Tên KH</th>
+                                <th>Công ty</th>
+                                <th>Liên hệ</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr ng-repeat="item in allCustomerGroup">
-                                <td>{{$index + 1}}</td>
-                                <td>{{item.CustomerGroupID}}</td>
+                                <td>{{$index + 1}} <a class="label label-primary" href="#" ng-click="edit($index)">chi tiêt</a></td>
+                                <td>{{item.CustomerGroupCode}}</td>
                                 <td>{{item.CustomerGroupName}}</td>
-                                <td>{{item.Notes}}</td>
-                                <td><a href="#" ng-click="edit($index)">Chi tiết</a></td>
-                                <td><a href="#" ng-click="sendDelete($index)">Xóa</a></td>
+                                <td>{{item.Company}}</td>
+                                <td>
+                                    <strong>ĐT: </strong>{{item.ConatctPhone}}<br />
+                                    <strong>Email: </strong>{{item.ContactEmail}}<br />
+                                    <strong>Địa chỉ: </strong>{{item.ContactAddress}}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,27 +76,33 @@
                     <h4 class="modal-title">{{modaltitle}}</h4>
                 </div>
 
-
                 <!-- begin form-->
                 <form class="css-form" name="createForm" ng-submit="finishForm(createForm.$valid)">
                     <!-- body-->
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-6">
-
                                 <div class="form-group">
-                                    <label>Mã nhóm khách hàng</label>
-                                    <input type="text" maxlength="10" class="form-control" ng-model="CustomerGroupInfo.CustomerGroupID" disabled />
+                                    <label>Tên khách hàng</label>
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.CustomerGroupName" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>Tên nhóm khách hàng</label>
-                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.CustomerGroupName" required />
+                                    <label>Tên công ty</label>
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.Company" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Địa chỉ</label>
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.ContactAddress" required />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Ghi chú</label>
-                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.Notes" />
+                                    <label>Điện thoại</label>
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.ConatctPhone" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.ContactEmail" />
                                 </div>
                             </div>
                         </div>
@@ -162,19 +175,21 @@
             //
             // khoi tao bien dung cho create va edit
             $scope.CustomerGroupInfo = {};
-            $scope.CustomerGroupIDDisable = false;
+
             $scope.IsAction = '';
 
             $scope.addNew = function () {
 
-                $scope.CustomerGroupInfo = { "CustomerGroupID": "", "CustomerGroupName": "", "Notes": "" };
+                $scope.CustomerGroupInfo = {};
 
                 $scope.modaltitle = "Thêm nhóm khách hàng";
-                $scope.CustomerGroupIDDisable = false;
+
                 $scope.IsAction = 'add';
                 showModel("insertmodal")
 
             };
+
+
 
             $scope.edit = function (index) {
                 var info = $scope.allCustomerGroup[index];
@@ -182,18 +197,9 @@
                 $scope.CustomerGroupInfo = angular.copy(info);
 
                 $scope.modaltitle = "Chỉnh sửa nhóm khách hàng";
-                $scope.CustomerGroupIDDisable = true;
+
                 $scope.IsAction = 'edit';
                 showModel("insertmodal")
-            };
-
-
-            // tim index theo ma tinh
-            function getSelectedIndex(id) {
-                for (var i = 0; i < $scope.allCountry.length; i++)
-                    if ($scope.allCustomerGroup[i].CustomerGroupID == id)
-                        return i;
-                return -1;
             };
 
             // action
@@ -202,8 +208,6 @@
                     $scope.sendCreate();
                 } else if ($scope.IsAction === 'edit') {
                     $scope.sendEdit();
-                } else if ($scope.IsAction === 'delete') {
-                    $scope.sendDelete();
                 }
             }
 
@@ -223,7 +227,7 @@
 
                     if (result.error === 0) {
 
-                        $scope.allCustomerGroup.unshift(result.data);
+                        $scope.GetData(1, result.data);
 
                         hideModel("insertmodal");
 
@@ -237,8 +241,7 @@
 
                     showLoader(false);
 
-                }
-                , function error(response) {
+                }, function error(response) {
                     showNotify("connect has disconnect");
                     showLoader(false);
                 });
@@ -259,21 +262,20 @@
 
                         var result = response.data;
 
-                        if (result.error == 0) {
-
-                            var findIndex = getSelectedIndex(result.data.CustomerGroupID);
-
-                            if (findIndex !== -1) {
-                                $scope.allCustomerGroup[findIndex] = angular.copy(result.data);
-                            }
+                        if (result.error === 0) {
 
                             showNotify("Đã cập nhật");
+
+                            for (var i = 0; i < $scope.allCustomerGroup.length; i++) {
+                                if ($scope.allCustomerGroup[i].CustomerGroupID === $scope.CustomerGroupInfo.CustomerGroupID) {
+                                    $scope.allCustomerGroup[i] = angular.copy($scope.CustomerGroupInfo);
+                                }
+                            }
+
                             hideModel("insertmodal");
 
                         } else {
-
-                            alert(result.msg);
-
+                            showNotify(result.msg);
                         }
 
                         showLoader(false);
@@ -283,7 +285,7 @@
                         showLoader(false);
                         showNotify("connect has disconnect");
                     }
-                );
+                    );
             }
 
             // xoa du lieu
@@ -318,7 +320,7 @@
                             showLoader(false);
                             showNotify("connect has disconnect");
                         }
-                    );
+                        );
                 } else {
 
                 }

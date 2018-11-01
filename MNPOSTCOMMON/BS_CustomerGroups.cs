@@ -16,8 +16,12 @@ namespace MNPOSTCOMMON
     {
         public string CustomerGroupID { get; set; }
         public string CustomerGroupName { get; set; }
-        public string Notes { get; set; }
-        public Nullable<System.DateTime> LastEditDate { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
+        public string CustomerGroupCode { get; set; }
+        public string Company { get; set; }
+        public string ConatctPhone { get; set; }
+        public string ContactEmail { get; set; }
+        public string ContactAddress { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

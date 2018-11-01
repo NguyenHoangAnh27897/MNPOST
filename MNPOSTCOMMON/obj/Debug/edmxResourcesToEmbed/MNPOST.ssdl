@@ -171,44 +171,36 @@
     <Key>
       <PropertyRef Name="CustomerGroupID" />
     </Key>
-    <Property Name="CustomerGroupID" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="CustomerGroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
-    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CustomerGroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CustomerGroupName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreationDate" Type="datetime" />
+    <Property Name="CustomerGroupCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="Company" Type="nvarchar(max)" />
+    <Property Name="ConatctPhone" Type="nvarchar" MaxLength="128" />
+    <Property Name="ContactEmail" Type="nvarchar" MaxLength="128" />
+    <Property Name="ContactAddress" Type="nvarchar(max)" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>
       <PropertyRef Name="CustomerID" />
     </Key>
     <Property Name="CustomerID" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="CustomerCode" Type="nvarchar" MaxLength="15" />
-    <Property Name="CustomerName" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="CustomerType" Type="int" />
-    <Property Name="CustomerGroupID" Type="varchar" MaxLength="15" />
+    <Property Name="CustomerCode" Type="nvarchar" MaxLength="128" />
+    <Property Name="CustomerName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CustomerGroupID" Type="varchar" MaxLength="128" />
     <Property Name="Address" Type="nvarchar" MaxLength="200" />
     <Property Name="DistrictID" Type="varchar" MaxLength="15" />
     <Property Name="ProvinceID" Type="varchar" MaxLength="15" />
     <Property Name="CountryID" Type="varchar" MaxLength="15" />
-    <Property Name="FaxNo" Type="nvarchar" MaxLength="20" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-    <Property Name="CompanyPhone" Type="nvarchar" MaxLength="20" />
-    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
-    <Property Name="PersonalInfo" Type="nvarchar" MaxLength="50" />
-    <Property Name="BankAccount" Type="nvarchar" MaxLength="20" />
-    <Property Name="BankName" Type="nvarchar" MaxLength="50" />
-    <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
     <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
     <Property Name="CreateDate" Type="datetime" Nullable="false" />
-    <Property Name="LastEditDate" Type="datetime" />
-    <Property Name="CreationDate" Type="datetime" />
-    <Property Name="DebtDayInMonth" Type="tinyint" />
-    <Property Name="MemberOf" Type="varchar" MaxLength="50" />
-    <Property Name="DebitObjectID" Type="varchar" MaxLength="20" />
-    <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
     <Property Name="WardID" Type="nvarchar" MaxLength="128" />
+    <Property Name="UserLogin" Type="nvarchar" MaxLength="128" />
+    <Property Name="Deputy" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="BS_Distants">
     <Key>
@@ -967,6 +959,9 @@
     <Parameter Name="customerid" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="COUNTRY_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="groupID" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="DISTRICT_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="EMPLOYEE_DEBIT_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="fdate" Type="nvarchar" Mode="In" />

@@ -168,6 +168,9 @@
     <Compile Include="COUNTRY_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="CUSTOMER_GET_BYGROUP_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

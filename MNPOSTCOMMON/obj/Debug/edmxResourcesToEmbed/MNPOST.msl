@@ -170,10 +170,14 @@
     <EntitySetMapping Name="BS_CustomerGroups">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
         <MappingFragment StoreEntitySet="BS_CustomerGroups">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
+          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+          <ScalarProperty Name="ConatctPhone" ColumnName="ConatctPhone" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
           <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
           <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
           <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -181,33 +185,21 @@
     <EntitySetMapping Name="BS_Customers">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_Customers">
         <MappingFragment StoreEntitySet="BS_Customers">
+          <ScalarProperty Name="Deputy" ColumnName="Deputy" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
           <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-          <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
           <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
           <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
           <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-          <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="CompanyPhone" ColumnName="CompanyPhone" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="PersonalInfo" ColumnName="PersonalInfo" />
-          <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
-          <ScalarProperty Name="BankName" ColumnName="BankName" />
-          <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="DebtDayInMonth" ColumnName="DebtDayInMonth" />
-          <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
-          <ScalarProperty Name="DebitObjectID" ColumnName="DebitObjectID" />
-          <ScalarProperty Name="CustomerPreID" ColumnName="CustomerPreID" />
           <ScalarProperty Name="WardID" ColumnName="WardID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -1896,6 +1888,30 @@
           <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
           <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
           <ScalarProperty Name="RecieCOD" ColumnName="RecieCOD" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_GET_BYGROUP" FunctionName="MNPOSTModel.Store.CUSTOMER_GET_BYGROUP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_GET_BYGROUP_Result">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+          <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+          <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="WardID" ColumnName="WardID" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+          <ScalarProperty Name="Deputy" ColumnName="Deputy" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

@@ -600,5 +600,14 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_DEBIT_GET_NOTPAID_Result>("EMPLOYEE_DEBIT_GET_NOTPAID", employeeIdParameter);
         }
+    
+        public virtual ObjectResult<CUSTOMER_GET_BYGROUP_Result> CUSTOMER_GET_BYGROUP(string groupID)
+        {
+            var groupIDParameter = groupID != null ?
+                new ObjectParameter("groupID", groupID) :
+                new ObjectParameter("groupID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_GET_BYGROUP_Result>("CUSTOMER_GET_BYGROUP", groupIDParameter);
+        }
     }
 }

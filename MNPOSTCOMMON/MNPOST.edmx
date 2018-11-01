@@ -176,44 +176,36 @@
           <Key>
             <PropertyRef Name="CustomerGroupID" />
           </Key>
-          <Property Name="CustomerGroupID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="CustomerGroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
-          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CustomerGroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CustomerGroupName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" />
+          <Property Name="CustomerGroupCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="Company" Type="nvarchar(max)" />
+          <Property Name="ConatctPhone" Type="nvarchar" MaxLength="128" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="128" />
+          <Property Name="ContactAddress" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="CustomerCode" Type="nvarchar" MaxLength="15" />
-          <Property Name="CustomerName" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="CustomerType" Type="int" />
-          <Property Name="CustomerGroupID" Type="varchar" MaxLength="15" />
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="CustomerName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CustomerGroupID" Type="varchar" MaxLength="128" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" />
           <Property Name="DistrictID" Type="varchar" MaxLength="15" />
           <Property Name="ProvinceID" Type="varchar" MaxLength="15" />
           <Property Name="CountryID" Type="varchar" MaxLength="15" />
-          <Property Name="FaxNo" Type="nvarchar" MaxLength="20" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-          <Property Name="CompanyPhone" Type="nvarchar" MaxLength="20" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
-          <Property Name="PersonalInfo" Type="nvarchar" MaxLength="50" />
-          <Property Name="BankAccount" Type="nvarchar" MaxLength="20" />
-          <Property Name="BankName" Type="nvarchar" MaxLength="50" />
-          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="LastEditDate" Type="datetime" />
-          <Property Name="CreationDate" Type="datetime" />
-          <Property Name="DebtDayInMonth" Type="tinyint" />
-          <Property Name="MemberOf" Type="varchar" MaxLength="50" />
-          <Property Name="DebitObjectID" Type="varchar" MaxLength="20" />
-          <Property Name="CustomerPreID" Type="varchar" MaxLength="15" />
           <Property Name="WardID" Type="nvarchar" MaxLength="128" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="128" />
+          <Property Name="Deputy" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BS_Distants">
           <Key>
@@ -972,6 +964,9 @@
           <Parameter Name="customerid" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="COUNTRY_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupID" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="DISTRICT_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="EMPLOYEE_DEBIT_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="nvarchar" Mode="In" />
@@ -1381,44 +1376,36 @@
           <Key>
             <PropertyRef Name="CustomerGroupID" />
           </Key>
-          <Property Name="CustomerGroupID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CustomerGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerGroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerGroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerGroupCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConatctPhone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CustomerCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CustomerType" Type="Int32" />
-          <Property Name="CustomerGroupID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerGroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DistrictID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CountryID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PersonalInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BankAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-          <Property Name="DebtDayInMonth" Type="Byte" />
-          <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DebitObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerPreID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="WardID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserLogin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Deputy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BS_Distants">
           <Key>
@@ -2377,6 +2364,9 @@
           <FunctionImport Name="EMPLOYEE_DEBIT_GET_NOTPAID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_GET_NOTPAID_Result)">
           <Parameter Name="employeeId" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="CUSTOMER_GET_BYGROUP" ReturnType="Collection(MNPOSTModel.CUSTOMER_GET_BYGROUP_Result)">
+          <Parameter Name="groupID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -3186,6 +3176,26 @@
           <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
           <Property Type="Double" Name="RecieCOD" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="CUSTOMER_GET_BYGROUP_Result">
+          <Property Type="String" Name="CustomerID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CustomerCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CustomerName" Nullable="false" />
+          <Property Type="String" Name="CustomerGroupID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CustomerGroupName" Nullable="false" />
+          <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="DistrictID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="CountryID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="WardID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Deputy" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3361,10 +3371,14 @@
           <EntitySetMapping Name="BS_CustomerGroups">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
               <MappingFragment StoreEntitySet="BS_CustomerGroups">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ConatctPhone" ColumnName="ConatctPhone" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
                 <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
                 <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3372,33 +3386,21 @@
           <EntitySetMapping Name="BS_Customers">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_Customers">
               <MappingFragment StoreEntitySet="BS_Customers">
+                <ScalarProperty Name="Deputy" ColumnName="Deputy" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
                 <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
                 <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="CompanyPhone" ColumnName="CompanyPhone" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="PersonalInfo" ColumnName="PersonalInfo" />
-                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="DebtDayInMonth" ColumnName="DebtDayInMonth" />
-                <ScalarProperty Name="MemberOf" ColumnName="MemberOf" />
-                <ScalarProperty Name="DebitObjectID" ColumnName="DebitObjectID" />
-                <ScalarProperty Name="CustomerPreID" ColumnName="CustomerPreID" />
                 <ScalarProperty Name="WardID" ColumnName="WardID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -5087,6 +5089,30 @@
                 <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
                 <ScalarProperty Name="RecieCOD" ColumnName="RecieCOD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_GET_BYGROUP" FunctionName="MNPOSTModel.Store.CUSTOMER_GET_BYGROUP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_GET_BYGROUP_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+                <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+                <ScalarProperty Name="Deputy" ColumnName="Deputy" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

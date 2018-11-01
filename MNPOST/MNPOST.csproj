@@ -238,6 +238,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityCOD.cs" />
     <Compile Include="Models\IdentityCommon.cs" />
+    <Compile Include="Models\IdentityCus.cs" />
     <Compile Include="Models\IdentityMailer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IdentityPriceMatrix.cs" />

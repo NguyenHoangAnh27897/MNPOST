@@ -172,44 +172,36 @@
     <Key>
       <PropertyRef Name="CustomerGroupID" />
     </Key>
-    <Property Name="CustomerGroupID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CustomerGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerGroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustomerGroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="CustomerGroupCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ConatctPhone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ContactEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>
       <PropertyRef Name="CustomerID" />
     </Key>
     <Property Name="CustomerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CustomerCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-    <Property Name="CustomerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CustomerType" Type="Int32" />
-    <Property Name="CustomerGroupID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CustomerGroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
     <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="DistrictID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="ProvinceID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="CountryID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="FaxNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="CompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="PersonalInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="BankAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
-    <Property Name="CreationDate" Type="DateTime" Precision="3" />
-    <Property Name="DebtDayInMonth" Type="Byte" />
-    <Property Name="MemberOf" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="DebitObjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="CustomerPreID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="WardID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserLogin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Deputy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="BS_Distants">
     <Key>
@@ -1168,6 +1160,9 @@
     <FunctionImport Name="EMPLOYEE_DEBIT_GET_NOTPAID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_GET_NOTPAID_Result)">
       <Parameter Name="employeeId" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="CUSTOMER_GET_BYGROUP" ReturnType="Collection(MNPOSTModel.CUSTOMER_GET_BYGROUP_Result)">
+      <Parameter Name="groupID" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -1976,5 +1971,25 @@
     <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
     <Property Type="Double" Name="RecieCOD" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="CUSTOMER_GET_BYGROUP_Result">
+    <Property Type="String" Name="CustomerID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="CustomerCode" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="CustomerName" Nullable="false" />
+    <Property Type="String" Name="CustomerGroupID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="CustomerGroupName" Nullable="false" />
+    <Property Type="String" Name="CreateDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="DistrictID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="ProvinceID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="CountryID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Phone" Nullable="true" MaxLength="20" />
+    <Property Type="Boolean" Name="IsActive" Nullable="false" />
+    <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="WardID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Deputy" Nullable="true" />
   </ComplexType>
 </Schema>

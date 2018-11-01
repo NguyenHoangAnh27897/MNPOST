@@ -13,9 +13,14 @@ namespace MNPOST.Controllers.customerdebit
         [HttpGet]
         public ActionResult Show()
         {
-            ViewBag.PostOffices = EmployeeInfo.postOffices;
-            ViewBag.ToDate = DateTime.Now.ToString("dd/MM/yyyy");
-            ViewBag.FromDate = DateTime.Now.ToString("dd/MM/yyyy");
+            ViewBag.CustomerGroup = db.BS_CustomerGroups.Select(p => new
+            {
+                code = p.CustomerGroupID,
+                name = p.CustomerGroupName
+            }).ToList();
+            ViewBag.ToDate = DateTime.Now.AddDays(7).ToString("dd/MM/yyyy");
+            ViewBag.FromDate = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");
+
             return View();
         }
        
