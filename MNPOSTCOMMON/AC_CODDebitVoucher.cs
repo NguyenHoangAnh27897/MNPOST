@@ -18,10 +18,11 @@ namespace MNPOSTCOMMON
         public string PostOfficeID { get; set; }
         public Nullable<System.DateTime> DocumentDate { get; set; }
         public string EmployeeID { get; set; }
-        public string PaymentID { get; set; }
-        public string CustomerID { get; set; }
-        public Nullable<bool> IsPayment { get; set; }
-        public Nullable<decimal> Total { get; set; }
         public string Notes { get; set; }
+        public string CustomerGroupID { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public string InvoiceCode { get; set; }
+        public string InvoiceNotes { get; set; }
+        public Nullable<System.DateTime> LastEditTime { get; set; }
     }
 }

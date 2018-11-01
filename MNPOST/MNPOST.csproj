@@ -1716,6 +1716,7 @@
     <None Include="Properties\PublishProfiles\mnpost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\customer\cus_initiate.js" />
+    <Content Include="Scripts\debit\customerdebit.js" />
     <Content Include="Scripts\debit\employeedebit.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1803,13 +1804,13 @@
     <Content Include="Views\MailerImport\Show.cshtml" />
     <Content Include="Views\MailerPartner\Show.cshtml" />
     <Content Include="Views\Mailer\SearchMailer.cshtml" />
+    <Content Include="Views\CustomerDebitVoucher\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Temps\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\CustomerDebitVoucher\" />
     <Folder Include="Views\SendPartner\" />
     <Folder Include="Views\Tracking\" />
   </ItemGroup>

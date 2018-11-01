@@ -30,8 +30,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AC_CODDebitVoucher> AC_CODDebitVoucher { get; set; }
         public virtual DbSet<AC_CODDebitVoucherDetails> AC_CODDebitVoucherDetails { get; set; }
-        public virtual DbSet<AC_CustomerDebitVoucher> AC_CustomerDebitVoucher { get; set; }
-        public virtual DbSet<AC_CustomerDebitVoucherDetail> AC_CustomerDebitVoucherDetail { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -608,6 +606,46 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("groupID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_GET_BYGROUP_Result>("CUSTOMER_GET_BYGROUP", groupIDParameter);
+        }
+    
+        public virtual ObjectResult<CUSTOMER_COD_DEBIT_REPORT_Result> CUSTOMER_COD_DEBIT_REPORT()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_COD_DEBIT_REPORT_Result>("CUSTOMER_COD_DEBIT_REPORT");
+        }
+    
+        public virtual ObjectResult<CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result> CUSTOMER_COD_DEBIT_GETDOCUMENTS(string fdate, string tdate, string groupId)
+        {
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            var groupIdParameter = groupId != null ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result>("CUSTOMER_COD_DEBIT_GETDOCUMENTS", fdateParameter, tdateParameter, groupIdParameter);
+        }
+    
+        public virtual ObjectResult<CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result> CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID(string cusId)
+        {
+            var cusIdParameter = cusId != null ?
+                new ObjectParameter("cusId", cusId) :
+                new ObjectParameter("cusId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result>("CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID", cusIdParameter);
+        }
+    
+        public virtual ObjectResult<CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result> CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS(string documentId)
+        {
+            var documentIdParameter = documentId != null ?
+                new ObjectParameter("documentId", documentId) :
+                new ObjectParameter("documentId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result>("CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS", documentIdParameter);
         }
     }
 }

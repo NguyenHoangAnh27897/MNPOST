@@ -60,12 +60,6 @@
     <Compile Include="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="AC_CustomerDebitVoucher.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AC_CustomerDebitVoucherDetail.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -166,6 +160,18 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="COUNTRY_GETALL_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CUSTOMER_COD_DEBIT_REPORT_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="CUSTOMER_GET_BYGROUP_Result.cs">

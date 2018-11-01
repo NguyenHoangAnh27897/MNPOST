@@ -476,7 +476,8 @@ namespace MNPOST.Controllers.mailer
                     SenderName = item.SenderName,
                     SenderPhone = item.SenderPhone,
                     SenderProvinceID = item.SenderProvinceID,
-                    SenderWardID = item.SenderWardID
+                    SenderWardID = item.SenderWardID,
+                    PaidCoD = 0
                 };
 
                 // 

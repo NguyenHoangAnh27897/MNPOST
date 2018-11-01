@@ -79,5 +79,6 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> PaidDate { get; set; }
         public string EmployeePaid { get; set; }
         public string PaidNotes { get; set; }
+        public string PaidCoDInvoice { get; set; }
     }
 }

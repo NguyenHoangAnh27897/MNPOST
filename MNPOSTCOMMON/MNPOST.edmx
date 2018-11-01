@@ -19,77 +19,25 @@
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
-          <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="PostOfficeID" Type="nvarchar" MaxLength="20" />
-          <Property Name="DocumentDate" Type="date" />
-          <Property Name="EmployeeID" Type="nvarchar" MaxLength="20" />
-          <Property Name="PaymentID" Type="nvarchar" MaxLength="30" />
-          <Property Name="CustomerID" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsPayment" Type="bit" />
-          <Property Name="Total" Type="money" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PostOfficeID" Type="nvarchar" MaxLength="128" />
+          <Property Name="DocumentDate" Type="datetime" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" />
+          <Property Name="CustomerGroupID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="InvoiceCode" Type="nvarchar(max)" />
+          <Property Name="InvoiceNotes" Type="nvarchar(max)" />
+          <Property Name="LastEditTime" Type="datetime" />
         </EntityType>
         <EntityType Name="AC_CODDebitVoucherDetails">
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
-          <Property Name="DocumentID" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="MailerID" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MailerID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Money" Type="float" />
           <Property Name="CreateDate" Type="datetime" />
-          <Property Name="UserID" Type="nvarchar" MaxLength="20" />
-        </EntityType>
-        <EntityType Name="AC_CustomerDebitVoucher">
-          <Key>
-            <PropertyRef Name="DocumentID" />
-          </Key>
-          <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="DocumentDate" Type="datetime" />
-          <Property Name="DocumentTime" Type="datetime" />
-          <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
-          <Property Name="UserAccountID" Type="varchar" MaxLength="15" />
-          <Property Name="CustomerID" Type="varchar" MaxLength="15" />
-          <Property Name="RepresentativeID" Type="varchar" MaxLength="15" />
-          <Property Name="FromDate" Type="datetime" />
-          <Property Name="ToDate" Type="datetime" />
-          <Property Name="TotalAmount" Type="float" />
-          <Property Name="Description" Type="nvarchar" MaxLength="200" />
-          <Property Name="PaymentMethodID" Type="varchar" MaxLength="15" />
-          <Property Name="LastEditDate" Type="datetime" />
-          <Property Name="CreationDate" Type="datetime" />
-          <Property Name="IsPayComplete" Type="bit" Nullable="false" />
-          <Property Name="PayDocumentID" Type="varchar" MaxLength="50" />
-          <Property Name="PayDate" Type="datetime" />
-          <Property Name="PayNotes" Type="nvarchar" MaxLength="500" />
-          <Property Name="InvoiceID" Type="varchar" MaxLength="20" />
-          <Property Name="DebtMonth" Type="datetime" />
-          <Property Name="LastUpdDate" Type="date" />
-          <Property Name="RecordState" Type="int" Nullable="false" />
-          <Property Name="SyncFlag" Type="bit" Nullable="false" />
-          <Property Name="LastSyncDate" Type="datetime" />
-          <Property Name="Invoiced" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AC_CustomerDebitVoucherDetail">
-          <Key>
-            <PropertyRef Name="DocumentID" />
-            <PropertyRef Name="MailerID" />
-          </Key>
-          <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Amount" Type="float" />
-          <Property Name="Notes" Type="nvarchar" MaxLength="100" />
-          <Property Name="LastEditDate" Type="datetime" />
-          <Property Name="CreationDate" Type="datetime" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="PriceService" Type="decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="DiscountPercent" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="Discount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="VATpercent" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="BfVATamount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="VATamount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="AfVATamount" Type="decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="AcceptDate" Type="date" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Weight" Type="decimal" Precision="18" Scale="6" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -687,6 +635,7 @@
           <Property Name="PaidDate" Type="datetime" />
           <Property Name="EmployeePaid" Type="nvarchar" MaxLength="128" />
           <Property Name="PaidNotes" Type="nvarchar(max)" />
+          <Property Name="PaidCoDInvoice" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -964,6 +913,18 @@
           <Parameter Name="customerid" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="COUNTRY_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documentId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CUSTOMER_COD_DEBIT_GETDOCUMENTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fdate" Type="varchar" Mode="In" />
+          <Parameter Name="tdate" Type="varchar" Mode="In" />
+          <Parameter Name="groupId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cusId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CUSTOMER_COD_DEBIT_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupID" Type="nvarchar" Mode="In" />
         </Function>
@@ -1114,8 +1075,6 @@
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AC_CODDebitVoucher" EntityType="Self.AC_CODDebitVoucher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AC_CODDebitVoucherDetails" EntityType="Self.AC_CODDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AC_CustomerDebitVoucher" EntityType="Self.AC_CustomerDebitVoucher" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="Self.AC_CustomerDebitVoucherDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -1221,77 +1180,25 @@
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
-          <Property Name="DocumentID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="DocumentDate" Type="DateTime" Precision="0" />
-          <Property Name="EmployeeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentID" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsPayment" Type="Boolean" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerGroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="InvoiceCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastEditTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="AC_CODDebitVoucherDetails">
           <Key>
             <PropertyRef Name="DocumentID" />
           </Key>
-          <Property Name="DocumentID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MailerID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UserID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="AC_CustomerDebitVoucher">
-          <Key>
-            <PropertyRef Name="DocumentID" />
-          </Key>
-          <Property Name="DocumentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DocumentDate" Type="DateTime" Precision="3" />
-          <Property Name="DocumentTime" Type="DateTime" Precision="3" />
-          <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="UserAccountID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="RepresentativeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="FromDate" Type="DateTime" Precision="3" />
-          <Property Name="ToDate" Type="DateTime" Precision="3" />
-          <Property Name="TotalAmount" Type="Double" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentMethodID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-          <Property Name="IsPayComplete" Type="Boolean" Nullable="false" />
-          <Property Name="PayDocumentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PayDate" Type="DateTime" Precision="3" />
-          <Property Name="PayNotes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DebtMonth" Type="DateTime" Precision="3" />
-          <Property Name="LastUpdDate" Type="DateTime" Precision="0" />
-          <Property Name="RecordState" Type="Int32" Nullable="false" />
-          <Property Name="SyncFlag" Type="Boolean" Nullable="false" />
-          <Property Name="LastSyncDate" Type="DateTime" Precision="3" />
-          <Property Name="Invoiced" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AC_CustomerDebitVoucherDetail">
-          <Key>
-            <PropertyRef Name="DocumentID" />
-            <PropertyRef Name="MailerID" />
-          </Key>
-          <Property Name="DocumentID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MailerID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Amount" Type="Double" />
-          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="PriceService" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="DiscountPercent" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="Discount" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="VATpercent" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="BfVATamount" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="VATamount" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="AfVATamount" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
-          <Property Name="AcceptDate" Type="DateTime" Precision="0" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Weight" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Money" Type="Double" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -1889,6 +1796,7 @@
           <Property Name="PaidDate" Type="DateTime" Precision="3" />
           <Property Name="EmployeePaid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PaidNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaidCoDInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -2128,8 +2036,6 @@
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AC_CODDebitVoucher" EntityType="Self.AC_CODDebitVoucher" />
           <EntitySet Name="AC_CODDebitVoucherDetails" EntityType="Self.AC_CODDebitVoucherDetails" />
-          <EntitySet Name="AC_CustomerDebitVoucher" EntityType="Self.AC_CustomerDebitVoucher" />
-          <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="Self.AC_CustomerDebitVoucherDetail" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
@@ -2366,6 +2272,18 @@
           </FunctionImport>
           <FunctionImport Name="CUSTOMER_GET_BYGROUP" ReturnType="Collection(MNPOSTModel.CUSTOMER_GET_BYGROUP_Result)">
           <Parameter Name="groupID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CUSTOMER_COD_DEBIT_REPORT" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_REPORT_Result)" />
+          <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENTS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result)">
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+            <Parameter Name="groupId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result)">
+          <Parameter Name="cusId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result)">
+          <Parameter Name="documentId" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
@@ -3196,6 +3114,54 @@
           <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="Deputy" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="CUSTOMER_COD_DEBIT_REPORT_Result">
+          <Property Type="String" Name="CustomerGroupID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CustomerGroupName" Nullable="false" />
+          <Property Type="Decimal" Name="AllCOD" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="InvoiceCode" Nullable="true" />
+          <Property Type="String" Name="InvoiceNotes" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DocumentTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="CustomerGroupID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CustomerGroupName" Nullable="false" />
+          <Property Type="Double" Name="AllMoney" Nullable="true" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="SenderID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SenderName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SenderPhone" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
+          <Property Type="String" Name="EmployeePaidConfirmDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result">
+          <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="SenderID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SenderName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="SenderPhone" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
+          <Property Type="String" Name="EmployeePaidConfirmDate" Nullable="true" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3215,14 +3181,15 @@
           <EntitySetMapping Name="AC_CODDebitVoucher">
             <EntityTypeMapping TypeName="MNPOSTModel.AC_CODDebitVoucher">
               <MappingFragment StoreEntitySet="AC_CODDebitVoucher">
+                <ScalarProperty Name="LastEditTime" ColumnName="LastEditTime" />
+                <ScalarProperty Name="InvoiceNotes" ColumnName="InvoiceNotes" />
+                <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
                 <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="IsPayment" ColumnName="IsPayment" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3230,64 +3197,10 @@
           <EntitySetMapping Name="AC_CODDebitVoucherDetails">
             <EntityTypeMapping TypeName="MNPOSTModel.AC_CODDebitVoucherDetails">
               <MappingFragment StoreEntitySet="AC_CODDebitVoucherDetails">
+                <ScalarProperty Name="Money" ColumnName="Money" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AC_CustomerDebitVoucher">
-            <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
-              <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-                <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="RepresentativeID" ColumnName="RepresentativeID" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="IsPayComplete" ColumnName="IsPayComplete" />
-                <ScalarProperty Name="PayDocumentID" ColumnName="PayDocumentID" />
-                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-                <ScalarProperty Name="PayNotes" ColumnName="PayNotes" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
-                <ScalarProperty Name="LastUpdDate" ColumnName="LastUpdDate" />
-                <ScalarProperty Name="RecordState" ColumnName="RecordState" />
-                <ScalarProperty Name="SyncFlag" ColumnName="SyncFlag" />
-                <ScalarProperty Name="LastSyncDate" ColumnName="LastSyncDate" />
-                <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AC_CustomerDebitVoucherDetail">
-            <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucherDetail">
-              <MappingFragment StoreEntitySet="AC_CustomerDebitVoucherDetail">
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="PriceService" ColumnName="PriceService" />
-                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="VATpercent" ColumnName="VATpercent" />
-                <ScalarProperty Name="BfVATamount" ColumnName="BfVATamount" />
-                <ScalarProperty Name="VATamount" ColumnName="VATamount" />
-                <ScalarProperty Name="AfVATamount" ColumnName="AfVATamount" />
-                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3841,6 +3754,7 @@
           <EntitySetMapping Name="MM_Mailers">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
               <MappingFragment StoreEntitySet="MM_Mailers">
+                <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
                 <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
                 <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
                 <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
@@ -5113,6 +5027,70 @@
                 <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
                 <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
                 <ScalarProperty Name="Deputy" ColumnName="Deputy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_REPORT" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_REPORT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_REPORT_Result">
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+                <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+                <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+                <ScalarProperty Name="AllCOD" ColumnName="AllCOD" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_GETDOCUMENTS" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_GETDOCUMENTS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+                <ScalarProperty Name="InvoiceNotes" ColumnName="InvoiceNotes" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+                <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+                <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+                <ScalarProperty Name="AllMoney" ColumnName="AllMoney" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+                <ScalarProperty Name="EmployeePaidConfirmDate" ColumnName="EmployeePaidConfirmDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result">
+                <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+                <ScalarProperty Name="EmployeePaidConfirmDate" ColumnName="EmployeePaidConfirmDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

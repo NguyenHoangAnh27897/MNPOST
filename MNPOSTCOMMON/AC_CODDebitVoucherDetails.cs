@@ -17,6 +17,6 @@ namespace MNPOSTCOMMON
         public string DocumentID { get; set; }
         public string MailerID { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
-        public string UserID { get; set; }
+        public Nullable<double> Money { get; set; }
     }
 }

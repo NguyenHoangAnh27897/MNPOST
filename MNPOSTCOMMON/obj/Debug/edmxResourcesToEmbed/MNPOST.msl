@@ -14,14 +14,15 @@
     <EntitySetMapping Name="AC_CODDebitVoucher">
       <EntityTypeMapping TypeName="MNPOSTModel.AC_CODDebitVoucher">
         <MappingFragment StoreEntitySet="AC_CODDebitVoucher">
+          <ScalarProperty Name="LastEditTime" ColumnName="LastEditTime" />
+          <ScalarProperty Name="InvoiceNotes" ColumnName="InvoiceNotes" />
+          <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
           <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="IsPayment" ColumnName="IsPayment" />
-          <ScalarProperty Name="Total" ColumnName="Total" />
           <ScalarProperty Name="Notes" ColumnName="Notes" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -29,64 +30,10 @@
     <EntitySetMapping Name="AC_CODDebitVoucherDetails">
       <EntityTypeMapping TypeName="MNPOSTModel.AC_CODDebitVoucherDetails">
         <MappingFragment StoreEntitySet="AC_CODDebitVoucherDetails">
+          <ScalarProperty Name="Money" ColumnName="Money" />
           <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
           <ScalarProperty Name="MailerID" ColumnName="MailerID" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AC_CustomerDebitVoucher">
-      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
-        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-          <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="RepresentativeID" ColumnName="RepresentativeID" />
-          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="IsPayComplete" ColumnName="IsPayComplete" />
-          <ScalarProperty Name="PayDocumentID" ColumnName="PayDocumentID" />
-          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-          <ScalarProperty Name="PayNotes" ColumnName="PayNotes" />
-          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
-          <ScalarProperty Name="LastUpdDate" ColumnName="LastUpdDate" />
-          <ScalarProperty Name="RecordState" ColumnName="RecordState" />
-          <ScalarProperty Name="SyncFlag" ColumnName="SyncFlag" />
-          <ScalarProperty Name="LastSyncDate" ColumnName="LastSyncDate" />
-          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AC_CustomerDebitVoucherDetail">
-      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucherDetail">
-        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucherDetail">
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="PriceService" ColumnName="PriceService" />
-          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
-          <ScalarProperty Name="Discount" ColumnName="Discount" />
-          <ScalarProperty Name="VATpercent" ColumnName="VATpercent" />
-          <ScalarProperty Name="BfVATamount" ColumnName="BfVATamount" />
-          <ScalarProperty Name="VATamount" ColumnName="VATamount" />
-          <ScalarProperty Name="AfVATamount" ColumnName="AfVATamount" />
-          <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="Weight" ColumnName="Weight" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -640,6 +587,7 @@
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
+          <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
           <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
           <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
           <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
@@ -1912,6 +1860,70 @@
           <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
           <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
           <ScalarProperty Name="Deputy" ColumnName="Deputy" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_REPORT" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_REPORT">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_REPORT_Result">
+          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+          <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+          <ScalarProperty Name="AllCOD" ColumnName="AllCOD" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_GETDOCUMENTS" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_GETDOCUMENTS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+          <ScalarProperty Name="InvoiceNotes" ColumnName="InvoiceNotes" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+          <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+          <ScalarProperty Name="AllMoney" ColumnName="AllMoney" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result">
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+          <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+          <ScalarProperty Name="EmployeePaidConfirmDate" ColumnName="EmployeePaidConfirmDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" FunctionName="MNPOSTModel.Store.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result">
+          <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+          <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+          <ScalarProperty Name="EmployeePaidConfirmDate" ColumnName="EmployeePaidConfirmDate" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
