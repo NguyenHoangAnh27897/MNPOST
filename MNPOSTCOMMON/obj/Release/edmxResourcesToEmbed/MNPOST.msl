@@ -587,6 +587,7 @@
     <EntitySetMapping Name="MM_Mailers">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
         <MappingFragment StoreEntitySet="MM_Mailers">
+          <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
           <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
           <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
           <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
@@ -1174,6 +1175,15 @@
           <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
           <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
           <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+          <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+          <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+          <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+          <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
+          <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
+          <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+          <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+          <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

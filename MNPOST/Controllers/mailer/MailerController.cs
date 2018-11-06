@@ -13,13 +13,14 @@ namespace MNPOST.Controllers.mailer
     public class MailerController : BaseController
     {
         protected MNHistory HandleHistory = new MNHistory();
-        
+
 
         [HttpGet]
         public ActionResult ShowMailer()
         {
             ViewBag.PostOffices = EmployeeInfo.postOffices;
-            var customers = db.BS_Customers.Select(p => new {
+            var customers = db.BS_Customers.Select(p => new
+            {
                 name = p.CustomerName,
                 code = p.CustomerCode,
                 address = p.Address,
@@ -83,7 +84,7 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + search + "%").Where(p=> p.SenderID.Contains(customerId)).ToList();
+            var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + postId + "%", "%" + search + "%").Where(p => p.SenderID.Contains(customerId)).ToList();
 
             if (status != -1)
             {
@@ -104,6 +105,119 @@ namespace MNPOST.Controllers.mailer
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetMailerService(string mailerId)
+        {
+            var data = db.MM_MailerServices.Where(p => p.MailerID == mailerId).Select(p => new ItemPriceCommon()
+            {
+                choose = true,
+                code = p.ServiceID,
+                price = p.Price
+
+            }).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateMailers(MailerIdentity mailer)
+        {
+
+            var checkExist = db.MM_Mailers.Where(p => p.MailerID == mailer.MailerID).FirstOrDefault();
+
+            if (checkExist == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai mã"
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (checkExist.CurrentStatusID != 0)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể chỉnh sửa"
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            checkExist.SenderID = mailer.SenderID;
+            checkExist.SenderName = mailer.SenderName;
+            checkExist.SenderPhone = mailer.SenderPhone;
+            checkExist.SenderAddress = mailer.SenderAddress;
+            checkExist.SenderProvinceID = mailer.SenderProvinceID;
+            checkExist.SenderDistrictID = mailer.SenderDistrictID;
+            checkExist.SenderWardID = mailer.SenderWardID;
+            checkExist.RecieverName = mailer.RecieverName;
+            checkExist.RecieverPhone = mailer.RecieverPhone;
+            checkExist.RecieverAddress = mailer.RecieverAddress;
+            checkExist.RecieverProvinceID = mailer.RecieverProvinceID;
+            checkExist.RecieverDistrictID = mailer.RecieverDistrictID;
+            checkExist.RecieverWardID = mailer.RecieverWardID;
+
+            checkExist.Weight = mailer.Weight;
+            checkExist.LengthSize = mailer.LengthSize;
+            checkExist.HeightSize = mailer.HeightSize;
+            checkExist.WidthSize = mailer.WidthSize;
+
+            checkExist.COD = mailer.COD;
+            checkExist.Price = mailer.PriceDefault;
+            checkExist.PriceDefault = mailer.PriceDefault;
+            checkExist.PriceService = mailer.PriceService;
+            checkExist.Quantity = mailer.Quantity;
+            checkExist.Amount = mailer.Amount;
+
+            checkExist.MailerTypeID = mailer.MailerTypeID;
+            checkExist.MerchandiseID = mailer.MerchandiseID;
+            checkExist.MerchandiseValue = mailer.MerchandiseValue;
+            checkExist.PaymentMethodID = mailer.PaymentMethodID;
+
+            checkExist.MailerDescription = mailer.MailerDescription;
+            checkExist.Notes = mailer.Notes;
+            checkExist.LastUpdateDate = DateTime.Now;
+
+            db.Entry(checkExist).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            var allServices = db.MM_MailerServices.Where(p => p.MailerID == checkExist.MailerID).ToList();
+            foreach(var item in allServices)
+            {
+                db.MM_MailerServices.Remove(item);
+            }
+            db.SaveChanges();
+
+            // save service
+            if (mailer.Services != null)
+            {
+                foreach (var service in mailer.Services)
+                {
+                    var checkService = db.BS_Services.Where(p => p.ServiceID == service.code && p.IsActive == true).FirstOrDefault();
+                    if (checkService != null)
+                    {
+                        var mailerService = new MM_MailerServices()
+                        {
+                            MailerID = mailer.MailerID,
+                            LastUpDate = DateTime.Now,
+                            Price = service.price,
+                            PriceDefault = checkService.Price,
+                            ServiceID = service.code
+                        };
+                        db.MM_MailerServices.Add(mailerService);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+
+
+            return Json(new { error = 0 }, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         [HttpGet]
         public ActionResult FindMailer(string mailerId)
@@ -121,9 +235,10 @@ namespace MNPOST.Controllers.mailer
             else
             {
                 var data = db.MAILER_GETTRACKING(mailerId).ToList();
-                var images = db.MailerImages.Where(p => p.MailerID == mailerId).Select(p => new {
-                        url = p.PathImage,
-                        time = p.CreateTime.Value.ToString("dd/MM/yyyy HH:mm")
+                var images = db.MailerImages.Where(p => p.MailerID == mailerId).Select(p => new
+                {
+                    url = p.PathImage,
+                    time = p.CreateTime.Value.ToString("dd/MM/yyyy HH:mm")
                 });
                 return Json(new ResultInfo()
                 {
@@ -166,6 +281,6 @@ namespace MNPOST.Controllers.mailer
             return check == null ? false : true;
         }
 
-       
+
     }
 }

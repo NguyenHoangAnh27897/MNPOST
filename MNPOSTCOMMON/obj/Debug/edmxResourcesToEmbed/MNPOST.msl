@@ -1181,6 +1181,9 @@
           <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
           <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
           <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
+          <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+          <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+          <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

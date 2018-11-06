@@ -14,7 +14,7 @@
                 <div class="nav navbar-right">
                     <a class="btn btn-primary" href="/mailerinit/init" target="_blank" ng-hide="showEdit">Tạo vận đơn</a>
                     <a class="btn btn-warning" ng-hide="showEdit" ng-click="printMailers()">Print</a>
-                    <a class="btn btn-primary" ng-click="" ng-show="showEdit">Cập nhật</a>
+                    <a class="btn btn-primary" ng-click="updateMailer()" ng-show="mailer.CurrentStatusID === 0">Cập nhật</a>
                     <a class="btn btn-warning" ng-show="showEdit" ng-click="getTracking()">Xem lịch sử</a>
                 </div>
                 <div class="clearfix"></div>
@@ -84,35 +84,15 @@
                                                 <tr class="headings">
                                                     <th><input type="checkbox" ng-model="checkMailers" ng-change="checkAll()" /></th>
                                                     <th>STT</th>
-                                                    <th>Mã vận đơn</th>
+                                                    <th>Mã VĐơn</th>
                                                     <th>Ngày tạo</th>
-                                                    <th>Bưu cục nhận</th>
-                                                    <th>Bưu cục hiện tại</th>
-                                                    <th>Tình trạng</th>
-                                                    <th>Mã người gửi</th>
-                                                    <th>Người gửi</th>
-                                                    <th>Điện thoại</th>
-                                                    <th>Địa chỉ gửi</th>
-                                                    <th>Tỉnh thành gửi</th>
-                                                    <th>Quận huyện gửi</th>
-                                                    <th>Phường xã gửi</th>
-                                                    <th>Người nhận</th>
-                                                    <th>Điện thoại</th>
-                                                    <th>Địa chỉ nhận</th>
-                                                    <th>Tỉnh thành nhận</th>
-                                                    <th>Quận huyện nhận</th>
-                                                    <th>Phường xã nhận</th>
-                                                    <th>Dịch vụ</th>
-                                                    <th>Hình thức thanh toán</th>
-                                                    <th>Trọng lượng</th>
-                                                    <th>Số lượng</th>
-                                                    <th>Thu COD</th>
-                                                    <th>Hàng hóa</th>
-                                                    <th>Thông tin hàng</th>
-                                                    <th>Ghi chú</th>
-                                                    <th>Phụ phí</th>
-                                                    <th>Phí cước</th>
-                                                    <th>Tổng phí</th>
+                                                    <th>BC nhận</th>
+                                                    <th>BC HTại</th>
+                                                    <th>TTrạng</th>
+                                                    <th>TT gửi</th>
+                                                    <th>TT nhận</th>
+                                                    <th>TT hàng</th>
+                                                    <th>TT cước</th>
                                                 </tr>
                                             </thead>
 
@@ -128,31 +108,39 @@
                                                     <td>{{item.AcceptDate}}</td>
                                                     <td>{{item.PostOfficeAcceptID}}</td>
                                                     <td>{{item.CurrentPostOfficeID}}</td>
-                                                    <td>{{findStatus(item.CurrentStatusID)}}</td>
-                                                    <td>{{item.SenderID}}</td>
-                                                    <td>{{item.SenderName}}</td>
-                                                    <td>{{item.SenderPhone}}</td>
-                                                    <td>{{item.SenderAddress}}</td>
-                                                    <td>{{item.SenderProvinceID}}</td>
-                                                    <td>{{item.SenderDistrictID}}</td>
-                                                    <td>{{item.SenderWardID}}</td>
-                                                    <td>{{item.RecieverName}}</td>
-                                                    <td>{{item.RecieverPhone}}</td>
-                                                    <td>{{item.RecieverAddress}}</td>
-                                                    <td>{{item.RecieverProvinceID}}</td>
-                                                    <td>{{item.RecieverDistrictID}}</td>
-                                                    <td>{{item.RecieverWardID}}</td>
-                                                    <td>{{item.MailerTypeID}}</td>
-                                                    <td>{{item.PaymentMethodID}}</td>
-                                                    <td>{{item.Weight}}</td>
-                                                    <td>{{item.Quantity}}</td>
-                                                    <td>{{item.COD}}</td>
-                                                    <td>{{item.MerchandiseID}}</td>
-                                                    <td>{{item.MailerDescription}}</td>
-                                                    <td>{{item.Notes}}</td>
-                                                    <td>{{item.PriceService | currency:"VND"}}</td>
-                                                    <td>{{item.Price | currency: "VND"}}</td>
-                                                    <td>{{item.Amount | currency:"VND"}}</td>
+                                                    <td><strong>{{findStatus(item.CurrentStatusID)}}</strong></td>
+                                                    <td>
+                                                        <strong>Mã NgGửi: </strong> {{item.SenderID}} <br />
+                                                        <strong>Tên NgGửi: </strong> {{item.SenderName}} <br />
+                                                        <strong>ĐT NgGửi: </strong> {{item.SenderPhone}} <br />
+                                                        <strong>Đ/Chỉ NgGửi: </strong> {{item.SenderAddress}} <br />
+                                                        <strong>T/Thành NgGửi: </strong> {{item.SendProvinceName}} <br />
+                                                        <strong>Q/Huyện NgGửi: </strong> {{item.SendDistrictName}}
+                                                    </td>
+                                                    <td>
+                                                        <strong>Tên NgNhận: </strong> {{item.RecieverName}} <br />
+                                                        <strong>ĐT NgNhận: </strong> {{item.RecieverPhone}} <br />
+                                                        <strong>Đ/Chỉ NgNhận: </strong> {{item.RecieverAddress}} <br />
+                                                        <strong>T/Thành NgNhận: </strong> {{item.RecieProvinceName}} <br />
+                                                        <strong>Q/Huyện NgNhận: </strong> {{item.ReceiDistrictName}} <br />
+                                                        <strong>P/xã NgNhận: </strong> {{item.RecieWardName}} <br />
+                                                    </td>
+                                                    <td>
+                                                        <strong>Dịch vụ: </strong>{{item.MailerTypeID}}<br />
+                                                        <strong>HT Thanh toán: </strong>{{item.PaymentMethodID}}<br />
+                                                        <strong>Trọng lượng: </strong>{{item.Weight}} Gram<br />
+                                                        <strong>Số lượng: </strong>{{item.Quantity}}<br />
+                                                        <strong>Tiền thu: </strong>{{item.COD | currency: 'VND'}}<br />
+                                                        <strong>Loại hàng: </strong>{{item.MerchandiseID}}<br />
+                                                        <strong>Nội dung hàng: </strong>{{item.MailerDescription}}<br />
+                                                        <strong>Ghi chú: </strong>{{item.Notes}}
+                                                    </td>
+                                                    <td>
+                                                        <strong>Phụ phí: </strong> {{item.PriceService | currency:"VND"}} <br />
+                                                        <strong>Cước CoD: </strong> {{item.PriceCoD | currency:"VND"}} <br />
+                                                        <strong>Cước chính: </strong> {{item.PriceDefault | currency:"VND"}} <br />
+                                                        <strong>Tổng cước: </strong> {{item.Amount | currency:"VND"}}
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -172,7 +160,7 @@
                                 <div class="col-sm-12">
 
                                     <div class="x_title">
-                                        <h2>Vận đơn : <strong>{{mailer.MailerID}}</strong></h2>
+                                        <h2>Vận đơn : <strong>{{mailer.MailerID}}</strong> -- Tình trạng : <strong>{{findStatus(mailer.CurrentStatusID)}}</strong></h2>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -188,63 +176,57 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Điện thoại</label>
+                                        <label>Điện thoại gửi</label>
                                         <input type="tel" class="form-control" ng-model="mailer.SenderPhone" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Địa chỉ</label>
+                                        <label>Địa chỉ gửi</label>
                                         <input type="text" class="form-control" ng-model="mailer.SenderAddress" required id="autocompleteSend" />
                                     </div>
                                     <div class="form-group">
-                                        <label>Tỉnh thành</label>
+                                        <label>Tỉnh thành gửi</label>
                                         <select class="form-control" ng-model="mailer.SenderProvinceID" ng-change="provinceChange('district', 'send')" required>
                                             <option ng-repeat="item in provinceSend" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Quận huyện</label>
+                                        <label>Quận huyện gửi</label>
                                         <select class="form-control" ng-model="mailer.SenderDistrictID" ng-change="provinceChange('ward', 'send')" required>
                                             <option ng-repeat="item in districtSend" value="{{item.code}}">{{item.name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phường xã</label>
-                                        <select class="form-control" ng-model="mailer.SenderWardID" required>
-                                            <option ng-repeat="item in wardSend" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Tên người gửi</label>
+                                        <label>Tên người nhận</label>
                                         <input type="text" class="form-control" ng-model="mailer.RecieverName" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Điện thoại</label>
+                                        <label>Điện thoại nhận</label>
                                         <input type="tel" class="form-control" ng-model="mailer.RecieverPhone" required />
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Địa chỉ</label>
+                                        <label>Địa chỉ nhận</label>
                                         <input type="text" class="form-control" ng-model="mailer.RecieverAddress" id="autocompleteRecei" required />
                                     </div>
                                     <div class="form-group">
-                                        <label>Tỉnh thành</label>
+                                        <label>Tỉnh thành nhận</label>
                                         <select class="form-control" ng-model="mailer.RecieverProvinceID" ng-change="provinceChange('district', 'recei')" required>
                                             <option ng-repeat="item in provinceRecei" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Quận huyện</label>
+                                        <label>Quận huyện nhận</label>
                                         <select class="form-control" ng-model="mailer.RecieverDistrictID" ng-change="provinceChange('ward', 'recei')" required>
                                             <option ng-repeat="item in districtRecei" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Phường xã</label>
+                                        <label>Phường xã nhận</label>
                                         <select class="form-control" ng-model="mailer.RecieverWardID" required>
                                             <option ng-repeat="item in wardRecei" value="{{item.code}}">{{item.name}}</option>
                                         </select>
@@ -286,19 +268,20 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Tiền thu (CoD)</label>
-                                        <input type="number" class="form-control" ng-model="mailer.COD" step="any" />
+                                        <label>Tiền thu (CoD) {{mailer.COD | currency:'VND'}}</label>
+                                        <input type="number" class="form-control" ng-model="mailer.COD" step="any" ng-change="setMerchandiseValue()" />
+                                     
                                     </div>
-
                                     <div class="form-group">
-                                        <label>Giá trị hàng hóa</label>
-                                        <input type="number" class="form-control" ng-model="mailer.MerchandiseValue" />
+                                        <label>Giá trị hàng hóa {{mailer.MerchandiseValue | currency:'VND'}}</label>
+                                        <input type="number" class="form-control" ng-model="mailer.MerchandiseValue" step="any" />
+                                      
                                     </div>
                                 </div>
 
                                 <div class="col-sm-8">
                                     <div class="form-group">
-                                        <label>Kích thước</label>
+                                        <label>Kích thước (cm)</label>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <input type="number" class="form-control" placeholder="Dài" ng-model="mailer.LengthSize" step="any" />
@@ -330,7 +313,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Trọng lượng</label>
+                                                    <label>Trọng lượng (Gram)</label>
                                                     <input type="number" class="form-control" ng-model="mailer.Weight" placeholder="Trọng lượng" required step="any" />
                                                 </div>
                                             </div>
@@ -382,22 +365,22 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cước chính</label>
-                                        <input type="number" class="form-control" step="any" ng-model="mailer.PriceMain" ng-change="changePrice()" />
-                                        {{mailer.PriceMain | currency:"VND"}}
+                                        <input type="number" class="form-control" step="any" ng-model="mailer.PriceDefault" ng-change="changePrice()" />
+                                        {{mailer.PriceDefault | currency:"VND"}}
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cước CoD</label>
-                                        <input type="number" class="form-control" step="any" ng-model="mailer.CODPrice" ng-change="changePrice()" />
-                                        {{mailer.CODPrice | currency:"VND"}}
+                                        <input type="number" class="form-control" step="any" ng-model="mailer.PriceCoD" ng-change="changePrice()" />
+                                        {{mailer.PriceCoD | currency:"VND"}}
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Tổng cước</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" step="any" ng-model="mailer.PriceDefault" />
+                                            <input type="number" class="form-control" step="any" ng-model="mailer.Amount" />
                                             <span class="input-group-addon"><a href="#" ng-click="calPrice()"><i my-tool-tip="Tính giá" class="fa fa-calculator"></i></a></span>
                                         </div>
                                         {{mailer.PriceDefault | currency:"VND"}}
@@ -508,13 +491,14 @@
         var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
         var servicesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Services)));
         var customerDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllCustomer)));
-          var mailerTypesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.MailerTypes)));
+        var mailerTypesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.MailerTypes)));
 
         var paymentsGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Payments)));
 
         var provinceSendGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Provinces)));
         var currentDate = '@DateTime.Now.ToString("dd/MM/yyyy")';
-
+        var fromDate = '@DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy")';
+        var toDate = '@DateTime.Now.AddDays(1).ToString("dd/MM/yyyy")';
 
     </script>
     <script src="~/Scripts/order/mailershow.js"></script>

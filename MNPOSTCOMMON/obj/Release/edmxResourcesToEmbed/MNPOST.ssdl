@@ -631,6 +631,7 @@
     <Property Name="EmployeePaid" Type="nvarchar" MaxLength="128" />
     <Property Name="PaidNotes" Type="nvarchar(max)" />
     <Property Name="PaidCoDInvoice" Type="nvarchar(max)" />
+    <Property Name="PriceCoD" Type="money" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>

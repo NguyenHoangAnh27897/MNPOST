@@ -1,4 +1,4 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress' ,'ui.select2', 'ui.mask']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'ui.select2', 'ui.mask']);
 
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
@@ -38,8 +38,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.searchInfo = {
         "search": "",
         "customerId": '',
-        "fromDate": currentDate,
-        "toDate": currentDate,
+        "fromDate": fromDate,
+        "toDate": toDate,
         "status": -1,
         "page": $scope.currentPage,
         "postId": ""
@@ -74,7 +74,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             showNotify('Connect error');
         });
     }
-
+    $scope.GetData();
     $scope.checkAll = function () {
         for (var i = 0; i < $scope.mailers.length; i++) {
             $scope.mailers[i].isCheck = $scope.checkMailers;
@@ -100,7 +100,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         } else {
             window.open("/Report/Viewer/MailerPrint.aspx?mailer=" + listMailers, "_blank");
         }
-        
+
     };
 
     $scope.tracks = [];
@@ -148,10 +148,83 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     //
     $scope.mailer = {};
+    $scope.customers = customerDatas;
+    $scope.mailerTypes = mailerTypesGet;
+    $scope.payments = paymentsGet;
+    $scope.otherServices = servicesGet;
+    $scope.merchandises = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Tài liệu' }];
     $scope.showMailerDetail = function (idx) {
         $scope.showEdit = true;
         $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
         $scope.mailer = $scope.mailers[idx];
+        $scope.getDistrictAndWard("send");
+        $scope.getDistrictAndWard("recei");
+        $scope.otherServices = angular.copy(servicesGet);
+        console.log($scope.otherServices);
+        $http.get("/mailer/GetMailerService?mailerId=" + $scope.mailer.MailerID).then(function (response) {
+            $scope.mailer.Services = response.data;
+
+            for (var i = 0; i < $scope.mailer.Services.length; i++) {
+                for (var j = 0; j < $scope.otherServices.length; j++) {
+
+                    if ($scope.mailer.Services[i].code === $scope.otherServices[j].code) {
+                        $scope.otherServices[j].choose = true;
+                        $scope.otherServices[j].price = $scope.mailer.Services[i].price;
+                    }
+
+                }
+            }
+        });
+
+    };
+    $scope.setMerchandiseValue = function () {
+        $scope.mailer.MerchandiseValue = $scope.mailer.COD;
+    };
+
+    $scope.changePrice = function () {
+        console.log('tinh gia tong');
+        $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
+    };
+
+
+    $scope.addSeviceMorePrice = function () {
+        var total = 0;
+        $scope.mailer.Services = [];
+        for (var i = 0; i < $scope.otherServices.length; i++) {
+            if ($scope.otherServices[i].choose) {
+                total = total + $scope.otherServices[i].price;
+                $scope.mailer.Services.push($scope.otherServices[i]);
+            }
+        }
+        console.log(total);
+        $scope.mailer.PriceService = total;
+        $scope.changePrice();
+    };
+
+    $scope.updateMailer = function () {
+
+        showLoader(true);
+
+        $http({
+            method: "POST",
+            url: "/mailer/UpdateMailers",
+            data: {
+                mailer: $scope.mailer
+            }
+        }).then(function sucess(response) {
+            var result = response.data;
+            showLoader(false);
+            if (result.error === 1) {
+                showNotify(result.msg);
+            } else {
+                $scope.GetData();
+            }
+
+        }, function error(response) {
+            showLoader(false);
+            showNotify("Mất kết nối mạng");
+        });
+
     };
 
     $scope.init();
@@ -213,7 +286,26 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     };
 
-   
+    $scope.getDistrictAndWard = function (type) {
+
+        var url = '/mailerinit/GetDistrictAndWard?provinceId=';
+
+        if (type === 'send') {
+            url = url + $scope.mailer.SenderProvinceID + "&districtId=" + $scope.mailer.SenderDistrictID;
+        } else {
+            url = url + $scope.mailer.RecieverProvinceID + "&districtId=" + $scope.mailer.RecieverDistrictID;
+        }
+
+        $http.get(url).then(function (response) {
+            if (type === "send") {
+                $scope.districtSend = angular.copy(response.data.districts);
+                // $scope.mailer.ListWardSend = angular.copy(response.data.wards);
+            } else {
+                $scope.districtRecei = angular.copy(response.data.districts);
+                $scope.wardRecei = angular.copy(response.data.wards);
+            }
+        });
+    };
 
 });
 

@@ -49,9 +49,10 @@
                                                         <th class="tableth">P/XÃ(NHẬN)</th>
                                                         <th class="tableth">DỊCH VỤ</th>
                                                         <th class="tableth">HÌNH THỨC</th>
-                                                        <th class="tableth">TL</th>
+                                                        <th class="tableth">TL (Gram)</th>
                                                         <th class="tableth">SL</th>
                                                         <th class="tableth">COD</th>
+                                                        <th class="tableth">Giá trị hàng</th>
                                                         <th class="tableth">LH</th>
                                                         <th class="tableth">MÔ TẢ</th>
                                                         <th class="tableth">GHI CHÚ</th>
@@ -120,7 +121,14 @@
                                                         </td>
                                                         <td class="warning"><input type="number" ng-model="item.Weight" class="tableinput" required step="any" /></td>
                                                         <td class="warning"><input type="number" ng-model="item.Quantity" class="tableinput" required step="any" /></td>
-                                                        <td class="warning"><input type="number" ng-model="item.COD" class="tableinput" step="any" /></td>
+                                                        <td class="warning">
+                                                            <input type="number" ng-model="item.COD" class="tableinput" step="any" ng-change="setMerchandiseValue($index)"/><br />
+                                                            {{item.COD | currency: 'VND'}}
+                                                        </td>
+                                                        <td class="warning">
+                                                            <input type="number" ng-model="item.MerchandiseValue" class="tableinput" step="any" /><br />
+                                                            {{item.MerchandiseValue | currency: 'VND'}}
+                                                        </td>
                                                         <td>
                                                             <select ui-select2="select2Options" ng-model="item.MerchandiseID" class="tableinput" required>
                                                                 <option ng-repeat="merchandise in merchandises" value="{{merchandise.code}}">{{merchandise.name}}</option>
@@ -128,10 +136,22 @@
                                                         </td>
                                                         <td class="warning"><input type="text" ng-model="item.MailerDescription" class="tableinput" /></td>
                                                         <td class="warning"><input type="text" ng-model="item.Notes" class="tableinput" /></td>
-                                                        <td class="success"><input type="number" ng-model="item.PriceService" class="tableinput" required step="any" /></td>
-                                                        <td class="success"><input type="number" ng-model="item.CODPrice" class="tableinput" required step="any" /></td>
-                                                        <td class="success"><input type="number" ng-model="item.PriceMain" class="tableinput" required step="any" /></td>
-                                                        <td class="success"><input type="number" ng-model="item.PriceDefault" class="tableinput" required step="any" /></td>
+                                                        <td class="success">
+                                                            <input type="number" ng-model="item.PriceService" class="tableinput" required step="any" ng-change="changePrice($index)" /><br />
+                                                            {{item.PriceService | currency: 'VND'}}
+                                                        </td>
+                                                        <td class="success">
+                                                            <input type="number" ng-model="item.PriceCoD" class="tableinput" required step="any" ng-change="changePrice($index)"/> <br />
+                                                            {{item.PriceCoD | currency: 'VND'}}
+                                                        </td>
+                                                        <td class="success">
+                                                            <input type="number" ng-model="item.PriceDefault" class="tableinput" required step="any" ng-change="changePrice($index)"/><br />
+                                                            {{item.PriceDefault | currency: 'VND'}}
+                                                        </td>
+                                                        <td class="success">
+                                                            <input type="number" ng-model="item.Amount" class="tableinput" required step="any" /> <br />
+                                                            {{item.Amount | currency: 'VND'}}
+                                                        </td>
                                                         <td><a class="btn btn-primary btn-xs" ng-click="calPrice($index)">Tính giá</a></td>
                                                     </tr>
                                                 </tbody>
@@ -362,12 +382,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Tiền thu (CoD)</label>
-                                        <input type="number" class="form-control" ng-model="mailer.COD" step="any" />
+                                        <label>Tiền thu (CoD) {{mailer.COD | currency:'VND'}}</label>
+                                        <input type="number" class="form-control" ng-model="mailer.COD" step="any" ng-change="setMerchandiseValue()"/>
+                                       
                                     </div>
                                     <div class="form-group">
-                                        <label>Giá trị hàng hóa</label>
-                                        <input type="number" class="form-control" ng-model="mailer.MerchandiseValue" />
+                                        <label>Giá trị hàng hóa {{mailer.MerchandiseValue | currency:'VND'}}</label>
+                                        <input type="number" class="form-control" ng-model="mailer.MerchandiseValue" step="any"  />
+                                     
                                     </div>
                                 </div>
 
@@ -381,7 +403,7 @@
                                         <input type="text" class="form-control" ng-model="mailer.Notes" />
                                     </div>
                                     <div class="form-group">
-                                        <label>Kích thướ (cm)</label>
+                                        <label>Kích thước (cm)</label>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <input type="number" class="form-control" placeholder="Dài" ng-model="mailer.LengthSize" step="any" />
@@ -466,25 +488,25 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cước chính</label>
-                                        <input type="number" class="form-control" step="any" ng-model="mailer.PriceMain" ng-change="changePrice()" />
-                                        {{mailer.PriceMain | currency:"VND"}}
+                                        <input type="number" class="form-control" step="any" ng-model="mailer.PriceDefault" ng-change="changePrice()" />
+                                        {{mailer.PriceDefault | currency:"VND"}}
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cước CoD</label>
-                                        <input type="number" class="form-control" step="any" ng-model="mailer.CODPrice" ng-change="changePrice()" />
-                                        {{mailer.CODPrice | currency:"VND"}}
+                                        <input type="number" class="form-control" step="any" ng-model="mailer.PriceCoD" ng-change="changePrice()" />
+                                        {{mailer.PriceCoD | currency:"VND"}}
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Tổng cước</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" step="any" ng-model="mailer.PriceDefault" />
+                                            <input type="number" class="form-control" step="any" ng-model="mailer.Amount" />
                                             <span class="input-group-addon"><a href="#" ng-click="calPrice()"><i my-tool-tip="Tính giá" class="fa fa-calculator"></i></a></span>
                                         </div>
-                                        {{mailer.PriceDefault | currency:"VND"}}
+                                        {{mailer.Amount | currency:"VND"}}
                                     </div>
                                 </div>
 

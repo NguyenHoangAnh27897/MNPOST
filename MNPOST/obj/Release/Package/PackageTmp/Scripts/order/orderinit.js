@@ -9,7 +9,7 @@ app.service('mailerService', function () {
 
     var mailerList = [];
 
-    var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Thư từ' }];
+    var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Tài liệu' }];
 
     var customers = customersGet;
 
@@ -49,7 +49,7 @@ app.service('mailerService', function () {
             'SenderProvinceID': '', 'SenderPhone': '', 'RecieverName': ''
             , 'RecieverAddress': '', 'RecieverWardID': '', 'RecieverDistrictID': '', 'RecieverProvinceID': '',
             'RecieverPhone': '', 'Weight': 0.01, 'Quantity': 1, 'PaymentMethodID': 'NGTT', 'MailerTypeID': 'SN',
-            'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'PriceMain': 0, 'CODPrice': 0,
+            'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'Amount': 0, 'PriceCoD': 0,
             'PriceDefault': 0, 'ListWardSend': [], 'ListProvinceSend': provinceSendGet, 'ListDistrictSend': [], 'ListProvinceRecive': provinceSendGet, 'ListDistrictRecive': [], 'ListWardRecive':[]
         };
     };
@@ -410,10 +410,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             }
         }).then(function mySuccess(response) {
 
-            $scope.mailers[index].PriceMain = response.data.price;
-            $scope.mailers[index].CODPrice = response.data.codPrice;
+            $scope.mailers[index].PriceDefault = response.data.price;
+            $scope.mailers[index].PriceCoD = response.data.codPrice;
 
-            $scope.mailers[index].PriceDefault = $scope.mailers[index].PriceMain + $scope.mailers[index].CODPrice + $scope.mailers[index].PriceService;
+            $scope.mailers[index].Amount = $scope.mailers[index].PriceDefault + $scope.mailers[index].PriceCoD + $scope.mailers[index].PriceService;
 
         }, function myError(response) {
             alert('Connect error');
@@ -421,6 +421,13 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     };
 
+    $scope.setMerchandiseValue = function (index) {
+        $scope.mailers[index].MerchandiseValue = $scope.mailers[index].COD;
+    };
+
+    $scope.changePrice = function (index) {
+        $scope.mailers[index].Amount = $scope.mailers[index].PriceDefault + $scope.mailers[index].PriceCoD + $scope.mailers[index].PriceService;
+    };
     // upload file
     $scope.files = [];
     var inserByExcelElement = document.getElementById('insertByExcel');
@@ -504,20 +511,8 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
             }
         }
-
-      //  console.log($scope.otherServices);
     });
 
-
-
-  //  $scope.provinceSend = provinceSendGet;
-   // $scope.provinceRecei = angular.copy($scope.provinceSend);
-
-   // $scope.districtSend = [];
-  //  $scope.wardSend = [];
-
-  //  $scope.districtRecei = [];
-  //  $scope.wardRecei = [];
 
     $scope.actionEdit = mailerService.getActionEdit();
 
@@ -689,10 +684,10 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             }
         }).then(function mySuccess(response) {
 
-            $scope.mailer.PriceMain = response.data.price;
-            $scope.mailer.CODPrice = response.data.codPrice;
+            $scope.mailer.PriceDefault = response.data.price;
+            $scope.mailer.PriceCoD = response.data.codPrice;
 
-            $scope.mailer.PriceDefault = $scope.mailer.PriceMain + $scope.mailer.CODPrice + $scope.mailer.PriceService;
+            $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
 
         }, function myError(response) {
             alert('Connect error');
@@ -701,9 +696,11 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
     $scope.changePrice = function () {
         console.log('tinh gia tong');
-        $scope.mailer.PriceDefault = $scope.mailer.PriceMain + $scope.mailer.CODPrice + $scope.mailer.PriceService;
+        $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
     };
-
+    $scope.setMerchandiseValue = function () {
+        $scope.mailer.MerchandiseValue = $scope.mailer.COD;
+    };
 });
 
 

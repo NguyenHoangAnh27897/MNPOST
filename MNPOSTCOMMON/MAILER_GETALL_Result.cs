@@ -60,5 +60,8 @@ namespace MNPOSTCOMMON
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
         public Nullable<decimal> PriceCoD { get; set; }
+        public Nullable<double> LengthSize { get; set; }
+        public Nullable<double> HeightSize { get; set; }
+        public Nullable<double> WidthSize { get; set; }
     }
 }

@@ -2551,6 +2551,9 @@
           <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
           <Property Type="String" Name="ReceiWardName" Nullable="true" />
           <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
+          <Property Type="Double" Name="LengthSize" Nullable="true" />
+          <Property Type="Double" Name="HeightSize" Nullable="true" />
+          <Property Type="Double" Name="WidthSize" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_GETINFO_BYID_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -4356,6 +4359,9 @@
                 <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
                 <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
                 <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
+                <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+                <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+                <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
