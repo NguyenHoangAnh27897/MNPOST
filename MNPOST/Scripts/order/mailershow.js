@@ -38,8 +38,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     $scope.searchInfo = {
         "search": "",
         "customerId": '',
-        "fromDate": currentDate,
-        "toDate": currentDate,
+        "fromDate": fromDate,
+        "toDate": toDate,
         "status": -1,
         "page": $scope.currentPage,
         "postId": ""
@@ -74,7 +74,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             showNotify('Connect error');
         });
     }
-
+    $scope.GetData();
     $scope.checkAll = function () {
         for (var i = 0; i < $scope.mailers.length; i++) {
             $scope.mailers[i].isCheck = $scope.checkMailers;
@@ -148,11 +148,24 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     //
     $scope.mailer = {};
+    $scope.customers = customerDatas;
+    $scope.mailerTypes = mailerTypesGet;
+    $scope.payments = paymentsGet;
+    $scope.otherServices = servicesGet;
+    $scope.merchandises = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Tài liệu' }];
     $scope.showMailerDetail = function (idx) {
         $scope.showEdit = true;
         $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
         $scope.mailer = $scope.mailers[idx];
+        $scope.getDistrictAndWard("send");
+        $scope.getDistrictAndWard("recei");
+       
     };
+    $scope.setMerchandiseValue = function () {
+        $scope.mailer.MerchandiseValue = $scope.mailer.COD;
+    };
+  
+
 
     $scope.init();
     $scope.provinceSend = provinceSendGet;
@@ -213,7 +226,26 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
 
     };
 
-   
+    $scope.getDistrictAndWard = function (type) {
+
+        var url = '/mailerinit/GetDistrictAndWard?provinceId=';
+
+        if (type === 'send') {
+            url = url + $scope.mailer.SenderProvinceID + "&districtId=" + $scope.mailer.SenderDistrictID;
+        } else {
+            url = url + $scope.mailer.RecieverProvinceID + "&districtId=" + $scope.mailer.RecieverDistrictID;
+        }
+
+        $http.get(url).then(function (response) {
+            if (type === "send") {
+                $scope.districtSend = angular.copy(response.data.districts);
+                // $scope.mailer.ListWardSend = angular.copy(response.data.wards);
+            } else {
+                $scope.districtRecei = angular.copy(response.data.districts);
+                $scope.wardRecei = angular.copy(response.data.wards);
+            }
+        });
+    };
 
 });
 

@@ -339,14 +339,13 @@ namespace MNPOST.Controllers.mailer
 
                         var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd"));
                         var codPrice = 0;
-
-                        otherPrice += codPrice;
+                        
 
                         mailers.Add(new MailerIdentity()
                         {
                             MailerID = mailerId,
                             COD = cod,
-                            CODPrice = codPrice,
+                            PriceCoD = codPrice,
                             HeightSize = height,
                             LengthSize = length,
                             MailerDescription = describe,
@@ -356,7 +355,7 @@ namespace MNPOST.Controllers.mailer
                             Notes = notes,
                             PaymentMethodID = mailerPay,
                             PriceDefault = price,
-                            PriceMain = price,
+                            Amount = price + otherPrice + codPrice,
                             PriceService = otherPrice,
                             Quantity = quantity,
                             RecieverAddress = receiverAddress,
@@ -439,7 +438,7 @@ namespace MNPOST.Controllers.mailer
                 }
 
                 // theem
-                var mailerIns = new MNPOSTCOMMON.MM_Mailers()
+                var mailerIns = new MM_Mailers()
                 {
                     MailerID = item.MailerID,
                     AcceptTime = DateTime.Now,
@@ -462,6 +461,8 @@ namespace MNPOST.Controllers.mailer
                     PriceDefault = item.PriceDefault,
                     Price = item.PriceDefault,
                     PriceService = item.PriceService,
+                    Amount = item.Amount,
+                    PriceCoD = item.PriceCoD,
                     Notes = item.Notes,
                     PaymentMethodID = item.PaymentMethodID,
                     RecieverAddress = item.RecieverAddress,

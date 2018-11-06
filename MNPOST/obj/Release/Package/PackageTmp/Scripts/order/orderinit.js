@@ -3,6 +3,10 @@
 var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'ui.uploader', 'ui.select2']);
 
 app.service('mailerService', function () {
+
+
+
+
     var mailerList = [];
 
     var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Thư từ' }];
@@ -27,13 +31,12 @@ app.service('mailerService', function () {
     var actionEdit = true;
 
     var addMailer = function (newObj) {
+        newObj.MailerID = '';
         mailerList.unshift(newObj);
     };
 
     var addNewMailer = function () {
         var data = getNewMailer();
-        data.ListProvinceSend = provinceSendGet;
-        data.ListProvinceRecive = provinceSendGet;
 
         mailerList.unshift(data);
 
@@ -47,7 +50,7 @@ app.service('mailerService', function () {
             , 'RecieverAddress': '', 'RecieverWardID': '', 'RecieverDistrictID': '', 'RecieverProvinceID': '',
             'RecieverPhone': '', 'Weight': 0.01, 'Quantity': 1, 'PaymentMethodID': 'NGTT', 'MailerTypeID': 'SN',
             'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'PriceMain': 0, 'CODPrice': 0,
-            'PriceDefault': 0, 'ListWardSend': [], 'ListProvinceSend': [], 'ListDistrictSend': []
+            'PriceDefault': 0, 'ListWardSend': [], 'ListProvinceSend': provinceSendGet, 'ListDistrictSend': [], 'ListProvinceRecive': provinceSendGet, 'ListDistrictRecive': [], 'ListWardRecive':[]
         };
     };
 
@@ -124,9 +127,7 @@ app.service('mailerService', function () {
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.select2Options = {
-        theme: "classic"
     };
-
 
     $scope.hideSenderDetail = false;
 
@@ -337,7 +338,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
             } else {
                 if (pType === "district") {
-                    $scope.mailers[idx].ListDistrictReceive = angular.copy(response.data);
+                    $scope.mailers[idx].ListDistrictRecive = angular.copy(response.data);
                 }
 
                 if (pType === "ward") {
@@ -474,7 +475,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerService) {
 
     $scope.select2Options = {
-        theme: "classic"
+        width: '100%'
+        
     };
 
     $scope.customers = mailerService.getCustomers();
@@ -488,8 +490,8 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.$on('insert-started', function (event, args) {
 
         $scope.mailer = angular.copy(args.mailer);
-        console.log($scope.mailer);
-        $scope.otherServices = angular.copy(servicesGet);
+       // console.log($scope.mailer);
+       // $scope.otherServices = angular.copy(servicesGet);
         $scope.actionEdit = args.actionEdit;
 
         for (var i = 0; i < $scope.mailer.Services.length; i++) {
@@ -503,19 +505,19 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             }
         }
 
-        console.log($scope.otherServices);
+      //  console.log($scope.otherServices);
     });
 
 
 
-    $scope.provinceSend = provinceSendGet;
-    $scope.provinceRecei = angular.copy($scope.provinceSend);
+  //  $scope.provinceSend = provinceSendGet;
+   // $scope.provinceRecei = angular.copy($scope.provinceSend);
 
-    $scope.districtSend = [];
-    $scope.wardSend = [];
+   // $scope.districtSend = [];
+  //  $scope.wardSend = [];
 
-    $scope.districtRecei = [];
-    $scope.wardRecei = [];
+  //  $scope.districtRecei = [];
+  //  $scope.wardRecei = [];
 
     $scope.actionEdit = mailerService.getActionEdit();
 
@@ -583,11 +585,11 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
         $http.get(url).then(function (response) {
             if (type === "send") {
-                $scope.districtSend = angular.copy(response.data.districts);
-                $scope.wardSend = angular.copy(response.data.wards);
+                $scope.mailer.ListDistrictSend = angular.copy(response.data.districts);
+                $scope.mailer.ListWardSend = angular.copy(response.data.wards);
             } else {
-                $scope.districtRecei = angular.copy(response.data.districts);
-                $scope.wardRecei = angular.copy(response.data.wards);
+                $scope.mailer.ListDistrictRecive = angular.copy(response.data.districts);
+                $scope.mailer.ListWardRecive = angular.copy(response.data.wards);
             }
         });
     };
@@ -631,20 +633,20 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             if (type === 'send') {
 
                 if (pType === "district") {
-                    $scope.districtSend = angular.copy(response.data);
+                    $scope.mailer.ListDistrictSend = angular.copy(response.data);
                 }
 
                 if (pType === "ward") {
-                    $scope.wardSend = angular.copy(response.data);
+                    $scope.mailer.ListWardSend = angular.copy(response.data);
                 }
 
             } else {
                 if (pType === "district") {
-                    $scope.districtRecei = angular.copy(response.data);
+                    $scope.mailer.ListDistrictRecive = angular.copy(response.data);
                 }
 
                 if (pType === "ward") {
-                    $scope.wardRecei = angular.copy(response.data);
+                    $scope.mailer.ListWardRecive = angular.copy(response.data);
                 }
             }
 

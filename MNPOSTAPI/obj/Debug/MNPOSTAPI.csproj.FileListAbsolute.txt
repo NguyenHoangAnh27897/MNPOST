@@ -273,3 +273,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.Web.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOSTAPI\bin\NLog.Web.xml
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.csprojResolveAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\obj\Debug\MNPOSTAPI.pdb

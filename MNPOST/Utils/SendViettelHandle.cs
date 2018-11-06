@@ -88,7 +88,7 @@ namespace MNPOST.Utils
                 {
                     ViettelOrderSend info = new ViettelOrderSend()
                     {
-                        ORDER_NUMBER = "",
+                        ORDER_NUMBER = item.MailerID,
                         GROUPADDRESS_ID = 0,
                         DELIVERY_DATE = DateTime.Now.AddDays(1).ToString("dd/MM/yyyy HH:mm:ss"),
                         CUS_ID = Convert.ToInt32(partner.UserID),
