@@ -489,14 +489,14 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label>Tỉnh thành</label>
-                                        <select class="form-control" ng-model="provincesearch" ng-change="changeProvince()">
+                                        <select class="form-control" ui-select2="select2Options" ng-model="provincesearch" ng-change="changeProvince()">
                                             <option value="">Tất cả</option>
                                             <option ng-repeat="item in provinces" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label>Phường xã</label>
-                                        <select class="form-control" ng-model="districtsearch">
+                                        <label>Quận huyện</label>
+                                        <select class="form-control" ui-select2="select2Options" ng-model="districtsearch">
                                             <option value="">Tất cả</option>
                                             <option ng-repeat="item in districts" value="{{item.code}}">{{item.name}}</option>
                                         </select>

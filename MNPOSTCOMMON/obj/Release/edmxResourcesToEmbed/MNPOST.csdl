@@ -1338,6 +1338,11 @@
     <Property Type="String" Name="Notes" Nullable="true" />
     <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+    <Property Type="String" Name="SendProvinceName" Nullable="true" />
+    <Property Type="String" Name="SendDistrictName" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
   </ComplexType>
   <ComplexType Name="MAILER_GETALL_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -1795,6 +1800,11 @@
     <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
     <Property Type="String" Name="TimeTake" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SendProvinceName" Nullable="true" />
+    <Property Type="String" Name="SendDistrictName" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
   </ComplexType>
   <ComplexType Name="TAKEMAILER_GETLIST_Result">
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />

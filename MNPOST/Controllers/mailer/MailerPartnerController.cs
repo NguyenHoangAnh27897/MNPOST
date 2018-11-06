@@ -211,8 +211,17 @@ namespace MNPOST.Controllers.mailer
                     msg = "Không thể cập nhật"
                 }, JsonRequestBehavior.AllowGet);
             }
+            var partner = db.BS_Partners.Find(checkDocument.PartnerID);
 
-            foreach(var item in mailers)
+            if (partner == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            foreach (var item in mailers)
             {
                 var mailer = db.MM_Mailers.Find(item);
 
@@ -246,6 +255,12 @@ namespace MNPOST.Controllers.mailer
                 };
 
                 db.MM_MailerPartnerDetail.Add(detail);
+                db.SaveChanges();
+
+                mailer.CurrentStatusID = 9;
+                mailer.ThirdpartyCode = partner.PartnerCode;
+                mailer.ThirdpartyID = partner.PartnerID;
+                db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
@@ -285,8 +300,25 @@ namespace MNPOST.Controllers.mailer
         public ActionResult DeleteDetail(string documentId, string mailerId)
         {
             var find = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == mailerId).FirstOrDefault();
+            var mailer = db.MM_Mailers.Find(mailerId);
 
-            if(find != null && find.StatusID == 0)
+            if(mailer == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể xóa"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            mailer.CurrentStatusID = 2;
+            mailer.ThirdpartyCode ="";
+            mailer.ThirdpartyID = "";
+            db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            if (find != null && find.StatusID == 0)
             {
                 db.MM_MailerPartnerDetail.Remove(find);
                 db.SaveChanges();
@@ -298,6 +330,9 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
             }
 
+           
+
+
             return Json(new ResultInfo()
             {
                 error = 1,
@@ -305,6 +340,85 @@ namespace MNPOST.Controllers.mailer
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult CancelSend (string documentId, string mailerId)
+        {
+            var checkDocument = db.MM_MailerPartner.Find(documentId);
+
+            if (checkDocument == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var checkDetail = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == mailerId).FirstOrDefault();
+
+            if(checkDetail == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể hủy"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var mailer = db.MM_Mailers.Find(mailerId);
+            if (mailer == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể hủy"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            var partner = db.BS_Partners.Find(checkDocument.PartnerID);
+
+            if (partner == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            //
+            switch (partner.PartnerCode)
+            {
+                case "VIETTEL":
+                    SendViettelHandle viettelHandle = new SendViettelHandle(db, partner, HandleHistory);
+                    viettelHandle.CancelOrder(checkDetail.OrderReference);
+                    break;
+                default:
+                    break;
+            }
+
+            checkDetail.StatusID = 2;// huy
+            db.Entry(checkDetail).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            mailer.ThirdpartyDocID = "";
+            mailer.ThirdpartyCode = "";
+            mailer.ThirdpartyID = "";
+            mailer.CurrentStatusID = 2;
+            mailer.ThirdpartyCost = 0;
+
+            db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = ""
+            }, JsonRequestBehavior.AllowGet);
+
+
+        }
 
         [HttpPost]
         public ActionResult SendPartner(string documentId, MyAddressInfo address)
@@ -339,6 +453,7 @@ namespace MNPOST.Controllers.mailer
                     viettelHandle.SendViettelPost(checkDocument.DocumentID, address);
                     break;
                 default:
+
                     break;
             }
 

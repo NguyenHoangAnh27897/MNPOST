@@ -2502,6 +2502,11 @@
           <Property Type="String" Name="Notes" Nullable="true" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+          <Property Type="String" Name="SendProvinceName" Nullable="true" />
+          <Property Type="String" Name="SendDistrictName" Nullable="true" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_GETALL_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -2959,6 +2964,11 @@
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
           <Property Type="String" Name="TimeTake" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="SendProvinceName" Nullable="true" />
+          <Property Type="String" Name="SendDistrictName" Nullable="true" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
         </ComplexType>
         <ComplexType Name="TAKEMAILER_GETLIST_Result">
           <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
@@ -4306,6 +4316,11 @@
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+                <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+                <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4839,6 +4854,11 @@
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
                 <ScalarProperty Name="TimeTake" ColumnName="TimeTake" />
+                <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+                <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -3,7 +3,7 @@
 app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.select2Options = {
-        width: 'element'
+        width: '100%'
     };
     $scope.tabds = true;
     $scope.mailers = [];
@@ -310,6 +310,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     $scope.sendTake = function (valid) {
 
         if (valid) {
+            showLoader(true);
             var listSends = [];
             for (i = 0; i < $scope.mailers.length; i++) {
                 if ($scope.mailers[i].isCheck) {
@@ -332,15 +333,15 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
                     postId: $scope.postHandle
                 }
             }).then(function success(response) {
-
+                showLoader(false);
                 hideModel('takemailers');
                 showNotify("Đã tạo xong");
                 $scope.getData();
                 $scope.sendGetTakeMailers();
                 $('.nav-tabs a[href="#tab_layhang"]').tab('show');
 
-
             }, function error(response) {
+                showLoader(false);
                 showNotify("disconect internet")
             });
 

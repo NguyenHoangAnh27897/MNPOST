@@ -1128,6 +1128,11 @@
           <ScalarProperty Name="Notes" ColumnName="Notes" />
           <ScalarProperty Name="COD" ColumnName="COD" />
           <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+          <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+          <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+          <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+          <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+          <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1661,6 +1666,11 @@
           <ScalarProperty Name="COD" ColumnName="COD" />
           <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
           <ScalarProperty Name="TimeTake" ColumnName="TimeTake" />
+          <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+          <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+          <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+          <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+          <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

@@ -72,7 +72,7 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId).ToList();
+            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId).Where(p=> p.EmployeeID.Contains(employeeId)).ToList();
 
             ResultInfo result = new ResultWithPaging()
             {

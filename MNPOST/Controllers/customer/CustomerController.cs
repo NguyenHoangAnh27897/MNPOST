@@ -22,15 +22,15 @@ namespace MNPOST.Controllers.customer
         }
         private string GeneralCusCode(string groupId)
         {
-
-            var find = db.GeneralCodeInfoes.Where(p => p.Code == "CUSTOMER").FirstOrDefault();
+            string codeSearch = "CUSTOMER" + groupId;
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == codeSearch).FirstOrDefault();
 
             if (find == null)
             {
                 var data = new GeneralCodeInfo()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Code = "CUSTOMER",
+                    Code = codeSearch,
                     FirstChar = groupId,
                     PreNumber = 0
                 };

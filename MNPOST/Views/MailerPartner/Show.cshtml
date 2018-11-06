@@ -149,7 +149,7 @@
                                                 <tr ng-repeat="item in mailers" ng-class="{'danger': item.StatusID === 0, 'success' : item.StatusID === 1, 'error' : item.StatusID === 2}">
                                                     <td>
                                                         <a href="#" ng-click="deleteDetail($index)" ng-show="item.StatusID === 0" class="label label-warning">Xóa đơn</a>
-                                                        <a href="#" ng-click="" ng-show="item.StatusID === 1" class="label label-danger">Hủy gửi</a>
+                                                        <a href="#" ng-click="cancelSend($index)" ng-show="item.StatusID === 1" class="label label-danger">Hủy gửi</a>
                                                         . {{$index + 1}}
                                                     </td>
                                                     <td>{{item.MailerID}}</td>
@@ -263,7 +263,7 @@
 
                                 <div class="form-group">
                                     <label>Điện thoại</label>
-                                    <input type="tel" class="form-control" ng-model="myAddress.phone" required />
+                                    <input type="tel" class="form-control" ng-model="myAddress.phone" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Địa chỉ mail</label>
@@ -277,19 +277,19 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Tỉnh thành</label>
-                                    <select class="form-control" ng-model="myAddress.province" ng-change="provinceChange('district', 'send')" required>
+                                    <select ui-select2="select2Options" class="form-control" ng-model="myAddress.province" ng-change="provinceChange('district', 'send')" required>
                                         <option ng-repeat="item in provinceSend" value="{{item.code}}">{{item.name}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Quận huyện</label>
-                                    <select class="form-control" ng-model="myAddress.district" ng-change="provinceChange('ward', 'send')" required>
+                                    <select ui-select2="select2Options" class="form-control" ng-model="myAddress.district" ng-change="provinceChange('ward', 'send')" required>
                                         <option ng-repeat="item in districtSend" value="{{item.code}}">{{item.name}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Phường xã</label>
-                                    <select class="form-control" ng-model="myAddress.ward" required>
+                                    <select ui-select2="select2Options" class="form-control" ng-model="myAddress.ward" required>
                                         <option ng-repeat="item in wardSend" value="{{item.code}}">{{item.name}}</option>
                                     </select>
                                 </div>
@@ -316,14 +316,14 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <label>Tỉnh thành</label>
-                            <select class="form-control" ng-model="provincesearch" ng-change="changeProvince()">
+                            <select ui-select2="select2Options" class="form-control" ng-model="provincesearch" ng-change="changeProvince()">
                                 <option value="">Tất cả</option>
                                 <option ng-repeat="item in provinces" value="{{item.code}}">{{item.name}}</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
-                            <label>Phường xã</label>
-                            <select class="form-control" ng-model="districtsearch">
+                            <label>Quận huyện</label>
+                            <select  ui-select2="select2Options" class="form-control" ng-model="districtsearch">
                                 <option value="">Tất cả</option>
                                 <option ng-repeat="item in districts" value="{{item.code}}">{{item.name}}</option>
                             </select>

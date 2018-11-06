@@ -38,6 +38,7 @@
                                         <div class="form-group">
                                             <label>Lọc theo khách hàng</label>
                                             <select ui-select2="select2Options" ng-model="searchInfo.customerId" class="form-control">
+                                                <option value="">Tất cả</option>
                                                 <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
                                             </select>
                                         </div>

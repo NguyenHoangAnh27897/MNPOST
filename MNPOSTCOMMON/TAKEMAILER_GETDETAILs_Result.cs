@@ -47,5 +47,10 @@ namespace MNPOSTCOMMON
         public Nullable<decimal> COD { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
         public string TimeTake { get; set; }
+        public string SendProvinceName { get; set; }
+        public string SendDistrictName { get; set; }
+        public string RecieProvinceName { get; set; }
+        public string ReceiDistrictName { get; set; }
+        public string ReceiWardName { get; set; }
     }
 }
