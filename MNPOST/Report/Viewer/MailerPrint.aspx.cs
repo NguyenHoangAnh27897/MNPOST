@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using MNPOSTCOMMON;
 using MNPOST.Models;
 using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace MNPOST.Report.Viewer
 {
@@ -70,14 +71,8 @@ namespace MNPOST.Report.Viewer
         {
             if(rptH != null)
             {
-                try
-                {
-                    rptH.PrintToPrinter(1, false, 0, 0);
-                }
-                catch
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Không tìm thấy thiết bị in')", true);
-                }
+               
+                rptH.PrintToPrinter(1, false, 0, 0);
             }
         }
     }

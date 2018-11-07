@@ -131,16 +131,16 @@
                                                         <strong>HT Thanh toán: </strong>{{item.PaymentMethodID}}<br />
                                                         <strong>Trọng lượng: </strong>{{item.Weight}} Gram<br />
                                                         <strong>Số lượng: </strong>{{item.Quantity}}<br />
-                                                        <strong>Tiền thu: </strong>{{item.COD | currency: 'VND'}}<br />
+                                                        <strong>Tiền thu: </strong>{{item.COD |  currency: 'VND ':0}}<br />
                                                         <strong>Loại hàng: </strong>{{item.MerchandiseID}}<br />
                                                         <strong>Nội dung hàng: </strong>{{item.MailerDescription}}<br />
                                                         <strong>Ghi chú: </strong>{{item.Notes}}
                                                     </td>
                                                     <td>
-                                                        <strong>Phụ phí: </strong> {{item.PriceService | currency:"VND"}} <br />
-                                                        <strong>Cước CoD: </strong> {{item.PriceCoD | currency:"VND"}} <br />
-                                                        <strong>Cước chính: </strong> {{item.PriceDefault | currency:"VND"}} <br />
-                                                        <strong>Tổng cước: </strong> {{item.Amount | currency:"VND"}}
+                                                        <strong>Phụ phí: </strong> {{item.PriceService |  currency: 'VND ':0}} <br />
+                                                        <strong>Cước CoD: </strong> {{item.PriceCoD |  currency: 'VND ':0}} <br />
+                                                        <strong>Cước chính: </strong> {{item.PriceDefault |  currency: 'VND ':0}} <br />
+                                                        <strong>Tổng cước: </strong> {{item.Amount |  currency: 'VND ':0}}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -269,12 +269,12 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Tiền thu (CoD) {{mailer.COD | currency:'VND'}}</label>
+                                        <label>Tiền thu (CoD) {{mailer.COD |  currency: 'VND ':0}}</label>
                                         <input type="number" class="form-control" ng-model="mailer.COD" step="any" ng-change="setMerchandiseValue()" />
                                      
                                     </div>
                                     <div class="form-group">
-                                        <label>Giá trị hàng hóa {{mailer.MerchandiseValue | currency:'VND'}}</label>
+                                        <label>Giá trị hàng hóa {{mailer.MerchandiseValue |  currency: 'VND ':0}}</label>
                                         <input type="number" class="form-control" ng-model="mailer.MerchandiseValue" step="any" />
                                       
                                     </div>
@@ -336,7 +336,7 @@
                                                         <input type="checkbox" ng-model="showChoose">
                                                     </span>
                                                 </div>
-                                                {{mailer.PriceService | currency:"VND"}}
+                                                {{mailer.PriceService |  currency: 'VND ':0}}
                                             </div>
                                             <div class="col-sm-8" ng-show="showChoose">
                                                 <div class="serviceMorePrice">
@@ -367,14 +367,14 @@
                                     <div class="form-group">
                                         <label>Cước chính</label>
                                         <input type="number" class="form-control" step="any" ng-model="mailer.PriceDefault" ng-change="changePrice()" />
-                                        {{mailer.PriceDefault | currency:"VND"}}
+                                        {{mailer.PriceDefault |  currency: 'VND ':0}}
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cước CoD</label>
                                         <input type="number" class="form-control" step="any" ng-model="mailer.PriceCoD" ng-change="changePrice()" />
-                                        {{mailer.PriceCoD | currency:"VND"}}
+                                        {{mailer.PriceCoD |  currency: 'VND ':0}}
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -384,7 +384,7 @@
                                             <input type="number" class="form-control" step="any" ng-model="mailer.Amount" />
                                             <span class="input-group-addon"><a href="#" ng-click="calPrice()"><i my-tool-tip="Tính giá" class="fa fa-calculator"></i></a></span>
                                         </div>
-                                        {{mailer.PriceDefault | currency:"VND"}}
+                                        {{mailer.PriceDefault |  currency: 'VND ':0}}
                                     </div>
                                 </div>
 
