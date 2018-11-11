@@ -88,6 +88,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UMS_UserGroups> UMS_UserGroups { get; set; }
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
+        public virtual DbSet<FirebaseIDSave> FirebaseIDSaves { get; set; }
+        public virtual DbSet<UserMessage> UserMessages { get; set; }
     
         [DbFunction("MNPOSTEntities", "SplitList")]
         public virtual IQueryable<SplitList_Result> SplitList(string list, string separator)

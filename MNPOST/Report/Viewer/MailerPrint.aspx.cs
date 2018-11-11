@@ -28,7 +28,7 @@ namespace MNPOST.Report.Viewer
             var mailer = db.MAILER_GETINFO_BYLISTID(searchText).Select(p => new MailerRpt()
             {
                 SenderName = p.SenderName,
-                MailerID = "*" + p.MailerID + "*",
+                MailerID = p.MailerID,
                 SenderID = p.SenderID,
                 SenderPhone = p.SenderPhone,
                 SenderAddress = p.SenderAddress,

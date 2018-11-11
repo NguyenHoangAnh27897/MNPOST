@@ -227,6 +227,7 @@
     <Compile Include="Controllers\mnpostinfo\StaffController.cs" />
     <Compile Include="Controllers\mnpostinfo\WardController.cs" />
     <Compile Include="Controllers\mnpostinfo\ZoneController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\pricematrix\PriceMatrixController.cs" />
     <Compile Include="Controllers\report\ReportController.cs" />
     <Compile Include="Controllers\troubleticket\TroubleController.cs" />
@@ -245,6 +246,12 @@
     <Compile Include="Models\IdentityRoute.cs" />
     <Compile Include="Models\IdentityRpt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\document\delivery.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>delivery.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\MNPOSTReport.cs">
       <DependentUpon>MNPOSTReport.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1811,6 +1818,7 @@
     <Folder Include="Temps\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Notice\" />
     <Folder Include="Views\SendPartner\" />
     <Folder Include="Views\Tracking\" />
   </ItemGroup>
@@ -1831,6 +1839,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\document\delivery.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>delivery.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\MNPOSTReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MNPOSTReport.cs</LastGenOutput>

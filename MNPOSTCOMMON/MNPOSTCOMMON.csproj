@@ -204,6 +204,9 @@
     <Compile Include="EmpployeeDebitCOD.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="FirebaseIDSave.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneralCodeInfo.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -376,6 +379,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLevel.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMessage.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPostOption.cs">

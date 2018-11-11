@@ -1123,6 +1123,8 @@
     <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result)">
       <Parameter Name="documentId" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="FirebaseIDSaves" EntityType="MNPOSTModel.FirebaseIDSave" />
+    <EntitySet Name="UserMessages" EntityType="MNPOSTModel.UserMessage" />
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -2019,4 +2021,24 @@
     <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
     <Property Type="String" Name="EmployeePaidConfirmDate" Nullable="true" MaxLength="30" />
   </ComplexType>
+  <EntityType Name="FirebaseIDSave">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FirebaseID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="UserMessage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Topic" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

@@ -439,6 +439,15 @@
           <Property Name="DocumentID" Type="nvarchar" MaxLength="128" />
           <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="FirebaseIDSave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar(max)" />
+          <Property Name="FirebaseID" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="GeneralCodeInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -806,6 +815,17 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Describes" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="UserMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Topic" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="UserPostOption">
           <Key>
             <PropertyRef Name="Id" />
@@ -1110,6 +1130,7 @@
           <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmpployeeDebitCOD" EntityType="Self.EmpployeeDebitCOD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FirebaseIDSave" EntityType="Self.FirebaseIDSave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
@@ -1134,6 +1155,7 @@
           <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMessage" EntityType="Self.UserMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__MM_Mailer__Emplo__531856C7" Association="Self.FK__MM_Mailer__Emplo__531856C7">
             <End Role="BS_Employees" EntitySet="BS_Employees" />
@@ -2287,6 +2309,8 @@
           <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result)">
           <Parameter Name="documentId" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="FirebaseIDSaves" EntityType="MNPOSTModel.FirebaseIDSave" />
+          <EntitySet Name="UserMessages" EntityType="MNPOSTModel.UserMessage" />
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -3183,6 +3207,26 @@
           <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
           <Property Type="String" Name="EmployeePaidConfirmDate" Nullable="true" MaxLength="30" />
         </ComplexType>
+        <EntityType Name="FirebaseIDSave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirebaseID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Topic" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5135,6 +5179,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="FirebaseIDSaves">
+            <EntityTypeMapping TypeName="MNPOSTModel.FirebaseIDSave">
+              <MappingFragment StoreEntitySet="FirebaseIDSave">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="FirebaseID" ColumnName="FirebaseID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMessages">
+            <EntityTypeMapping TypeName="MNPOSTModel.UserMessage">
+              <MappingFragment StoreEntitySet="UserMessage">
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

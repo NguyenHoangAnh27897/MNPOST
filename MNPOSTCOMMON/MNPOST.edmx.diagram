@@ -71,6 +71,8 @@
         <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__531856C7" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__540C7B00" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MNPOSTModel.FirebaseIDSave" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.UserMessage" Width="1.5" PointX="2.75" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -54,8 +54,6 @@ namespace MNPOSTAPI.Controllers.web
                 data.CustomerID = Guid.NewGuid().ToString();
                 data.CustomerCode = generalCusCode();
                 data.CreateDate = DateTime.Now;
-                data.LastEditDate = DateTime.Now;
-                data.CreationDate = DateTime.Now;
 
                 db.BS_Customers.Add(data);
                 db.SaveChanges();
@@ -91,21 +89,12 @@ namespace MNPOSTAPI.Controllers.web
                 if (data == null)
                     throw new Exception("Sai du lieu gui len");
                 checkcustomer.CustomerName = data.CustomerName;
-                checkcustomer.CustomerType = data.CustomerType;
                 checkcustomer.Address = data.Address;
                 checkcustomer.DistrictID = data.DistrictID;
                 checkcustomer.ProvinceID = data.PostOfficeID;
                 checkcustomer.CountryID = data.CountryID;
-                checkcustomer.FaxNo = data.FaxNo;
                 checkcustomer.Email = data.Email;
                 checkcustomer.Phone = data.Phone;
-                checkcustomer.CompanyPhone = data.CompanyPhone;
-                checkcustomer.Mobile = data.Mobile;
-                checkcustomer.PersonalInfo = data.PersonalInfo;
-                checkcustomer.BankAccount = data.BankAccount;
-                checkcustomer.BankName = data.BankName;
-                checkcustomer.TaxCode = data.TaxCode;
-                checkcustomer.LastEditDate = DateTime.Now;
 
                 db.Entry(checkcustomer).State = System.Data.Entity.EntityState.Modified;               
                 db.SaveChanges();
