@@ -128,6 +128,7 @@
     <Property Name="ContactEmail" Type="nvarchar" MaxLength="128" />
     <Property Name="ContactAddress" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>

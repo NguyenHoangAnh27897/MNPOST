@@ -129,6 +129,7 @@
     <Property Name="ContactEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
+    <Property Name="PaymentMethodID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>

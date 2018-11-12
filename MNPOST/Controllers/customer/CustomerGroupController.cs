@@ -13,6 +13,7 @@ namespace MNPOST.Controllers.customer
         // GET: /CustomerGroup/
         public ActionResult Show()
         {
+
             return View();
         }
 
@@ -33,7 +34,8 @@ namespace MNPOST.Controllers.customer
                 Company = p.Company,
                 ConatctPhone = p.ConatctPhone,
                 ContactEmail = p.ContactEmail,
-                ContactAddress = p.ContactAddress
+                ContactAddress = p.ContactAddress,
+                PaymentMethodID = p.PaymentMethodID
 
             }).ToList();
 
@@ -59,6 +61,7 @@ namespace MNPOST.Controllers.customer
             customergroup.CustomerGroupCode= GeneralCusGroupCode();
             customergroup.CustomerGroupID = Guid.NewGuid().ToString();
             customergroup.IsActive = true;
+            
 
 
             db.BS_CustomerGroups.Add(customergroup);

@@ -117,6 +117,7 @@
     <EntitySetMapping Name="BS_CustomerGroups">
       <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
         <MappingFragment StoreEntitySet="BS_CustomerGroups">
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
           <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />

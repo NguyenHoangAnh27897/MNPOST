@@ -20,16 +20,7 @@ namespace MNPOST.Controllers.mailer
         public ActionResult Init()
         {
 
-            ViewBag.Customers = db.BS_Customers.Where(p => p.IsActive == true).Select(item => new
-            {
-                code = item.CustomerCode,
-                name = item.CustomerName,
-                phone = item.Phone,
-                provinceId = item.ProvinceID,
-                address = item.Address,
-                districtId = item.DistrictID,
-                wardId = item.WardID
-            }).ToList();
+          
 
             // dịch vu
 
@@ -63,7 +54,22 @@ namespace MNPOST.Controllers.mailer
             return View();
         }
 
-     
+        [HttpGet]
+        public ActionResult GetCustomer(string postId)
+        {
+            var data = db.BS_Customers.Where(p => p.IsActive == true && p.PostOfficeID == postId).Select(item => new
+            {
+                code = item.CustomerCode,
+                name = item.CustomerName,
+                phone = item.Phone,
+                provinceId = item.ProvinceID,
+                address = item.Address,
+                districtId = item.DistrictID,
+                wardId = item.WardID
+            }).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         #region
         [HttpPost]

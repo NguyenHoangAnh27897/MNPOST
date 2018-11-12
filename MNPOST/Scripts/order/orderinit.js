@@ -11,7 +11,11 @@ app.service('mailerService', function () {
 
     var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Tài liệu' }];
 
-    var customers = customersGet;
+    var customers = {};
+
+    var setCustomer = function (data) {
+        customers = angular.copy(data);
+    };
 
     var mailerTypes = mailerTypesGet;
 
@@ -117,7 +121,8 @@ app.service('mailerService', function () {
         getMerchandises: getMerchandises,
         resetMailers: resetMailers,
         getPost: getPost,
-        setPost: setPost
+        setPost: setPost,
+        setCustomer: setCustomer
     };
 
 });
@@ -155,6 +160,16 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         mailerService.addMailer(mailer);
     };
 
+    $scope.GetFirst = function () {
+
+        $http.get("/mailerinit/GetCustomer?postId=" + $scope.postchoose).then(function (response) {
+            mailerService.setCustomer(response.data);
+
+            $scope.customers = mailerService.getCustomers();
+        });
+
+    };
+
     $scope.init = function () {
         $scope.postOffices = postOfficesData;
 
@@ -163,6 +178,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         if ($scope.postOffices.length === 1) {
             $scope.postchoose = $scope.postOffices[0];
             mailerService.setPost($scope.postchoose);
+            $scope.GetFirst();
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -177,6 +193,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         } else {
             $scope.postchoose = $scope.postchoose;
             mailerService.setPost($scope.postchoose);
+            $scope.GetFirst();
             hideModel('choosePostOfficeModal');
         }
     };
@@ -184,6 +201,15 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         var mailer = $scope.mailers[idx];
 
         var cus = mailerService.findCustomer(mailer.SenderID);
+      
+
+        if (cus.code.indexOf('KHACHLE') === -1) {
+            showNotify("Đang chọn: " + cus.name);
+            $scope.hideSenderDetail = false;
+        } else {
+            showNotify("Khách lẻ phải thu tiền mặt và nhập địa chỉ");
+            $scope.hideSenderDetail = true;
+        }
 
         if (cus) {
             $scope.mailers[idx].SenderName = cus.name;
@@ -495,7 +521,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.actionEdit = false;
 
     $scope.$on('insert-started', function (event, args) {
-
+        $scope.customers = mailerService.getCustomers();
         $scope.mailer = angular.copy(args.mailer);
        // console.log($scope.mailer);
        // $scope.otherServices = angular.copy(servicesGet);
@@ -554,7 +580,11 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.changeCus = function () {
 
         var cus = mailerService.findCustomer($scope.mailer.SenderID);
-
+        if (cus.code.indexOf('KHACHLE') === -1) {
+            showNotify("Đang chọn: " + cus.name);
+        } else {
+            showNotify("Khách lẻ phải thu tiền và nhập địa chỉ");
+        }
         if (cus) {
             $scope.mailer.SenderPhone = cus.phone;
             $scope.mailer.SenderProvinceID = cus.provinceId;

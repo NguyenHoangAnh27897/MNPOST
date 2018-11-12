@@ -15,7 +15,7 @@ namespace MNPOST.Controllers.customerdebit
         {
             ViewBag.CustomerGroup = db.BS_CustomerGroups.Select(p => new
             {
-                code = p.CustomerGroupID,
+                code = p.CustomerGroupCode,
                 name = p.CustomerGroupName
             }).ToList();
             ViewBag.ToDate = DateTime.Now.AddDays(7).ToString("dd/MM/yyyy");

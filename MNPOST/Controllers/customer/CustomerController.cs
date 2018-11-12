@@ -12,6 +12,14 @@ namespace MNPOST.Controllers.customer
         public ActionResult Show()
         {
             ViewBag.Provinces = GetProvinceDatas("", "province");
+
+            ViewBag.Groups = db.BS_CustomerGroups.Select(p => new CommonData()
+            {
+                code = p.CustomerGroupCode,
+                name = p.CustomerGroupName
+
+            }).ToList();
+
             ViewBag.AllPostOffice = db.BS_PostOffices.Select(p => new
             {
                 code = p.PostOfficeID,
@@ -69,7 +77,7 @@ namespace MNPOST.Controllers.customer
         [HttpGet]
         public ActionResult GetCustomer(int? page, string search = "")
         {
-            var data = db.CUSTOMER_GET_BYGROUP(search).ToList();
+            var data = db.CUSTOMER_GET_BYGROUP("%" + search + "%").ToList();
 
             ResultInfo result = new ResultInfo()
             {

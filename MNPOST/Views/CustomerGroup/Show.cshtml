@@ -20,7 +20,7 @@
                     <!-- search-->
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" ng-model="searchText" my-enter="GetData(1,searchText)" />
+                            <input type="text" class="form-control" ng-model="searchText" my-enter="GetData(1)" />
                         </div>
                     </div>
                     <!-- search-->
@@ -35,6 +35,7 @@
                                 <th>Mã KH</th>
                                 <th>Tên KH</th>
                                 <th>Công ty</th>
+                                <th>Thanh toán</th>
                                 <th>Liên hệ</th>
                             </tr>
                         </thead>
@@ -45,6 +46,7 @@
                                 <td>{{item.CustomerGroupCode}}</td>
                                 <td>{{item.CustomerGroupName}}</td>
                                 <td>{{item.Company}}</td>
+                                <td>{{findPayment(item.PaymentMethodID)}}</td>
                                 <td>
                                     <strong>ĐT: </strong>{{item.ConatctPhone}}<br />
                                     <strong>Email: </strong>{{item.ContactEmail}}<br />
@@ -84,18 +86,24 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Tên khách hàng</label>
-                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.CustomerGroupName" required />
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.CustomerGroupName"  />
                                 </div>
                                 <div class="form-group">
                                     <label>Tên công ty</label>
-                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.Company" required />
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.Company"  />
                                 </div>
                                 <div class="form-group">
                                     <label>Địa chỉ</label>
-                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.ContactAddress" required />
+                                    <input type="text" class="form-control" ng-model="CustomerGroupInfo.ContactAddress"  />
                                 </div>
                             </div>
                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Hình thức thanh toán</label>
+                                    <select class="form-control" ng-model="CustomerGroupInfo.PaymentMethodID">
+                                        <option ng-repeat="item in payments" value="{{item.code}}">{{item.name}}</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Điện thoại</label>
                                     <input type="text" class="form-control" ng-model="CustomerGroupInfo.ConatctPhone" />
@@ -134,6 +142,19 @@
 
         app.controller('myCtrl', function ($scope, $http) {
 
+
+            $scope.payments = [{ code: 'debt', name: 'CÔNG NỢ' }, { code: 'money', name: 'TIỀN MẶT' }];
+
+            $scope.findPayment = function (code) {
+                for (var i = 0; i < $scope.payments.length; i++) {
+                    if ($scope.payments[i].code === code) {
+                        return $scope.payments[i].name;
+                    }
+                }
+
+                return '';
+            };
+
             // phan trang
             $scope.numPages;
             $scope.itemPerPage;
@@ -147,11 +168,12 @@
 
             // lay du lieu
             $scope.allCountry = [];
-            $scope.GetData = function (page, search) {
+            $scope.searchText = "";
+            $scope.GetData = function (page) {
                 showLoader(true);
                 $http({
                     method: "GET",
-                    url: "/customergroup/getcustomergroup?page=" + page + "&search=" + search
+                    url: "/customergroup/getcustomergroup?page=" + page + "&search=" + $scope.searchText
                 }).then(function mySuccess(response) {
                     showLoader(false);
 
@@ -171,7 +193,7 @@
             }
             // goi lay du liẹu
 
-            $scope.GetData(1, "");
+            $scope.GetData(1);
             //
             // khoi tao bien dung cho create va edit
             $scope.CustomerGroupInfo = {};

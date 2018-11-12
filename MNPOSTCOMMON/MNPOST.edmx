@@ -133,6 +133,7 @@
           <Property Name="ContactEmail" Type="nvarchar" MaxLength="128" />
           <Property Name="ContactAddress" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
@@ -1315,6 +1316,7 @@
           <Property Name="ContactEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="PaymentMethodID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
@@ -3349,6 +3351,7 @@
           <EntitySetMapping Name="BS_CustomerGroups">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
               <MappingFragment StoreEntitySet="BS_CustomerGroups">
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
                 <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />

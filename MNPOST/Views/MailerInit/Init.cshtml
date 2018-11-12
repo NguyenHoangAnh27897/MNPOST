@@ -529,13 +529,6 @@
             min-width: 200px;
         }
 
-        .scrollmenu {
-            overflow-x: auto;
-            white-space: nowrap;
-            height: 550px;
-            border: 1px solid green;
-        }
-
         .tableinput {
             text-align: left;
             width: 200px;
@@ -571,7 +564,6 @@
     <script type="text/javascript">
         $(":input").inputmask();
         var servicesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Services)));
-        var customersGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Customers)));
 
         var mailerTypesGet = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.MailerTypes)));
 

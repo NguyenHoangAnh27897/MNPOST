@@ -40,7 +40,10 @@
                                             <label>Lọc theo khách hàng</label>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <input type="text" ng-model="reportFilter.CustomerGroupCode" class="form-control" />
+                                                    <select ui-select2="select2Options" ng-model="reportFilter.CustomerGroupCode" class="form-control">
+                                                        <option value="">Tất cả</option>
+                                                        <option ng-repeat="item in groups" value="{{item.code}}">{{item.name}}</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <button type="button" class="btn btn-primary" ng-click="GetReport()" >TẢI LẠI</button>
@@ -82,7 +85,10 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Lọc theo khách hàng</label>
-                                                <input type="text"  class="form-control" ng-model="searchInfo.customerId" />
+                                                <select ui-select2="select2Options" ng-model="searchInfo.customerId" class="form-control">
+                                                    <option value="">Tất cả</option>
+                                                    <option ng-repeat="item in groups" value="{{item.code}}">{{item.name}}</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -211,7 +217,9 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Khách hàng</label>
-                                                <input type="text" class="form-control" ng-model="createDocumentInfo.CustomerGroupCode"/>
+                                                <select ui-select2="select2Options" ng-model="createDocumentInfo.CustomerGroupCode" class="form-control">
+                                                    <option ng-repeat="item in groups" value="{{item.code}}">{{item.name}}</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>Tổng tiền</label>
@@ -329,6 +337,7 @@
 
         var toDate = '@ViewBag.ToDate';
 
+        var groups = angular.fromJson('@Html.Raw(Json.Encode(ViewBag.CustomerGroup))');
 
     </script>
 
