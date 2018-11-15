@@ -79,17 +79,13 @@
                                 <!-- thong tin-->
                                 <div class="col-md-12">
                                     <!-- table data-->
-                                    <div class="table-responsive scrollmenu">
+                                    <div class="table-responsive">
                                         <table class="table table-striped jambo_table bulk_action ">
                                             <thead>
                                                 <tr class="headings">
                                                     <th><input type="checkbox" ng-model="checkMailers" ng-change="checkAll()" /></th>
                                                     <th>STT</th>
-                                                    <th>Mã VĐơn</th>
-                                                    <th>Ngày tạo</th>
-                                                    <th>BC nhận</th>
-                                                    <th>BC HTại</th>
-                                                    <th>TTrạng</th>
+                                                    <th>Vận đơn</th>
                                                     <th>TT gửi</th>
                                                     <th>TT nhận</th>
                                                     <th>TT hàng</th>
@@ -101,17 +97,18 @@
                                                 <tr ng-repeat="item in mailers">
                                                     <td><input type="checkbox" ng-model="item.isCheck" /></td>
                                                     <td>
-                                                        {{$index + 1}}&nbsp;&nbsp;
-                                                        <a href="#" class="label label-primary" ng-click="showMailerDetail($index)">Chi tiết</a>&nbsp;&nbsp;
+                                                        {{$index + 1}}
+                                                    </td>
+                                                    <td>
+                                                        <strong>Mã VĐ: </strong>{{item.MailerID}} <br />
+                                                        <strong>Ngày lập: </strong>{{item.AcceptDate}} <br />
+                                                        <strong>BC nhận: </strong>{{item.PostOfficeAcceptID}} <br />
+                                                        <strong>BC H/tại: </strong>{{item.CurrentPostOfficeID}}<br />
+                                                        <strong>Trạng thái: </strong><span class="label label-info">{{findStatus(item.CurrentStatusID)}}</span><br /><br />
+                                                        <a href="#" class="label label-primary" ng-click="showMailerDetail($index)">Chi tiết</a> &nbsp;&nbsp;
                                                         <a href="/Report/Viewer/MailerPrint.aspx?mailer={{item.MailerID}}" target="_blank">In phiếu</a>
                                                     </td>
-                                                    <td>{{item.MailerID}}</td>
-                                                    <td>{{item.AcceptDate}}</td>
-                                                    <td>{{item.PostOfficeAcceptID}}</td>
-                                                    <td>{{item.CurrentPostOfficeID}}</td>
-                                                    <td><strong>{{findStatus(item.CurrentStatusID)}}</strong></td>
                                                     <td>
-                                                        <strong>Mã NgGửi: </strong> {{item.SenderID}} <br />
                                                         <strong>Tên NgGửi: </strong> {{item.SenderName}} <br />
                                                         <strong>ĐT NgGửi: </strong> {{item.SenderPhone}} <br />
                                                         <strong>Đ/Chỉ NgGửi: </strong> {{item.SenderAddress}} <br />

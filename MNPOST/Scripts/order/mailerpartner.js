@@ -312,31 +312,40 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         }
     };
 
-    $scope.sendToPartner = function (valid) {
-
-        if (valid) {
-            showLoader(true);
-
-            $http({
-                method: "POST",
-                url: "/mailerpartner/SendPartner",
-                data: {
-                    documentId: $scope.document.DocumentID,
-                    address: $scope.myAddress
-                }
-            }).then(function sucess(response) {
-                showLoader(false);
-                $scope.document.StatusID = 1;
-                $scope.getDocumentDetail();
-                hideModel('sendpartner');
-            }, function error(response) {
-
-                showLoader(false);
-                showNotify('Connect error');
-            });
+    $scope.preSendPartner = function () {
+        showModel('checkSendPartner');
+    }
+    $scope.chooseSendPartner = function (useAPI) {
+        if (useAPI) {
+            $scope.showModalAddressInfo();
         } else {
-            showNotify("thiếu một số thông tin");
+            $scope.sendToPartner(false);
         }
+
+        hideModel('checkSendPartner');
+    }
+    $scope.sendToPartner = function (useAPI) {
+        
+        showLoader(true);
+
+        $http({
+            method: "POST",
+            url: "/mailerpartner/SendPartner",
+            data: {
+                documentId: $scope.document.DocumentID,
+                address: $scope.myAddress,
+                useAPI: useAPI
+            }
+        }).then(function sucess(response) {
+            showLoader(false);
+            $scope.document.StatusID = 1;
+            $scope.getDocumentDetail();
+            hideModel('sendpartner');
+        }, function error(response) {
+
+            showLoader(false);
+            showNotify('Connect error');
+        });
 
     };
 

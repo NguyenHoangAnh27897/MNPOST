@@ -35,7 +35,6 @@ app.service('mailerService', function () {
     var actionEdit = true;
 
     var addMailer = function (newObj) {
-        newObj.MailerID = '';
         mailerList.unshift(newObj);
     };
 
@@ -132,6 +131,9 @@ app.service('mailerService', function () {
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.select2Options = {
+    };
+    $scope.select2OptionsWidth100 = {
+        width: '100%'
     };
 
     $scope.hideSenderDetail = false;

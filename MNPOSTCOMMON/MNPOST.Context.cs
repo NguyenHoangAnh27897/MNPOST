@@ -649,5 +649,60 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result>("CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS", documentIdParameter);
         }
+    
+        public virtual ObjectResult<MAILER_PARTNER_GETALL_ByMailerID_Result> MAILER_PARTNER_GETALL_ByMailerID(string fromDate, string toDate, string postId, string mailerId)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("fromDate", fromDate) :
+                new ObjectParameter("fromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("toDate", toDate) :
+                new ObjectParameter("toDate", typeof(string));
+    
+            var postIdParameter = postId != null ?
+                new ObjectParameter("postId", postId) :
+                new ObjectParameter("postId", typeof(string));
+    
+            var mailerIdParameter = mailerId != null ?
+                new ObjectParameter("mailerId", mailerId) :
+                new ObjectParameter("mailerId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_PARTNER_GETALL_ByMailerID_Result>("MAILER_PARTNER_GETALL_ByMailerID", fromDateParameter, toDateParameter, postIdParameter, mailerIdParameter);
+        }
+    
+        public virtual ObjectResult<DELIVERY_GETREPORT_EMPLOYEE_Result> DELIVERY_GETREPORT_EMPLOYEE(string employeeId, string fdate, string tdate)
+        {
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DELIVERY_GETREPORT_EMPLOYEE_Result>("DELIVERY_GETREPORT_EMPLOYEE", employeeIdParameter, fdateParameter, tdateParameter);
+        }
+    
+        public virtual ObjectResult<EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result> EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID(string employeeId, string fdate, string tdate)
+        {
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            var fdateParameter = fdate != null ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(string));
+    
+            var tdateParameter = tdate != null ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result>("EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID", employeeIdParameter, fdateParameter, tdateParameter);
+        }
     }
 }

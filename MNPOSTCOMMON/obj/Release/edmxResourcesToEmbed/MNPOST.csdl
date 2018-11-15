@@ -1126,6 +1126,12 @@
     </FunctionImport>
     <EntitySet Name="FirebaseIDSaves" EntityType="MNPOSTModel.FirebaseIDSave" />
     <EntitySet Name="UserMessages" EntityType="MNPOSTModel.UserMessage" />
+    <FunctionImport Name="MAILER_PARTNER_GETALL_ByMailerID" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETALL_ByMailerID_Result)">
+      <Parameter Name="fromDate" Mode="In" Type="String" />
+      <Parameter Name="toDate" Mode="In" Type="String" />
+      <Parameter Name="postId" Mode="In" Type="String" />
+      <Parameter Name="mailerId" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -2042,4 +2048,16 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="Topic" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
+  <ComplexType Name="MAILER_PARTNER_GETALL_ByMailerID_Result">
+    <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="ParterName" Nullable="true" />
+    <Property Type="String" Name="PartnerID" Nullable="false" MaxLength="128" />
+    <Property Type="String" Name="PartnerAddress" Nullable="true" />
+    <Property Type="String" Name="ParterPhoneSP" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="StatusID" Nullable="true" />
+  </ComplexType>
 </Schema>

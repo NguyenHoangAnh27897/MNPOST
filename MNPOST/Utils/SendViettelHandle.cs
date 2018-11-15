@@ -230,7 +230,7 @@ namespace MNPOST.Utils
                             db.SaveChanges();
 
                             // tracking
-                            HandleHistory.AddTracking(3, mailer.MailerID, res.data.ORDER_NUMBER, mailer.CurrentPostOfficeID, "Chuyển qua đối tác " + partner.ParterName + ", vận đơn đối tác : " + res.data.ORDER_NUMBER);
+                           // HandleHistory.AddTracking(3, mailer.MailerID, res.data.ORDER_NUMBER, mailer.CurrentPostOfficeID, "Chuyển qua đối tác " + partner.ParterName + ", vận đơn đối tác : " + res.data.ORDER_NUMBER);
                         }
 
                     }

@@ -1011,6 +1011,12 @@
     <Parameter Name="toDate" Type="varchar" Mode="In" />
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_PARTNER_GETALL_ByMailerID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fromDate" Type="varchar" Mode="In" />
+    <Parameter Name="toDate" Type="varchar" Mode="In" />
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="MAILER_PARTNER_GETDETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentId" Type="nvarchar" Mode="In" />
   </Function>

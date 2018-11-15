@@ -70,6 +70,32 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
         }
 
 
+        public ResponseInfo GetReportDelivert(string employeeId, string fDate, string tDate)
+        {
+            var reportDelivery = db.DELIVERY_GETREPORT_EMPLOYEE(employeeId, fDate, tDate).Select(p => new
+            {
+                code = p.DeliveryStatus,
+                quantity = p.CountMailer
+            }).ToList();
+
+            var reportCOD = db.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID(employeeId, fDate, tDate).Select(p => new
+            {
+                code = p.AccountantConfirm,
+                quantity = p.MoneySum
+            }).ToList();
+
+            return new ResponseInfo()
+            {
+                error = 0,
+                data = new
+                {
+                    RDelivery = reportDelivery,
+                    RCOD = reportCOD
+                }
+            };
+
+        }
+
 
         // cap nhat mailer
         public ResultInfo UpdateDelivery(UpdateDeliveryReceive info, string user)

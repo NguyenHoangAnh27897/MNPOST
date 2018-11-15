@@ -950,6 +950,11 @@
         <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupID" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="DELIVERY_GETREPORT_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+          <Parameter Name="fdate" Type="nvarchar" Mode="In" />
+          <Parameter Name="tdate" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="DISTRICT_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="EMPLOYEE_DEBIT_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="nvarchar" Mode="In" />
@@ -964,6 +969,11 @@
         </Function>
         <Function Name="EMPLOYEE_DEBIT_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+          <Parameter Name="fdate" Type="nvarchar" Mode="In" />
+          <Parameter Name="tdate" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
@@ -1015,6 +1025,12 @@
           <Parameter Name="fromDate" Type="varchar" Mode="In" />
           <Parameter Name="toDate" Type="varchar" Mode="In" />
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="MAILER_PARTNER_GETALL_ByMailerID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fromDate" Type="varchar" Mode="In" />
+          <Parameter Name="toDate" Type="varchar" Mode="In" />
+          <Parameter Name="postId" Type="nvarchar" Mode="In" />
+          <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="MAILER_PARTNER_GETDETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documentId" Type="nvarchar" Mode="In" />
@@ -2313,6 +2329,22 @@
           </FunctionImport>
           <EntitySet Name="FirebaseIDSaves" EntityType="MNPOSTModel.FirebaseIDSave" />
           <EntitySet Name="UserMessages" EntityType="MNPOSTModel.UserMessage" />
+          <FunctionImport Name="MAILER_PARTNER_GETALL_ByMailerID" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETALL_ByMailerID_Result)">
+            <Parameter Name="fromDate" Mode="In" Type="String" />
+            <Parameter Name="toDate" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="mailerId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DELIVERY_GETREPORT_EMPLOYEE" ReturnType="Collection(MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result)">
+            <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result)">
+            <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -3229,6 +3261,26 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="Topic" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="MAILER_PARTNER_GETALL_ByMailerID_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ParterName" Nullable="true" />
+          <Property Type="String" Name="PartnerID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="PartnerAddress" Nullable="true" />
+          <Property Type="String" Name="ParterPhoneSP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DELIVERY_GETREPORT_EMPLOYEE_Result">
+          <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
+          <Property Type="Int32" Name="CountMailer" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result">
+          <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
+          <Property Type="Double" Name="MoneySum" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5204,6 +5256,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_PARTNER_GETALL_ByMailerID" FunctionName="MNPOSTModel.Store.MAILER_PARTNER_GETALL_ByMailerID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_PARTNER_GETALL_ByMailerID_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+                <ScalarProperty Name="ParterName" ColumnName="ParterName" />
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="PartnerAddress" ColumnName="PartnerAddress" />
+                <ScalarProperty Name="ParterPhoneSP" ColumnName="ParterPhoneSP" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DELIVERY_GETREPORT_EMPLOYEE" FunctionName="MNPOSTModel.Store.DELIVERY_GETREPORT_EMPLOYEE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result">
+                <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+                <ScalarProperty Name="CountMailer" ColumnName="CountMailer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" FunctionName="MNPOSTModel.Store.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result">
+                <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+                <ScalarProperty Name="MoneySum" ColumnName="MoneySum" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
