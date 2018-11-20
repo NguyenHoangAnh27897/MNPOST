@@ -11,12 +11,13 @@ namespace MNPOST.Controllers.customer
     {
         public ActionResult Show()
         {
-            ViewBag.AllCustomerGroup = db.BS_CustomerGroups.ToList();
-            // tinh thanh
             ViewBag.Provinces = GetProvinceDatas("", "province");
+            ViewBag.AllPostOffice = db.BS_PostOffices.Select(p => new
+            {
+                code = p.PostOfficeID,
+                name = p.PostOfficeName
+            }).ToList();
 
-            ViewBag.AllCountry = db.BS_Countries.ToList();
-            ViewBag.AllPostOffice = db.BS_PostOffices.ToList();
             return View();
         }
         private string GeneralCusCode(string groupId)
@@ -68,85 +69,104 @@ namespace MNPOST.Controllers.customer
         [HttpGet]
         public ActionResult GetCustomer(int? page, string search = "")
         {
-            int pageSize = 50;
+            var data = db.CUSTOMER_GET_BYGROUP(search).ToList();
 
-            int pageNumber = (page ?? 1);
-
-
-            var data = db.BS_Customers.Where(p => p.CustomerID.Contains(search) || p.CustomerName.Contains(search)).ToList();
-
-            ResultInfo result = new ResultWithPaging()
+            ResultInfo result = new ResultInfo()
             {
                 error = 0,
                 msg = "",
-                page = pageNumber,
-                pageSize = pageSize,
-                toltalSize = data.Count(),
-                data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+                data = data
             };
-
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult create(BS_Customers cus)
+        public ActionResult Active(string cusId, bool isActive)
+        {
+            var find = db.BS_Customers.Find(cusId);
+
+            if(find != null)
+            {
+                find.IsActive = isActive;
+                db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new ResultInfo()
+            {
+                error = 0
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Create(CustomerInfo cus)
         {
 
-            var checkGroup = db.BS_CustomerGroups.Find(cus.CustomerGroupID);
+            var checkGroup = db.BS_CustomerGroups.Where(p => p.CustomerGroupCode == cus.CustomerGroupCode).FirstOrDefault();
 
             if (checkGroup == null)
                 return Json(new ResultInfo() { error = 1, msg = "Sai mã nhóm" }, JsonRequestBehavior.AllowGet);
+            var code = GeneralCusCode(checkGroup.CustomerGroupCode);
+            var ins = new BS_Customers()
+            {
+                CustomerID = Guid.NewGuid().ToString(),
+                CustomerName = cus.CustomerName,
+                CountryID = "VN",
+                Address = cus.Address,
+                CreateDate = DateTime.Now,
+                CustomerCode = code,
+                CustomerGroupID = checkGroup.CustomerGroupID,
+                Deputy = cus.Deputy,
+                DistrictID = cus.DistrictID,
+                Email = cus.Email,
+                IsActive = true,
+                Phone = cus.Phone,
+                PostOfficeID = cus.PostOfficeID,
+                ProvinceID = cus.ProvinceID,
+                UserLogin = "",
+                WardID = cus.WardID
+            };
 
-            cus.CustomerCode = GeneralCusCode(cus.CustomerGroupID);
-
-            cus.CustomerID = Guid.NewGuid().ToString();
-            cus.CreateDate = DateTime.Now;
-            cus.IsActive = true;
-            db.BS_Customers.Add(cus);
+          
+            db.BS_Customers.Add(ins);
 
             db.SaveChanges();
 
-            return Json(new ResultInfo() { error = 0, msg = "", data = cus }, JsonRequestBehavior.AllowGet);
+            return Json(new ResultInfo() { error = 0, msg = "", data = checkGroup.CustomerGroupCode }, JsonRequestBehavior.AllowGet);
 
         }
 
         [HttpPost]
-        public ActionResult edit(BS_Customers cus)
+        public ActionResult Edit(CustomerInfo cus)
         {
-            if (String.IsNullOrEmpty(cus.CustomerID))
-                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
-
             var check = db.BS_Customers.Find(cus.CustomerID);
 
             if (check == null)
                 return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
-            check.CustomerID = cus.CustomerID;
+
+            var checkGroup = db.BS_CustomerGroups.Where(p => p.CustomerGroupCode == cus.CustomerGroupCode).FirstOrDefault();
+
+            if (checkGroup == null)
+                return Json(new ResultInfo() { error = 1, msg = "Sai mã nhóm" }, JsonRequestBehavior.AllowGet);
+
             check.CustomerName = cus.CustomerName;
-            check.CustomerType = cus.CustomerType;
             check.CustomerGroupID = cus.CustomerGroupID;
             check.Address = cus.Address;
             check.DistrictID = cus.DistrictID;
             check.ProvinceID = cus.ProvinceID;
             check.CountryID = cus.CountryID;
-            check.FaxNo = cus.FaxNo;
             check.Email = cus.Email;
-            check.LastEditDate = DateTime.Now;
             check.Phone = cus.Phone;
-            check.CompanyPhone = cus.CompanyPhone;
-            check.Mobile = cus.Mobile;
-            check.PersonalInfo = cus.PersonalInfo;
-            check.BankAccount = cus.BankAccount;
-            check.BankName = cus.BankName;
-            check.TaxCode = cus.TaxCode;
             check.PostOfficeID = cus.PostOfficeID;
-            check.IsActive = cus.IsActive;
+            check.Deputy = cus.Deputy;
 
             db.Entry(check).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
 
-            return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
+            return Json(new ResultInfo() { error = 0, msg = ""}, JsonRequestBehavior.AllowGet);
 
         }
 	}

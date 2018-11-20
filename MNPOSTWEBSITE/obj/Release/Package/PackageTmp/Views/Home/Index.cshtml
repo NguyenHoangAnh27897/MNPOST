@@ -1,11 +1,60 @@
 ﻿@model IEnumerable<MNPOSTWEBSITEMODEL.WS_ServiceType>
-    @using MNPOSTWEBSITEMODEL
+@using MNPOSTWEBSITEMODEL
 @{
     ViewBag.Title = "Home Page";
     MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
     var rs = db.WS_Slider.Where(s => s.ID == 1);
 }
 
+
+<header id='header' class='all_colors header_color light_bg_color  av_header_top av_logo_left av_main_nav_header av_menu_right av_custom av_header_sticky av_header_shrinking_disabled av_header_stretch av_mobile_menu_phone av_header_searchicon av_header_unstick_top_disabled av_bottom_nav_disabled  av_header_border_disabled' role="banner" itemscope="itemscope" itemtype="https://schema.org/WPHeader">
+
+    <div id='header_meta' class='container_wrap container_wrap_meta  av_icon_active_right av_extra_header_active av_phone_active_right av_entry_id_27'>
+
+        <div class='container'>
+            <ul class='noLightbox social_bookmarks icon_count_3'><li class='social_bookmarks_facebook av-social-link-facebook social_icon_1'><a target='_blank' href='#' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' title='Facebook'><span class='avia_hidden_link_text'>Facebook</span></a></li><li class='social_bookmarks_mail av-social-link-mail social_icon_3'><a target='_blank' href='https://www.cskh@("@")miennampost.vn' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' title='Mail'><span class='avia_hidden_link_text'>Mail</span></a></li></ul><div class='phone-info '><span>Giờ làm việc: 8h-18h (T2 – T7) - Hotline: 0906900888</span></div>
+        </div>
+    </div>
+
+    <div id='header_main' class='container_wrap container_wrap_logo'>
+
+        <div class='container av-logo-container'>
+            <div class='inner-container'>
+                <span class='logo'><a href='/trang-chu/index'><img height='100' width='300' src='~/Content/img/mnpost.jpg' alt='Chuyển phát nhanh MNPOST' /></a></span><nav class='main_menu' data-selectname='Select a page' role="navigation" itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement">
+                    <div class="avia-menu av-main-nav-wrap">
+                        <ul id="avia-menu" class="menu av-main-nav">
+                            <li id="menu-item-21" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-top-level menu-item-top-level-1"><a href="/trang-chu/index" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Trang chủ</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+                            <li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-2"><a href="/gioi-thieu/ve-chung-toi" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Giới thiệu</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+                            <li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-3"><a href="/van-chuyen/dich-vu" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Dịch vụ</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+                            <li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-4"><a href="/van-chuyen/tuyen-dung" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Tuyển dụng</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+                            <li id="menu-item-25" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-5"><a href="/bai-viet/danh-sach-bai-viet" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Tin tức</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+                            <li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-6"><a href="/gioi-thieu/lien-he" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Liên hệ</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
+                            @*<li id="menu-item-search" class="noMobile menu-item menu-item-search-dropdown menu-item-avia-special">
+                                    <a href="?s=" data-avia-search-tooltip="&lt;form action=&quot;https://ecotrans.vn/&quot; id=&quot;searchform&quot; method=&quot;get&quot; class=&quot;&quot;&gt; &lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;&quot; id=&quot;searchsubmit&quot; class=&quot;button avia-font-entypo-fontello&quot; /&gt;&lt;input type=&quot;text&quot; id=&quot;s&quot; name=&quot;s&quot; value=&quot;&quot; placeholder='Search' /&gt; &lt;/div&gt; &lt;/form&gt;" aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'><span class="avia_hidden_link_text">Search</span></a>
+                                </li>*@
+                            <li class="av-burger-menu-main menu-item-avia-special ">
+                                <a href="#">
+                                    <span class="av-hamburger av-hamburger--spin av-js-hamburger">
+                                        <span class="av-hamburger-box">
+                                            <span class="av-hamburger-inner"></span>
+                                            <strong>Menu</strong>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- end container_wrap-->
+    </div>
+
+
+    <div class='header_bg'></div>
+
+    <!-- end header -->
+</header>
 
 <div id='main' class='all_colors' data-scroll-offset='60'>
 
@@ -76,7 +125,7 @@
                                     </article>
                                 </li>
                             }
-                        }                    
+                        }
                     </ul>
                 </div>
             </div>
@@ -115,11 +164,11 @@
                                 {
                                     <div class="col-lg-6">
                                         <div style='padding-bottom:10px;color:#ffffff;' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-2  el_before_av_button  avia-builder-el-first   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn là khách hàng mới?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
-                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/register' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG KÝ</span></a></div>
+                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/tai-khoan/dang-ky' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG KÝ</span></a></div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div style='padding-bottom:10px; color:#ffffff; margin-top:30px' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-4  el_after_av_button  el_before_av_button   '><h5 class='av-special-heading-tag ' itemprop="headline">Bạn đã có tài khoản?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
-                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/account/login' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG NHẬP</span></a></div>
+                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/tai-khoan/dang-nhap' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>ĐĂNG NHẬP</span></a></div>
                                     </div>
                                 }
                             </div>

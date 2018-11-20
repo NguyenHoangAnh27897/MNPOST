@@ -154,7 +154,7 @@ namespace MNPOST.Controllers.mailer
         public JsonResult CalBillPrice(float weight = 0, string customerId = "", string provinceId = "", string serviceTypeId = "", string postId = "", float cod = 0, float merchandiseValue = 0)
         {
 
-            var price = db.CalPrice(weight, customerId, provinceId, serviceTypeId, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+            var price = db.CalPrice(weight, customerId, provinceId, serviceTypeId, postId, DateTime.Now.ToString("yyyy-MM-dd"));
 
             return Json(new { price = price, codPrice = 0 }, JsonRequestBehavior.AllowGet);
         }
@@ -166,15 +166,6 @@ namespace MNPOST.Controllers.mailer
             return check == null ? false : true;
         }
 
-        protected List<EmployeeInfoCommon> GetEmployeeByPost(string postId)
-        {
-            return db.BS_Employees.Where(p => p.PostOfficeID == postId && p.IsActive == true).Select(p => new EmployeeInfoCommon()
-            {
-                code = p.EmployeeID,
-                name = p.EmployeeName,
-                email = p.Email,
-                phone = p.Phone
-            }).ToList();
-        }
+       
     }
 }

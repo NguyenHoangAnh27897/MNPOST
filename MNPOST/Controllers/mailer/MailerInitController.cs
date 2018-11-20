@@ -24,7 +24,7 @@ namespace MNPOST.Controllers.mailer
             {
                 code = item.CustomerCode,
                 name = item.CustomerName,
-                phone = item.Mobile,
+                phone = item.Phone,
                 provinceId = item.ProvinceID,
                 address = item.Address,
                 districtId = item.DistrictID,
@@ -337,7 +337,7 @@ namespace MNPOST.Controllers.mailer
                         var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
 
 
-                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd"));
                         var codPrice = 0;
 
                         otherPrice += codPrice;
@@ -476,7 +476,8 @@ namespace MNPOST.Controllers.mailer
                     SenderName = item.SenderName,
                     SenderPhone = item.SenderPhone,
                     SenderProvinceID = item.SenderProvinceID,
-                    SenderWardID = item.SenderWardID
+                    SenderWardID = item.SenderWardID,
+                    PaidCoD = 0
                 };
 
                 // 

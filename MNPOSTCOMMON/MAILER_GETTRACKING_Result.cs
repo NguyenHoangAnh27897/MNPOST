@@ -15,11 +15,12 @@ namespace MNPOSTCOMMON
     {
         public string MailerID { get; set; }
         public Nullable<int> StatusID { get; set; }
-        public string Describe { get; set; }
-        public string PostOffice { get; set; }
-        public string CreateTime { get; set; }
-        public string CreateDate { get; set; }
         public string StatusName { get; set; }
         public string StatusDescribe { get; set; }
+        public string Describe { get; set; }
+        public string PostOffice { get; set; }
+        public string CreateDate { get; set; }
+        public string CreateTime { get; set; }
+        public Nullable<System.DateTime> StatusDate { get; set; }
     }
 }

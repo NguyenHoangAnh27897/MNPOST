@@ -184,3 +184,5 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.Migrati
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.csproj.GenerateResource.Cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Release\MNPOSTWEBSITE.pdb
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.WebHost.dll
+C:\Users\hoang\source\repos\MNPOST\MNPOSTWEBSITE\bin\System.Web.Http.WebHost.xml

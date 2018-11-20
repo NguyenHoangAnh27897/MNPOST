@@ -20,5 +20,6 @@ namespace MNPOSTCOMMON
         public string MoneyColector { get; set; }
         public string EmployeeID { get; set; }
         public string PostOfficeID { get; set; }
+        public string Notes { get; set; }
     }
 }

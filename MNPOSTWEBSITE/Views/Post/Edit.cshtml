@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                             }
-                           <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-sm-2 col-sm-2 control-label">Loại dịch vụ</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control round-form" name="Service" placeholder="Nhập loại dịch vụ..." value="@Model.Service">
@@ -89,104 +89,169 @@
     <!--main content end-->
     <!--main content start-->
     @*<section id="main-content">
-        <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Upload hình ảnh</h3>
-            <div class="row mt">
-                <div class="col-lg-12">
+            <section class="wrapper site-min-height">
+                <h3><i class="fa fa-angle-right"></i> Upload hình ảnh</h3>
+                <div class="row mt">
+                    <div class="col-lg-12">
 
-                    <!-- The file upload form used as target for the file upload widget -->
-                    <form id="fileupload" data-url="@Url.Action("Upload", "Post")" method="POST" enctype="multipart/form-data">
-                        <!-- Redirect browsers with JavaScript disabled to the origin page -->
-                        <noscript>
-                            <input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/">
-                        </noscript>
+                        <!-- The file upload form used as target for the file upload widget -->
+                        <form id="fileupload" data-url="@Url.Action("Upload", "Post")" method="POST" enctype="multipart/form-data">
+                            <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                            <noscript>
+                                <input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/">
+                            </noscript>
 
-                        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-                        <div class="row fileupload-buttonbar">
-                            <div class="col-lg-8">
-                                <!-- The fileinput-button span is used to style the file input field as button -->
-                                <span class="btn btn-success fileinput-button">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span>Chọn hình...</span>
-                                    <input type="file" name="files[]" multiple>
-                                </span>
-                                <button type="submit" class="btn btn-theme start">
-                                    <i class="glyphicon glyphicon-upload"></i>
-                                    <span>Bắt đầu Upload</span>
-                                </button>
-                                <button type="reset" class="btn btn-theme02 cancel">
-                                    <i class="glyphicon glyphicon-ban-circle"></i>
-                                    <span>Hủy Upload</span>
-                                </button>
-                                <button type="button" class="btn btn-theme04 delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                    <span>Xóa hình</span>
-                                </button>
-                                <input type="checkbox" class="toggle">
-                                <!-- The global file processing state -->
-                                <span class="fileupload-process"></span>
-                            </div><!-- /col-lg-7 -->
-                            <!-- The global progress state -->
-                            <div class="col-lg-4 fileupload-progress fade">
-                                <!-- The global progress bar -->
-                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar progress-bar-success" style="width:0%;">
+                            <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                            <div class="row fileupload-buttonbar">
+                                <div class="col-lg-8">
+                                    <!-- The fileinput-button span is used to style the file input field as button -->
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Chọn hình...</span>
+                                        <input type="file" name="files[]" multiple>
+                                    </span>
+                                    <button type="submit" class="btn btn-theme start">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>Bắt đầu Upload</span>
+                                    </button>
+                                    <button type="reset" class="btn btn-theme02 cancel">
+                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                        <span>Hủy Upload</span>
+                                    </button>
+                                    <button type="button" class="btn btn-theme04 delete">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        <span>Xóa hình</span>
+                                    </button>
+                                    <input type="checkbox" class="toggle">
+                                    <!-- The global file processing state -->
+                                    <span class="fileupload-process"></span>
+                                </div><!-- /col-lg-7 -->
+                                <!-- The global progress state -->
+                                <div class="col-lg-4 fileupload-progress fade">
+                                    <!-- The global progress bar -->
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-success" style="width:0%;">
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- The extended global progress state -->
-                                <div class="progress-extended">
-                                    &nbsp;
-                                </div>
-                            </div><!-- /col-lg-5 -->
-                        </div><!-- /row -->
-                        <!-- The table listing the files available for upload/download -->
-                        <table role="presentation" class="table table-striped">
-                            <tbody class="files"></tbody>
-                        </table>
-                    </form>
-                    <br>
-                    <!-- The blueimp Gallery widget -->
-                    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
-                        <div class="slides"></div>
-                        <h3 class="title"></h3>
-                        <a class="prev">‹</a>
-                        <a class="next">›</a>
-                        <a class="close">×</a>
-                        <a class="play-pause"></a>
-                        <ol class="indicator"></ol>
+                                    <!-- The extended global progress state -->
+                                    <div class="progress-extended">
+                                        &nbsp;
+                                    </div>
+                                </div><!-- /col-lg-5 -->
+                            </div><!-- /row -->
+                            <!-- The table listing the files available for upload/download -->
+                            <table role="presentation" class="table table-striped">
+                                <tbody class="files"></tbody>
+                            </table>
+                        </form>
+                        <br>
+                        <!-- The blueimp Gallery widget -->
+                        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+                            <div class="slides"></div>
+                            <h3 class="title"></h3>
+                            <a class="prev">‹</a>
+                            <a class="next">›</a>
+                            <a class="close">×</a>
+                            <a class="play-pause"></a>
+                            <ol class="indicator"></ol>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
-        </section><! --/wrapper -->
-    </section>*@<!-- /MAIN CONTENT -->
+            </section><! --/wrapper -->
+        </section>*@<!-- /MAIN CONTENT -->
     <!--main content end-->
-    <script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/standard-all/ckeditor.js"></script>
     <script>
-        //var $j = jQuery.noConflict();
 
-        ClassicEditor
-                    .create(document.querySelector('#Postcontent'))
-                    .then(editor => {
-                        console.log(editor);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-        ClassicEditor
-    .create(document.querySelector('#Postcontent'), {
-        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-        heading: {
-            options: [
-                { modelElement: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { modelElement: 'heading1', viewElement: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                { modelElement: 'heading2', viewElement: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+        CKEDITOR.replace('Postcontent', {
+            // Define the toolbar: http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_toolbar
+            // The standard preset from CDN which we used as a base provides more features than we need.
+            // Also by default it comes with a 2-line toolbar. Here we put all buttons in a single row.
+            toolbar: [
+                { name: 'clipboard', items: ['Undo', 'Redo'] },
+                { name: 'styles', items: ['Styles', 'Format'] },
+                { name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'] },
+                { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+                { name: 'links', items: ['Link', 'Unlink'] },
+                { name: 'insert', items: ['Image', 'EmbedSemantic', 'Table'] },
+                { name: 'tools', items: ['Maximize'] },
+                { name: 'editing', items: ['Scayt'] }
+            ],
+            // Since we define all configuration options here, let's instruct CKEditor to not load config.js which it does by default.
+            // One HTTP request less will result in a faster startup time.
+            // For more information check http://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-customConfig
+            customConfig: '',
+            // Enabling extra plugins, available in the standard-all preset: http://ckeditor.com/presets-all
+            extraPlugins: 'autoembed,embedsemantic,image2,uploadimage,uploadfile',
+            /*********************** File management support ***********************/
+            // In order to turn on support for file uploads, CKEditor has to be configured to use some server side
+            // solution with file upload/management capabilities, like for example CKFinder.
+            // For more information see http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_ckfinder_integration
+            // Uncomment and correct these lines after you setup your local CKFinder instance.
+            // filebrowserBrowseUrl: 'http://example.com/ckfinder/ckfinder.html',
+            // filebrowserUploadUrl: 'http://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            /*********************** File management support ***********************/
+            // Remove the default image plugin because image2, which offers captions for images, was enabled above.
+            removePlugins: 'image',
+            // Make the editing area bigger than default.
+            height: 600,
+            // An array of stylesheets to style the WYSIWYG area.
+            // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
+            contentsCss: ['https://cdn.ckeditor.com/4.8.0/standard-all/contents.css', 'mystyles.css'],
+            // This is optional, but will let us define multiple different styles for multiple editors using the same CSS file.
+            bodyClass: 'article-editor',
+            // Reduce the list of block elements listed in the Format dropdown to the most commonly used.
+            format_tags: 'p;h1;h2;h3;pre',
+            // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
+            removeDialogTabs: 'image:advanced;link:advanced',
+            // Define the list of styles which should be available in the Styles dropdown list.
+            // If the "class" attribute is used to style an element, make sure to define the style for the class in "mystyles.css"
+            // (and on your website so that it rendered in the same way).
+            // Note: by default CKEditor looks for styles.js file. Defining stylesSet inline (as below) stops CKEditor from loading
+            // that file, which means one HTTP request less (and a faster startup).
+            // For more information see http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_styles
+            stylesSet: [
+                /* Inline Styles */
+                { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                { name: 'Cited Work', element: 'cite' },
+                { name: 'Inline Quotation', element: 'q' },
+                /* Object Styles */
+                {
+                    name: 'Special Container',
+                    element: 'div',
+                    styles: {
+                        padding: '5px 10px',
+                        background: '#eee',
+                        border: '1px solid #ccc'
+                    }
+                },
+                {
+                    name: 'Compact table',
+                    element: 'table',
+                    attributes: {
+                        cellpadding: '5',
+                        cellspacing: '0',
+                        border: '1',
+                        bordercolor: '#ccc'
+                    },
+                    styles: {
+                        'border-collapse': 'collapse'
+                    }
+                },
+                { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } },
+                /* Widget Styles */
+                // We use this one to style the brownie picture.
+                { name: 'Illustration', type: 'widget', widget: 'image', attributes: { 'class': 'image-illustration' } },
+                // Media embed
+                { name: '240p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-240p' } },
+                { name: '360p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-360p' } },
+                { name: '480p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-480p' } },
+                { name: '720p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-720p' } },
+                { name: '1080p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-1080p' } }
             ]
-        }
-    })
-    .catch(error => {
-        console.log(error);
-    });
+        });
     </script>
 </body>
