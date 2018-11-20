@@ -208,4 +208,9 @@ namespace MNPOSTWEBSITE.Models
         public string StatusName { get; set; }
         public string StatusDescribe { get; set; }
     }
+
+    public class AddCustomerFromWebsiteRequest : Data
+    {
+        public MNPOSTWEBSITEMODEL.AspNetUser customer { get; set; }
+    }
 }

@@ -151,6 +151,49 @@ namespace MNPOSTWEBSITE.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterFromWeb(RegisterViewModel model, string Fullname, string Phone)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser() { UserName = model.UserName };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                    //new System.Net.Mail.MailAddress("mnpostvn@gmail.com", "Đăng ký tài khoản"),
+                    //new System.Net.Mail.MailAddress(user.UserName));
+                    //m.Subject = "Đăng ký tài khoản";
+                    //m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin nhấp vào đường dẫn dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
+                    //user.UserName, Url.Action("ConfirmEmail", "Account",
+                    //new { Token = user.Id, Email = user.UserName }, "http"));
+                    //m.IsBodyHtml = true;
+                    //System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                    //smtp.Credentials = new System.Net.NetworkCredential("mnpostvn@gmail.com", "Mnpost_2018");
+                    //smtp.EnableSsl = true;
+                    //smtp.Send(m);
+                    string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = "2";
+                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().CreatedDate = DateTime.Now;
+                    db.SaveChanges();
+                    await AddCustomer(cusid, Fullname, Phone, false, model.UserName);
+                    return RedirectToAction("SuccessfulRegister", "Account");
+                }
+                else
+                {
+                    AddErrors(result);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         //confirm email
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string Token, string UserName)
@@ -473,7 +516,12 @@ namespace MNPOSTWEBSITE.Controllers
                 }
             }
             ViewBag.Message = message;
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("ConfirmForget", "Account");
+        }
+
+        public ActionResult ConfirmForget()
+        {
+            return View();
         }
 
         public void SendVerificationLinkEmail(string emailID, string activationCode, string emailFor = "ResetPassword")
@@ -481,9 +529,9 @@ namespace MNPOSTWEBSITE.Controllers
             var verifyUrl = "/Account/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("hoanganh27897@gmail.com", "MNPOST");
+            var fromEmail = new MailAddress("mnpostvn@gmail.com", "MNPOST");
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "pokemonblackwhite2";
+            var fromEmailPassword = "Mnpost_2018";
 
             string subject = "";
             string body = "";
@@ -566,7 +614,12 @@ namespace MNPOSTWEBSITE.Controllers
                 message = "Something invalid";
             }
             ViewBag.Message = message;
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("SuccessChangePassword", "Account");
+        }
+
+        public ActionResult SuccessChangePassword()
+        {
+            return View();
         }
 
         //
@@ -607,7 +660,7 @@ namespace MNPOSTWEBSITE.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent = false)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);

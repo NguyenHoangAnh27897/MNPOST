@@ -8,20 +8,20 @@
 
 <div id='main' class='all_colors' data-scroll-offset='60'>
 
-    <div class='stretch_full container_wrap alternate_color light_bg_color title_container'><div class='container'><div class="breadcrumb breadcrumbs avia-breadcrumbs"><div class="breadcrumb-trail" xmlns:v="http://rdf.data-vocabulary.org/#"><span class="trail-before"><span class="breadcrumb-title"></span></span> <a href="/home/index" title="Chuyển phát nhanh Ecotrans" rel="home" class="trail-begin">Trang chủ</a> <span class="sep">/</span> <span><a rel="v:url" property="v:title" href="/post/postlist">Tin tức</a></span> <span class="sep">/</span> <span class="trail-end">@Model.FirstOrDefault().PostName</span></div></div></div></div>
+    <div class='stretch_full container_wrap alternate_color light_bg_color title_container'><div class='container'><div class="breadcrumb breadcrumbs avia-breadcrumbs"><div class="breadcrumb-trail" xmlns:v="http://rdf.data-vocabulary.org/#"><span class="trail-before"><span class="breadcrumb-title"></span></span> <a href="/trang-chu/index" title="Chuyển phát nhanh Miền Nam Post" rel="home" class="trail-begin">Trang chủ</a> <span class="sep">/</span> <span><a rel="v:url" property="v:title" href="/bai-viet/danh-sach-bai-viet">Tin tức</a></span> <span class="sep">/</span> <span class="trail-end">@Model.FirstOrDefault().PostName</span></div></div></div></div>
     <div class='container_wrap container_wrap_first main_color sidebar_right'>
 
         <div class='container template-blog template-single-blog '>
 
             <main class='content units av-content-small alpha  av-blog-meta-author-disabled av-blog-meta-comments-disabled av-blog-meta-date-disabled' role="main" itemscope="itemscope" itemtype="https://schema.org/Blog">
 
-                <article class='post-entry post-entry-type-standard post-entry-4715 post-loop-1 post-parity-odd post-entry-last single-big  post-4715 post type-post status-publish format-standard has-post-thumbnail hentry category-tin-tuc tag-ecotrans-ha-noi-tuyen-dung' itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost">
+                <article class='post-entry post-entry-type-standard post-entry-4715 post-loop-1 post-parity-odd post-entry-last single-big  post-4715 post type-post status-publish format-standard has-post-thumbnail hentry category-tin-tuc' itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost">
                     <div class='blog-meta'></div><div class='entry-content-wrapper clearfix standard-content'>
-                        <header class="entry-content-header"><h1 class='post-title entry-title' itemprop="headline">@Model.FirstOrDefault().PostName<span class='post-format-icon minor-meta'></span></h1><span class='post-meta-infos'><time class='date-container minor-meta updated'>14/08/2018</time><span class='text-sep text-sep-date'>/</span><span class="blog-categories minor-meta"><a href="/post/postlist" rel="tag">@Model.FirstOrDefault().Service</a> </span><span class="text-sep text-sep-cat">/</span><span class="blog-author minor-meta">by <span class="entry-author-link"><span class="vcard author"><span class="fn">@Model.FirstOrDefault().PostBy</span></span></span></span></span></header><div class="entry-content" itemprop="text">
+                        <header class="entry-content-header"><h1 class='post-title entry-title' itemprop="headline">@Model.FirstOrDefault().PostName<span class='post-format-icon minor-meta'></span></h1><span class='post-meta-infos'><time class='date-container minor-meta updated'>@Model.FirstOrDefault().CreatedDate</time><span class='text-sep text-sep-date'>/</span><span class="blog-categories minor-meta"><a href="/post/postlist" rel="tag">@Model.FirstOrDefault().Service</a> </span><span class="text-sep text-sep-cat">/</span><span class="blog-author minor-meta">by <span class="entry-author-link"><span class="vcard author"><span class="fn">@Model.FirstOrDefault().PostBy</span></span></span></span></span></header><div class="entry-content" itemprop="text">
                            @Html.Raw(Model.FirstOrDefault().ContentPost)
                             </div>
                         </div>
-                    <footer class="entry-footer"><span class="blog-tags minor-meta"><strong>Tags:</strong><span> <a href="/post/detailpost/@Model.FirstOrDefault().ID" rel="tag">@Model.FirstOrDefault().PostName</a></span></span>
+                    <footer class="entry-footer"><span class="blog-tags minor-meta"><strong>Tags:</strong><span> <a href="@Url.Action("DetailPost", "Post", new { id = Model.FirstOrDefault().GenerateSlug() })" rel="tag">@Model.FirstOrDefault().PostName</a></span></span>
                             </footer><div class='post_delimiter'></div>
                    <div class='post_author_timeline'></div>
                 </article><div class='single-big'></div>
@@ -36,7 +36,7 @@
                             @foreach (var item in lstpost)
                             {
                                 <li class="news-content post-format-standard">
-                                    <a class='news-link' title='Ecotrans Hà Nội &#8211; Tuyển Dụng' href='/post/detailpost/@item.ID'>
+                                    <a class='news-link' title='@item.PostName' href='@Url.Action("DetailPost", "Post", new { id = item.GenerateSlug() })'>
                                         <span class='news-thumb '><img width="36" height="36" src="~/images/post/@item.Avatar" class="attachment-widget size-widget wp-post-image" alt="" sizes="(max-width: 36px) 100vw, 36px" /></span>
                                         <strong class='news-headline'>@item.PostName<span class='news-time'>@item.CreatedDate</span></strong>
                                     </a>

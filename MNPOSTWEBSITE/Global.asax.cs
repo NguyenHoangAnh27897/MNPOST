@@ -7,6 +7,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
 using MNPOSTWEBSITE.Models;
+using System.Web.Http;
+using MNPOSTWEBSITE.App_Start;
 
 namespace MNPOSTWEBSITE
 {
@@ -16,6 +18,7 @@ namespace MNPOSTWEBSITE
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 

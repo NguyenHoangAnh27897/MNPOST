@@ -641,11 +641,10 @@ namespace MNPOSTWEBSITE.Controllers
                 FullName = Fullname,
                 Phone = Phone,
                 UserName = model.UserName,
-                PasswordHash = model.Password,
+                PasswordHash = model.Password
             };
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://localhost:1519/api/customer/AddCustomerFromWebsite";
+            string api = "http://localhost:21360/api/customer/AddCustomer";
             var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
             if (response.IsSuccessStatusCode)
             {
