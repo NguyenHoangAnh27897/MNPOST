@@ -1986,5 +1986,21 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DELIVERY_GETREPORT_EMPLOYEE" FunctionName="MNPOSTModel.Store.DELIVERY_GETREPORT_EMPLOYEE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result">
+          <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+          <ScalarProperty Name="CountMailer" ColumnName="CountMailer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" FunctionName="MNPOSTModel.Store.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result">
+          <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+          <ScalarProperty Name="MoneySum" ColumnName="MoneySum" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

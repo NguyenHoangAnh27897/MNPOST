@@ -1132,6 +1132,16 @@
       <Parameter Name="postId" Mode="In" Type="String" />
       <Parameter Name="mailerId" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="DELIVERY_GETREPORT_EMPLOYEE" ReturnType="Collection(MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result)">
+      <Parameter Name="employeeId" Mode="In" Type="String" />
+      <Parameter Name="fdate" Mode="In" Type="String" />
+      <Parameter Name="tdate" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result)">
+      <Parameter Name="employeeId" Mode="In" Type="String" />
+      <Parameter Name="fdate" Mode="In" Type="String" />
+      <Parameter Name="tdate" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
     <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -2059,5 +2069,13 @@
     <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
     <Property Type="Int32" Name="StatusID" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="DELIVERY_GETREPORT_EMPLOYEE_Result">
+    <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
+    <Property Type="Int32" Name="CountMailer" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result">
+    <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
+    <Property Type="Double" Name="MoneySum" Nullable="true" />
   </ComplexType>
 </Schema>
