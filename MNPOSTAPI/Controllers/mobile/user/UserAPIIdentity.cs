@@ -16,6 +16,6 @@ namespace MNPOSTAPI.Controllers.mobile.user
 
         public string EmployeeCode { get; set; }
 
-        public string Department { get; set; }
+        public string PostOfficeID { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpPost]
-        public ActionResult GetMailerPartner(int? page, string fromDate, string toDate, string postId)
+        public ActionResult GetMailerPartner(int? page, string fromDate, string toDate, string postId, string mailerId)
         {
             int pageSize = 50;
 
@@ -61,20 +61,41 @@ namespace MNPOST.Controllers.mailer
                 paserToDate = DateTime.Now;
             }
 
-            var data = db.MAILER_PARTNER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId).ToList();
-
-            ResultInfo result = new ResultWithPaging()
+            if(String.IsNullOrEmpty(mailerId))
             {
-                error = 0,
-                msg = "",
-                page = pageNumber,
-                pageSize = pageSize,
-                toltalSize = data.Count(),
-                data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
-            };
+                var data = db.MAILER_PARTNER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId).ToList();
+
+                ResultInfo result = new ResultWithPaging()
+                {
+                    error = 0,
+                    msg = "",
+                    page = pageNumber,
+                    pageSize = pageSize,
+                    toltalSize = data.Count(),
+                    data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+                };
 
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            } else
+            {
+                var data = db.MAILER_PARTNER_GETALL_ByMailerID(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId, mailerId).ToList();
+
+                ResultInfo result = new ResultWithPaging()
+                {
+                    error = 0,
+                    msg = "",
+                    page = pageNumber,
+                    pageSize = pageSize,
+                    toltalSize = data.Count(),
+                    data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+                };
+
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+      
         }
 
         [HttpPost]
@@ -142,11 +163,11 @@ namespace MNPOST.Controllers.mailer
         }
 
         [HttpGet]
-        public ActionResult AddMailer (string documentId, string mailerId )
+        public ActionResult AddMailer(string documentId, string mailerId)
         {
             var checkDocument = db.MM_MailerPartner.Find(documentId);
 
-            if(checkDocument == null || checkDocument.StatusID == 1)
+            if (checkDocument == null || checkDocument.StatusID == 1)
             {
                 return Json(new ResultInfo()
                 {
@@ -157,7 +178,7 @@ namespace MNPOST.Controllers.mailer
 
             var mailer = db.MM_Mailers.Find(mailerId);
 
-            if(mailer == null || mailer.CurrentStatusID != 2)
+            if (mailer == null || mailer.CurrentStatusID != 2)
             {
                 return Json(new ResultInfo()
                 {
@@ -182,7 +203,7 @@ namespace MNPOST.Controllers.mailer
                 DocumentID = documentId,
                 MailerID = mailer.MailerID,
                 OrderCosst = 0,
-                OrderReference= "",
+                OrderReference = "",
                 StatusID = 0
             };
 
@@ -211,8 +232,17 @@ namespace MNPOST.Controllers.mailer
                     msg = "Không thể cập nhật"
                 }, JsonRequestBehavior.AllowGet);
             }
+            var partner = db.BS_Partners.Find(checkDocument.PartnerID);
 
-            foreach(var item in mailers)
+            if (partner == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            foreach (var item in mailers)
             {
                 var mailer = db.MM_Mailers.Find(item);
 
@@ -247,6 +277,12 @@ namespace MNPOST.Controllers.mailer
 
                 db.MM_MailerPartnerDetail.Add(detail);
                 db.SaveChanges();
+
+                mailer.CurrentStatusID = 9;
+                mailer.ThirdpartyCode = partner.PartnerCode;
+                mailer.ThirdpartyID = partner.PartnerID;
+                db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
             }
 
             return Json(new ResultInfo()
@@ -260,11 +296,11 @@ namespace MNPOST.Controllers.mailer
         [HttpPost]
         public ActionResult UpdateDetails(List<MailerPartnerDetailUpdate> mailers, string documentId)
         {
-            foreach(var item in mailers)
+            foreach (var item in mailers)
             {
                 var find = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == item.MailerID).FirstOrDefault();
 
-                if(find != null)
+                if (find != null)
                 {
                     find.OrderCosst = item.OrderCosst;
                     find.OrderReference = item.OrderReference;
@@ -285,8 +321,25 @@ namespace MNPOST.Controllers.mailer
         public ActionResult DeleteDetail(string documentId, string mailerId)
         {
             var find = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == mailerId).FirstOrDefault();
+            var mailer = db.MM_Mailers.Find(mailerId);
 
-            if(find != null && find.StatusID == 0)
+            if (mailer == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể xóa"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            mailer.CurrentStatusID = 2;
+            mailer.ThirdpartyCode = "";
+            mailer.ThirdpartyID = "";
+            db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            if (find != null && find.StatusID == 0)
             {
                 db.MM_MailerPartnerDetail.Remove(find);
                 db.SaveChanges();
@@ -305,24 +358,12 @@ namespace MNPOST.Controllers.mailer
             }, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
-        public ActionResult SendPartner(string documentId, MyAddressInfo address)
+        public ActionResult CancelSend(string documentId, string mailerId)
         {
             var checkDocument = db.MM_MailerPartner.Find(documentId);
 
-            if(checkDocument == null)
-            {
-                return Json(new ResultInfo()
-                {
-                    error =1,
-                    msg = "Sai thông tin"
-                }, JsonRequestBehavior.AllowGet);
-            }
-
-            var partner = db.BS_Partners.Find(checkDocument.PartnerID);
-
-            if(partner == null)
+            if (checkDocument == null)
             {
                 return Json(new ResultInfo()
                 {
@@ -330,17 +371,155 @@ namespace MNPOST.Controllers.mailer
                     msg = "Sai thông tin"
                 }, JsonRequestBehavior.AllowGet);
             }
-            
+
+            var checkDetail = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == mailerId).FirstOrDefault();
+
+            if (checkDetail == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể hủy"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var mailer = db.MM_Mailers.Find(mailerId);
+            if (mailer == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không thể hủy"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            var partner = db.BS_Partners.Find(checkDocument.PartnerID);
+
+            if (partner == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             //
-            switch(partner.PartnerCode)
+            switch (partner.PartnerCode)
             {
                 case "VIETTEL":
                     SendViettelHandle viettelHandle = new SendViettelHandle(db, partner, HandleHistory);
-                    viettelHandle.SendViettelPost(checkDocument.DocumentID, address);
+                    viettelHandle.CancelOrder(checkDetail.OrderReference);
                     break;
                 default:
                     break;
             }
+
+            checkDetail.StatusID = 2;// huy
+            db.Entry(checkDetail).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            mailer.ThirdpartyDocID = "";
+            mailer.ThirdpartyCode = "";
+            mailer.ThirdpartyID = "";
+            mailer.CurrentStatusID = 2;
+            mailer.ThirdpartyCost = 0;
+
+            db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(new ResultInfo()
+            {
+                error = 0,
+                msg = ""
+            }, JsonRequestBehavior.AllowGet);
+
+
+        }
+
+        [HttpPost]
+        public ActionResult SendPartner(string documentId, MyAddressInfo address, bool useAPI)
+        {
+            var checkDocument = db.MM_MailerPartner.Find(documentId);
+
+            if (checkDocument == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var partner = db.BS_Partners.Find(checkDocument.PartnerID);
+
+            if (partner == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            //
+            if (useAPI)
+            {
+                switch (partner.PartnerCode)
+                {
+                    case "VIETTEL":
+                        SendViettelHandle viettelHandle = new SendViettelHandle(db, partner, HandleHistory);
+                        viettelHandle.SendViettelPost(checkDocument.DocumentID, address);
+                        break;
+                    default:
+                        var details = db.MAILER_PARTNER_GETDETAIL(documentId).ToList();
+                        foreach (var item in details)
+                        {
+                            var checkDetail = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == item.MailerID).FirstOrDefault();
+
+                            var mailer = db.MM_Mailers.Find(item.MailerID);
+
+                            checkDetail.StatusID = 1;
+
+                            db.Entry(checkDetail).State = System.Data.Entity.EntityState.Modified;
+
+                            mailer.ThirdpartyDocID = checkDetail.OrderReference;
+                            mailer.ThirdpartyCode = partner.PartnerCode;
+                            mailer.ThirdpartyID = partner.PartnerID;
+                            mailer.CurrentStatusID = 9;
+                            mailer.ThirdpartyCost = Convert.ToDecimal(checkDetail.OrderCosst);
+
+                            db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                var details = db.MAILER_PARTNER_GETDETAIL(documentId).ToList();
+                foreach (var item in details)
+                {
+                    var checkDetail = db.MM_MailerPartnerDetail.Where(p => p.DocumentID == documentId && p.MailerID == item.MailerID).FirstOrDefault();
+
+                    var mailer = db.MM_Mailers.Find(item.MailerID);
+
+                    checkDetail.StatusID = 1;
+
+                    db.Entry(checkDetail).State = System.Data.Entity.EntityState.Modified;
+
+                    mailer.ThirdpartyDocID = checkDetail.OrderReference;
+                    mailer.ThirdpartyCode = partner.PartnerCode;
+                    mailer.ThirdpartyID = partner.PartnerID;
+                    mailer.CurrentStatusID = 9;
+                    mailer.ThirdpartyCost = Convert.ToDecimal(checkDetail.OrderCosst);
+
+                    db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+
 
             return Json(new ResultInfo()
             {

@@ -3,11 +3,19 @@
 var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'ui.uploader', 'ui.select2']);
 
 app.service('mailerService', function () {
+
+
+
+
     var mailerList = [];
 
-    var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Thư từ' }];
+    var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Tài liệu' }];
 
-    var customers = customersGet;
+    var customers = {};
+
+    var setCustomer = function (data) {
+        customers = angular.copy(data);
+    };
 
     var mailerTypes = mailerTypesGet;
 
@@ -32,8 +40,6 @@ app.service('mailerService', function () {
 
     var addNewMailer = function () {
         var data = getNewMailer();
-        data.ListProvinceSend = provinceSendGet;
-        data.ListProvinceRecive = provinceSendGet;
 
         mailerList.unshift(data);
 
@@ -46,8 +52,8 @@ app.service('mailerService', function () {
             'SenderProvinceID': '', 'SenderPhone': '', 'RecieverName': ''
             , 'RecieverAddress': '', 'RecieverWardID': '', 'RecieverDistrictID': '', 'RecieverProvinceID': '',
             'RecieverPhone': '', 'Weight': 0.01, 'Quantity': 1, 'PaymentMethodID': 'NGTT', 'MailerTypeID': 'SN',
-            'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'PriceMain': 0, 'CODPrice': 0,
-            'PriceDefault': 0, 'ListWardSend': [], 'ListProvinceSend': [], 'ListDistrictSend': []
+            'PriceService': 0, 'MerchandiseID': 'H', 'Services': [], 'MailerDescription': '', 'Notes': '', 'COD': 0, 'LengthSize': 0, 'WidthSize': 0, 'HeightSize': 0, 'Amount': 0, 'PriceCoD': 0,
+            'PriceDefault': 0, 'ListWardSend': [], 'ListProvinceSend': provinceSendGet, 'ListDistrictSend': [], 'ListProvinceRecive': provinceSendGet, 'ListDistrictRecive': [], 'ListWardRecive':[]
         };
     };
 
@@ -114,7 +120,8 @@ app.service('mailerService', function () {
         getMerchandises: getMerchandises,
         resetMailers: resetMailers,
         getPost: getPost,
-        setPost: setPost
+        setPost: setPost,
+        setCustomer: setCustomer
     };
 
 });
@@ -124,9 +131,10 @@ app.service('mailerService', function () {
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.select2Options = {
-        theme: "classic"
     };
-
+    $scope.select2OptionsWidth100 = {
+        width: '100%'
+    };
 
     $scope.hideSenderDetail = false;
 
@@ -154,6 +162,16 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         mailerService.addMailer(mailer);
     };
 
+    $scope.GetFirst = function () {
+
+        $http.get("/mailerinit/GetCustomer?postId=" + $scope.postchoose).then(function (response) {
+            mailerService.setCustomer(response.data);
+
+            $scope.customers = mailerService.getCustomers();
+        });
+
+    };
+
     $scope.init = function () {
         $scope.postOffices = postOfficesData;
 
@@ -162,6 +180,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         if ($scope.postOffices.length === 1) {
             $scope.postchoose = $scope.postOffices[0];
             mailerService.setPost($scope.postchoose);
+            $scope.GetFirst();
         } else {
             showModelFix('choosePostOfficeModal');
         }
@@ -176,6 +195,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         } else {
             $scope.postchoose = $scope.postchoose;
             mailerService.setPost($scope.postchoose);
+            $scope.GetFirst();
             hideModel('choosePostOfficeModal');
         }
     };
@@ -183,6 +203,15 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         var mailer = $scope.mailers[idx];
 
         var cus = mailerService.findCustomer(mailer.SenderID);
+      
+
+        if (cus.code.indexOf('KHACHLE') === -1) {
+            showNotify("Đang chọn: " + cus.name);
+            $scope.hideSenderDetail = false;
+        } else {
+            showNotify("Khách lẻ phải thu tiền mặt và nhập địa chỉ");
+            $scope.hideSenderDetail = true;
+        }
 
         if (cus) {
             $scope.mailers[idx].SenderName = cus.name;
@@ -337,7 +366,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
             } else {
                 if (pType === "district") {
-                    $scope.mailers[idx].ListDistrictReceive = angular.copy(response.data);
+                    $scope.mailers[idx].ListDistrictRecive = angular.copy(response.data);
                 }
 
                 if (pType === "ward") {
@@ -409,10 +438,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             }
         }).then(function mySuccess(response) {
 
-            $scope.mailers[index].PriceMain = response.data.price;
-            $scope.mailers[index].CODPrice = response.data.codPrice;
+            $scope.mailers[index].PriceDefault = response.data.price;
+            $scope.mailers[index].PriceCoD = response.data.codPrice;
 
-            $scope.mailers[index].PriceDefault = $scope.mailers[index].PriceMain + $scope.mailers[index].CODPrice + $scope.mailers[index].PriceService;
+            $scope.mailers[index].Amount = $scope.mailers[index].PriceDefault + $scope.mailers[index].PriceCoD + $scope.mailers[index].PriceService;
 
         }, function myError(response) {
             alert('Connect error');
@@ -420,6 +449,13 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     };
 
+    $scope.setMerchandiseValue = function (index) {
+        $scope.mailers[index].MerchandiseValue = $scope.mailers[index].COD;
+    };
+
+    $scope.changePrice = function (index) {
+        $scope.mailers[index].Amount = $scope.mailers[index].PriceDefault + $scope.mailers[index].PriceCoD + $scope.mailers[index].PriceService;
+    };
     // upload file
     $scope.files = [];
     var inserByExcelElement = document.getElementById('insertByExcel');
@@ -474,7 +510,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerService) {
 
     $scope.select2Options = {
-        theme: "classic"
+        width: '100%'
+        
     };
 
     $scope.customers = mailerService.getCustomers();
@@ -486,10 +523,10 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.actionEdit = false;
 
     $scope.$on('insert-started', function (event, args) {
-
+        $scope.customers = mailerService.getCustomers();
         $scope.mailer = angular.copy(args.mailer);
-        console.log($scope.mailer);
-        $scope.otherServices = angular.copy(servicesGet);
+       // console.log($scope.mailer);
+       // $scope.otherServices = angular.copy(servicesGet);
         $scope.actionEdit = args.actionEdit;
 
         for (var i = 0; i < $scope.mailer.Services.length; i++) {
@@ -502,20 +539,8 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
             }
         }
-
-        console.log($scope.otherServices);
     });
 
-
-
-    $scope.provinceSend = provinceSendGet;
-    $scope.provinceRecei = angular.copy($scope.provinceSend);
-
-    $scope.districtSend = [];
-    $scope.wardSend = [];
-
-    $scope.districtRecei = [];
-    $scope.wardRecei = [];
 
     $scope.actionEdit = mailerService.getActionEdit();
 
@@ -557,7 +582,11 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.changeCus = function () {
 
         var cus = mailerService.findCustomer($scope.mailer.SenderID);
-
+        if (cus.code.indexOf('KHACHLE') === -1) {
+            showNotify("Đang chọn: " + cus.name);
+        } else {
+            showNotify("Khách lẻ phải thu tiền và nhập địa chỉ");
+        }
         if (cus) {
             $scope.mailer.SenderPhone = cus.phone;
             $scope.mailer.SenderProvinceID = cus.provinceId;
@@ -583,11 +612,11 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
         $http.get(url).then(function (response) {
             if (type === "send") {
-                $scope.districtSend = angular.copy(response.data.districts);
-                $scope.wardSend = angular.copy(response.data.wards);
+                $scope.mailer.ListDistrictSend = angular.copy(response.data.districts);
+                $scope.mailer.ListWardSend = angular.copy(response.data.wards);
             } else {
-                $scope.districtRecei = angular.copy(response.data.districts);
-                $scope.wardRecei = angular.copy(response.data.wards);
+                $scope.mailer.ListDistrictRecive = angular.copy(response.data.districts);
+                $scope.mailer.ListWardRecive = angular.copy(response.data.wards);
             }
         });
     };
@@ -631,20 +660,20 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             if (type === 'send') {
 
                 if (pType === "district") {
-                    $scope.districtSend = angular.copy(response.data);
+                    $scope.mailer.ListDistrictSend = angular.copy(response.data);
                 }
 
                 if (pType === "ward") {
-                    $scope.wardSend = angular.copy(response.data);
+                    $scope.mailer.ListWardSend = angular.copy(response.data);
                 }
 
             } else {
                 if (pType === "district") {
-                    $scope.districtRecei = angular.copy(response.data);
+                    $scope.mailer.ListDistrictRecive = angular.copy(response.data);
                 }
 
                 if (pType === "ward") {
-                    $scope.wardRecei = angular.copy(response.data);
+                    $scope.mailer.ListWardRecive = angular.copy(response.data);
                 }
             }
 
@@ -687,10 +716,10 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             }
         }).then(function mySuccess(response) {
 
-            $scope.mailer.PriceMain = response.data.price;
-            $scope.mailer.CODPrice = response.data.codPrice;
+            $scope.mailer.PriceDefault = response.data.price;
+            $scope.mailer.PriceCoD = response.data.codPrice;
 
-            $scope.mailer.PriceDefault = $scope.mailer.PriceMain + $scope.mailer.CODPrice + $scope.mailer.PriceService;
+            $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
 
         }, function myError(response) {
             alert('Connect error');
@@ -699,9 +728,11 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
     $scope.changePrice = function () {
         console.log('tinh gia tong');
-        $scope.mailer.PriceDefault = $scope.mailer.PriceMain + $scope.mailer.CODPrice + $scope.mailer.PriceService;
+        $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
     };
-
+    $scope.setMerchandiseValue = function () {
+        $scope.mailer.MerchandiseValue = $scope.mailer.COD;
+    };
 });
 
 

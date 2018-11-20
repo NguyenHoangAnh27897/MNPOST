@@ -135,5 +135,14 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
             return result;
 
         }
+
+        [HttpGet]
+        public ResponseInfo GetReportDelivery(string employeeId, string codeTime)
+        {
+            var fDate = DateTime.Now;
+            var tDate = DateTime.Now;
+
+            return presenter.GetReportDelivert(employeeId, "", "");
+        }
     }
 }

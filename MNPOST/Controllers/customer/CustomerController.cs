@@ -12,6 +12,14 @@ namespace MNPOST.Controllers.customer
         public ActionResult Show()
         {
             ViewBag.Provinces = GetProvinceDatas("", "province");
+
+            ViewBag.Groups = db.BS_CustomerGroups.Select(p => new CommonData()
+            {
+                code = p.CustomerGroupCode,
+                name = p.CustomerGroupName
+
+            }).ToList();
+
             ViewBag.AllPostOffice = db.BS_PostOffices.Select(p => new
             {
                 code = p.PostOfficeID,
@@ -22,15 +30,15 @@ namespace MNPOST.Controllers.customer
         }
         private string GeneralCusCode(string groupId)
         {
-
-            var find = db.GeneralCodeInfoes.Where(p => p.Code == "CUSTOMER").FirstOrDefault();
+            string codeSearch = "CUSTOMER" + groupId;
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == codeSearch).FirstOrDefault();
 
             if (find == null)
             {
                 var data = new GeneralCodeInfo()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Code = "CUSTOMER",
+                    Code = codeSearch,
                     FirstChar = groupId,
                     PreNumber = 0
                 };
@@ -69,7 +77,7 @@ namespace MNPOST.Controllers.customer
         [HttpGet]
         public ActionResult GetCustomer(int? page, string search = "")
         {
-            var data = db.CUSTOMER_GET_BYGROUP(search).ToList();
+            var data = db.CUSTOMER_GET_BYGROUP("%" + search + "%").ToList();
 
             ResultInfo result = new ResultInfo()
             {

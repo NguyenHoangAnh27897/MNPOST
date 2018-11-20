@@ -40,7 +40,7 @@
                                <div class="col-md-4">
                                    <div class="form-group">
                                        <label>Lọc theo khách hàng</label>
-                                       <select ui-select2="select2Options" ng-model="customerSearch.SenderID" class="form-control" ng-change="removeCheck()">
+                                       <select ui-select2 ng-model="customerSearch.SenderID" class="form-control" ng-change="removeCheck()">
                                            <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
                                        </select>
                                    </div>
@@ -52,8 +52,8 @@
                                    </div>
                                </div>
                                <div class="col-md-12">
-                                   <div class="table-responsive">
-                                       <table class="table table-striped jambo_table bulk_action scrollmenu">
+                                   <div class="table-responsive scrollmenu">
+                                       <table class="table table-striped jambo_table bulk_action ">
                                            <thead>
                                                <tr class="headings">
                                                    <th><input type="checkbox" ng-model="checkMailers" ng-change="checkAll()" /></th>
@@ -67,7 +67,6 @@
                                                    <th>Địa chỉ gửi</th>
                                                    <th>Tỉnh thành gửi</th>
                                                    <th>Quận huyện gửi</th>
-                                                   <th>Phường xã gửi</th>
                                                    <th>Người nhận</th>
                                                    <th>Điện thoại</th>
                                                    <th>Địa chỉ nhận</th>
@@ -88,15 +87,14 @@
                                                    <td>{{item.SenderName}}</td>
                                                    <td>{{item.SenderPhone}}</td>
                                                    <td>{{item.SenderAddress}}</td>
-                                                   <td>{{item.SenderProvinceID}}</td>
-                                                   <td>{{item.SenderDistrictID}}</td>
-                                                   <td>{{item.SenderWardID}}</td>
+                                                   <td>{{item.SendProvinceName}}</td>
+                                                   <td>{{item.SendDistrictName}}</td>
                                                    <td>{{item.RecieverName}}</td>
                                                    <td>{{item.RecieverPhone}}</td>
                                                    <td>{{item.RecieverAddress}}</td>
-                                                   <td>{{item.RecieverProvinceID}}</td>
-                                                   <td>{{item.RecieverDistrictID}}</td>
-                                                   <td>{{item.RecieverWardID}}</td>
+                                                   <td>{{item.RecieProvinceName}}</td>
+                                                   <td>{{item.ReceiDistrictName}}</td>
+                                                   <td>{{item.ReceiWardName}}</td>
                                                    <td>{{item.MailerTypeID}}</td>
                                                </tr>
                                            </tbody>
@@ -163,7 +161,6 @@
                                             <th>Địa chỉ gửi</th>
                                             <th>Tỉnh thành gửi</th>
                                             <th>Quận huyện gửi</th>
-                                            <th>Phường xã gửi</th>
                                             <th>Dịch vụ</th>
                                         </tr>
                                     </thead>
@@ -178,9 +175,8 @@
                                             <td>{{item.SenderName}}</td>
                                             <td>{{item.SenderPhone}}</td>
                                             <td>{{item.SenderAddress}}</td>
-                                            <td>{{item.SenderProvinceID}}</td>
-                                            <td>{{item.SenderDistrictID}}</td>
-                                            <td>{{item.SenderWardID}}</td>
+                                            <td>{{item.SendProvinceName}}</td>
+                                            <td>{{item.SendDistrictName}}</td>
                                             <td>{{item.MailerTypeID}}</td>
                                         </tr>
                                     </tbody>
@@ -228,7 +224,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nhân viên đi lấy</label>
-                                    <select class="form-control" ng-model="sendTakeInfo.employeeId">
+                                    <select ui-select2="select2Options" class="form-control" ng-model="sendTakeInfo.employeeId">
                                         <option ng-repeat="item in employees" value="{{item.code}}">{{item.name}}</option>
                                     </select>
                                 </div>
@@ -293,17 +289,6 @@
 
 </div>
 
-
-@section styles {
-
-    <style type="text/css">
-        .scrollmenu {
-            overflow: auto;
-            white-space: nowrap;
-        }
-
-    </style>
-}
 @section scripts {
 
     <script type="text/javascript">

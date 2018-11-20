@@ -23,6 +23,8 @@ namespace MNPOST.Utils
             this.HandleHistory = HandleHistory;
         }
 
+       
+
 
         public int sendCalPrice(CalPriceVietle info)
         {
@@ -68,8 +70,56 @@ namespace MNPOST.Utils
             return 0;
 
         }
+        public void CancelOrder(string orderNumber)
+        {
+            var token = CheckTokenExpired(partner);
 
-        public void SendViettelPost(string documentId, MyAddressInfo infoAddress)
+            string url = @"https://api.viettelpost.vn/api/tmdt/UpdateOrder";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.Headers["Token"] = token;
+
+            try
+            {
+                var info = new UpdateOrderViettel()
+                {
+                    DATE = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                    TYPE = 4,
+                    ORDER_NUMBER = orderNumber,
+                    NOTE = "HỦY ĐƠN HÀNG"
+                };
+
+                string json = new JavaScriptSerializer().Serialize(info);
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
+                var httpResponse = (HttpWebResponse)request.GetResponse();
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    var res = Json.Decode(result);
+
+                    if (res.status != null)
+                    {
+                        
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+
+
+        }
+       public void SendViettelPost(string documentId, MyAddressInfo infoAddress)
         {
             var token = CheckTokenExpired(partner);
 
@@ -88,7 +138,7 @@ namespace MNPOST.Utils
                 {
                     ViettelOrderSend info = new ViettelOrderSend()
                     {
-                        ORDER_NUMBER = "",
+                        ORDER_NUMBER = item.MailerID,
                         GROUPADDRESS_ID = 0,
                         DELIVERY_DATE = DateTime.Now.AddDays(1).ToString("dd/MM/yyyy HH:mm:ss"),
                         CUS_ID = Convert.ToInt32(partner.UserID),
@@ -180,7 +230,7 @@ namespace MNPOST.Utils
                             db.SaveChanges();
 
                             // tracking
-                            HandleHistory.AddTracking(3, mailer.MailerID, res.data.ORDER_NUMBER, mailer.CurrentPostOfficeID, "Chuyển qua đối tác " + partner.ParterName + ", vận đơn đối tác : " + res.data.ORDER_NUMBER);
+                           // HandleHistory.AddTracking(3, mailer.MailerID, res.data.ORDER_NUMBER, mailer.CurrentPostOfficeID, "Chuyển qua đối tác " + partner.ParterName + ", vận đơn đối tác : " + res.data.ORDER_NUMBER);
                         }
 
                     }
@@ -242,7 +292,7 @@ namespace MNPOST.Utils
                 {
                     partner.LastModife = DateTime.Now;
                     partner.TokenLogin = res.TokenKey;
-
+                    partner.Expired = 1;
 
                     db.Entry(partner).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
@@ -278,6 +328,13 @@ namespace MNPOST.Utils
 
     }
 
+    public class UpdateOrderViettel
+    {
+        public int TYPE { get; set; }
+        public string ORDER_NUMBER { get; set; }
+        public string NOTE { get; set; }
+        public string DATE { get; set; }
+    }
     public class CalPriceViettleResult
     {
         public string SERVICE_CODE { get; set; }

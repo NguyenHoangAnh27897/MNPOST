@@ -44,8 +44,8 @@ namespace MNPOST.Models
         public double? LengthSize { get; set; }
         public double? WidthSize { get; set; }
         public double? HeightSize { get; set; }
-        public decimal? PriceMain { get; set; }
-        public decimal? CODPrice { get; set; }
+        public decimal? Amount { get; set; }
+        public decimal? PriceCoD { get; set; }
         public decimal? PriceDefault { get; set; }
 
         public decimal? MerchandiseValue { get; set; }

@@ -19,14 +19,13 @@ namespace MNPOSTAPI.Controllers.mobile.user
         * 
         * */
         [HttpGet]
-        public ResultInfo GetInfo(string user)
+        public ResultInfo GetInfo(string firebaseId= "")
         {
-            var result = mPresenter.GetUserInfo(user);
+            var result = mPresenter.GetUserInfo(User.Identity.Name, firebaseId);
 
 
             return result;
         }
-
 
         /***
          * 

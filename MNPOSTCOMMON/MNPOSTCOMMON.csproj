@@ -180,6 +180,9 @@
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="DELIVERY_GETREPORT_EMPLOYEE_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="DISTRICT_GETALL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -192,6 +195,9 @@
     <Compile Include="EMPLOYEE_DEBIT_GET_NOTPAID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="EMPLOYEE_DEBIT_REPORT_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -202,6 +208,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="EmpployeeDebitCOD.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FirebaseIDSave.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="GeneralCodeInfo.cs">
@@ -249,6 +258,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_NOT_INVENTORY_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_PARTNER_GETALL_ByMailerID_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_PARTNER_GETALL_Result.cs">
@@ -376,6 +388,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="UserLevel.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMessage.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPostOption.cs">

@@ -268,12 +268,13 @@
   display: inline-block; }
 
 .nav_menu {
-  float: left;
-  background: #EDEDED;
-  border-bottom: 1px solid #D9DEE4;
-  margin-bottom: 10px;
-  width: 100%;
-  position: relative; }
+    float: left;
+    background: #FFEA00;
+    border-bottom: 1px solid #D9DEE4;
+    margin-bottom: 10px;
+    width: 100%;
+    position: relative;
+}
 
 @media (min-width: 480px) {
   .nav_menu {
@@ -303,7 +304,9 @@ body .container.body .right_col {
   float: left;
   background: #2A3F54;
   border-radius: 0;
-  height: 57px; }
+  height: 57px; 
+
+}
 
 @media (max-width: 991px) {
   .nav-md .container.body .right_col, .nav-md .container.body .top_nav {
@@ -311,6 +314,7 @@ body .container.body .right_col {
     margin: 0; }
 
   .nav-md .container.body .col-md-3.left_col {
+
     display: none; }
 
   .nav-md .container.body .right_col {
@@ -661,7 +665,7 @@ a:hover, a:focus {
   text-overflow: ellipsis;
   overflow: hidden;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 18px;
   width: 100%;
   color: #ECF0F1 !important;
   margin-left: 0 !important;

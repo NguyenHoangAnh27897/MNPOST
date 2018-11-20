@@ -1,5 +1,8 @@
-﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'myDirective', 'ui.mask']);
+﻿var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'myDirective', 'ui.mask', 'ui.select2']);
 app.controller('myCtrl', function ($scope, $http, $rootScope) {
+    $scope.select2Options = {
+        width: '100%'
+    };
 
     // phan trang
     $scope.numPages;
@@ -50,7 +53,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         });
     };
 
-    $scope.myAddress = {};
+    $scope.myAddress = { name: 'BƯU CHÍNH MIỀN NAM', phone: '036365365', email: 'sales@miennampost.vn', address: 'Bàn Cờ'};
     $scope.provinceSend = provinceSendGet;
     $scope.districtSend = [];
     $scope.wardSend = [];
@@ -223,6 +226,31 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         });
     };
 
+    $scope.cancelSend = function (idx) {
+        showLoader(true);
+
+        $http({
+            method: 'POST',
+            url: '/mailerpartner/CancelSend',
+            data: {
+                documentId: $scope.document.DocumentID,
+                mailerId: $scope.mailers[idx].MailerID
+            }
+        }).then(function sucess(response) {
+
+            var result = response.data;
+            if (result.error === 1) {
+                showNotify(result.msg);
+            } else {
+                $scope.getDocumentDetail();
+            }
+
+            showLoader(false);
+        }, function erorr(response) {
+            showLoader(false);
+            showNotify('Connect error');
+        });
+    };
     
     $scope.showModalAddressInfo = function () {
         $scope.mailerFinds = [];
@@ -230,7 +258,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
     };
     $scope.mailerFinds = [];
     $scope.findAllMailers = function () {
-
+        $scope.mailerFinds = [];
         showLoader(true);
 
         $http.get('/mailerpartner/GetMailerByProvince?postId=' + $scope.postHandle + '&province=' + $scope.provincesearch + '&district=' + $scope.districtsearch).then(function (response) {
@@ -284,31 +312,40 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         }
     };
 
-    $scope.sendToPartner = function (valid) {
-
-        if (valid) {
-            showLoader(true);
-
-            $http({
-                method: "POST",
-                url: "/mailerpartner/SendPartner",
-                data: {
-                    documentId: $scope.document.DocumentID,
-                    address: $scope.myAddress
-                }
-            }).then(function sucess(response) {
-                showLoader(false);
-                $scope.document.StatusID = 1;
-                $scope.getDocumentDetail();
-                hideModel('sendpartner');
-            }, function error(response) {
-
-                showLoader(false);
-                showNotify('Connect error');
-            });
+    $scope.preSendPartner = function () {
+        showModel('checkSendPartner');
+    }
+    $scope.chooseSendPartner = function (useAPI) {
+        if (useAPI) {
+            $scope.showModalAddressInfo();
         } else {
-            showNotify("thiếu một số thông tin");
+            $scope.sendToPartner(false);
         }
+
+        hideModel('checkSendPartner');
+    }
+    $scope.sendToPartner = function (useAPI) {
+        
+        showLoader(true);
+
+        $http({
+            method: "POST",
+            url: "/mailerpartner/SendPartner",
+            data: {
+                documentId: $scope.document.DocumentID,
+                address: $scope.myAddress,
+                useAPI: useAPI
+            }
+        }).then(function sucess(response) {
+            showLoader(false);
+            $scope.document.StatusID = 1;
+            $scope.getDocumentDetail();
+            hideModel('sendpartner');
+        }, function error(response) {
+
+            showLoader(false);
+            showNotify('Connect error');
+        });
 
     };
 

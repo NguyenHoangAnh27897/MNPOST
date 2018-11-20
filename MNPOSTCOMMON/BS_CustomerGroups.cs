@@ -23,5 +23,6 @@ namespace MNPOSTCOMMON
         public string ContactEmail { get; set; }
         public string ContactAddress { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string PaymentMethodID { get; set; }
     }
 }

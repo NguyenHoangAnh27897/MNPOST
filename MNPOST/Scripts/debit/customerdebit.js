@@ -6,6 +6,8 @@ app.controller('myCtrl', function ($scope, $http, $interval) {
         width: '100%'
     };
 
+    $scope.groups = groups;
+
     $scope.tabcreate = false;
     // phan trang
     $scope.numPages;

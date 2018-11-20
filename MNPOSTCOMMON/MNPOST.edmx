@@ -133,6 +133,7 @@
           <Property Name="ContactEmail" Type="nvarchar" MaxLength="128" />
           <Property Name="ContactAddress" Type="nvarchar(max)" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
@@ -439,6 +440,15 @@
           <Property Name="DocumentID" Type="nvarchar" MaxLength="128" />
           <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="FirebaseIDSave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar(max)" />
+          <Property Name="FirebaseID" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="GeneralCodeInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -636,6 +646,7 @@
           <Property Name="EmployeePaid" Type="nvarchar" MaxLength="128" />
           <Property Name="PaidNotes" Type="nvarchar(max)" />
           <Property Name="PaidCoDInvoice" Type="nvarchar(max)" />
+          <Property Name="PriceCoD" Type="money" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -805,6 +816,17 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Describes" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="UserMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Topic" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="UserPostOption">
           <Key>
             <PropertyRef Name="Id" />
@@ -928,6 +950,11 @@
         <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupID" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="DELIVERY_GETREPORT_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+          <Parameter Name="fdate" Type="nvarchar" Mode="In" />
+          <Parameter Name="tdate" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="DISTRICT_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="EMPLOYEE_DEBIT_ALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fdate" Type="nvarchar" Mode="In" />
@@ -942,6 +969,11 @@
         </Function>
         <Function Name="EMPLOYEE_DEBIT_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
+          <Parameter Name="fdate" Type="nvarchar" Mode="In" />
+          <Parameter Name="tdate" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="EMPLOYEE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
@@ -993,6 +1025,12 @@
           <Parameter Name="fromDate" Type="varchar" Mode="In" />
           <Parameter Name="toDate" Type="varchar" Mode="In" />
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="MAILER_PARTNER_GETALL_ByMailerID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fromDate" Type="varchar" Mode="In" />
+          <Parameter Name="toDate" Type="varchar" Mode="In" />
+          <Parameter Name="postId" Type="nvarchar" Mode="In" />
+          <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="MAILER_PARTNER_GETDETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="documentId" Type="nvarchar" Mode="In" />
@@ -1109,6 +1147,7 @@
           <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmpployeeDebitCOD" EntityType="Self.EmpployeeDebitCOD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FirebaseIDSave" EntityType="Self.FirebaseIDSave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
@@ -1133,6 +1172,7 @@
           <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMessage" EntityType="Self.UserMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__MM_Mailer__Emplo__531856C7" Association="Self.FK__MM_Mailer__Emplo__531856C7">
             <End Role="BS_Employees" EntitySet="BS_Employees" />
@@ -1292,6 +1332,7 @@
           <Property Name="ContactEmail" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="PaymentMethodID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
@@ -1797,6 +1838,7 @@
           <Property Name="EmployeePaid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="PaidNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PaidCoDInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PriceCoD" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="MM_MailerServices">
           <Key>
@@ -2285,6 +2327,24 @@
           <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result)">
           <Parameter Name="documentId" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="FirebaseIDSaves" EntityType="MNPOSTModel.FirebaseIDSave" />
+          <EntitySet Name="UserMessages" EntityType="MNPOSTModel.UserMessage" />
+          <FunctionImport Name="MAILER_PARTNER_GETALL_ByMailerID" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETALL_ByMailerID_Result)">
+            <Parameter Name="fromDate" Mode="In" Type="String" />
+            <Parameter Name="toDate" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="mailerId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DELIVERY_GETREPORT_EMPLOYEE" ReturnType="Collection(MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result)">
+            <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result)">
+            <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="fdate" Mode="In" Type="String" />
+            <Parameter Name="tdate" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result">
           <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="20" />
@@ -2500,6 +2560,11 @@
           <Property Type="String" Name="Notes" Nullable="true" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
+          <Property Type="String" Name="SendProvinceName" Nullable="true" />
+          <Property Type="String" Name="SendDistrictName" Nullable="true" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_GETALL_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -2543,6 +2608,15 @@
           <Property Type="String" Name="StatusNotes" Nullable="true" />
           <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="SendProvinceName" Nullable="true" />
+          <Property Type="String" Name="SendDistrictName" Nullable="true" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
+          <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
+          <Property Type="Double" Name="LengthSize" Nullable="true" />
+          <Property Type="Double" Name="HeightSize" Nullable="true" />
+          <Property Type="Double" Name="WidthSize" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_GETINFO_BYID_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -2948,6 +3022,11 @@
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
           <Property Type="String" Name="TimeTake" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="SendProvinceName" Nullable="true" />
+          <Property Type="String" Name="SendDistrictName" Nullable="true" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
         </ComplexType>
         <ComplexType Name="TAKEMAILER_GETLIST_Result">
           <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
@@ -3162,6 +3241,46 @@
           <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
           <Property Type="String" Name="EmployeePaidConfirmDate" Nullable="true" MaxLength="30" />
         </ComplexType>
+        <EntityType Name="FirebaseIDSave">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirebaseID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Topic" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="MAILER_PARTNER_GETALL_ByMailerID_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="ParterName" Nullable="true" />
+          <Property Type="String" Name="PartnerID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="PartnerAddress" Nullable="true" />
+          <Property Type="String" Name="ParterPhoneSP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PostOfficeID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DELIVERY_GETREPORT_EMPLOYEE_Result">
+          <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
+          <Property Type="Int32" Name="CountMailer" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result">
+          <Property Type="Int32" Name="AccountantConfirm" Nullable="true" />
+          <Property Type="Double" Name="MoneySum" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3284,6 +3403,7 @@
           <EntitySetMapping Name="BS_CustomerGroups">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
               <MappingFragment StoreEntitySet="BS_CustomerGroups">
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
                 <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
@@ -3754,6 +3874,7 @@
           <EntitySetMapping Name="MM_Mailers">
             <EntityTypeMapping TypeName="MNPOSTModel.MM_Mailers">
               <MappingFragment StoreEntitySet="MM_Mailers">
+                <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
                 <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
                 <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
                 <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
@@ -4294,6 +4415,11 @@
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
+                <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+                <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4341,6 +4467,15 @@
                 <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
                 <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+                <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
+                <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
+                <ScalarProperty Name="LengthSize" ColumnName="LengthSize" />
+                <ScalarProperty Name="HeightSize" ColumnName="HeightSize" />
+                <ScalarProperty Name="WidthSize" ColumnName="WidthSize" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -4818,6 +4953,11 @@
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="MerchandiseValue" ColumnName="MerchandiseValue" />
                 <ScalarProperty Name="TimeTake" ColumnName="TimeTake" />
+                <ScalarProperty Name="SendProvinceName" ColumnName="SendProvinceName" />
+                <ScalarProperty Name="SendDistrictName" ColumnName="SendDistrictName" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5091,6 +5231,60 @@
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
                 <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
                 <ScalarProperty Name="EmployeePaidConfirmDate" ColumnName="EmployeePaidConfirmDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="FirebaseIDSaves">
+            <EntityTypeMapping TypeName="MNPOSTModel.FirebaseIDSave">
+              <MappingFragment StoreEntitySet="FirebaseIDSave">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="FirebaseID" ColumnName="FirebaseID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMessages">
+            <EntityTypeMapping TypeName="MNPOSTModel.UserMessage">
+              <MappingFragment StoreEntitySet="UserMessage">
+                <ScalarProperty Name="Topic" ColumnName="Topic" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_PARTNER_GETALL_ByMailerID" FunctionName="MNPOSTModel.Store.MAILER_PARTNER_GETALL_ByMailerID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_PARTNER_GETALL_ByMailerID_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+                <ScalarProperty Name="ParterName" ColumnName="ParterName" />
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="PartnerAddress" ColumnName="PartnerAddress" />
+                <ScalarProperty Name="ParterPhoneSP" ColumnName="ParterPhoneSP" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
+                <ScalarProperty Name="AcceptTime" ColumnName="AcceptTime" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DELIVERY_GETREPORT_EMPLOYEE" FunctionName="MNPOSTModel.Store.DELIVERY_GETREPORT_EMPLOYEE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result">
+                <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+                <ScalarProperty Name="CountMailer" ColumnName="CountMailer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" FunctionName="MNPOSTModel.Store.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result">
+                <ScalarProperty Name="AccountantConfirm" ColumnName="AccountantConfirm" />
+                <ScalarProperty Name="MoneySum" ColumnName="MoneySum" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

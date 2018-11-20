@@ -44,6 +44,15 @@ namespace MNPOST.Controllers.mailer
         [HttpPost]
         public ActionResult CreateTakeMailer(string postId, string cusCode, string cusName, string cusAddress, string cusPhone, string content, string employeeId, List<string> mailers)
         {
+            if(mailers == null || mailers.Count() == 0)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không có đơn nào để lấy"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var findEmployee = db.BS_Employees.Where(p => p.EmployeeID == employeeId).FirstOrDefault();
 
             if(findEmployee == null)

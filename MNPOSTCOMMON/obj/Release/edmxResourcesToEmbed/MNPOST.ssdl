@@ -128,6 +128,7 @@
     <Property Name="ContactEmail" Type="nvarchar" MaxLength="128" />
     <Property Name="ContactAddress" Type="nvarchar(max)" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>
@@ -434,6 +435,15 @@
     <Property Name="DocumentID" Type="nvarchar" MaxLength="128" />
     <Property Name="EmployeeID" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
+  <EntityType Name="FirebaseIDSave">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar(max)" />
+    <Property Name="FirebaseID" Type="nvarchar(max)" />
+    <Property Name="CreateTime" Type="datetime" />
+  </EntityType>
   <EntityType Name="GeneralCodeInfo">
     <Key>
       <PropertyRef Name="Id" />
@@ -631,6 +641,7 @@
     <Property Name="EmployeePaid" Type="nvarchar" MaxLength="128" />
     <Property Name="PaidNotes" Type="nvarchar(max)" />
     <Property Name="PaidCoDInvoice" Type="nvarchar(max)" />
+    <Property Name="PriceCoD" Type="money" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -799,6 +810,17 @@
     <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Describes" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UserMessage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar(max)" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="Topic" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="UserPostOption">
     <Key>
@@ -989,6 +1011,12 @@
     <Parameter Name="toDate" Type="varchar" Mode="In" />
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="MAILER_PARTNER_GETALL_ByMailerID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fromDate" Type="varchar" Mode="In" />
+    <Parameter Name="toDate" Type="varchar" Mode="In" />
+    <Parameter Name="postId" Type="nvarchar" Mode="In" />
+    <Parameter Name="mailerId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="MAILER_PARTNER_GETDETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentId" Type="nvarchar" Mode="In" />
   </Function>
@@ -1104,6 +1132,7 @@
     <EntitySet Name="BS_Zones" EntityType="Self.BS_Zones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CData" EntityType="Self.CData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmpployeeDebitCOD" EntityType="Self.EmpployeeDebitCOD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FirebaseIDSave" EntityType="Self.FirebaseIDSave" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeneralCodeInfo" EntityType="Self.GeneralCodeInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
@@ -1128,6 +1157,7 @@
     <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_UserGroups" EntityType="Self.UMS_UserGroups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLevel" EntityType="Self.UserLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserMessage" EntityType="Self.UserMessage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserPostOption" EntityType="Self.UserPostOption" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__MM_Mailer__Emplo__531856C7" Association="Self.FK__MM_Mailer__Emplo__531856C7">
       <End Role="BS_Employees" EntitySet="BS_Employees" />
