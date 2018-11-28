@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MNPOSTAPI
 {
@@ -12,6 +13,8 @@ namespace MNPOSTAPI
         {
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
+ 
+            config.EnableCors();
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 

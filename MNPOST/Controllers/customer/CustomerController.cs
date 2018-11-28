@@ -28,52 +28,7 @@ namespace MNPOST.Controllers.customer
 
             return View();
         }
-        private string GeneralCusCode(string groupId)
-        {
-            string codeSearch = "CUSTOMER" + groupId;
-            var find = db.GeneralCodeInfoes.Where(p => p.Code == codeSearch).FirstOrDefault();
-
-            if (find == null)
-            {
-                var data = new GeneralCodeInfo()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Code = codeSearch,
-                    FirstChar = groupId,
-                    PreNumber = 0
-                };
-
-                db.GeneralCodeInfoes.Add(data);
-                db.SaveChanges();
-
-                return GeneralCusCode(groupId);
-            }
-
-            var number = find.PreNumber + 1;
-
-            string code = number.ToString();
-
-            int count = 2;
-
-            if (code.Count() < 2)
-            {
-                count = count - code.Count();
-
-                while (count > 0)
-                {
-                    code = "0" + code;
-                    count--;
-                }
-            }
-
-            find.PreNumber = find.PreNumber + 1;
-            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            return groupId + code;
-
-        }
-
+      
         [HttpGet]
         public ActionResult GetCustomer(int? page, string search = "")
         {
@@ -111,12 +66,12 @@ namespace MNPOST.Controllers.customer
         [HttpPost]
         public ActionResult Create(CustomerInfo cus)
         {
-
+            MailerHandleCommon handle = new MailerHandleCommon(db);
             var checkGroup = db.BS_CustomerGroups.Where(p => p.CustomerGroupCode == cus.CustomerGroupCode).FirstOrDefault();
 
             if (checkGroup == null)
                 return Json(new ResultInfo() { error = 1, msg = "Sai mã nhóm" }, JsonRequestBehavior.AllowGet);
-            var code = GeneralCusCode(checkGroup.CustomerGroupCode);
+            var code = handle.GeneralCusCode(checkGroup.CustomerGroupCode);
             var ins = new BS_Customers()
             {
                 CustomerID = Guid.NewGuid().ToString(),

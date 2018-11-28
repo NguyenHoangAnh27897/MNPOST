@@ -14,149 +14,7 @@ namespace MNPOSTAPI.Controllers.web
     public class MailerController : WebBaseController
     {
 
-        [HttpGet]
-        public ResultInfo GeneralCode(string postId)
-        {
-            MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
-            var code = mailerHandle.GeneralMailerCode(postId);
-
-            return new ResponseInfo { error = 0, data = code };
-        }
-
-        [HttpGet]
-        public MailerInfoResultbyID GetMailerbyID(string id, string customerid)
-        {
-            try
-            {
-                MailerInfoResultbyID result = new MailerInfoResultbyID()
-                {
-                    error = 0,
-                    msg = "400-OK",
-                    mailer = db.MM_Mailers.Where(s => s.MailerID == id && s.SenderID == customerid).FirstOrDefault()
-                };
-                return result;
-            }catch
-            {
-                MailerInfoResultbyID result = new MailerInfoResultbyID()
-                {
-                    error = 1,
-                    msg = "Khong ket noi he thong"
-                };
-                return result;
-            }
-            
-        }
-        public MailerInfoResult GetMailerbyCustomerIDandDate(string customerid,DateTime fromdate,DateTime todate)
-        {
-            try
-            {
-                MailerInfoResult result = new MailerInfoResult()
-                {
-                    error = 0,
-                    msg = "400-OK",
-                    mailer = db.MM_Mailers.Where(p => p.SenderID == customerid && p.AcceptDate >= fromdate.Date && p.AcceptDate <= todate.Date).ToList()
-                };
-                return result;
-            }catch
-            {
-                MailerInfoResult result = new MailerInfoResult()
-                {
-                    error = 1,
-                    msg = "Khong ket noi he thong"
-                };
-                return result;
-            }          
-        }
-        [HttpGet]  
-        public MailerInfoResult GetMailerbyCustomerID(string customerid)
-        {
-            try
-            {
-                MailerInfoResult result = new MailerInfoResult()
-                {
-                    error = 0,
-                    msg = "400-OK",
-                    mailer = db.MM_Mailers.Where(p => p.SenderID == customerid).ToList()
-                };
-                return result;
-            }
-            catch
-            {
-                MailerInfoResult result = new MailerInfoResult()
-                {
-                    error = 1,
-                    msg = "Khong ket noi he thong"
-                };
-                return result;
-            }
-        }
-
-        [HttpGet]
-        public CalPrice GetPrice(decimal weight,string customerid,string provinceid,string servicetypeid,string postofficeid,string date)
-        {
-            try
-            {
-                var pweight = new SqlParameter("@Weight", weight);
-                var pcus = new SqlParameter("@CustomerID", customerid);
-                var ppro = new SqlParameter("@ProvinceID", provinceid);
-                var pser = new SqlParameter("@CustomerID", servicetypeid);
-                var ppos = new SqlParameter("@PostOfficeID", postofficeid);
-                var ddate = new SqlParameter("@Ngay", date);
-             
-               // var data = db.Database.SqlQuery<TieuChiDuKien>("GET_TIEUCHI_DUKIEN @MaTruong,@NamHoc", matruong, namhoc).ToList();
-                CalPrice result = new CalPrice()
-                {
-                    error = 0,
-                    msg = "400-OK",
-                   // Price = db.MM_Mailers.Where(p => p.SenderID == customerid).ToList()
-                   Price = 0
-                };
-                return result;
-            }
-            catch
-            {
-                CalPrice result = new CalPrice()
-                {
-                    error = 1,
-                    msg = "Khong ket noi he thong"
-                };
-                return result;
-            }
-        }
-
-        public ResultInfo DeleteCustomerByCustomerID()
-        {
-            ResultInfo result = new ResultInfo()
-            {
-                error = 0,
-                msg = "Cap nhat thanh cong"
-            };
-
-            try
-            {
-                var requestContent = Request.Content.ReadAsStringAsync().Result;
-
-                var jsonserializer = new JavaScriptSerializer();
-                var paser = jsonserializer.Deserialize<AddMailerRequest>(requestContent);
-
-                var data = paser.mailer;
-                var checkmailer = db.MM_Mailers.Find(data.MailerID);
-                if (data == null)
-                    throw new Exception("Sai du lieu gui len");
-
-                db.MM_Mailers.Remove(checkmailer); ;
-                db.SaveChanges();
-
-            }
-            catch (Exception e)
-            {
-                result.error = 1;
-                result.msg = e.Message;
-            }
-            return result;
-        }
-
-
+        [HttpPost]
         public ResultInfo AddMailer()
         {
             ResultInfo result = new ResultInfo()
@@ -170,19 +28,71 @@ namespace MNPOSTAPI.Controllers.web
                 var requestContent = Request.Content.ReadAsStringAsync().Result;
 
                 var jsonserializer = new JavaScriptSerializer();
-                var paser = jsonserializer.Deserialize<AddMailerRequest>(requestContent);
+                var paser = jsonserializer.Deserialize<MailerIdentity>(requestContent);
 
-                var data = paser.mailer;
+                var findCus = db.BS_Customers.Where(p => p.CustomerCode == paser.SenderID).FirstOrDefault();
 
-                if (data == null)
-                    throw new Exception("Sai du lieu gui len");
+                if (findCus == null)
+                    throw new Exception("Sai thông tin");
 
-                data.CurrentStatusID = 0;
-                data.CreationDate = DateTime.Now;
-                data.LastUpdateDate = DateTime.Now;
+                if (String.IsNullOrEmpty(findCus.Address) || String.IsNullOrEmpty(findCus.ProvinceID) || String.IsNullOrEmpty(findCus.DistrictID) || String.IsNullOrEmpty(findCus.CustomerName))
+                    throw new Exception("Cập nhật lại thông tin cá nhân");
 
-                db.MM_Mailers.Add(data);
+                MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
+                var code = mailerHandle.GeneralMailerCode(findCus.PostOfficeID);
+                var price = db.CalPrice(paser.Weight, findCus.CustomerID, paser.RecieverProvinceID, paser.MailerTypeID, findCus.PostOfficeID, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                var codPrice = 0;
+
+
+                // theem
+                var mailerIns = new MM_Mailers()
+                {
+                    MailerID = code,
+                    AcceptTime = DateTime.Now,
+                    AcceptDate = DateTime.Now,
+                    COD = paser.COD,
+                    CreationDate = DateTime.Now,
+                    CurrentStatusID = 0,
+                    HeightSize = paser.HeightSize,
+                    Weight = paser.Weight,
+                    LengthSize = paser.LengthSize,
+                    WidthSize = paser.WidthSize,
+                    Quantity = paser.Quantity,
+                    PostOfficeAcceptID = findCus.PostOfficeID,
+                    CurrentPostOfficeID = findCus.PostOfficeID,
+                    EmployeeAcceptID = "",
+                    MailerDescription = paser.MailerDescription,
+                    MailerTypeID = paser.MailerTypeID,
+                    MerchandiseValue = paser.MerchandiseValue,
+                    MerchandiseID = paser.MerchandiseID,
+                    PriceDefault = price,
+                    Price = price,
+                    PriceService = paser.PriceService,
+                    Amount = price + codPrice,
+                    PriceCoD = codPrice,
+                    Notes = paser.Notes,
+                    PaymentMethodID = paser.PaymentMethodID,
+                    RecieverAddress = paser.RecieverAddress,
+                    RecieverName = paser.RecieverName,
+                    RecieverPhone = paser.RecieverPhone,
+                    RecieverDistrictID = paser.RecieverDistrictID,
+                    RecieverWardID = paser.RecieverWardID,
+                    RecieverProvinceID = paser.RecieverProvinceID,
+                    SenderID = findCus.CustomerCode,
+                    SenderAddress = findCus.Address,
+                    SenderDistrictID = findCus.DistrictID,
+                    SenderName = findCus.CustomerName,
+                    SenderPhone = findCus.Phone,
+                    SenderProvinceID = findCus.ProvinceID,
+                    SenderWardID = findCus.WardID,
+                    PaidCoD = 0,
+                    CreateType = 1
+                };
+
+                // 
+                db.MM_Mailers.Add(mailerIns);
                 db.SaveChanges();
+
             }
             catch (Exception e)
             {
@@ -191,12 +101,15 @@ namespace MNPOSTAPI.Controllers.web
             }
             return result;
         }
-        public ResultInfo UpdateMailer()
+
+
+        [HttpPost]
+        public ResultInfo GetMailers()
         {
             ResultInfo result = new ResultInfo()
             {
                 error = 0,
-                msg = "Cap nhat thanh cong"
+                msg = "Them moi thanh cong"
             };
 
             try
@@ -204,60 +117,47 @@ namespace MNPOSTAPI.Controllers.web
                 var requestContent = Request.Content.ReadAsStringAsync().Result;
 
                 var jsonserializer = new JavaScriptSerializer();
-                var paser = jsonserializer.Deserialize<AddMailerRequest>(requestContent);
+                var paser = jsonserializer.Deserialize<MailerShowRequest>(requestContent);
 
-                var data = paser.mailer;
-                var checkmailer = db.MM_Mailers.Find(data.MailerID);
-                if (data == null)
-                    throw new Exception("Sai du lieu gui len");
-                checkmailer.PostOfficeAcceptID = data.PostOfficeAcceptID;
-                checkmailer.SenderID = data.SenderID;
-                checkmailer.SenderName = data.SenderName;
-                checkmailer.SenderAddress = data.SenderAddress;
-                checkmailer.SenderWardID = data.SenderWardID;
-                checkmailer.SenderDistrictID = data.SenderDistrictID;
-                checkmailer.SenderProvinceID = data.SenderProvinceID;
-                checkmailer.SenderPhone = data.SenderPhone;
-                checkmailer.RecieverName = data.RecieverName;
-                checkmailer.RecieverAddress = data.RecieverAddress;
-                checkmailer.RecieverWardID = data.RecieverWardID;
-                checkmailer.RecieverDistrictID = data.RecieverDistrictID;
-                checkmailer.RecieverProvinceID = data.RecieverProvinceID;
-                checkmailer.RecieverPhone = data.RecieverPhone;
-                checkmailer.EmployeeAcceptID = data.EmployeeAcceptID;
-                checkmailer.AcceptDate = data.AcceptDate;
-                checkmailer.AcceptTime = data.AcceptTime;
-                checkmailer.MailerTypeID = data.MailerTypeID;
-                checkmailer.Quantity = data.Quantity;
-                checkmailer.Weight = data.Weight;
-                checkmailer.ReWeight = data.ReWeight;
-                checkmailer.PriceDefault = data.PriceDefault;
-                checkmailer.Price = data.Price;
-                checkmailer.PriceService = data.PriceService;
-                checkmailer.Discount = data.Discount;
-                checkmailer.BefVATAmount = data.BefVATAmount;
-                checkmailer.VATPercent = data.VATPercent;
-                checkmailer.VATAmount = data.VATAmount;
-                checkmailer.Amount = data.Amount;
-                checkmailer.AmountBefDiscount = data.AmountBefDiscount;
-                checkmailer.PaymentMethodID = data.PaymentMethodID;
-                checkmailer.MailerDescription = data.MailerDescription;
-                checkmailer.ThirdpartyDocID = data.ThirdpartyDocID;
-                checkmailer.ThirdpartyCost = data.ThirdpartyCost;
-                checkmailer.ThirdpartyPaymentMethodID = data.ThirdpartyPaymentMethodID;
-                checkmailer.CurrentStatusID = data.CurrentStatusID;
-                checkmailer.CurrentPostOfficeID = data.CurrentPostOfficeID;
-                checkmailer.PriceType = data.PriceType;//loai bang gia
-                checkmailer.PriceIncludeVAT = data.PriceIncludeVAT;
-                checkmailer.CommissionAmt = data.CommissionAmt;
-                checkmailer.CommissionPercent = data.CommissionPercent;
-                checkmailer.CostAmt = data.CostAmt;
-                checkmailer.SalesClosingDate = data.SalesClosingDate;
-                checkmailer.DiscountPercent = data.DiscountPercent;
-                checkmailer.LastUpdateDate = DateTime.Now;
+                int pageSize = 50;
 
-                db.Entry(checkmailer).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                int pageNumber = (paser.page ?? 1);
+
+
+                DateTime paserFromDate = DateTime.Now;
+                DateTime paserToDate = DateTime.Now;
+
+                try
+                {
+                    paserFromDate = DateTime.ParseExact(paser.fromDate, "dd/MM/yyyy", null);
+                    paserToDate = DateTime.ParseExact(paser.toDate, "dd/MM/yyyy", null);
+                }
+                catch
+                {
+                    paserFromDate = DateTime.Now;
+                    paserToDate = DateTime.Now;
+                }
+
+                var findCus = db.BS_Customers.Where(p => p.CustomerCode == paser.customerId).FirstOrDefault();
+                if (findCus == null)
+                    throw new Exception("sai thông tin");
+
+                var data = db.MAILER_GETALL(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + findCus.PostOfficeID + "%", "%" + paser.search + "%").Where(p => p.SenderID.Contains(paser.customerId)).ToList();
+
+                if (paser.status != -1)
+                {
+                    data = data.Where(p => p.CurrentStatusID == paser.status).ToList();
+                }
+
+                result = new ResultWithPaging()
+                {
+                    error = 0,
+                    msg = "",
+                    page = pageNumber,
+                    pageSize = pageSize,
+                    toltalSize = data.Count(),
+                    data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+                };
 
             }
             catch (Exception e)
@@ -266,6 +166,9 @@ namespace MNPOSTAPI.Controllers.web
                 result.msg = e.Message;
             }
             return result;
+
         }
+
+
     }
 }

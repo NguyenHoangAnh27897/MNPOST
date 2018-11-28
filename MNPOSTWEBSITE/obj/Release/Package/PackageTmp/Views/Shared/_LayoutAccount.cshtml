@@ -1,41 +1,50 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     Layout = null;
 }
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta name="author" content="Bưu chính miền nam">
+    <meta name="keyword" content="Bưu chính miền nam, chuyển phát">
 
     <title>MN POST</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/Content/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
-    <link href="/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
 
     <!-- Custom styles for this template -->
     <link href="/Content/css/style.css" rel="stylesheet">
     <link href="/Content/css/style-responsive.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <a href="~/Views/Shared/_LayoutAccount.cshtml">~/Views/Shared/_LayoutAccount.cshtml</a>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
     <style>
         input:valid {
             border-style: solid;
             border-color: #81ffa2;
         }
-        
+
+        #loader {
+            display: none;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('https://loading.io/assets/img/landing/curved-bars.svg') 50% 50% no-repeat rgb(249,249,249);
+            opacity: .8;
+        }
     </style>
+
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    @RenderSection("styles", false)
 
 </head>
 
@@ -70,39 +79,15 @@
                 <ul class="sidebar-menu" id="nav-accordion">
 
                     <p class="centered"><a href="/manage/index"><img src="/Content/img/user.jpg" class="img-circle" width="60"></a></p>
-                    <h5 class="centered">@Session["Username"]</h5>
+                    <h5 class="centered">@User.Identity.Name</h5>
 
                     <li class="mt">
-                        <a href="/manage/index">
+                        <a href="/user/show">
                             <i class="fa fa-dashboard"></i>
                             <span>Thông tin tài khoản</span>
                         </a>
                     </li>
-                    @if (Session["RoleID"].ToString().Equals("Admin"))
-                    {
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-envelope"></i>
-                                <span>Bài viết</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="/post/create">Đăng bài mới</a></li>
-                                <li><a href="/post/accountpost">Danh sách bài đăng</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-cogs"></i>
-                                <span>Quản lí trang chủ</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="/manage/editaboutus">Quản lí giới thiệu</a></li>
-                                <li><a href="/manage/manageservice">Quản lí dịch vụ</a></li>
-                                <li><a href="/post/recruitment">Đăng tin tuyển dụng</a></li>                           
-                            </ul>
-                        </li>
-                    }
-                    @if (Session["RoleID"].ToString().Equals("Customer"))
+                    @if (Request.IsAuthenticated)
                     {
                         <li class="sub-menu">
                             <a href="javascript:;">
@@ -111,7 +96,7 @@
                             </a>
                             <ul class="sub">
                                 <li><a href="/order/create">Tạo đơn hàng</a></li>
-                                <li><a href="/order/list">Danh sách đơn hàng</a></li>
+                                <li><a href="/order/showlist">Danh sách đơn hàng</a></li>
                             </ul>
                         </li>
                         <li class="sub-menu">
@@ -132,7 +117,7 @@
         <!--sidebar end-->
         @RenderBody()
     </section>
-
+    <div id="loader"></div>
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="/Content/js/jquery.js"></script>
     <script src="/Content/js/bootstrap.min.js"></script>
@@ -142,18 +127,29 @@
 
     <!--common script for all pages-->
     <script src="/Content/js/common-scripts.js"></script>
-
+    <script src="/Content/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="/Content/js/jquery.ui.touch-punch.min.js"></script>
     <!--script for this page-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="~/Scripts/mask.min.js"></script>
+    <script src="~/Scripts/uploader.min.js"></script>
 
-    <script>
-        //custom select box
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="~/Scripts/angular-select2.js"></script>
 
-        $(function () {
-            $('select.styled').customSelect();
-        });
+    <script src="~/Scripts/myscript.keypress.js"></script>
+    <script src="~/Scripts/mydirective.js"></script>
 
-    </script>
-    
+
+    <script src="~/Scripts/myscripts.js"></script>
+
+    @RenderSection("scripts", false)
+
 </body>
 </html>
 

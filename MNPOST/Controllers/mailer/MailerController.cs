@@ -112,7 +112,7 @@ namespace MNPOST.Controllers.mailer
             {
                 choose = true,
                 code = p.ServiceID,
-                price = p.Price
+                price = p.SellingPrice
 
             }).ToList();
 
@@ -184,7 +184,7 @@ namespace MNPOST.Controllers.mailer
             db.SaveChanges();
 
             var allServices = db.MM_MailerServices.Where(p => p.MailerID == checkExist.MailerID).ToList();
-            foreach(var item in allServices)
+            foreach (var item in allServices)
             {
                 db.MM_MailerServices.Remove(item);
             }
@@ -201,9 +201,9 @@ namespace MNPOST.Controllers.mailer
                         var mailerService = new MM_MailerServices()
                         {
                             MailerID = mailer.MailerID,
-                            LastUpDate = DateTime.Now,
-                            Price = service.price,
-                            PriceDefault = checkService.Price,
+                            CreationDate = DateTime.Now,
+                            SellingPrice = (decimal)service.price,
+                            PriceDefault = (decimal)checkService.Price,
                             ServiceID = service.code
                         };
                         db.MM_MailerServices.Add(mailerService);
@@ -269,7 +269,12 @@ namespace MNPOST.Controllers.mailer
         public JsonResult CalBillPrice(float weight = 0, string customerId = "", string provinceId = "", string serviceTypeId = "", string postId = "", float cod = 0, float merchandiseValue = 0)
         {
 
-            var price = db.CalPrice(weight, customerId, provinceId, serviceTypeId, postId, DateTime.Now.ToString("yyyy-MM-dd"));
+            var findCus = db.BS_Customers.Where(p => p.CustomerCode == customerId).FirstOrDefault();
+            decimal? price = 0;
+            if (findCus != null)
+            {
+                price = db.CalPrice(weight, findCus.CustomerID, provinceId, serviceTypeId, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+            }
 
             return Json(new { price = price, codPrice = 0 }, JsonRequestBehavior.AllowGet);
         }

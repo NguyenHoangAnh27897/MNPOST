@@ -2,13 +2,11 @@
 using System.Linq;
 using System.Web.Mvc;
 using MNPOSTWEBSITE.Models;
-using MNPOSTCOMMON;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
-using System.Web.UI.WebControls;
 
 namespace MNPOSTWEBSITE.Controllers
 {

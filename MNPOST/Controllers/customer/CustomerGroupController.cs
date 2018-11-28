@@ -21,6 +21,8 @@ namespace MNPOST.Controllers.customer
         [HttpGet]
         public ActionResult GetCustomerGroup(int? page, string search = "")
         {
+          
+
             int pageSize = 50;
 
             int pageNumber = (page ?? 1);
@@ -56,9 +58,9 @@ namespace MNPOST.Controllers.customer
         [HttpPost]
         public ActionResult create(BS_CustomerGroups customergroup)
         {
-
+            MailerHandleCommon handle = new MailerHandleCommon(db);
             customergroup.CreationDate = DateTime.Now;
-            customergroup.CustomerGroupCode= GeneralCusGroupCode();
+            customergroup.CustomerGroupCode= handle.GeneralCusGroupCode();
             customergroup.CustomerGroupID = Guid.NewGuid().ToString();
             customergroup.IsActive = true;
             
@@ -95,51 +97,7 @@ namespace MNPOST.Controllers.customer
 
         }
         */
-        private string GeneralCusGroupCode()
-        {
-            var find = db.GeneralCodeInfoes.Where(p => p.Code == "GCUSTOMER").FirstOrDefault();
-
-            if (find == null)
-            {
-                var data = new GeneralCodeInfo()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Code = "GCUSTOMER",
-                    FirstChar = "",
-                    PreNumber = 0
-                };
-
-                db.GeneralCodeInfoes.Add(data);
-                db.SaveChanges();
-
-                return GeneralCusGroupCode();
-            }
-
-            var number = find.PreNumber + 1;
-
-            string code = number.ToString();
-
-            int count = 4;
-
-            if (code.Count() < 4)
-            {
-                count = count - code.Count();
-
-                while (count > 0)
-                {
-                    code = "0" + code;
-                    count--;
-                }
-            }
-
-
-            find.PreNumber = find.PreNumber + 1;
-            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            return code;
-
-        }
+       
 
       
 

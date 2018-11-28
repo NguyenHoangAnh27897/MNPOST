@@ -74,5 +74,11 @@ namespace MNPOSTCOMMON
         public string ThirdpartyCode { get; set; }
         public string ThirdpartyID { get; set; }
         public string StatusNotes { get; set; }
+        public Nullable<int> PaidCoD { get; set; }
+        public Nullable<System.DateTime> PaidDate { get; set; }
+        public string EmployeePaid { get; set; }
+        public string PaidNotes { get; set; }
+        public string PaidCoDInvoice { get; set; }
+        public Nullable<decimal> PriceCoD { get; set; }
     }
 }

@@ -97,31 +97,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:27</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.dll">
-      <publishTime>11/16/2018 02:45:06</publishTime>
+      <publishTime>11/28/2018 20:38:35</publishTime>
     </File>
     <File Include="bin/MNPOSTAPI.pdb">
       <publishTime>10/31/2018 16:03:25</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll">
-      <publishTime>11/16/2018 02:24:13</publishTime>
+      <publishTime>11/28/2018 19:49:36</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.dll.config">
-      <publishTime>11/02/2018 23:38:16</publishTime>
+      <publishTime>11/28/2018 19:36:23</publishTime>
     </File>
     <File Include="bin/MNPOSTCOMMON.pdb">
       <publishTime>10/31/2018 16:03:16</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.dll">
-      <publishTime>11/16/2018 02:36:26</publishTime>
+      <publishTime>11/28/2018 20:38:34</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.dll.config">
-      <publishTime>10/30/2018 01:54:49</publishTime>
+      <publishTime>11/27/2018 15:42:45</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITE.pdb">
       <publishTime>10/31/2018 16:03:22</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll">
-      <publishTime>11/01/2018 03:49:53</publishTime>
+      <publishTime>11/28/2018 02:31:41</publishTime>
     </File>
     <File Include="bin/MNPOSTWEBSITEMODEL.dll.config">
       <publishTime>10/27/2018 17:28:25</publishTime>
@@ -160,7 +160,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:30</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>10/27/2018 17:28:26</publishTime>
+      <publishTime>11/20/2018 13:19:14</publishTime>
     </File>
     <File Include="bin/System.Numerics.Vectors.dll">
       <publishTime>10/27/2018 17:28:31</publishTime>
@@ -174,11 +174,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/System.ValueTuple.dll">
       <publishTime>10/27/2018 17:28:37</publishTime>
     </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>05/10/2018 22:37:02</publishTime>
+    </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>10/27/2018 17:28:26</publishTime>
     </File>
+    <File Include="bin/System.Web.Http.Cors.dll">
+      <publishTime>05/10/2018 22:39:40</publishTime>
+    </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>10/27/2018 17:28:26</publishTime>
+      <publishTime>11/20/2018 13:19:14</publishTime>
     </File>
     <File Include="bin/System.Web.Http.Owin.dll">
       <publishTime>10/27/2018 17:28:26</publishTime>
@@ -211,10 +217,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/27/2018 17:28:12</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/29/2018 14:29:56</publishTime>
+      <publishTime>11/28/2018 15:56:54</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/11/2018 15:53:51</publishTime>
+      <publishTime>11/28/2018 16:01:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

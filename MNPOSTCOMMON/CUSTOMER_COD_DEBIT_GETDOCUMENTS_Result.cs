@@ -19,6 +19,7 @@ namespace MNPOSTCOMMON
         public string Notes { get; set; }
         public string PostOfficeID { get; set; }
         public string DocumentDate { get; set; }
+        public Nullable<int> StatusID { get; set; }
         public string DocumentTime { get; set; }
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
@@ -27,6 +28,5 @@ namespace MNPOSTCOMMON
         public string CustomerGroupName { get; set; }
         public Nullable<double> AllMoney { get; set; }
         public Nullable<int> AllMailer { get; set; }
-        public Nullable<int> StatusID { get; set; }
     }
 }

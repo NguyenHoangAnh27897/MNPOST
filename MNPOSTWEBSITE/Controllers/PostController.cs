@@ -8,12 +8,13 @@ using System.Net;
 using PagedList;
 using PagedList.Mvc;
 using System.Drawing;
+using MNPOSTWEBSITE.Models;
 
 namespace MNPOSTWEBSITE.Controllers
 {
     public class PostController : Controller
     {
-        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
+        MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
         //
         // GET: /Post/
         public ActionResult Create()
@@ -43,7 +44,7 @@ namespace MNPOSTWEBSITE.Controllers
         {
             try
             {
-                MNPOSTWEBSITEMODEL.WS_Post data = new MNPOSTWEBSITEMODEL.WS_Post();
+                WS_Post data = new WS_Post();
                 data.PostName = Title;
                 data.PostBy = PostBy;
                 data.Service = Service;

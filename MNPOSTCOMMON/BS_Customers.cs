@@ -30,5 +30,6 @@ namespace MNPOSTCOMMON
         public string WardID { get; set; }
         public string UserLogin { get; set; }
         public string Deputy { get; set; }
+        public string ClientUser { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -9,21 +7,19 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using MNPOSTWEBSITE.Models;
-using MNPOSTWEBSITE.Controllers;
 using ASPSnippets.FaceBookAPI;
 using System.Net.Mail;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web.Helpers;
-using Newtonsoft.Json.Linq;
+using MNPOSTWEBSITE.Utils;
+using System.Web.Script.Serialization;
 
 namespace MNPOSTWEBSITE.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
+        MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -43,8 +39,7 @@ namespace MNPOSTWEBSITE.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            HomeController home = new HomeController();
-            Session["token"] = home.getToken().Result;
+
             return View();
         }
 
@@ -57,36 +52,33 @@ namespace MNPOSTWEBSITE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                string username = model.UserName;
-                string pass = model.Password;
-                if (user != null)
+
+                var findUser = db.AspNetUsers.Where(p => p.UserName == model.UserName).FirstOrDefault();
+
+                if (findUser != null && findUser.IsActive == true)
                 {
-                        if(db.AspNetUsers.Where(s=>s.UserName == model.UserName).FirstOrDefault().IsActive == true)
-                        {
-                            Session["ID"] = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
-                            Session["Username"] = user.FullName;
-                            Session["Email"] = username;
-                            string idrole = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole;
-                            Session["RoleID"] = db.AspNetRoles.Where(s => s.Id == idrole).FirstOrDefault().Name;
-                            Session["Authentication"] = "True";
-                            await SignInAsync(user, model.RememberMe);
-                            return RedirectToAction("Index","Manage");
-                        }else
-                        {
-                            ModelState.AddModelError("", "Tài khoản chưa được kích hoạt");
-                        }
-                  
+                    var user = await UserManager.FindAsync(model.UserName, model.Password);
+
+                    if (user != null)
+                    {
+                        await SignInAsync(user, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Tài khoản không tồn tại");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Tài khoản không tồn tại hoặc nhập sai mật khẩu");
+                    ModelState.AddModelError("", "Tài khoản chưa kích hoặt");
                 }
+
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         [HttpPost]
         [AllowAnonymous]
         public EmptyResult LoginFacebook()
@@ -100,8 +92,6 @@ namespace MNPOSTWEBSITE.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            HomeController home = new HomeController();
-            Session["token"] = home.getToken().Result;
             return View();
         }
 
@@ -114,175 +104,62 @@ namespace MNPOSTWEBSITE.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var urlCheck = APISource.ROOTURL + "api/BaseData/CheckCus?email=" + model.UserName + "&phone=" + Phone;
+                var check = RequestHandle.SendGet(urlCheck, false);
+
+                var paser = new JavaScriptSerializer().Deserialize<ResultInfo>(check);
+
+                if (paser.error == 1)
                 {
-                    await SignInAsync(user, isPersistent: false);                
-                    System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                    new System.Net.Mail.MailAddress("mnpostvn@gmail.com", "Đăng ký tài khoản"),
-                    new System.Net.Mail.MailAddress(user.UserName));
-                    m.Subject = "Đăng ký tài khoản";
-                    m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin nhấp vào đường dẫn dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
-                    user.UserName, Url.Action("ConfirmEmail", "Account",
-                    new { Token = user.Id, Email = user.UserName }, Request.Url.Scheme)) ;
-                    m.IsBodyHtml = true;
-                    System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
-                    smtp.Credentials = new System.Net.NetworkCredential("mnpostvn@gmail.com", "Mnpost_2018");
-                    smtp.EnableSsl = true;
-                    smtp.Send(m);
-                    string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = "2";
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().CreatedDate =DateTime.Now;
-                    db.SaveChanges();
-                    await AddCustomer(cusid,Fullname, Phone, false, model.UserName);
-                    return RedirectToAction("SuccessfulRegister", "Account");
+                    ModelState.AddModelError("", "Email và số điện thoại đã được sử dụng");
                 }
                 else
                 {
-                    AddErrors(result);
+                    var user = new ApplicationUser() { UserName = model.UserName, FullName = Fullname, Phone = Phone, IsActive = true, IDRole = "user" };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        var findUser = db.AspNetUsers.Where(p => p.UserName == model.UserName).FirstOrDefault();
+
+                        UserManager.AddToRole(findUser.Id, "user");
+
+                        // send info
+                        var dataSend = new AddCustomerSend()
+                        {
+                            clientUser = model.UserName,
+                            email = model.UserName,
+                            fullName = Fullname,
+                            phone = Phone
+                        };
+
+                        string json = new JavaScriptSerializer().Serialize(dataSend);
+
+                        var addRes = RequestHandle.SendPost(APISource.ROOTURL + "api/customer/AddCustomer", json, true);
+
+                        var addResultPaser = new JavaScriptSerializer().Deserialize<AddCustomerResult>(addRes);
+
+                        if(addResultPaser.error == 0)
+                        {
+                            findUser.IDClient = addResultPaser.data;
+                            findUser.CreatedDate = DateTime.Now;
+                            db.Entry(findUser).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+
+                        await SignInAsync(user, isPersistent: false);
+
+                        return Redirect("/user/show");
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                    }
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterFromWeb(RegisterViewModel model, string Fullname, string Phone)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    //System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                    //new System.Net.Mail.MailAddress("mnpostvn@gmail.com", "Đăng ký tài khoản"),
-                    //new System.Net.Mail.MailAddress(user.UserName));
-                    //m.Subject = "Đăng ký tài khoản";
-                    //m.Body = string.Format("Kính gửi {0} <br/> Cảm ơn bạn đã đăng ký dịch vụ MNPOST, xin nhấp vào đường dẫn dưới đây để kích hoạt tài khoản: <a href =\"{1}\"title =\"User Email Confirm\">{1}</a>",
-                    //user.UserName, Url.Action("ConfirmEmail", "Account",
-                    //new { Token = user.Id, Email = user.UserName }, "http"));
-                    //m.IsBodyHtml = true;
-                    //System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
-                    //smtp.Credentials = new System.Net.NetworkCredential("mnpostvn@gmail.com", "Mnpost_2018");
-                    //smtp.EnableSsl = true;
-                    //smtp.Send(m);
-                    string cusid = db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Id;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().FullName = Fullname;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().Phone = Phone;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IsActive = false;
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().IDRole = "2";
-                    db.AspNetUsers.Where(s => s.UserName == model.UserName).FirstOrDefault().CreatedDate = DateTime.Now;
-                    db.SaveChanges();
-                    await AddCustomer(cusid, Fullname, Phone, false, model.UserName);
-                    return RedirectToAction("SuccessfulRegister", "Account");
-                }
-                else
-                {
-                    AddErrors(result);
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //confirm email
-        [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string Token, string UserName)
-        {
-            ApplicationUser user = this.UserManager.FindById(Token);
-            if (user != null)
-            {
-                if (user.UserName == UserName)
-                {
-                    await UserManager.UpdateAsync(user);
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IsActive = true;
-                    db.SaveChanges();
-                    var cusid = db.AspNetUsers.Where(s => s.UserName == user.UserName).FirstOrDefault().IDClient;
-                    await UpdateCustomer(cusid, true);
-                    return RedirectToAction("Confirm", "Account", new { Email = user.UserName });
-                }
-            }
-            else
-            {
-                return RedirectToAction("Confirm", "Account", new { Email = "" });
-            }
-        }
-
-        //confirm email view
-        [AllowAnonymous]
-        public ActionResult Confirm(string Email)
-        {
-            ViewBag.Email = Email;
-            return View();
-        }
-
-        public ActionResult SuccessfulRegister()
-        {
-            return View();
-        }
-
-        public async Task<ActionResult> AddCustomer(string custid, string Fullname ="", string Phone = "", bool IsActive = false, string Email = "")
-        {
-            CustomerInfo cus = new CustomerInfo
-            {
-                CustomerName = Fullname,
-                Phone = Phone,
-                Email = Email,
-                IsActive = IsActive,
-                CreateDate = DateTime.Now
-            };
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://noiboapi.miennampost.vn/api/customer/addcustomer";
-            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
-            if (response.IsSuccessStatusCode)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                var obj = JObject.Parse(content);
-                string msg = (string)obj["msg"];
-                var rs = db.AspNetUsers.Find(custid);
-                rs.IDClient = msg;
-                db.Entry(rs).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return Json(new ResultInfo() { error = 0, msg = "Thành công" }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
-        }
-
-        public async Task<ActionResult> UpdateCustomer(string custid, bool IsActive = true)
-        {
-            CustomerInfo cus = new CustomerInfo
-            {
-                CustomerID = custid,
-                IsActive = IsActive
-            };
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Session["token"].ToString());
-            string api = "http://noiboapi.miennampost.vn/api/customer/updatecustomer";
-            var response = await client.PostAsJsonAsync(api, new { customer = cus }).ConfigureAwait(continueOnCapturedContext: false);
-            if (response.IsSuccessStatusCode)
-            {
-                return Json(new ResultInfo() { error = 0, msg = custid, data = cus }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new ResultInfo() { error = 1, msg = "Lỗi data" }, JsonRequestBehavior.AllowGet);
-        }
-
-        //
-        // POST: /Account/Disassociate
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
@@ -475,9 +352,9 @@ namespace MNPOSTWEBSITE.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            Session["Username"] = null;
+
             AuthenticationManager.SignOut();
-            Session.Abandon();
+
             return RedirectToAction("Index", "Home");
         }
         [AllowAnonymous]
@@ -497,7 +374,7 @@ namespace MNPOSTWEBSITE.Controllers
             string message = "";
             bool status = false;
 
-            using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+            using (MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEEntities())
             {
                 var account = dc.AspNetUsers.Where(a => a.UserName == email).FirstOrDefault();
                 if (account != null)
@@ -570,7 +447,7 @@ namespace MNPOSTWEBSITE.Controllers
                 return HttpNotFound();
             }
 
-            using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+            using (MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEEntities())
             {
                 var user = dc.AspNetUsers.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
                 if (user != null)
@@ -594,7 +471,7 @@ namespace MNPOSTWEBSITE.Controllers
             var message = "";
             if (ModelState.IsValid)
             {
-                using (MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities())
+                using (MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEEntities())
                 {
                     var user = dc.AspNetUsers.Where(s => s.ResetPasswordCode == model.ResetCode).FirstOrDefault();
                     if (user != null)

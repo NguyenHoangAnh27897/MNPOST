@@ -27,6 +27,8 @@ namespace MNPOSTAPI.Controllers
                 var jsonserializer = new JavaScriptSerializer();
                 var paser = jsonserializer.Deserialize<ViettelTrackResult>(requestContent);
 
+                logger.Info(requestContent);
+
                 if (paser.TOKEN != "8DDDFA02-E82A-418C-ACC7-7D8AB8B52660")
                     throw new Exception("Sai token");
 

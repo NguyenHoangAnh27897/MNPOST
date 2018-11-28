@@ -84,6 +84,8 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -212,15 +214,13 @@
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CODController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PostController.cs" />
-    <Compile Include="Controllers\SessionPaymentController.cs" />
     <Compile Include="Controllers\TransportController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,8 +230,56 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MNPOSTWEBSITE.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MNPOSTWEBSITE.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MNPOSTWEBSITE.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MNPOSTWEBSITE.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MNPOSTWEBSITE.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TokenData.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WS_AboutUs.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WS_Contact.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WS_Post.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WS_Recruitment.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WS_ServiceType.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WS_Slider.cs">
+      <DependentUpon>MNPOSTWEBSITE.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\MNPOSTReport.cs">
       <AutoGen>True</AutoGen>
@@ -240,6 +288,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\RequestHandle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.bundle.min.js" />
@@ -920,6 +969,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\MNPOSTWEBSITE.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MNPOSTWEBSITE.edmx</DependentUpon>
+      <LastGenOutput>MNPOSTWEBSITE.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MNPOSTWEBSITE.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MNPOSTWEBSITE.edmx</DependentUpon>
+      <LastGenOutput>MNPOSTWEBSITE.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\angular-select2.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\css\.DS_Store" />
@@ -1018,6 +1078,13 @@
     <Content Include="Content\encot\fonts\entypo.woff" />
     <Content Include="Content\encot\fonts\entypo.woff2" />
     <Content Include="document\BANGGIACPNMNPOST.doc" />
+    <EntityDeploy Include="Models\MNPOSTWEBSITE.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MNPOSTWEBSITE.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MNPOSTWEBSITE.edmx.diagram">
+      <DependentUpon>MNPOSTWEBSITE.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\MNPOST.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1028,9 +1095,19 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mask.js" />
+    <Content Include="Scripts\mask.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\mydirective.js" />
+    <Content Include="Scripts\myscript.keypress.js" />
+    <Content Include="Scripts\myscripts.js" />
+    <Content Include="Scripts\ordercreate.js" />
+    <Content Include="Scripts\ordershow.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="Scripts\uploader.min.js" />
+    <Content Include="Scripts\userinfo.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1094,6 +1171,9 @@
     <Content Include="Views\Order\TrackingMailer.cshtml" />
     <Content Include="Views\Account\ConfirmForget.cshtml" />
     <Content Include="Views\Account\SuccessChangePassword.cshtml" />
+    <Content Include="Views\User\Show.cshtml" />
+    <Content Include="Views\Order\Show.cshtml" />
+    <Content Include="Views\Order\ShowList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1108,7 +1188,6 @@
     <Folder Include="document\pdf\" />
     <Folder Include="images\post\" />
     <Folder Include="images\slider\" />
-    <Folder Include="Views\Base\" />
     <Folder Include="Views\COD\" />
     <Folder Include="Views\Customer\" />
   </ItemGroup>
@@ -1120,16 +1199,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MNPOSTCOMMON\MNPOSTCOMMON.csproj">
-      <Project>{86535a9f-fb29-4141-951a-30bcbedef8c0}</Project>
-      <Name>MNPOSTCOMMON</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MNPOSTWEBSITEMODEL\MNPOSTWEBSITEMODEL.csproj">
-      <Project>{1fd8ddc3-5702-462c-bac6-c9f3ea8fbb14}</Project>
-      <Name>MNPOSTWEBSITEMODEL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201810120306597_Init.resx">
       <DependentUpon>201810120306597_Init.cs</DependentUpon>
     </EmbeddedResource>
@@ -1139,6 +1208,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>

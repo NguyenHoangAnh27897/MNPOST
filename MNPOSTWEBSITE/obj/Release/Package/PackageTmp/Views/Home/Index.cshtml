@@ -1,9 +1,7 @@
-﻿@model IEnumerable<MNPOSTWEBSITEMODEL.WS_ServiceType>
-@using MNPOSTWEBSITEMODEL
+﻿@model IEnumerable<MNPOSTWEBSITE.Models.WS_ServiceType>
 @{
     ViewBag.Title = "Home Page";
-    MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
-    var rs = db.WS_Slider.Where(s => s.ID == 1);
+    var rs = ViewBag.Slides;
 }
 
 
@@ -29,9 +27,6 @@
                             <li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-4"><a href="/van-chuyen/tuyen-dung" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Tuyển dụng</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
                             <li id="menu-item-25" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-5"><a href="/bai-viet/danh-sach-bai-viet" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Tin tức</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
                             <li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-top-level menu-item-top-level-6"><a href="/gioi-thieu/lien-he" itemprop="url"><span class="avia-bullet"></span><span class="avia-menu-text">Liên hệ</span><span class="avia-menu-fx"><span class="avia-arrow-wrap"><span class="avia-arrow"></span></span></span></a></li>
-                            @*<li id="menu-item-search" class="noMobile menu-item menu-item-search-dropdown menu-item-avia-special">
-                                    <a href="?s=" data-avia-search-tooltip="&lt;form action=&quot;https://ecotrans.vn/&quot; id=&quot;searchform&quot; method=&quot;get&quot; class=&quot;&quot;&gt; &lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;&quot; id=&quot;searchsubmit&quot; class=&quot;button avia-font-entypo-fontello&quot; /&gt;&lt;input type=&quot;text&quot; id=&quot;s&quot; name=&quot;s&quot; value=&quot;&quot; placeholder='Search' /&gt; &lt;/div&gt; &lt;/form&gt;" aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'><span class="avia_hidden_link_text">Search</span></a>
-                                </li>*@
                             <li class="av-burger-menu-main menu-item-avia-special ">
                                 <a href="#">
                                     <span class="av-hamburger av-hamburger--spin av-js-hamburger">
@@ -65,20 +60,20 @@
                     <ul class='avia-slideshow-inner' style='padding-bottom: 37.988165680473%;'>
                         <li class=' slide-1 '>
                             <div data-rel='slideshow-1' class='avia-slide-wrap'>
-                                <img src='~/images/slider/@rs.FirstOrDefault().Image01' width='845' style="height:600px" height="200" title='' alt='' itemprop="thumbnailUrl" />
-                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.FirstOrDefault().Caption01</h1>
+                                <img src='~/images/slider/@rs.Image01' width='845' style="height:600px" height="200" title='' alt='' itemprop="thumbnailUrl" />
+                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.Caption01</h1>
                             </div>
                         </li>
                         <li class=' slide-2 '>
                             <div data-rel='slideshow-1' class='avia-slide-wrap'>
-                                <img src='~/images/slider/@rs.FirstOrDefault().Image02' width='845' style="height:600px" height='200' title='' alt='' itemprop="thumbnailUrl" />
-                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.FirstOrDefault().Caption02</h1>
+                                <img src='~/images/slider/@rs.Image02' width='845' style="height:600px" height='200' title='' alt='' itemprop="thumbnailUrl" />
+                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.Caption02</h1>
                             </div>
                         </li>
                         <li class=' slide-3 '>
                             <div data-rel='slideshow-1' class='avia-slide-wrap'>
-                                <img src='~/images/slider/@rs.FirstOrDefault().Image03' width='845' style="height:600px" height='200' title='banner2' alt='' itemprop="thumbnailUrl" />
-                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.FirstOrDefault().Caption03</h1>
+                                <img src='~/images/slider/@rs.Image03' width='845' style="height:600px" height='200' title='banner2' alt='' itemprop="thumbnailUrl" />
+                                <h1 class="av-animation-active" style="text-align:center; background-color:#f6a81e">@rs.Caption03</h1>
                             </div>
                         </li>
                     </ul>
@@ -153,11 +148,11 @@
                     <div class='avia-smallarrow-slider-heading  no-logo-slider-heading '></div><div class='avia-content-slider-inner'>
                         <div class='slide-entry-wrap' itemscope="itemscope" itemtype="https://schema.org/ImageObject">
                             <div class='slide-entry flex_column no_margin post-entry slide-entry-overview slide-loop-1 slide-parity-odd  post-entry-last  av_fullwidth first real-thumbnail'>
-                                @if (Session["Authentication"] != null)
+                                @if (Request.IsAuthenticated)
                                 {
-                                    <div class="col-lg-12">
-                                        <h2 style="color:#ffffff; text-align:center">Xin chào @Session["Username"]</h2><br />
-                                        <a class="avia_iconbox_title avia-button avia-color-custom avia-size-small avia-position-center" style="background-color: #f6a81e; border: #f6a81e; color: #ffffff; margin-left:150px" href="/account/logoff">Thoát</a>
+                                    <div class="col-lg-6">
+                                        <div style='padding-bottom:10px;color:#ffffff;' class='av-special-heading av-special-heading-h5 custom-color-heading blockquote modern-quote modern-centered  avia-builder-el-2  el_before_av_button  avia-builder-el-first   '><h5 class='av-special-heading-tag ' itemprop="headline">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi ?</h5><div class='special-heading-border'><div class='special-heading-inner-border' style='border-color:#ffffff'></div></div></div>
+                                        <div class='avia-button-wrap avia-button-center  avia-builder-el-5  el_after_av_heading  el_before_av_textblock '><a href='/user/show' class='avia-button   avia-icon_select-yes-left-icon avia-color-light avia-size-small avia-position-center ' target="_self"><span class='avia_button_icon avia_button_icon_left ' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello'></span><span class='avia_iconbox_title'>TẠO ĐƠN HÀNG</span></a></div>
                                     </div>
                                 }
                                 else

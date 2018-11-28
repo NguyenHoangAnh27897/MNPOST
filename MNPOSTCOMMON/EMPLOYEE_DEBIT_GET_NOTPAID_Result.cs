@@ -14,14 +14,14 @@ namespace MNPOSTCOMMON
     public partial class EMPLOYEE_DEBIT_GET_NOTPAID_Result
     {
         public string EmployeeID { get; set; }
-        public Nullable<decimal> COD { get; set; }
+        public Nullable<double> RecieCOD { get; set; }
         public string MailerID { get; set; }
         public string SenderID { get; set; }
         public string SenderName { get; set; }
         public string SenderPhone { get; set; }
         public Nullable<int> CurrentStatusID { get; set; }
+        public Nullable<decimal> COD { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryTime { get; set; }
-        public Nullable<double> RecieCOD { get; set; }
     }
 }

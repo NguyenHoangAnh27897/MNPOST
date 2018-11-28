@@ -20,7 +20,7 @@ namespace MNPOST.Controllers.mailer
         public ActionResult Init()
         {
 
-          
+
 
             // dịch vu
 
@@ -343,9 +343,9 @@ namespace MNPOST.Controllers.mailer
                         var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
 
 
-                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd"));
+                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
                         var codPrice = 0;
-                        
+
 
                         mailers.Add(new MailerIdentity()
                         {
@@ -443,6 +443,15 @@ namespace MNPOST.Controllers.mailer
                     continue;
                 }
 
+                var checkSender = db.BS_Customers.Where(p => p.CustomerCode == item.SenderID).FirstOrDefault();
+                if (checkSender == null)
+                {
+                    insertFail.Add(item);
+                    continue;
+                }
+
+                var price = db.CalPrice(item.Weight, checkSender.CustomerID, item.RecieverDistrictID, item.MailerTypeID, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                var codPrice = 0;
                 // theem
                 var mailerIns = new MM_Mailers()
                 {
@@ -464,11 +473,11 @@ namespace MNPOST.Controllers.mailer
                     MailerTypeID = item.MailerTypeID,
                     MerchandiseValue = item.MerchandiseValue,
                     MerchandiseID = item.MerchandiseID,
-                    PriceDefault = item.PriceDefault,
-                    Price = item.PriceDefault,
+                    PriceDefault = price,
+                    Price = price,
                     PriceService = item.PriceService,
-                    Amount = item.Amount,
-                    PriceCoD = item.PriceCoD,
+                    Amount = price + codPrice + item.PriceService,
+                    PriceCoD = codPrice,
                     Notes = item.Notes,
                     PaymentMethodID = item.PaymentMethodID,
                     RecieverAddress = item.RecieverAddress,
@@ -484,7 +493,8 @@ namespace MNPOST.Controllers.mailer
                     SenderPhone = item.SenderPhone,
                     SenderProvinceID = item.SenderProvinceID,
                     SenderWardID = item.SenderWardID,
-                    PaidCoD = 0
+                    PaidCoD = 0,
+                    CreateType = 0
                 };
 
                 // 
@@ -502,9 +512,9 @@ namespace MNPOST.Controllers.mailer
                             var mailerService = new MM_MailerServices()
                             {
                                 MailerID = item.MailerID,
-                                LastUpDate = DateTime.Now,
-                                Price = service.price,
-                                PriceDefault = checkService.Price,
+                                CreationDate = DateTime.Now,
+                                SellingPrice = (decimal)service.price,
+                                PriceDefault = (decimal)checkService.Price,
                                 ServiceID = service.code
                             };
                             db.MM_MailerServices.Add(mailerService);

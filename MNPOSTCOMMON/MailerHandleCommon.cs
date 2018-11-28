@@ -69,5 +69,100 @@ namespace MNPOSTCOMMON
 
         }
 
+
+        public string GeneralCusGroupCode()
+        {
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == "GCUSTOMER").FirstOrDefault();
+
+            if (find == null)
+            {
+                var data = new GeneralCodeInfo()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = "GCUSTOMER",
+                    FirstChar = "",
+                    PreNumber = 0
+                };
+
+                db.GeneralCodeInfoes.Add(data);
+                db.SaveChanges();
+
+                return GeneralCusGroupCode();
+            }
+
+            var number = find.PreNumber + 1;
+
+            string code = number.ToString();
+
+            int count = 4;
+
+            if (code.Count() < 4)
+            {
+                count = count - code.Count();
+
+                while (count > 0)
+                {
+                    code = "0" + code;
+                    count--;
+                }
+            }
+
+
+            find.PreNumber = find.PreNumber + 1;
+            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return code;
+
+        }
+
+
+        public string GeneralCusCode(string groupId)
+        {
+            string codeSearch = "CUSTOMER" + groupId;
+            var find = db.GeneralCodeInfoes.Where(p => p.Code == codeSearch).FirstOrDefault();
+
+            if (find == null)
+            {
+                var data = new GeneralCodeInfo()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Code = codeSearch,
+                    FirstChar = groupId,
+                    PreNumber = 0
+                };
+
+                db.GeneralCodeInfoes.Add(data);
+                db.SaveChanges();
+
+                return GeneralCusCode(groupId);
+            }
+
+            var number = find.PreNumber + 1;
+
+            string code = number.ToString();
+
+            int count = 2;
+
+            if (code.Count() < 2)
+            {
+                count = count - code.Count();
+
+                while (count > 0)
+                {
+                    code = "0" + code;
+                    count--;
+                }
+            }
+
+            find.PreNumber = find.PreNumber + 1;
+            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return groupId + code;
+
+        }
+
+
     }
 }

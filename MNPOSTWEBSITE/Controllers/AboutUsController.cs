@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MNPOSTWEBSITE.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ namespace MNPOSTWEBSITE.Controllers
 {
     public class AboutUsController : Controller
     {
-        MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
+       MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
         //
         // GET: /AboutUs/
         public ActionResult Introduce()
@@ -25,7 +26,7 @@ namespace MNPOSTWEBSITE.Controllers
         [HttpPost]
         public ActionResult Contact(string fullname = "", string Phone = "", string Email = "", string Title = "", string ContentContact = "")
         {
-            MNPOSTWEBSITEMODEL.WS_Contact ct = new MNPOSTWEBSITEMODEL.WS_Contact();
+            WS_Contact ct = new WS_Contact();
             ct.Fullname = fullname;
             ct.Phone = Phone;
             ct.Email = Email;

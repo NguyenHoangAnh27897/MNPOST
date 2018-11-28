@@ -54,10 +54,10 @@
     <Compile Include="AC_CODDebitVoucherDetails.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="AC_CODDEBITVOUCHERDETAILS_BYDOCUMENTID_Result.cs">
+    <Compile Include="AC_CustomerDebitVoucher.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="AC_CODDEBITVOUCHER_BYCUSTOMERID_Result.cs">
+    <Compile Include="AC_CustomerDebitVoucherDetail.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetRole.cs">
@@ -272,7 +272,31 @@
     <Compile Include="MAILER_PARTNER_GETDETAIL_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MM_ComissionDinhMuc.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_ComissionPolicyCustomer.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_ComissionPolicys.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_ComissionService.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_CustomerMoneyAdvances.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_DiscountPolicyCustomer.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_DiscountPolicyDinhMuc.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_DiscountPolicys.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_DiscountPolicyService.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_EmployeeDebitVoucher.cs">
@@ -364,6 +388,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="SplitList_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Split_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="TAKEMAILER_GETDETAILs_Result.cs">

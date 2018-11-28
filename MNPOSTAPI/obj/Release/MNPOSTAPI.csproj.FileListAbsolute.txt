@@ -316,3 +316,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.pdb
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\MNPOSTWEBSITE.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\NLog.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\NLog.Web.xml
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.Cors.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.Http.Cors.dll
+D:\work\Project\007MNPost\MNPOST\MNPOSTAPI\bin\System.Web.Http.Cors.xml

@@ -1,508 +1,202 @@
-﻿@using MNPOSTWEBSITE.Models;
-@{
+﻿@{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAccount.cshtml";
-    MNPOSTWEBSITE.Controllers.HomeController home = new MNPOSTWEBSITE.Controllers.HomeController();
-    List<Province> lstpro = home.getProvince(Session["token"].ToString()).Result;
 }
-<head>
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
-    <script>
-        $(function () {
-            $("#SenderProvinceID").change(function () {
-                $("select[name='SenderDistrictID'] option").remove()
-                var proid = $('#SenderProvinceID').val();
-                $.ajax({
-                    url: "/Order/GetDistrict",
-                    data: { provinceid: proid },
-                    datatype: "JSON",
-                    type: "Get",
-                    success: function (data) {
-                        debugger;
-                        $("#SenderDistrictID").prepend("<option>Chọn quận/huyện</option>");
-                        for (var i = 0; i < data.length; i++) {
-                            $("#SenderDistrictID").append('<option value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>');
-                        }
-                    }
-                });
-            });
-        });
 
-        $(function () {
-            $("#SenderDistrictID").change(function () {
-                $("select[name='SenderWardID'] option").remove()
-                var disid = $('#SenderDistrictID').val();
-                $.ajax({
-                    url: "/Order/GetWard",
-                    data: { districtid: disid },
-                    datatype: "JSON",
-                    type: "Get",
-                    success: function (data) {
-                        debugger;
-                        $("#SenderWardID").prepend("<option>Chọn phường</option>");
-                        for (var i = 0; i < data.length; i++) {
-                            $("#SenderWardID").append('<option value="' + data[i].WardID + '">' + data[i].WardName + '</option>');
-                        }
-                    }
-                });
-            });
-        });
+<div ng-app="myApp" ng-controller="myCtrl">
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="showback style-form">
+                <form ng-submit="sendOrder()">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4><i class="fa fa-align-left"></i> Thông tin nhận hàng</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Tên người nhận</label>
+                                <input type="text" class="form-control" ng-model="mailer.RecieverName" required />
+                            </div>
 
-        $(function () {
-            $("#RecieverProvinceID").change(function () {
-                $("select[name='RecieverDistrictID'] option").remove()
-                var proid = $('#RecieverProvinceID').val();
-                $.ajax({
-                    url: "/Order/GetDistrict",
-                    data: { provinceid: proid },
-                    datatype: "JSON",
-                    type: "Get",
-                    success: function (data) {
-                        debugger;
-                        $("#RecieverDistrictID").prepend("<option>Chọn quận/huyện</option>");
-                        for (var i = 0; i < data.length; i++) {
-                            $("#RecieverDistrictID").append('<option value="' + data[i].DistrictID + '">' + data[i].DistrictName + '</option>');
-                        }
-                    }
-                });
-            });
-        });
+                            <div class="form-group">
+                                <label>Điện thoại nhận</label>
+                                <input type="tel" class="form-control" ng-model="mailer.RecieverPhone" required />
+                            </div>
 
-        $(function () {
-            $("#RecieverDistrictID").change(function () {
-                $("select[name='RecieverWardID'] option").remove()
-                var disid = $('#RecieverDistrictID').val();
-                $.ajax({
-                    url: "/Order/GetWard",
-                    data: { districtid: disid },
-                    datatype: "JSON",
-                    type: "Get",
-                    success: function (data) {
-                        debugger;
-                        $("#RecieverWardID").prepend("<option>Chọn phường</option>");
-                        for (var i = 0; i < data.length; i++) {
-                            $("#RecieverWardID").append('<option value="' + data[i].WardID + '">' + data[i].WardName + '</option>');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-</head>
-<!--main content start-->
-<section id="main-content">
-    <section class="wrapper">
-        <h3><i class="fa fa-angle-right"></i> Tạo đơn hàng</h3>
-        <div class="col-lg-12">
-            <div class="row" style="margin-left:7px;">
-                <h5 class="mb col-lg-1">Chọn kiểu tạo: </h5>
-                <select class="form-control col-lg-11" id="opt" name="opt" style="width:15%; margin-left:10px">
-                    <option value="form0" selected>Nhập liệu</option>
-                    <option value="form1">Import File Excel</option>
-                </select>
+                            <div class="form-group">
+                                <label>Địa chỉ nhận</label>
+                                <input type="text" class="form-control" ng-model="mailer.RecieverAddress" id="autocompleteRecei" required />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+
+                            <div class="form-group">
+                                <label>Tỉnh thành nhận</label>
+                                <select ui-select2 class="form-control" ng-model="mailer.RecieverProvinceID" ng-change="provinceChange('d')" required>
+                                    <option ng-repeat="item in provinces" value="{{item.code}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quận huyện nhận</label>
+                                <select ui-select2 class="form-control" ng-model="mailer.RecieverDistrictID" ng-change="provinceChange('w')" required>
+                                    <option ng-repeat="item in districts" value="{{item.code}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Phường xã nhận</label>
+                                <select ui-select2 class="form-control" ng-model="mailer.RecieverWardID" required>
+                                    <option ng-repeat="item in wards" value="{{item.code}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <h4><i class="fa fa-align-left"></i> Thông tin hàng gửi</h4>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Nội dung hàng</label>
+                                <input type="text" class="form-control" ng-model="mailer.MailerDescription" />
+                            </div>
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <input type="text" class="form-control" ng-model="mailer.Notes" />
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Dịch vụ</label>
+                                <select ng-model="mailer.MailerTypeID" class="form-control" required>
+                                    <option ng-repeat="item in mailerTypes" value="{{item.code}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Hình thức thanh toán</label>
+                                <select ng-model="mailer.PaymentMethodID" class="form-control" required>
+                                    <option ng-repeat="item in payments" value="{{item.code}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Tiền thu (CoD) {{mailer.COD |  currency: 'VND ':0}}</label>
+                                <input type="number" class="form-control" ng-model="mailer.COD" step="any" ng-change="setMerchandiseValue()" />
+
+                            </div>
+                            <div class="form-group">
+                                <label>Giá trị hàng hóa {{mailer.MerchandiseValue |  currency: 'VND ':0}}</label>
+                                <input type="number" class="form-control" ng-model="mailer.MerchandiseValue" step="any" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label>Kích thước (cm) (dài - rộng - cao)</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <input type="number" class="form-control" placeholder="Dài" ng-model="mailer.LengthSize" step="any" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="number" class="form-control" placeholder="Rộng" ng-model="mailer.WidthSize" step="any" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="number" class="form-control" placeholder="Cao" ng-model="mailer.HeightSize" step="any" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Hàng hóa</label>
+                                            <select ng-model="mailer.MerchandiseID" class="form-control">
+                                                <option ng-repeat="merchandise in merchandises" value="{{merchandise.code}}">{{merchandise.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Số lượng</label>
+                                            <input type="number" ng-model="mailer.Quantity" class="form-control" placeholder="Số lượng" required step="any" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Trọng lượng (Gram)</label>
+                                            <input type="number" class="form-control" ng-model="mailer.Weight" placeholder="Trọng lượng" required step="any" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xs-12">
+                            <h4><i class="fa fa-align-left"></i>Thành tiền</h4>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Cước chính</label>
+                                <input type="number" class="form-control" step="any" ng-model="mailer.PriceDefault" ng-change="changePrice()" />
+                                {{mailer.PriceDefault |  currency: 'VND ':0}}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Cước CoD</label>
+                                <input type="number" class="form-control" step="any" ng-model="mailer.PriceCoD" ng-change="changePrice()" />
+                                {{mailer.PriceCoD |  currency: 'VND ':0}}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tổng cước</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" step="any" ng-model="mailer.Amount" />
+                                    <span class="input-group-addon"><a href="#" ng-click="calPrice()"><i my-tool-tip="Tính giá" class="fa fa-calculator"></i></a></span>
+                                </div>
+                                {{mailer.PriceDefault |  currency: 'VND ':0}}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <br />
+                                <button class="btn btn-primary">Hoàn thành</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
             </div>
+        </section>
+    </section><!-- /MAIN CONTENT -->
+    <!-- Modal -->
+    <div id="showInfo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>{{msg}}</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" href="/user/show">Tới trang cập nhật</a>
+                </div>
+            </div>
+
         </div>
-        <!-- BASIC FORM ELELEMNTS -->
-        <div class="row mt">
-            <div class="col-lg-12">
-                <div class="form-panel" id="form0">
-                    <form class="form-horizontal style-form" method="post" action="/order/create">
-                        <div class="row">
-                            <div class="col-lg-5" style="margin-left:50px;">
-                                <h4 class="mb"><i class="fa fa-angle-right"></i> Người gửi</h4>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Họ và tên</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form"  name="SenderName" placeholder="Nhập họ và tên..." value="@ViewBag.SenderName" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="SenderPhone" placeholder="Người số điện thoại..." value="@ViewBag.SenderPhone" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="SenderAddress" placeholder="Nhập địa chỉ..." value="@ViewBag.SenderAddress" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="SenderProvinceID" id="SenderProvinceID" required>
-                                            <option value="">Chọn thành phố</option>
-                                            @foreach (var item in lstpro)
-                                            {
-                                                <option value="@item.ProvinceID">@item.ProvinceName</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="SenderDistrictID" id="SenderDistrictID" required>
-                                            <option value="">Chọn quận/huyện</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Phường</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="SenderWardID" id="SenderWardID" required>
-                                            <option value="">Chọn phường</option>
-                                        </select>
-                                    </div>
-                                </div>
+    </div>
 
+</div>
 
-                            </div>
-                            <div class="col-lg-5" style="float:right; margin-right:100px;">
-                                <h4 class="mb"><i class="fa fa-angle-right"></i> Người nhận</h4>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Họ và tên</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="RecieverName" placeholder="Nhập họ và tên..." value="@ViewBag.RecieverName" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Số điện thoại</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="RecieverPhone" placeholder="Người số điện thoại..." value="@ViewBag.RecieverPhone" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Địa chỉ</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="RecieverAddress" placeholder="Nhập địa chỉ..." value="@ViewBag.RecieverAddress" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Thành phố</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="RecieverProvinceID" id="RecieverProvinceID" required>
-                                            <option value="">Chọn thành phố</option>
-                                            @foreach (var item in lstpro)
-                                            {
-                                                <option value="@item.ProvinceID">@item.ProvinceName</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Quận/huyện</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="RecieverDistrictID" id="RecieverDistrictID" required>
-                                            <option value="">Chọn quận/huyện</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Phường</label>
-                                    <div class="col-sm-10">
-                                        <select class="form-control select2 no-radius" name="RecieverWardID" id="RecieverWardID" required>
-                                            <option value="">Chọn phường</option>
-                                        </select>
-                                    </div>
-                                </div>
+@section scripts {
 
-                            </div>
-                        </div>
-                        <div class="row">
-                            <h4 class="mb" style="margin-left:50px;"><i class="fa fa-angle-right"></i> Thông tin kiện hàng</h4>
-                            <div class="col-lg-3" style="margin-left:50px;">
-                                <div class="form-group">
-                                    <label class="col-sm-4 col-sm-4 control-label">Tiền thu</label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control round-form input-cod" name="COD" placeholder="Nhập CoD...">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 col-sm-4 control-label">Giá trị hàng hóa</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control round-form" name="MerchandiseValue" placeholder="Nhập giá trị...">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 col-sm-4 control-la
-                                           bel">Dịch vụ</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control select2 no-radius" name="MailerTypeID" required>
-                                            <option value="">Chọn dịch vụ</option>
-                                            <option value="SN">Dịch vụ chuyển phát nhanh</option>
-                                            <option value="ST">Dịch vụ chuyển phát thường</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 col-sm-4 control-label">Phương thức thanh toán</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control select2 no-radius" name="Purchase" required>
-                                            <option value="">Chọn phương thức</option>
-                                            <option value="NGTT">Người gửi thanh toán</option>
-                                            <option value="NNTT">Người nhận thanh toán</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 col-sm-4 control-label">Dịch vụ cộng thêm</label>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" onclick="myFunction()" />
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-7" style="float:right; margin-right:100px;">
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Nội dung kiện hàng</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="MailerDescription" placeholder="Nhập nội dung...">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Ghi chú</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control round-form" name="Note" placeholder="Nhập ghi chú...">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Dài</label>
-                                            <div class="col-sm-8">
-                                                <input type="number" class="form-control round-form" name="Length" step="any" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Rộng</label>
-                                            <div class="col-sm-8">
-                                                <input type="number" class="form-control round-form" name="Width" step="any" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Cao</label>
-                                            <div class="col-sm-8">
-                                                <input type="number" class="form-control round-form" name="Height" step="any" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control round-form input-weight" name="Weight" placeholder="Nhập trọng lượng..." required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control round-form input-quantity" name="Quantity" placeholder="Nhập số lượng..." required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control select2 no-radius" name="MerchandiseID" required>
-                                                    <option value="">Chọn loại hàng</option>
-                                                    <option value="H">Hàng hóa</option>
-                                                    <option value="T">Thư từ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="myDIV" style="display:none;">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Trọng lượng</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control round-form input-weight1" name="WeightOther" placeholder="Nhập trọng lượng...">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Số lượng</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control round-form input-quantity1" name="QuantityOther" placeholder="Nhập số lượng...">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 col-sm-2 control-label">Hàng hóa</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control select2 no-radius" name="PurchaseOther">
-                                                    <option value="">Chọn loại hàng</option>
-                                                    <option value="H">Hàng hóa</option>
-                                                    <option value="T">Thư từ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <h4 class="mb" style="margin-left:50px;"><i class="fa fa-angle-right"></i> Thành tiền</h4>
-                            <div class="col-lg-3" style="margin-left:50px;">
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Cước chính</label>
-                                    <div class="col-sm-10">
-                                        <input id="PriceMain" class="form-control round-form input-pricemain" name="PriceMain" placeholder="Nhập cước..." required>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-round btn-success">Gói hàng</button>
-                            </div>
-                            <div class="col-lg-3" style="margin-left:50px;">
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Cước CoD</label>
-                                    <div class="col-sm-10">
-                                        <input id="CODPrice" class="form-control round-form input-codprice" name="CODPrice" placeholder="Nhập cước..." required >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3" style="margin-left:50px;">
-                                <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Tổng cước</label>
-                                    <div class="col-sm-10">
-                                        <input id="PriceDefault" class="form-control round-form input-pricedefault" name="PriceDefault" placeholder="Tổng cước..." required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="form-panel" id="form1" style="display:none; width:40%">
-                    <form class="form-horizontal style-form" method="post" action="/order/getexcel" enctype="multipart/form-data">
-                        <h4 class="mb" style="margin-left:50px"><i class="fa fa-angle-right"></i> Tải file lên (<strong style="color:red">Excel</strong>)</h4>
-                        <br />
-                        <div class="form-group">
-                            <label class="col-sm-3 col-sm-3 control-label" style="margin-left:50px">Chọn file Excel</label>
-                            <div class="col-sm-3">
-                                <input type="file" id="FileExcel" name="FileExcel" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-round btn-success" style="margin-left:50px">Lưu tài liệu</button>
-                    </form>
-                </div>
-            </div><!-- col-lg-12-->
-        </div><!-- /row -->
-    </section>
-</section><!-- /MAIN CONTENT -->
-<!--main content end-->
-@*<a href="~/Controllers/ManageController.cs">~/Controllers/ManageController.cs</a>*@
-<!--custom tagsinput-->
-<script src="~/Content/js/cleave.min.js"></script>
-<script src="~/Content/js/cleave-phone.i18n.js"></script>
-<script>
-    function myFunction() {
-        var x = document.getElementById("myDIV");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-    //function sum() {
-    //    var pricemain = document.getElementById("PriceMain").value;
-    //    var codprice = document.getElementById("CODPrice").value;
-    //    var total = 0;
-    //    total = parseInt(pricemain) + parseInt(codprice);
-    //    document.getElementById("PriceDefault").value = total;
-    //}
-    $("input[name=CODPrice]").change(function (e) {
-        var pricemain = document.getElementById("PriceMain").value;
-        var codprice = document.getElementById("CODPrice").value;
-        var sum = 0;
-        sum += parseFloat(pricemain) + parseFloat(codprice);
-        $("input[name=PriceDefault]").val(sum);
-    });
-    $("input[name=PriceMain]").change(function (e) {
-        var pricemain = document.getElementById("PriceMain").value;
-        var codprice = document.getElementById("CODPrice").value;
-        var sum = 0;
-        sum += parseFloat(pricemain) + parseFloat(codprice);
-        $("input[name=PriceDefault]").val(sum);
-    });
-</script>
-<script src="/Content/js/jquery.tagsinput.js"></script>
-<script type="text/javascript" src="/Content/js/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
-<script>
-    $("#opt").on("change", function () {
-        $("#" + $(this).val()).show().siblings().hide();
-    })
-</script>
-
-<script>
-    var cleaveNumeral = new Cleave('.input-cod', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-  
-</script>
-
-<script>
-    var cleaveNumeral = new Cleave('.input-weight', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-  
-</script>
-
-<script>
-    var cleaveNumeral = new Cleave('.input-quantity', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-   
-</script>
-@*<script>
-    var cleaveNumeral = new Cleave('.input-pricemain', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-
-</script>
-<script>
-    var cleaveNumeral = new Cleave('.input-codprice', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-    
-</script>
-<script>
-    var cleaveNumeral = new Cleave('.input-pricedefault', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-    
-</script>*@
-<script>
-    var cleaveNumeral = new Cleave('.input-weight1', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-</script>
-
-<script>
-    var cleaveNumeral = new Cleave('.input-quantity1', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
-</script>
-
-
-
+    <script src="~/Scripts/ordercreate.js"></script>
+}

@@ -13,12 +13,7 @@ namespace MNPOSTAPI.Controllers.web
     public class WebBaseController : ApiController
     {
         protected MNPOSTEntities db = new MNPOSTEntities();
-        protected MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities dbws = new MNPOSTWEBSITEMODEL.MNPOSTWEBSITEEntities();
-
-        protected string generalCusCode()
-        {
-            return "customer" + DateTime.Now.Day + DateTime.Now.Hour + DateTime.Now.Minute;
-        }
+        protected NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
     }
 }

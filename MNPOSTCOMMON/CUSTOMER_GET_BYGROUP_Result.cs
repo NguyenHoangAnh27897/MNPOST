@@ -19,6 +19,7 @@ namespace MNPOSTCOMMON
         public string CustomerGroupID { get; set; }
         public string CustomerGroupName { get; set; }
         public string CreateDate { get; set; }
+        public string CustomerGroupCode { get; set; }
         public string Address { get; set; }
         public string DistrictID { get; set; }
         public string ProvinceID { get; set; }
@@ -29,7 +30,6 @@ namespace MNPOSTCOMMON
         public string PostOfficeID { get; set; }
         public string WardID { get; set; }
         public string UserLogin { get; set; }
-        public string CustomerGroupCode { get; set; }
         public string Deputy { get; set; }
     }
 }

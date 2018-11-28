@@ -9,9 +9,11 @@ namespace MNPOSTWEBSITE.Models
         public bool? IsActive { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
-        public string IDRole { get; set; }
         public string IDClient { get; set; }
+
+        public string IDRole { get; set; }
         public string ResetPasswordCode { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
