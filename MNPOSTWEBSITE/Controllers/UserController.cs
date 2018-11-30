@@ -12,8 +12,6 @@ namespace MNPOSTWEBSITE.Controllers
         protected MNPOSTWEBSITEEntities db = new MNPOSTWEBSITEEntities();
         public ActionResult Show()
         {
-
-
             return View();
         }
 

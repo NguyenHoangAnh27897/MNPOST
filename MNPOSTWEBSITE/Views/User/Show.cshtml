@@ -4,13 +4,17 @@
 }
 
 <div ng-app="myApp" ng-controller="myCtrl">
-    <section id="main-content">
-        <section class="wrapper">
-            <form ng-submit="sendUpdate()">
 
-                <div class="showback style-form">
-                    <h4><strong>Thông tin của bạn</strong></h4>
-                    <div class="row mt">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Thông tin của bạn</h2>
+                <div class="clearfix"></div>
+            </div>
+            <!-- end x_title-->
+            <div class="x_content">
+                <form ng-submit="sendUpdate()">
+                    <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>Tên công ty</label>
@@ -39,7 +43,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>Tỉnh thành</label>
-                                <select ui-select2 ng-model="cusInfo.ProvinceID" class="form-control" required  ng-change="provinceChange('d')">
+                                <select ui-select2 ng-model="cusInfo.ProvinceID" class="form-control" required ng-change="provinceChange('d')">
                                     <option ng-repeat="item in provinces" value="{{item.code}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -58,13 +62,15 @@
                         </div>
 
                     </div>
+                </form>
 
-                </div>
-            </form>
-        </section><! --/wrapper -->
-    </section><!-- /MAIN CONTENT -->
-
+            </div>
+            <!-- end x_content-->
+        </div>
+        <!-- end x_pannel-->
+    </div>
 </div>
+
 
 @section scripts {
 

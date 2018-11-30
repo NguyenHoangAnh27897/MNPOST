@@ -258,8 +258,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.OAuth
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.Google.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.Twitter.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.Migrations.Init.resources
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.GenerateResource.Cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache

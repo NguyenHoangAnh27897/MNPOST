@@ -90,31 +90,6 @@ namespace MNPOSTWEBSITE.Utils
             }
 
         }
-        /*
-        public string SendPostLogin(string url, string json)
-        {
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.ContentType = "application/json";
-            request.Method = "POST";
-            request.Headers["Authorization"] = GetToken();
-
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            var httpResponse = (HttpWebResponse)request.GetResponse();
-
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                return result;
-            }
-
-        }
-        */
 
         public static string GetToken(bool requestNew)
         {
@@ -169,7 +144,7 @@ namespace MNPOSTWEBSITE.Utils
 
             var data = Encoding.ASCII.GetBytes(postData);
 
-            string url = @"http://noiboapi.miennampost.vn/mntoken";
+            string url = APISource.ROOTURL + "mntoken";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
@@ -193,6 +168,6 @@ namespace MNPOSTWEBSITE.Utils
 
     public class APISource
     {
-        public static string ROOTURL = "http://221.133.7.92:801/";
+        public static string ROOTURL = "http://noiboapi.miennampost.vn/";
     }
 }

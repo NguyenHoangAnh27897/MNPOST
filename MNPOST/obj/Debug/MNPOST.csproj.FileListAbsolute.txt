@@ -149,7 +149,6 @@ C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\NLog.Web.dll
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\log4net.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\NLog.xml
 C:\Users\hoang\source\repos\MNPOST\MNPOST\bin\NLog.Web.xml
-D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.dll.config
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\MNPOST.pdb
@@ -232,5 +231,6 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.OAuth.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Google.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.Twitter.xml
 D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb

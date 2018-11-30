@@ -372,7 +372,6 @@ namespace MNPOSTWEBSITE.Controllers
             //Generate Reset password link 
             //Send Email 
             string message = "";
-            bool status = false;
 
             using (MNPOSTWEBSITEEntities dc = new MNPOSTWEBSITEEntities())
             {
