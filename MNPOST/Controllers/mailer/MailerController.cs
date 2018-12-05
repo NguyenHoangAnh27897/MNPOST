@@ -135,16 +135,6 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            if (checkExist.CurrentStatusID != 0)
-            {
-                return Json(new ResultInfo()
-                {
-                    error = 1,
-                    msg = "Không thể chỉnh sửa"
-
-                }, JsonRequestBehavior.AllowGet);
-            }
-
             checkExist.SenderID = mailer.SenderID;
             checkExist.SenderName = mailer.SenderName;
             checkExist.SenderPhone = mailer.SenderPhone;

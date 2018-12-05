@@ -54,5 +54,10 @@ namespace MNPOSTCOMMON
         public string StatusNotes { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryTime { get; set; }
+        public string SenderProvinceName { get; set; }
+        public string SenderDistrictName { get; set; }
+        public string ReceiverProvinceName { get; set; }
+        public string ReceiverDistrictName { get; set; }
+        public string PostOfficeName { get; set; }
     }
 }

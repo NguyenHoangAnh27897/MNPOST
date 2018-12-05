@@ -54,6 +54,7 @@
     <Property Name="StatusID" Type="Int32" />
     <Property Name="LastTime" Type="DateTime" Precision="3" />
     <Property Name="ToTalAmount" Type="Double" />
+    <Property Name="DebtMonth" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="AC_CustomerDebitVoucherDetail">
     <Key>
@@ -541,6 +542,7 @@
     <Property Name="AllProvince" Type="Boolean" />
     <Property Name="PermanentCal" Type="Boolean" />
     <Property Name="LimitValue" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AllMethod" Type="Int32" />
   </EntityType>
   <EntityType Name="MM_ComissionService">
     <Key>
@@ -603,6 +605,7 @@
     <Property Name="AllProvince" Type="Boolean" />
     <Property Name="PermanentCal" Type="Boolean" />
     <Property Name="LimitValue" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AllMethod" Type="Int32" />
   </EntityType>
   <EntityType Name="MM_DiscountPolicyService">
     <Key>
@@ -1324,6 +1327,33 @@
       <Parameter Name="ToDate" Mode="In" Type="String" />
       <Parameter Name="PostOfficeID" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="AC_CommissionOffer" EntityType="MNPOSTModel.AC_CommissionOffer" />
+    <EntitySet Name="AC_CommissionOfferDetail" EntityType="MNPOSTModel.AC_CommissionOfferDetail" />
+    <EntitySet Name="MM_ComissionPolicyMethod" EntityType="MNPOSTModel.MM_ComissionPolicyMethod" />
+    <EntitySet Name="MM_DiscountPolicyMethod" EntityType="MNPOSTModel.MM_DiscountPolicyMethod" />
+    <EntitySet Name="MM_TroubleTicketDetails" EntityType="MNPOSTModel.MM_TroubleTicketDetails" />
+    <FunctionImport Name="AC_CommissionOffer_procUpdateComissionMailer">
+      <Parameter Name="DebtMonth" Mode="In" Type="String" />
+      <Parameter Name="DebtYear" Mode="In" Type="String" />
+      <Parameter Name="PostOfficeID" Mode="In" Type="String" />
+      <Parameter Name="CustID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_commissiondata" ReturnType="Collection(MNPOSTModel.get_commissiondata_Result)">
+      <Parameter Name="DebtMonth" Mode="In" Type="String" />
+      <Parameter Name="Post" Mode="In" Type="String" />
+      <Parameter Name="CustomerGroupID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_commissiondetaildata" ReturnType="Collection(MNPOSTModel.get_commissiondetaildata_Result)">
+      <Parameter Name="Post" Mode="In" Type="String" />
+      <Parameter Name="DebtMonth" Mode="In" Type="String" />
+      <Parameter Name="DebtYear" Mode="In" Type="String" />
+      <Parameter Name="CustomerGroupID" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="get_customerforcommission" ReturnType="Collection(String)">
+      <Parameter Name="Post" Mode="In" Type="String" />
+      <Parameter Name="DebtMonth" Mode="In" Type="String" />
+      <Parameter Name="DebtYear" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CODCUSTOMER_TRANSFER_Result">
     <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
@@ -1407,6 +1437,7 @@
     <Property Type="String" Name="WardID" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="Deputy" Nullable="true" />
+    <Property Type="String" Name="ClientUser" Nullable="true" />
   </ComplexType>
   <ComplexType Name="DELIVERY_GETREPORT_EMPLOYEE_Result">
     <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
@@ -1734,6 +1765,11 @@
     <Property Type="String" Name="StatusNotes" Nullable="true" />
     <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SenderProvinceName" Nullable="true" />
+    <Property Type="String" Name="SenderDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiverProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiverDistrictName" Nullable="true" />
+    <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -2235,5 +2271,86 @@
     <Property Type="String" Name="PaidNotes" Nullable="true" />
     <Property Type="String" Name="PaidCoDInvoice" Nullable="true" />
     <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
+  </ComplexType>
+  <EntityType Name="AC_CommissionOffer">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentDate" Type="DateTime" Precision="3" />
+    <Property Name="DocumentTime" Type="DateTime" Precision="3" />
+    <Property Name="PostOfficeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="UserAccountID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="RepresentativeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FromDate" Type="DateTime" Precision="3" />
+    <Property Name="ToDate" Type="DateTime" Precision="3" />
+    <Property Name="TotalAmount" Type="Double" />
+    <Property Name="TotalAmt4Commission" Type="Double" />
+    <Property Name="TotalCommissionAmount" Type="Double" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+    <Property Name="VATPercent" Type="Double" />
+    <Property Name="VATAmount" Type="Double" />
+    <Property Name="ComPercent" Type="Double" />
+    <Property Name="IsPayComplete" Type="Boolean" Nullable="false" />
+    <Property Name="PayDocumentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PayDate" Type="DateTime" Precision="3" />
+    <Property Name="PayNotes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CommMonth" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="AC_CommissionOfferDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="MailerID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="Double" />
+    <Property Name="Amt4Commission" Type="Double" />
+    <Property Name="ComPercent" Type="Double" />
+    <Property Name="CommissionAmount" Type="Double" />
+    <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+    <Property Name="CreationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="MM_ComissionPolicyMethod">
+    <Key>
+      <PropertyRef Name="ComissionID" />
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ComissionID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MM_DiscountPolicyMethod">
+    <Key>
+      <PropertyRef Name="DiscountID" />
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="DiscountID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceID" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MM_TroubleTicketDetails">
+    <Key>
+      <PropertyRef Name="TicketID" />
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="TicketID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiNhap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="get_commissiondata_Result">
+    <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+    <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
+  </ComplexType>
+  <ComplexType Name="get_commissiondetaildata_Result">
+    <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
+    <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
+    <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
+    <Property Type="Double" Name="CommissionPercent" Nullable="true" />
   </ComplexType>
 </Schema>

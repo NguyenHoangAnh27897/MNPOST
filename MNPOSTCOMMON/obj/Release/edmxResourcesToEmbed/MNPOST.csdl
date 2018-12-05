@@ -1407,6 +1407,7 @@
     <Property Type="String" Name="WardID" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="UserLogin" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="Deputy" Nullable="true" />
+    <Property Type="String" Name="ClientUser" Nullable="true" />
   </ComplexType>
   <ComplexType Name="DELIVERY_GETREPORT_EMPLOYEE_Result">
     <Property Type="Int32" Name="DeliveryStatus" Nullable="true" />
@@ -1734,6 +1735,11 @@
     <Property Type="String" Name="StatusNotes" Nullable="true" />
     <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SenderProvinceName" Nullable="true" />
+    <Property Type="String" Name="SenderDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiverProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiverDistrictName" Nullable="true" />
+    <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />

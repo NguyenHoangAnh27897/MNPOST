@@ -100,6 +100,11 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserMessage> UserMessages { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
+        public virtual DbSet<AC_CommissionOffer> AC_CommissionOffer { get; set; }
+        public virtual DbSet<AC_CommissionOfferDetail> AC_CommissionOfferDetail { get; set; }
+        public virtual DbSet<MM_ComissionPolicyMethod> MM_ComissionPolicyMethod { get; set; }
+        public virtual DbSet<MM_DiscountPolicyMethod> MM_DiscountPolicyMethod { get; set; }
+        public virtual DbSet<MM_TroubleTicketDetails> MM_TroubleTicketDetails { get; set; }
     
         [DbFunction("MNPOSTEntities", "Split")]
         public virtual IQueryable<Split_Result> Split(string rowData, string splitOn)
@@ -760,6 +765,82 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("PostOfficeID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WIN_GET_MAILER_BY_DATE_POST_Result>("WIN_GET_MAILER_BY_DATE_POST", fromDateParameter, toDateParameter, postOfficeIDParameter);
+        }
+    
+        public virtual int AC_CommissionOffer_procUpdateComissionMailer(string debtMonth, string debtYear, string postOfficeID, string custID)
+        {
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var debtYearParameter = debtYear != null ?
+                new ObjectParameter("DebtYear", debtYear) :
+                new ObjectParameter("DebtYear", typeof(string));
+    
+            var postOfficeIDParameter = postOfficeID != null ?
+                new ObjectParameter("PostOfficeID", postOfficeID) :
+                new ObjectParameter("PostOfficeID", typeof(string));
+    
+            var custIDParameter = custID != null ?
+                new ObjectParameter("CustID", custID) :
+                new ObjectParameter("CustID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AC_CommissionOffer_procUpdateComissionMailer", debtMonthParameter, debtYearParameter, postOfficeIDParameter, custIDParameter);
+        }
+    
+        public virtual ObjectResult<get_commissiondata_Result> get_commissiondata(string debtMonth, string post, string customerGroupID)
+        {
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var postParameter = post != null ?
+                new ObjectParameter("Post", post) :
+                new ObjectParameter("Post", typeof(string));
+    
+            var customerGroupIDParameter = customerGroupID != null ?
+                new ObjectParameter("CustomerGroupID", customerGroupID) :
+                new ObjectParameter("CustomerGroupID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commissiondata_Result>("get_commissiondata", debtMonthParameter, postParameter, customerGroupIDParameter);
+        }
+    
+        public virtual ObjectResult<get_commissiondetaildata_Result> get_commissiondetaildata(string post, string debtMonth, string debtYear, string customerGroupID)
+        {
+            var postParameter = post != null ?
+                new ObjectParameter("Post", post) :
+                new ObjectParameter("Post", typeof(string));
+    
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var debtYearParameter = debtYear != null ?
+                new ObjectParameter("DebtYear", debtYear) :
+                new ObjectParameter("DebtYear", typeof(string));
+    
+            var customerGroupIDParameter = customerGroupID != null ?
+                new ObjectParameter("CustomerGroupID", customerGroupID) :
+                new ObjectParameter("CustomerGroupID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commissiondetaildata_Result>("get_commissiondetaildata", postParameter, debtMonthParameter, debtYearParameter, customerGroupIDParameter);
+        }
+    
+        public virtual ObjectResult<string> get_customerforcommission(string post, string debtMonth, string debtYear)
+        {
+            var postParameter = post != null ?
+                new ObjectParameter("Post", post) :
+                new ObjectParameter("Post", typeof(string));
+    
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var debtYearParameter = debtYear != null ?
+                new ObjectParameter("DebtYear", debtYear) :
+                new ObjectParameter("DebtYear", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_customerforcommission", postParameter, debtMonthParameter, debtYearParameter);
         }
     }
 }

@@ -29,5 +29,6 @@ namespace MNPOSTCOMMON
         public Nullable<bool> AllProvince { get; set; }
         public Nullable<bool> PermanentCal { get; set; }
         public Nullable<decimal> LimitValue { get; set; }
+        public Nullable<int> AllMethod { get; set; }
     }
 }

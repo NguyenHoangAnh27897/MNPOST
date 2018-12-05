@@ -177,7 +177,7 @@ namespace MNPOST.Controllers.mailer
                     db.Entry(find).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
-                    HandleHistory.AddTracking(2, item, find.CurrentPostOfficeID, "Lưu kho và chuẩn bị phát hàng");
+                    HandleHistory.AddTracking(2, item, find.CurrentPostOfficeID, "Đã nhận hàng và lưu kho");
 
                     listAdds.Add(item);
                 }

@@ -17,12 +17,34 @@ namespace MNPOSTAPI.Controllers.web
         public ResultInfo Find(string mailerId)
         {
             var data = db.MAILER_GETTRACKING(mailerId).ToList();
-
-            return new ResponseInfo()
+            var mailer = db.MAILER_GETINFO_BYID(mailerId).Select(p => new
             {
-                data = data,
-                error = 0
-            };
+                Id = p.MailerID,
+                weight = p.Weight,
+                service = p.MailerTypeID,
+                sendFrom = p.SenderProvinceName + ", " + p.SenderDistrictName,
+                sendTo = p.ReceiverProvinceName + ", " + p.ReceiverDistrictName
+            }).FirstOrDefault();
+
+
+            if (mailer == null)
+            {
+                return new ResponseInfo()
+                {
+                    msg = "Không tìm thấy",
+                    error = 1
+                };
+            }
+            else
+                return new ResponseInfo()
+                {
+                    data = new
+                    {
+                        info = mailer,
+                        tracks = data
+                    },
+                    error = 0
+                };
         }
     }
 }

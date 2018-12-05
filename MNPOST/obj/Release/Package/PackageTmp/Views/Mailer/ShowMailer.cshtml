@@ -14,7 +14,7 @@
                 <div class="nav navbar-right">
                     <a class="btn btn-primary" href="/mailerinit/init" target="_blank" ng-hide="showEdit">Tạo vận đơn</a>
                     <a class="btn btn-warning" ng-hide="showEdit" ng-click="printMailers()">Print</a>
-                    <a class="btn btn-primary" ng-click="updateMailer()" ng-show="mailer.CurrentStatusID === 0">Cập nhật</a>
+                    <a class="btn btn-primary" ng-click="updateMailer()" ng-show="showEdit">Cập nhật</a>
                     <a class="btn btn-warning" ng-show="showEdit" ng-click="getTracking()">Xem lịch sử</a>
                 </div>
                 <div class="clearfix"></div>

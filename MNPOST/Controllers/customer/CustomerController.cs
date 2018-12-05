@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using MNPOSTCOMMON;
 using MNPOST.Models;
+using MNPOST.Utils;
+
 namespace MNPOST.Controllers.customer
 {
     public class CustomerController : BaseController
@@ -54,12 +56,74 @@ namespace MNPOST.Controllers.customer
                 find.IsActive = isActive;
                 db.Entry(find).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
+                if (!String.IsNullOrEmpty(find.ClientUser))
+                {
+                    var postData = "user=" + find.ClientUser +"&isActice=" + isActive;
+                    var res = RequestHandle.SendPost(APISource.ROOTURL + "/account/DisableAccount", postData);
+                }
             }
 
             return Json(new ResultInfo()
             {
                 error = 0
 
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult SendCreateUser(string cusId, string email, string phone, string name, string pass, string repass)
+        {
+            var find = db.BS_Customers.Find(cusId);
+
+            if (find != null)
+            {
+                find.Email = email;
+                find.Phone = phone;
+                db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                if (String.IsNullOrEmpty(find.ClientUser))
+                {
+                    var postData = "Email=" + email + "&Password=" + pass + "&ConfirmPassword=" + repass + "&FullName=" + name + "&PhoneNumber=" + phone + "&CustomerId=" + find.CustomerCode;
+                    var res = RequestHandle.SendPost(APISource.ROOTURL + "/account/RegisterExternal", postData);
+
+                    return Json(res, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new {
+                 error = 1,
+                 msg = "Sai thông tin"
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult UpdateUserCreate(string cusId, string user )
+        {
+            var find = db.BS_Customers.Find(cusId);
+
+            if (find != null)
+            {
+                if (String.IsNullOrEmpty(find.ClientUser))
+                {
+                    find.ClientUser = user;
+                    db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
+                    return Json(new
+                    {
+                        error = 0,
+                        msg = ""
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new
+            {
+                error = 1,
+                msg = "Sai thông tin"
             }, JsonRequestBehavior.AllowGet);
         }
 

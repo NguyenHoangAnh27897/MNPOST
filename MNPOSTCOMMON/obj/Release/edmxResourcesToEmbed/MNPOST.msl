@@ -1141,6 +1141,7 @@
           <ScalarProperty Name="WardID" ColumnName="WardID" />
           <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
           <ScalarProperty Name="Deputy" ColumnName="Deputy" />
+          <ScalarProperty Name="ClientUser" ColumnName="ClientUser" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1536,6 +1537,11 @@
           <ScalarProperty Name="StatusNotes" ColumnName="StatusNotes" />
           <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
           <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="SenderProvinceName" ColumnName="SenderProvinceName" />
+          <ScalarProperty Name="SenderDistrictName" ColumnName="SenderDistrictName" />
+          <ScalarProperty Name="ReceiverProvinceName" ColumnName="ReceiverProvinceName" />
+          <ScalarProperty Name="ReceiverDistrictName" ColumnName="ReceiverDistrictName" />
+          <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

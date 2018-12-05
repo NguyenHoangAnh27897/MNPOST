@@ -54,6 +54,12 @@
     <Compile Include="AC_CODDebitVoucherDetails.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="AC_CommissionOffer.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AC_CommissionOfferDetail.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="AC_CustomerDebitVoucher.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -216,6 +222,12 @@
     <Compile Include="GeneralCodeInfo.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="get_commissiondata_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="get_commissiondetaildata_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -278,6 +290,9 @@
     <Compile Include="MM_ComissionPolicyCustomer.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="MM_ComissionPolicyMethod.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="MM_ComissionPolicys.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -291,6 +306,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_DiscountPolicyDinhMuc.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_DiscountPolicyMethod.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_DiscountPolicys.cs">
@@ -342,6 +360,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_TrackingPartner.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MM_TroubleTicketDetails.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MM_TroubleTickets.cs">

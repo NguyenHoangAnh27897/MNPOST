@@ -62,4 +62,11 @@ namespace MNPOSTAPI.Models
         public int status { get; set; }
         public string customerId { get; set; }
     }
+
+
+    public class  CancelMailerRequest
+    {
+        public string mailerId { get; set; }
+        public string reason { get; set; }
+    }
 }

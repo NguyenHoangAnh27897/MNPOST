@@ -169,6 +169,77 @@ namespace MNPOSTAPI.Controllers.web
 
         }
 
+        [HttpGet]
+        public ResultInfo FindMailer(string mailerId)
+        {
+            var mailer = db.MAILER_GETINFO_BYID(mailerId).FirstOrDefault();
+
+            if (mailer == null)
+            {
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không tìm thấy"
+                };
+            }
+            else
+            {
+                var data = db.MAILER_GETTRACKING(mailerId).ToList();
+                var images = db.MailerImages.Where(p => p.MailerID == mailerId).Select(p => new
+                {
+                    url = p.PathImage,
+                    time = p.CreateTime.Value.ToString("dd/MM/yyyy HH:mm")
+                });
+                return new ResponseInfo()
+                {
+                    error = 0,
+                    data = new
+                    {
+                        mailer = mailer,
+                        tracks = data
+                    }
+
+                };
+            }
+        }
+
+
+        [HttpPost]
+        public ResultInfo CancelMailers()
+        {
+            ResultInfo result = new ResultInfo()
+            {
+                error = 0,
+                msg = "Đã thực hiện"
+            };
+            try
+            {
+                var requestContent = Request.Content.ReadAsStringAsync().Result;
+
+                var jsonserializer = new JavaScriptSerializer();
+                var paser = jsonserializer.Deserialize<CancelMailerRequest>(requestContent);
+                var findMailer = db.MM_Mailers.Find(paser.mailerId);
+
+                if (findMailer != null && findMailer.CurrentStatusID == 0)
+                {
+                    // moi tao moi dc huy
+                    findMailer.CurrentStatusID = 10;
+                    findMailer.LastUpdateDate = DateTime.Now;
+                    findMailer.StatusNotes = paser.reason;
+                    db.Entry(findMailer).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+            }
+            catch (Exception e)
+            {
+                result.error = 1;
+                result.msg = e.Message;
+            }
+            return result;
+
+        }
+
 
     }
 }

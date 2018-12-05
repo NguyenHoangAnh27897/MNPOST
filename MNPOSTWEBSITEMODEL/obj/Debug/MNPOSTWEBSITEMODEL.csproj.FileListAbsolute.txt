@@ -29,3 +29,4 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.xm
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\bin\Debug\EntityFramework.SqlServer.xml
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.pdb
+D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITEMODEL\obj\Debug\MNPOSTWEBSITEMODEL.csprojResolveAssemblyReference.cache
