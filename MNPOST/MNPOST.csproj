@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -202,9 +203,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\customercommission\CustomerCommissionController.cs" />
+    <Compile Include="Controllers\customerdebit\CustomerDebitController.cs" />
     <Compile Include="Controllers\customerdebit\CustomerDebitVoucherController.cs" />
+    <Compile Include="Controllers\customerdebit\IdentityDebit.cs" />
+    <Compile Include="Controllers\customer\ComPolicyController.cs" />
     <Compile Include="Controllers\customer\CustomerController.cs" />
     <Compile Include="Controllers\customer\CustomerGroupController.cs" />
+    <Compile Include="Controllers\customer\DisPolicyController.cs" />
     <Compile Include="Controllers\employeedebit\EmployeeDebitController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -240,12 +246,20 @@
     <Compile Include="Models\IdentityCOD.cs" />
     <Compile Include="Models\IdentityCommon.cs" />
     <Compile Include="Models\IdentityCus.cs" />
+    <Compile Include="Models\IdentityDiscountPolicy.cs" />
     <Compile Include="Models\IdentityMailer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IdentityPriceMatrix.cs" />
     <Compile Include="Models\IdentityRoute.cs" />
     <Compile Include="Models\IdentityRpt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\customer\AC_CustomerDebitDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AC_CustomerDebitDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\customer\IdentityCustomer.cs" />
     <Compile Include="Report\document\delivery.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1753,6 +1767,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\angular-select2.js" />
+    <Content Include="Scripts\showpdf.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Scripts\uploader.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -1819,6 +1834,10 @@
     <Content Include="Views\MailerPartner\Show.cshtml" />
     <Content Include="Views\Mailer\SearchMailer.cshtml" />
     <Content Include="Views\CustomerDebitVoucher\Show.cshtml" />
+    <Content Include="Views\ComPolicy\Show.cshtml" />
+    <Content Include="Views\DisPolicy\Show.cshtml" />
+    <Content Include="Views\CustomerDebit\Show.cshtml" />
+    <Content Include="Views\CustomerCommission\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1847,6 +1866,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\customer\AC_CustomerDebitDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AC_CustomerDebitDetails.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\document\delivery.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>delivery.cs</LastGenOutput>

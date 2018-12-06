@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Data;
 using Microsoft.Reporting.WebForms;
 using System.Web.UI.WebControls;
+using MNPOST.Report;
 
 namespace MNPOST.Controllers
 {
@@ -21,7 +22,7 @@ namespace MNPOST.Controllers
         protected static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         protected SqlConnection conn;
         protected UserInfo EmployeeInfo;
-
+        protected ReportUtils REPORTUTILS = new ReportUtils();
         protected MNPOSTEntities db = new MNPOSTEntities();
 
         protected RoleManager<IdentityRole> RoleManager { get; private set; }

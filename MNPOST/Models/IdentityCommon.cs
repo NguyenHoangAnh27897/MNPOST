@@ -8,7 +8,26 @@ namespace MNPOST.Models
     public class IdentityCommon
     {
     }
-
+    public class ReturnValue
+    {
+        public int returnvalue { get; set; }
+    }
+    public class ReturnDate
+    {
+        public DateTime Ngay { get; set; }
+    }
+    public class CusCom
+    {
+        public string CustomerGroupID { get; set; }
+        public string CustomerGroupCode { get; set; }
+    }
+    public class MailerCom
+    {
+        public string MailerID { get; set; }
+        public Nullable<decimal> CommissionAmt { get; set; }
+        public Nullable<decimal> Amount { get; set; }
+        public Nullable<double> CommissionPercent { get; set; }
+    }
     public class ResultInfo
     {
         public int error { get; set; }

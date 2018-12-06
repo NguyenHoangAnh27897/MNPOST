@@ -70,7 +70,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MailerImage> MailerImages { get; set; }
         public virtual DbSet<MM_ComissionDinhMuc> MM_ComissionDinhMuc { get; set; }
         public virtual DbSet<MM_ComissionPolicyCustomer> MM_ComissionPolicyCustomer { get; set; }
-        public virtual DbSet<MM_ComissionPolicys> MM_ComissionPolicys { get; set; }
         public virtual DbSet<MM_ComissionService> MM_ComissionService { get; set; }
         public virtual DbSet<MM_CustomerMoneyAdvances> MM_CustomerMoneyAdvances { get; set; }
         public virtual DbSet<MM_DiscountPolicyCustomer> MM_DiscountPolicyCustomer { get; set; }
@@ -105,6 +104,7 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_ComissionPolicyMethod> MM_ComissionPolicyMethod { get; set; }
         public virtual DbSet<MM_DiscountPolicyMethod> MM_DiscountPolicyMethod { get; set; }
         public virtual DbSet<MM_TroubleTicketDetails> MM_TroubleTicketDetails { get; set; }
+        public virtual DbSet<MM_ComissionPolicys> MM_ComissionPolicys { get; set; }
     
         [DbFunction("MNPOSTEntities", "Split")]
         public virtual IQueryable<Split_Result> Split(string rowData, string splitOn)

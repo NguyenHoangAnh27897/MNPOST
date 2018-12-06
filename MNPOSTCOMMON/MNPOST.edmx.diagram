@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="01393d1a21414f7abd1532d5c4010d90" Name="Diagram1">
+      <Diagram DiagramId="01393d1a21414f7abd1532d5c4010d90" Name="Diagram1" ZoomLevel="50">
         <EntityTypeShape EntityType="MNPOSTModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucher" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucherDetails" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
@@ -48,7 +48,6 @@
         <EntityTypeShape EntityType="MNPOSTModel.MailerImage" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionDinhMuc" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionPolicyCustomer" Width="1.5" PointX="18.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionPolicys" Width="1.5" PointX="16.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionService" Width="1.5" PointX="18.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_CustomerMoneyAdvances" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_DiscountPolicyCustomer" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
@@ -88,6 +87,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionPolicyMethod" Width="1.5" PointX="25.375" PointY="10.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_DiscountPolicyMethod" Width="1.5" PointX="25.375" PointY="13.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTicketDetails" Width="1.5" PointX="25.375" PointY="16.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionPolicys" Width="1.5" PointX="25.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

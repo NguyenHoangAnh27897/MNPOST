@@ -263,3 +263,8 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.Migration
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.GenerateResource.Cache
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csprojResolveAssemblyReference.cache
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.Migrations.Init.resources
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.csproj.GenerateResource.Cache
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.dll
+D:\LapTrinh\Win\MNPOST\MNPOSTWEBSITE\obj\Debug\MNPOSTWEBSITE.pdb

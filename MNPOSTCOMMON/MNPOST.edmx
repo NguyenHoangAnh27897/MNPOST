@@ -2004,27 +2004,6 @@
           <Property Name="ComissionID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="MM_ComissionPolicys">
-          <Key>
-            <PropertyRef Name="ComissionID" />
-          </Key>
-          <Property Name="ComissionID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="0" />
-          <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="StatusID" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="0" />
-          <Property Name="EndDate" Type="DateTime" Precision="0" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UserCreate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EditDate" Type="DateTime" Precision="0" />
-          <Property Name="CommissionPercent" Type="Int32" />
-          <Property Name="AllService" Type="Boolean" />
-          <Property Name="AllCustomer" Type="Boolean" />
-          <Property Name="AllProvince" Type="Boolean" />
-          <Property Name="PermanentCal" Type="Boolean" />
-          <Property Name="LimitValue" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AllMethod" Type="Int32" />
-        </EntityType>
         <EntityType Name="MM_ComissionService">
           <Key>
             <PropertyRef Name="ComissionID" />
@@ -2558,7 +2537,6 @@
           <EntitySet Name="MailerImages" EntityType="Self.MailerImage" />
           <EntitySet Name="MM_ComissionDinhMuc" EntityType="Self.MM_ComissionDinhMuc" />
           <EntitySet Name="MM_ComissionPolicyCustomer" EntityType="Self.MM_ComissionPolicyCustomer" />
-          <EntitySet Name="MM_ComissionPolicys" EntityType="Self.MM_ComissionPolicys" />
           <EntitySet Name="MM_ComissionService" EntityType="Self.MM_ComissionService" />
           <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" />
           <EntitySet Name="MM_DiscountPolicyCustomer" EntityType="Self.MM_DiscountPolicyCustomer" />
@@ -2835,6 +2813,7 @@
             <Parameter Name="DebtMonth" Mode="In" Type="String" />
             <Parameter Name="DebtYear" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="MM_ComissionPolicys" EntityType="MNPOSTModel.MM_ComissionPolicys" />
         </EntityContainer>
         <ComplexType Name="CODCUSTOMER_TRANSFER_Result">
           <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
@@ -3834,6 +3813,27 @@
           <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
           <Property Type="Double" Name="CommissionPercent" Nullable="true" />
         </ComplexType>
+        <EntityType Name="MM_ComissionPolicys">
+          <Key>
+            <PropertyRef Name="ComissionID" />
+          </Key>
+          <Property Name="ComissionID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <Property Name="PostOfficeID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserCreate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="0" />
+          <Property Name="CommissionPercent" Type="Int32" />
+          <Property Name="AllService" Type="Boolean" />
+          <Property Name="AllCustomer" Type="Boolean" />
+          <Property Name="AllProvince" Type="Boolean" />
+          <Property Name="PermanentCal" Type="Boolean" />
+          <Property Name="LimitValue" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AllMethod" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4374,28 +4374,6 @@
               <MappingFragment StoreEntitySet="MM_ComissionPolicyCustomer">
                 <ScalarProperty Name="ComissionID" ColumnName="ComissionID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MM_ComissionPolicys">
-            <EntityTypeMapping TypeName="MNPOSTModel.MM_ComissionPolicys">
-              <MappingFragment StoreEntitySet="MM_ComissionPolicys">
-                <ScalarProperty Name="AllMethod" ColumnName="AllMethod" />
-                <ScalarProperty Name="ComissionID" ColumnName="ComissionID" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
-                <ScalarProperty Name="AllService" ColumnName="AllService" />
-                <ScalarProperty Name="AllCustomer" ColumnName="AllCustomer" />
-                <ScalarProperty Name="AllProvince" ColumnName="AllProvince" />
-                <ScalarProperty Name="PermanentCal" ColumnName="PermanentCal" />
-                <ScalarProperty Name="LimitValue" ColumnName="LimitValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6080,6 +6058,28 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_customerforcommission" FunctionName="MNPOSTModel.Store.get_customerforcommission" />
+          <EntitySetMapping Name="MM_ComissionPolicys">
+            <EntityTypeMapping TypeName="MNPOSTModel.MM_ComissionPolicys">
+              <MappingFragment StoreEntitySet="MM_ComissionPolicys">
+                <ScalarProperty Name="AllMethod" ColumnName="AllMethod" />
+                <ScalarProperty Name="LimitValue" ColumnName="LimitValue" />
+                <ScalarProperty Name="PermanentCal" ColumnName="PermanentCal" />
+                <ScalarProperty Name="AllProvince" ColumnName="AllProvince" />
+                <ScalarProperty Name="AllCustomer" ColumnName="AllCustomer" />
+                <ScalarProperty Name="AllService" ColumnName="AllService" />
+                <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ComissionID" ColumnName="ComissionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

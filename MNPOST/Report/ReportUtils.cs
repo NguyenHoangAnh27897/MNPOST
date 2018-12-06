@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-
 namespace MNPOST.Report
 {
     public class ReportUtils
@@ -24,8 +23,7 @@ namespace MNPOST.Report
 
             return stream;
         }
-
-
+       
         public Stream GetReportStream(string reportPath, Object data, Dictionary<string, Dictionary<string, string>> values)
         {
             ReportDocument rptH = new ReportDocument();
@@ -49,8 +47,6 @@ namespace MNPOST.Report
                 rptH.SetDataSource(data);
             }
 
-
-
             Stream stream = rptH.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
 
             return stream;
@@ -61,5 +57,6 @@ namespace MNPOST.Report
     public class ReportPath
     {
         public static string RptPhieuGui = "~/Report/MNPOSTReport.rpt";
+        public static string RptAC_CustomerDebitDetails = "~/Report/customer/AC_CustomerDebitDetails.rpt";
     }
 }

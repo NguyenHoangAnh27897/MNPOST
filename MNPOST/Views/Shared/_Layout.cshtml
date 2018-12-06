@@ -172,6 +172,25 @@
 
     <div id="loader"></div>
 
+    <div id="showreport" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="prev">Previous</button>
+                    <button id="next">Next</button>
+                    &nbsp; &nbsp;
+                    <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <canvas id="the-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- jQuery -->
     <script src="~/Content/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -189,7 +208,7 @@
     <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="~/Scripts/mask.min.js"></script>
     <script src="~/Scripts/uploader.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="~/Scripts/angular-select2.js"></script>
@@ -199,6 +218,7 @@
 
 
     <script src="~/Scripts/myscripts.js"></script>
+    <script src="~/Scripts/showpdf.js"></script>
    
     <script type="text/javascript">
         $(document).ready(function () {

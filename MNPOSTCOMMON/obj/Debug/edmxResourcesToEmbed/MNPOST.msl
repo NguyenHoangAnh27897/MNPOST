@@ -538,28 +538,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MM_ComissionPolicys">
-      <EntityTypeMapping TypeName="MNPOSTModel.MM_ComissionPolicys">
-        <MappingFragment StoreEntitySet="MM_ComissionPolicys">
-          <ScalarProperty Name="AllMethod" ColumnName="AllMethod" />
-          <ScalarProperty Name="ComissionID" ColumnName="ComissionID" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
-          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-          <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
-          <ScalarProperty Name="AllService" ColumnName="AllService" />
-          <ScalarProperty Name="AllCustomer" ColumnName="AllCustomer" />
-          <ScalarProperty Name="AllProvince" ColumnName="AllProvince" />
-          <ScalarProperty Name="PermanentCal" ColumnName="PermanentCal" />
-          <ScalarProperty Name="LimitValue" ColumnName="LimitValue" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MM_ComissionService">
       <EntityTypeMapping TypeName="MNPOSTModel.MM_ComissionService">
         <MappingFragment StoreEntitySet="MM_ComissionService">
@@ -2241,5 +2219,27 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="get_customerforcommission" FunctionName="MNPOSTModel.Store.get_customerforcommission" />
+    <EntitySetMapping Name="MM_ComissionPolicys">
+      <EntityTypeMapping TypeName="MNPOSTModel.MM_ComissionPolicys">
+        <MappingFragment StoreEntitySet="MM_ComissionPolicys">
+          <ScalarProperty Name="AllMethod" ColumnName="AllMethod" />
+          <ScalarProperty Name="LimitValue" ColumnName="LimitValue" />
+          <ScalarProperty Name="PermanentCal" ColumnName="PermanentCal" />
+          <ScalarProperty Name="AllProvince" ColumnName="AllProvince" />
+          <ScalarProperty Name="AllCustomer" ColumnName="AllCustomer" />
+          <ScalarProperty Name="AllService" ColumnName="AllService" />
+          <ScalarProperty Name="CommissionPercent" ColumnName="CommissionPercent" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="UserCreate" ColumnName="UserCreate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ComissionID" ColumnName="ComissionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
