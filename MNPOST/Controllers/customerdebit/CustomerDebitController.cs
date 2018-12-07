@@ -452,7 +452,7 @@ namespace MNPOST.Controllers.customerdebit
 
 
 
-            Stream stream = REPORTUTILS.GetReportStream(ReportPath.RptAC_CustomerDebitDetails, results);
+            Stream stream = REPORTUTILS.GetReportStream(ReportPath.RptAC_CustomerDebitDetails, null);
 
             return File(stream, "application/pdf");
         }
