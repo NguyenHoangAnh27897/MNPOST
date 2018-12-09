@@ -22,8 +22,8 @@ namespace MNPOSTAPI.Controllers.web
                 Id = p.MailerID,
                 weight = p.Weight,
                 service = p.MailerTypeID,
-                sendFrom = p.SenderProvinceName + ", " + p.SenderDistrictName,
-                sendTo = p.ReceiverProvinceName + ", " + p.ReceiverDistrictName
+                sendFrom = p.SendProvinceName + ", " + p.SendDistrictName,
+                sendTo = p.RecieProvinceName + ", " + p.ReceiDistrictName
             }).FirstOrDefault();
 
 

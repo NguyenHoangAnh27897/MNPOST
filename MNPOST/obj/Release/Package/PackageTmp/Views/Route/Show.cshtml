@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <select class="form-control" ng-model="provinceChoose">
+                                <select class="form-control" ng-model="provinceChoose" ui-select2="select2Options">
                                     <option ng-repeat="item in provinces" value="{{item.code}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -87,41 +87,43 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="col-sm-7">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                    <tr class="headings">
-                                        <th>Quận/huyện</th>
-                                        <th>NV tham gia</th>
-                                        <th>Phường/Xã</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in districtRoutes">
-                                        <td><input type="checkbox" ng-model="item.ISJoin" ng-checked="item.ISJoin" ng-change="addDistrictRoute($index)" />&nbsp;{{item.DistrictName}}</td>
-                                        <td><span class="label label-default" ng-repeat="staff in item.Staffs">{{staff.name}}</span></td>
-                                        <td><a href="#" ng-show="item.ISJoin" ng-click="showWardRoutes($index)">Xem</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-sm-5">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                    <tr class="headings">
-                                        <th>Phường/xã</th>
-                                        <th>Quận</th>
-                                        <th>Nhân viên</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in wardRoutes">
-                                        <td>{{item.WardName}}</td>
-                                        <td>{{districtRouteChoose.DistrictName}}</td>
-                                        <th><input type="checkbox" ng-show="item.IsChoose" ng-model="item.ISJoin" ng-checked="item.ISJoin" ng-change="addWardRoute($index)" /><span ng-show="!item.IsChoose">{{item.Staff.name}}</span></th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="scrollmenu">
+                            <div class="col-sm-7">
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th>Quận/huyện</th>
+                                            <th>NV tham gia</th>
+                                            <th>Phường/Xã</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in districtRoutes">
+                                            <td><input type="checkbox" ng-model="item.ISJoin" ng-checked="item.ISJoin" ng-change="addDistrictRoute($index)" />&nbsp;{{item.DistrictName}}</td>
+                                            <td><span class="label label-default" ng-repeat="staff in item.Staffs">{{staff.name}}</span></td>
+                                            <td><a href="#" ng-show="item.ISJoin" ng-click="showWardRoutes($index)">Xem</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-5">
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th>Phường/xã</th>
+                                            <th>Quận</th>
+                                            <th>Nhân viên</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in wardRoutes">
+                                            <td>{{item.WardName}}</td>
+                                            <td>{{districtRouteChoose.DistrictName}}</td>
+                                            <th><input type="checkbox" ng-show="item.IsChoose" ng-model="item.ISJoin" ng-checked="item.ISJoin" ng-change="addWardRoute($index)" /><span ng-show="!item.IsChoose">{{item.Staff.name}}</span></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,10 +156,12 @@
     <script>
 
         // tao controller
-        var app = angular.module('myApp', ['ui.bootstrap']);
+        var app = angular.module('myApp', ['ui.bootstrap', 'ui.select2']);
 
         app.controller('myCtrl', function ($scope, $http) {
-
+            $scope.select2Options = {
+                width: '100%'
+            };
             $scope.postOffices = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllPost)));
             $scope.provinces = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.AllProvince)));
             $scope.employeeRoutes = [];

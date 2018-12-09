@@ -34,6 +34,49 @@
     <Property Name="Money" Type="float" />
     <Property Name="CreateDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="AC_CommissionOffer">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="DocumentDate" Type="datetime" />
+    <Property Name="DocumentTime" Type="datetime" />
+    <Property Name="PostOfficeID" Type="varchar" MaxLength="15" />
+    <Property Name="UserAccountID" Type="varchar" MaxLength="10" />
+    <Property Name="CustomerID" Type="varchar" MaxLength="15" />
+    <Property Name="RepresentativeID" Type="varchar" MaxLength="10" />
+    <Property Name="FromDate" Type="datetime" />
+    <Property Name="ToDate" Type="datetime" />
+    <Property Name="TotalAmount" Type="float" />
+    <Property Name="TotalAmt4Commission" Type="float" />
+    <Property Name="TotalCommissionAmount" Type="float" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="VATPercent" Type="float" />
+    <Property Name="VATAmount" Type="float" />
+    <Property Name="ComPercent" Type="float" />
+    <Property Name="IsPayComplete" Type="bit" Nullable="false" />
+    <Property Name="PayDocumentID" Type="varchar" MaxLength="50" />
+    <Property Name="PayDate" Type="datetime" />
+    <Property Name="PayNotes" Type="nvarchar" MaxLength="500" />
+    <Property Name="CommMonth" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AC_CommissionOfferDetail">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+      <PropertyRef Name="MailerID" />
+    </Key>
+    <Property Name="DocumentID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="MailerID" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="Amt4Commission" Type="float" />
+    <Property Name="ComPercent" Type="float" />
+    <Property Name="CommissionAmount" Type="float" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="100" />
+    <Property Name="LastEditDate" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="AC_CustomerDebitVoucher">
     <Key>
       <PropertyRef Name="DocumentID" />
@@ -47,6 +90,7 @@
     <Property Name="StatusID" Type="int" />
     <Property Name="LastTime" Type="datetime" />
     <Property Name="ToTalAmount" Type="float" />
+    <Property Name="DebtMonth" Type="date" />
   </EntityType>
   <EntityType Name="AC_CustomerDebitVoucherDetail">
     <Key>
@@ -516,6 +560,14 @@
     <Property Name="ComissionID" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="CustomerID" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="MM_ComissionPolicyMethod">
+    <Key>
+      <PropertyRef Name="ComissionID" />
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="ComissionID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ServiceID" Type="nvarchar" MaxLength="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="MM_ComissionPolicys">
     <Key>
       <PropertyRef Name="ComissionID" />
@@ -535,6 +587,7 @@
     <Property Name="AllProvince" Type="bit" />
     <Property Name="PermanentCal" Type="bit" />
     <Property Name="LimitValue" Type="money" />
+    <Property Name="AllMethod" Type="int" />
   </EntityType>
   <EntityType Name="MM_ComissionService">
     <Key>
@@ -578,6 +631,14 @@
     <Property Name="ValueEnd" Type="money" Nullable="false" />
     <Property Name="DiscountPercent" Type="int" />
   </EntityType>
+  <EntityType Name="MM_DiscountPolicyMethod">
+    <Key>
+      <PropertyRef Name="DiscountID" />
+      <PropertyRef Name="ServiceID" />
+    </Key>
+    <Property Name="DiscountID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ServiceID" Type="nvarchar" MaxLength="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="MM_DiscountPolicys">
     <Key>
       <PropertyRef Name="DiscountID" />
@@ -597,6 +658,7 @@
     <Property Name="AllProvince" Type="bit" />
     <Property Name="PermanentCal" Type="bit" />
     <Property Name="LimitValue" Type="money" />
+    <Property Name="AllMethod" Type="int" />
   </EntityType>
   <EntityType Name="MM_DiscountPolicyService">
     <Key>
@@ -884,6 +946,17 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="StatusName" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="MM_TroubleTicketDetails">
+    <Key>
+      <PropertyRef Name="TicketID" />
+      <PropertyRef Name="STT" />
+    </Key>
+    <Property Name="TicketID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoiDung" Type="nvarchar(max)" />
+    <Property Name="NguoiNhap" Type="nvarchar" MaxLength="50" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="MM_TroubleTickets">
     <Key>
       <PropertyRef Name="TicketID" />
@@ -1053,6 +1126,12 @@
   <Function Name="AC_CODDEBITVOUCHERDETAILS_BYDOCUMENTID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documentid" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="AC_CommissionOffer_procUpdateComissionMailer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DebtMonth" Type="nvarchar" Mode="In" />
+    <Parameter Name="DebtYear" Type="nvarchar" Mode="In" />
+    <Parameter Name="PostOfficeID" Type="varchar" Mode="In" />
+    <Parameter Name="CustID" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <Function Name="AC_CustomerDebitVoucher_procUpdateDiscountMailer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="FromDate" Type="datetime" Mode="In" />
     <Parameter Name="ToDate" Type="datetime" Mode="In" />
@@ -1120,6 +1199,22 @@
   </Function>
   <Function Name="EMPLOYEE_GETBYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employeeID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="get_commissiondata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DebtMonth" Type="nvarchar" Mode="In" />
+    <Parameter Name="Post" Type="nvarchar" Mode="In" />
+    <Parameter Name="CustomerGroupID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="get_commissiondetaildata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Post" Type="nvarchar" Mode="In" />
+    <Parameter Name="DebtMonth" Type="nvarchar" Mode="In" />
+    <Parameter Name="DebtYear" Type="nvarchar" Mode="In" />
+    <Parameter Name="CustomerGroupID" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="get_customerforcommission" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Post" Type="nvarchar" Mode="In" />
+    <Parameter Name="DebtMonth" Type="nvarchar" Mode="In" />
+    <Parameter Name="DebtYear" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="getFromDateOfCust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
     <Parameter Name="CustomerID" Type="varchar" Mode="In" />
@@ -1276,6 +1371,8 @@
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CODDebitVoucher" EntityType="Self.AC_CODDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CODDebitVoucherDetails" EntityType="Self.AC_CODDebitVoucherDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AC_CommissionOffer" EntityType="Self.AC_CommissionOffer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AC_CommissionOfferDetail" EntityType="Self.AC_CommissionOfferDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CustomerDebitVoucher" EntityType="Self.AC_CustomerDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="Self.AC_CustomerDebitVoucherDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -1317,11 +1414,13 @@
     <EntitySet Name="MailerImages" EntityType="Self.MailerImages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_ComissionDinhMuc" EntityType="Self.MM_ComissionDinhMuc" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_ComissionPolicyCustomer" EntityType="Self.MM_ComissionPolicyCustomer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_ComissionPolicyMethod" EntityType="Self.MM_ComissionPolicyMethod" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_ComissionPolicys" EntityType="Self.MM_ComissionPolicys" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_ComissionService" EntityType="Self.MM_ComissionService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_CustomerMoneyAdvances" EntityType="Self.MM_CustomerMoneyAdvances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_DiscountPolicyCustomer" EntityType="Self.MM_DiscountPolicyCustomer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_DiscountPolicyDinhMuc" EntityType="Self.MM_DiscountPolicyDinhMuc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_DiscountPolicyMethod" EntityType="Self.MM_DiscountPolicyMethod" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_DiscountPolicys" EntityType="Self.MM_DiscountPolicys" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_DiscountPolicyService" EntityType="Self.MM_DiscountPolicyService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_EmployeeDebitVoucher" EntityType="Self.MM_EmployeeDebitVoucher" Schema="dbo" store:Type="Tables" />
@@ -1339,6 +1438,7 @@
     <EntitySet Name="MM_TakeMailers" EntityType="Self.MM_TakeMailers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_Tracking" EntityType="Self.MM_Tracking" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TrackingPartner" EntityType="Self.MM_TrackingPartner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_TroubleTicketDetails" EntityType="Self.MM_TroubleTicketDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />

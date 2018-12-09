@@ -42,6 +42,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
         }
     };
+
     $scope.removeCheck = function () {
         $scope.checkMailers = false;
         for (var i = 0; i < $scope.mailers.length; i++) {
@@ -50,7 +51,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
         }
     };
-
 
     function getSelectedIndex(mailerId) {
         for (var i = 0; i < $scope.mailers.length; i++)

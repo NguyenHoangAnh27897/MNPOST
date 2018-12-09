@@ -530,9 +530,9 @@ namespace MNPOST.Controllers.mailer
                             SenderName = mailer.SenderName,
                             SenderAddress = mailer.SenderAddress,
                             RecieverAddress = mailer.RecieverAddress,
-                            RecieverProvinceID = mailer.RecieverProvinceID,
-                            RecieverDistrictID = mailer.RecieverDistrictID,
-                            RecieverWardID = mailer.RecieverWardID,
+                            RecieverProvinceID = mailer.RecieProvinceName,
+                            RecieverDistrictID = mailer.ReceiDistrictName,
+                            RecieverWardID = mailer.ReceiWardName,
                             RecieverPhone = mailer.RecieverPhone,
                             CurrentStatusID = mailer.CurrentStatusID,
                             MailerTypeID = mailer.MailerTypeID
@@ -549,9 +549,9 @@ namespace MNPOST.Controllers.mailer
                         SenderName = mailer.SenderName,
                         SenderAddress = mailer.SenderAddress,
                         RecieverAddress = mailer.RecieverAddress,
-                        RecieverProvinceID = mailer.RecieverProvinceID,
-                        RecieverDistrictID = mailer.RecieverDistrictID,
-                        RecieverWardID = mailer.RecieverWardID,
+                        RecieverProvinceID = mailer.RecieProvinceName,
+                        RecieverDistrictID = mailer.ReceiDistrictName,
+                        RecieverWardID = mailer.ReceiWardName,
                         RecieverPhone = mailer.RecieverPhone,
                         CurrentStatusID = mailer.CurrentStatusID,
                         MailerTypeID = mailer.MailerTypeID
@@ -568,8 +568,10 @@ namespace MNPOST.Controllers.mailer
         {
             var mailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6) && p.RecieverProvinceID.Contains(province) && p.RecieverDistrictID.Contains(district)).ToList();
             var data = new List<MailerIdentity>();
-            foreach (var mailer in mailers)
+            foreach (var item in mailers)
             {
+                var mailer = db.MAILER_GETINFO_BYID(item.MailerID).FirstOrDefault(); 
+
                 data.Add(new MailerIdentity()
                 {
                     MailerID = mailer.MailerID,
@@ -577,9 +579,9 @@ namespace MNPOST.Controllers.mailer
                     SenderName = mailer.SenderName,
                     SenderAddress = mailer.SenderAddress,
                     RecieverAddress = mailer.RecieverAddress,
-                    RecieverProvinceID = mailer.RecieverProvinceID,
-                    RecieverDistrictID = mailer.RecieverDistrictID,
-                    RecieverWardID = mailer.RecieverWardID,
+                    RecieverProvinceID = mailer.RecieProvinceName,
+                    RecieverDistrictID = mailer.ReceiDistrictName,
+                    RecieverWardID = mailer.ReceiWardName,
                     RecieverPhone = mailer.RecieverPhone,
                     CurrentStatusID = mailer.CurrentStatusID,
                     MailerTypeID = mailer.MailerTypeID

@@ -138,7 +138,7 @@
                                                 <tr ng-repeat="item in allDeliveries" ng-class="{'active': item.StatusID == 0, 'warning' : item.StatusID == 1,'danger' : item.StatusID == 2, 'success' : item.StatusID == 3}">
                                                     <td>
                                                         {{$index + 1}}&nbsp;&nbsp;
-                                                        <a href="#" ng-click="showDocumentDetail($index)"><i my-tool-tip="Chỉnh sửa" class="fa fa-pencil-square"></i></a>
+                                                        <a href="#" ng-click="showDocumentDetail($index)">Chi tiết</a>
                                                     </td>
                                                     <td> <a href="#" ng-click="showDocumentDetail($index)">{{item.DocumentCode}}</a></td>
                                                     <td><span class="label label-danger">{{item.DocumentDate}}</span></td>
@@ -149,12 +149,12 @@
                                                     </td>
                                                     <td>
                                                         <strong>Số xe: </strong>{{item.NumberPlate}} <br />
-                                                        <strong>Số lượng: </strong>{{item.AllFinish + item.AllNotFinish + item.AllFail + item.AllReturn }}<br />
-                                                        <strong>Trọng lượng: </strong>{{item.Weight}}<br />
-                                                        <strong>Đã phát: </strong>{{item.AllFinish}}<br />
-                                                        <strong>Chưa phát: </strong>{{item.AllNotFinish}}<br />
-                                                        <strong>Chưa phát được: </strong>{{item.AllFail}}<br />
-                                                        <strong>Chuyển hoàn: </strong>{{item.AllReturn}}
+                                                        <strong>Số lượng: </strong>{{item.CountFinish + item.CountNotFinish + item.CountFail + item.CountReturn }}<br />
+                                                        <strong>Trọng lượng: </strong>{{item.Weight}} GRAM<br />
+                                                        <strong>Đã phát: </strong>{{item.CountFinish}}<br />
+                                                        <strong>Chưa phát: </strong>{{item.CountNotFinish}}<br />
+                                                        <strong>Chưa phát được: </strong>{{item.CountFail}}<br />
+                                                        <strong>Chuyển hoàn: </strong>{{item.CountReturn}}
                                                     </td>
                                                     <td><span class="label label-primary">{{deliveryStatus[item.StatusID].name}}</span></td>
                                                 </tr>
@@ -233,9 +233,11 @@
                                                     <td>{{$index + 1}}</td>
                                                     <td>{{item.MailerID}}</td>
                                                     <td><span class="label label-info">{{mailerStatus[item.CurrentStatusID].name}}</span></td>
-                                                    <td>{{item.Weight}}</td>
+                                                    <td>{{item.Weight}} GRAM</td>
                                                     <td>{{item.MailerTypeID}}</td>
-                                                    <td>{{item.RecieverAddress}}</td>
+                                                    <td>{{item.RecieverAddress}} <br />
+                                                        <span class="label label-info">{{item.RecieProvinceName}}</span>&nbsp;&nbsp;<span class="label label-info">{{item.ReceiDistrictName}}</span>&nbsp;&nbsp;<span class="label label-info">{{item.ReceiWardName}}</span>
+                                                    </td>
                                                     <td>{{item.COD}}</td>
                                                     <td>{{item.Notes}}</td>
                                                     <td><a class="label label-danger" ng-show="item.CurrentStatusID===3" href="#" ng-click="detroyMailerDelivery(item.MailerID)">Hủy phát</a></td>
@@ -373,7 +375,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Thời gian phát</label>
-                                    <input type="text" ng-model="createDeliveryInfo.deliveryDate" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" >
+                                    <input type="text" ng-model="createDeliveryInfo.deliveryDate" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="">
                                 </div>
                             </div>
                         </div>
@@ -461,28 +463,37 @@
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                                <table class="table table-striped scrollmenu">
-                                    <thead>
-                                        <tr class="headings">
-                                            <th><input type="checkbox" ng-model="checkAllMailerAuto" ng-init="checkAllMailerAuto=false" ng-checked="checkAllMailerAuto" ng-change="changeCheckAllMailerEmplpoyeeAuto()" /></th>
-                                            <th>Vận đơn</th>
-                                            <th>Người gửi</th>
-                                            <th>Trạng thái</th>
-                                            <th>Dịch vụ</th>
-                                            <th>Nơi đến</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="mailer in employeeMailerFromRoutes.Mailers">
-                                            <td><input type="checkbox" ng-model="mailer.IsCheck" ng-init="mailer.IsCheck=false" ng-checked="mailer.IsCheck" />{{$index + 1}}</td>
-                                            <td>{{mailer.MailerID}}</td>
-                                            <td>{{mailer.SenderName}}</td>
-                                            <td>{{mailerStatus[mailer.CurrentStatusID].name}}</td>
-                                            <td>{{mailer.MailerTypeID}}</td>
-                                            <td>{{mailer.RecieverAddress}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive scrollmenu">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th><input type="checkbox" ng-model="checkAllMailerAuto" ng-init="checkAllMailerAuto=false" ng-checked="checkAllMailerAuto" ng-change="changeCheckAllMailerEmplpoyeeAuto()" /></th>
+                                                <th>Vận đơn</th>
+                                                <th>Người gửi</th>
+                                                <th>Trạng thái</th>
+                                                <th>Dịch vụ</th>
+                                                <th>Nơi đến</th>
+                                                <th>Tỉnh thành</th>
+                                                <th>Quận huyện</th>
+                                                <th>Phường xã</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="mailer in employeeMailerFromRoutes.Mailers">
+                                                <td><input type="checkbox" ng-model="mailer.IsCheck" ng-init="mailer.IsCheck=false" ng-checked="mailer.IsCheck" />{{$index + 1}}</td>
+                                                <td>{{mailer.MailerID}}</td>
+                                                <td>{{mailer.SenderName}}</td>
+                                                <td>{{mailerStatus[mailer.CurrentStatusID].name}}</td>
+                                                <td>{{mailer.MailerTypeID}}</td>
+                                                <td>{{mailer.RecieverAddress}}</td>
+                                                <td>{{mailer.RecieverProvinceID}}</td>
+                                                <td>{{mailer.RecieverDistrictID}}</td>
+                                                <td>{{mailer.RecieverWardID}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br />
                                 <button type="button" class="btn btn-warning" ng-click="addMailerAutoFromRoutes('route')">Thêm vào danh sách</button>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
@@ -507,28 +518,37 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <br />
-                                        <table class="table table-striped scrollmenu">
-                                            <thead>
-                                                <tr class="headings">
-                                                    <th><input type="checkbox" ng-model="checkAllMailerForEmployee" ng-init="checkAllMailerForEmployee=false" ng-checked="checkAllMailerForEmployee" ng-change="checkAllMailerForEmployeeChange()" /></th>
-                                                    <th>Vận đơn</th>
-                                                    <th>Người gửi</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Dịch vụ</th>
-                                                    <th>Nơi đến</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="mailer in mailerEmployeeFinds">
-                                                    <td><input type="checkbox" ng-model="mailer.IsCheck" ng-init="mailer.IsCheck=false" ng-checked="mailer.IsCheck" />{{$index + 1}}</td>
-                                                    <td>{{mailer.MailerID}}</td>
-                                                    <td>{{mailer.SenderName}}</td>
-                                                    <td>{{mailerStatus[mailer.CurrentStatusID].name}}</td>
-                                                    <td>{{mailer.MailerTypeID}}</td>
-                                                    <td>{{mailer.RecieverAddress}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="table-responsive scrollmenu">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr class="headings">
+                                                        <th><input type="checkbox" ng-model="checkAllMailerForEmployee" ng-init="checkAllMailerForEmployee=false" ng-checked="checkAllMailerForEmployee" ng-change="checkAllMailerForEmployeeChange()" /></th>
+                                                        <th>Vận đơn</th>
+                                                        <th>Người gửi</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Dịch vụ</th>
+                                                        <th>Nơi đến</th>
+                                                        <th>Tỉnh thành</th>
+                                                        <th>Quận huyện</th>
+                                                        <th>Phường xã</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="mailer in mailerEmployeeFinds">
+                                                        <td><input type="checkbox" ng-model="mailer.IsCheck" ng-init="mailer.IsCheck=false" ng-checked="mailer.IsCheck" />{{$index + 1}}</td>
+                                                        <td>{{mailer.MailerID}}</td>
+                                                        <td>{{mailer.SenderName}}</td>
+                                                        <td>{{mailerStatus[mailer.CurrentStatusID].name}}</td>
+                                                        <td>{{mailer.MailerTypeID}}</td>
+                                                        <td>{{mailer.RecieverAddress}}</td>
+                                                        <td>{{mailer.RecieverProvinceID}}</td>
+                                                        <td>{{mailer.RecieverDistrictID}}</td>
+                                                        <td>{{mailer.RecieverWardID}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <br />
                                         <button type="button" class="btn btn-primary" ng-click="addMailerAutoFromRoutes('province')">Thêm vào danh sách</button>
                                     </div>
                                 </div>
@@ -545,8 +565,6 @@
 @section styles {
 
     <style type="text/css">
-
-
         .tableinput {
             width: 150px;
             height: 25px;

@@ -4,9 +4,6 @@ var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 
 
 app.service('mailerService', function () {
 
-
-
-
     var mailerList = [];
 
     var merchandise = [{ 'code': 'H', 'name': 'Hàng hóa' }, { 'code': 'T', 'name': 'Tài liệu' }];
@@ -131,6 +128,7 @@ app.service('mailerService', function () {
 app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiUploader) {
 
     $scope.select2Options = {
+
     };
     $scope.select2OptionsWidth100 = {
         width: '100%'
@@ -159,6 +157,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
 
     $scope.copyMailer = function (idx) {
         var mailer = angular.copy($scope.mailers[idx]);
+        mailer.MailerID = '';
         mailerService.addMailer(mailer);
     };
 
@@ -277,7 +276,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             alert("Không có đơn nào để cập nhật");
         } else {
             showLoader(true);
-
             $http({
                 method: "POST",
                 url: "/mailerinit/InsertMailers",

@@ -99,7 +99,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="/" class="site_title">BƯU CHÍNH MIỀN NAM</a>
+                        <a href="/" class="site_title">MNP</a>
                     </div>
                     <div class="clearfix"></div>
                     <!-- sidebar menu -->
@@ -207,7 +207,7 @@
 
   
     <!-- Custom Theme Scripts -->
-    <script src="~/Content/build/js/custom.min.js"></script>
+    <script src="~/Content/build/js/custom.js"></script>
     <script src="~/Scripts/bootstrap-notify.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
@@ -233,6 +233,14 @@
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
         });
+
+       
+        $('#sidebar-menu').find('li.active ul').hide();
+        $('#sidebar-menu').find('li.active').addClass('active-sm').removeClass('active');
+
+        $('body').toggleClass('nav-md nav-sm');
+
+ 
     </script>
 
     @RenderSection("Scripts", false)

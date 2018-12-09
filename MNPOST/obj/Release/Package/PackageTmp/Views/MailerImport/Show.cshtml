@@ -112,9 +112,9 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="table-responsive">
+                            <div class="table-responsive scrollmenu">
                               
-                                <table class="table table-striped jambo_table bulk_action scrollmenu">
+                                <table class="table table-striped jambo_table bulk_action">
                                     <thead>
                                         <tr class="headings">
                                             <th>STT</th>
@@ -130,7 +130,6 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in takeMailerDatas">
-                                        
                                             <td>{{$index + 1}}</td>
                                             <td>{{item.CreateTime}}</td>
                                             <td>{{item.EmployeeName - item.EmployeeID}}</td>
@@ -147,7 +146,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tab_chitiet" aria-labelledby="home-tab">
                             <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action scrollmenu">
+                                <table class="table table-striped jambo_table bulk_action">
                                     <thead>
                                         <tr class="headings">
                                             <th><input type="checkbox" ng-model="checkMailerTake" ng-change="checkTakeAll()" /></th>
@@ -155,7 +154,6 @@
                                             <th>Mã vận đơn</th>
                                             <th>Tình trạng</th>
                                             <th>Ngày tạo</th>
-                                            <th>Mã người gửi</th>
                                             <th>Người gửi</th>
                                             <th>Điện thoại</th>
                                             <th>Địa chỉ gửi</th>
@@ -171,7 +169,6 @@
                                             <td>{{item.MailerID}}</td>
                                             <td>{{status[item.CurrentStatusID].name}}</td>
                                             <td>{{item.AcceptDate}}</td>
-                                            <td>{{item.SenderID}}</td>
                                             <td>{{item.SenderName}}</td>
                                             <td>{{item.SenderPhone}}</td>
                                             <td>{{item.SenderAddress}}</td>

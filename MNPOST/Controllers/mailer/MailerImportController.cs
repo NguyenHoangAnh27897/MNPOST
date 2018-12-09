@@ -275,7 +275,7 @@ namespace MNPOST.Controllers.mailer
 
             }
 
-            var checkCount = db.TAKEMAILER_GETDETAILs(documentID).ToList();
+            var checkCount = db.TAKEMAILER_GETDETAILs(documentID).Where(p => p.CurrentStatusID == 7).ToList();
 
             if (checkCount.Count() == 0)
             {

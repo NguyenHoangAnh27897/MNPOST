@@ -1744,10 +1744,11 @@
     <Property Type="String" Name="StatusNotes" Nullable="true" />
     <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="SenderProvinceName" Nullable="true" />
-    <Property Type="String" Name="SenderDistrictName" Nullable="true" />
-    <Property Type="String" Name="ReceiverProvinceName" Nullable="true" />
-    <Property Type="String" Name="ReceiverDistrictName" Nullable="true" />
+    <Property Type="String" Name="SendProvinceName" Nullable="true" />
+    <Property Type="String" Name="SendDistrictName" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
     <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
@@ -1792,10 +1793,11 @@
     <Property Type="String" Name="StatusNotes" Nullable="true" />
     <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="SenderProvinceName" Nullable="true" />
-    <Property Type="String" Name="SenderDistrictName" Nullable="true" />
-    <Property Type="String" Name="ReceiverProvinceName" Nullable="true" />
-    <Property Type="String" Name="ReceiverDistrictName" Nullable="true" />
+    <Property Type="String" Name="SendProvinceName" Nullable="true" />
+    <Property Type="String" Name="SendDistrictName" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
     <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="MAILER_GETTRACKING_Result">
@@ -1940,6 +1942,9 @@
     <Property Type="String" Name="DeliveryTo" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
     <Property Type="Int32" Name="ReturnReasonID" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
   </ComplexType>
   <ComplexType Name="MAILERDELIVERY_GETMAILER_BY_ID_Result">
     <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -1959,6 +1964,9 @@
     <Property Type="String" Name="DeliveryTo" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
     <Property Type="Int32" Name="ReturnReasonID" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
   </ComplexType>
   <ComplexType Name="PARTNER_MAP_INFO_Result">
     <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
@@ -2031,9 +2039,8 @@
     <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="EmployeeAcceptID" Nullable="true" MaxLength="20" />
-    <Property Type="DateTime" Name="AcceptDate" Nullable="true" />
-    <Property Type="DateTime" Name="AcceptTime" Nullable="true" Precision="23" />
+    <Property Type="String" Name="AcceptDate" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="AcceptTime" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
     <Property Type="Int32" Name="Quantity" Nullable="true" />
     <Property Type="Double" Name="Weight" Nullable="true" />
@@ -2041,28 +2048,13 @@
     <Property Type="Decimal" Name="PriceDefault" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="Price" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="PriceService" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="Discount" Nullable="true" />
-    <Property Type="Decimal" Name="BefVATAmount" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="VATPercent" Nullable="true" />
-    <Property Type="Decimal" Name="VATAmount" Nullable="true" Precision="19" />
     <Property Type="Decimal" Name="Amount" Nullable="true" Precision="19" />
-    <Property Type="Decimal" Name="AmountBefDiscount" Nullable="true" Precision="19" />
     <Property Type="String" Name="PaymentMethodID" Nullable="true" MaxLength="5" />
     <Property Type="String" Name="MailerDescription" Nullable="true" MaxLength="200" />
     <Property Type="String" Name="ThirdpartyDocID" Nullable="true" MaxLength="20" />
     <Property Type="Decimal" Name="ThirdpartyCost" Nullable="true" Precision="19" />
-    <Property Type="String" Name="ThirdpartyPaymentMethodID" Nullable="true" MaxLength="5" />
     <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
     <Property Type="String" Name="CurrentPostOfficeID" Nullable="true" MaxLength="10" />
-    <Property Type="String" Name="PriceType" Nullable="true" MaxLength="1" />
-    <Property Type="Boolean" Name="PriceIncludeVAT" Nullable="true" />
-    <Property Type="Decimal" Name="CommissionAmt" Nullable="true" Precision="19" />
-    <Property Type="Double" Name="CommissionPercent" Nullable="true" />
-    <Property Type="Decimal" Name="CostAmt" Nullable="true" Precision="19" />
-    <Property Type="DateTime" Name="SalesClosingDate" Nullable="true" />
-    <Property Type="Double" Name="DiscountPercent" Nullable="true" />
-    <Property Type="DateTime" Name="CreationDate" Nullable="true" Precision="23" />
-    <Property Type="DateTime" Name="LastUpdateDate" Nullable="true" Precision="23" />
     <Property Type="String" Name="MerchandiseID" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Notes" Nullable="true" />
     <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
@@ -2071,20 +2063,19 @@
     <Property Type="Double" Name="HeightSize" Nullable="true" />
     <Property Type="Decimal" Name="MerchandiseValue" Nullable="true" Precision="19" />
     <Property Type="String" Name="DeliveryTo" Nullable="true" />
-    <Property Type="DateTime" Name="DeliveryDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DeliveryNotes" Nullable="true" />
-    <Property Type="Int32" Name="CreateType" Nullable="true" />
     <Property Type="String" Name="ThirdpartyCode" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="ThirdpartyID" Nullable="true" MaxLength="128" />
     <Property Type="String" Name="StatusNotes" Nullable="true" />
-    <Property Type="Int32" Name="PaidCoD" Nullable="true" />
-    <Property Type="DateTime" Name="PaidDate" Nullable="true" Precision="23" />
-    <Property Type="String" Name="EmployeePaid" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="PaidNotes" Nullable="true" />
-    <Property Type="String" Name="PaidCoDInvoice" Nullable="true" />
     <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
     <Property Type="String" Name="RouteID" Nullable="false" MaxLength="128" />
     <Property Type="Boolean" Name="IsDetail" Nullable="true" />
+    <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="SendProvinceName" Nullable="true" />
+    <Property Type="String" Name="SendDistrictName" Nullable="true" />
+    <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+    <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+    <Property Type="String" Name="ReceiWardName" Nullable="true" />
   </ComplexType>
   <ComplexType Name="ROUTE_GETWARD_Result">
     <Property Type="String" Name="WardID" Nullable="false" MaxLength="128" />

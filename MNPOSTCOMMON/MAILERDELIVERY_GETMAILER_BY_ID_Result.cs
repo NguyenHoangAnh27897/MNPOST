@@ -30,5 +30,8 @@ namespace MNPOSTCOMMON
         public string DeliveryTo { get; set; }
         public string DocumentID { get; set; }
         public Nullable<int> ReturnReasonID { get; set; }
+        public string RecieProvinceName { get; set; }
+        public string ReceiDistrictName { get; set; }
+        public string ReceiWardName { get; set; }
     }
 }
