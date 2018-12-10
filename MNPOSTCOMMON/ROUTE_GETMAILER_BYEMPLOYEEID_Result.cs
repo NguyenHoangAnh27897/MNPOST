@@ -40,30 +40,30 @@ namespace MNPOSTCOMMON
         public Nullable<decimal> Amount { get; set; }
         public string PaymentMethodID { get; set; }
         public string MailerDescription { get; set; }
+        public string ThirdpartyDocID { get; set; }
+        public Nullable<decimal> ThirdpartyCost { get; set; }
         public Nullable<int> CurrentStatusID { get; set; }
         public string CurrentPostOfficeID { get; set; }
         public string MerchandiseID { get; set; }
         public string Notes { get; set; }
         public Nullable<decimal> COD { get; set; }
+        public Nullable<double> LengthSize { get; set; }
+        public Nullable<double> WidthSize { get; set; }
+        public Nullable<double> HeightSize { get; set; }
         public Nullable<decimal> MerchandiseValue { get; set; }
-        public string ThirdpartyCode { get; set; }
-        public string ThirdpartyDocID { get; set; }
-        public Nullable<decimal> ThirdpartyCost { get; set; }
-        public string DeliveryNotes { get; set; }
         public string DeliveryTo { get; set; }
+        public string DeliveryDate { get; set; }
+        public string DeliveryNotes { get; set; }
+        public string ThirdpartyCode { get; set; }
         public string StatusNotes { get; set; }
         public Nullable<decimal> PriceCoD { get; set; }
-        public Nullable<double> LengthSize { get; set; }
-        public Nullable<double> HeightSize { get; set; }
-        public Nullable<double> WidthSize { get; set; }
-        public string DeliveryDate { get; set; }
+        public string RouteID { get; set; }
+        public Nullable<bool> IsDetail { get; set; }
         public string DeliveryTime { get; set; }
         public string SendProvinceName { get; set; }
         public string SendDistrictName { get; set; }
         public string RecieProvinceName { get; set; }
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
-        public string RouteID { get; set; }
-        public Nullable<bool> IsDetail { get; set; }
     }
 }

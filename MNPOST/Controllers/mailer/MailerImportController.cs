@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MNPOSTCOMMON;
-using MNPOST.Utils;
 
 namespace MNPOST.Controllers.mailer
 {
@@ -56,7 +55,6 @@ namespace MNPOST.Controllers.mailer
 
             var findEmployee = db.BS_Employees.Where(p => p.EmployeeID == employeeId).FirstOrDefault();
 
-
             if(findEmployee == null)
                 return Json(new ResultInfo()
                 {
@@ -84,6 +82,7 @@ namespace MNPOST.Controllers.mailer
 
             db.MM_TakeMailers.Add(takeMaileInfo);
             db.SaveChanges();
+
 
             foreach(var item in mailers)
             {
@@ -115,9 +114,6 @@ namespace MNPOST.Controllers.mailer
                 }
 
             }
-
-            // gui thông bao
-            MNPostUtils.SendUser("THÔNG BÁO LẤY HÀNG", "Lấy hàng cho khách hàng " + cusName + " tại địa chỉ: " + cusAddress, findEmployee.EmployeeID);
 
 
             return Json(new ResultInfo()

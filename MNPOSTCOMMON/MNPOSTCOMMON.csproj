@@ -228,12 +228,6 @@
     <Compile Include="get_commissiondetaildata_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
-    <Compile Include="get_customerforcommission_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
-    <Compile Include="get_mailerfordebit_Result.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
-    </Compile>
     <Compile Include="GROUPUSER_GETLISTMENU_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -388,9 +382,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MNPOST.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="NoticeSave.cs">
-      <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="PARTNER_MAP_INFO_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>

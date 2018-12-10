@@ -33,9 +33,7 @@ namespace MNPOSTAPI.Controllers.mobile.user
                 msg = "",
                 FullName = checkUser.EmployeeName,
                 EmployeeCode = checkUser.EmployeeID,
-                PostOfficeID = checkUser.PostOfficeID,
-                Function = checkUser.PositionID,
-                UserName = checkUser.UserLogin
+                PostOfficeID = checkUser.PostOfficeID
             };
         }
 

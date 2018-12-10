@@ -1838,7 +1838,6 @@
     <Content Include="Views\DisPolicy\Show.cshtml" />
     <Content Include="Views\CustomerDebit\Show.cshtml" />
     <Content Include="Views\CustomerCommission\Show.cshtml" />
-    <Content Include="Views\Notice\Send.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1846,6 +1845,7 @@
     <Folder Include="Temps\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Notice\" />
     <Folder Include="Views\SendPartner\" />
     <Folder Include="Views\Tracking\" />
   </ItemGroup>

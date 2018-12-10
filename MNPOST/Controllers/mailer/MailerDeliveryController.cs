@@ -622,8 +622,7 @@ namespace MNPOST.Controllers.mailer
                     NumberPlate = "",
                     Quantity = 0,
                     StatusID = 0,
-                    Weight = 0,
-                    PostID = postId
+                    Weight = 0
                 };
 
                 db.MM_MailerDelivery.Add(insDocument);

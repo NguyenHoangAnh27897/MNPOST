@@ -450,7 +450,7 @@ namespace MNPOST.Controllers.mailer
                     continue;
                 }
 
-                var price = db.CalPrice(item.Weight, checkSender.CustomerID, item.RecieverProvinceID, item.MailerTypeID, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                var price = db.CalPrice(item.Weight, checkSender.CustomerID, item.RecieverDistrictID, item.MailerTypeID, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
                 var codPrice = 0;
                 // theem
                 var mailerIns = new MM_Mailers()

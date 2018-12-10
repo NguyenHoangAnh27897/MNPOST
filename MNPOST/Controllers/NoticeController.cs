@@ -11,8 +11,6 @@ namespace MNPOST.Controllers
         // GET: Notice
         public ActionResult Send()
         {
-            ViewBag.PostOffices = EmployeeInfo.postOffices;
-
             return View();
         }
     }
