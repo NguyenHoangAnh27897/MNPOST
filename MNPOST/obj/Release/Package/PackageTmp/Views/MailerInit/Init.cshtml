@@ -173,7 +173,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Mã người gửi</label>
-                                        <select ui-select2="select2Options" ng-model="senderExcelInfo.senderID" class="form-control js-example-basic-single" ng-change="changeExcelCus()" required>
+                                        <select ui-select2="select2OptionsWidth100" ng-model="senderExcelInfo.senderID" class="form-control js-example-basic-single" ng-change="changeExcelCus()" required>
                                             <option ng-repeat="item in customers" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
@@ -195,20 +195,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Tỉnh thành gửi</label>
-                                        <select class="form-control" ng-model="senderExcelInfo.senderProvince" ng-change="provinceExcelChange('district', 'send')" required>
+                                        <select class="form-control" ng-model="senderExcelInfo.senderProvince" ng-change="provinceExcelChange('district')" required>
                                             <option ng-repeat="item in provinceSend" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Quận huyện gửi</label>
-                                        <select class="form-control" ng-model="senderExcelInfo.senderDistrict" ng-change="provinceExcelChange('ward', 'send')" required>
+                                        <select class="form-control" ng-model="senderExcelInfo.senderDistrict" required>
                                             <option ng-repeat="item in districtSend" value="{{item.code}}">{{item.name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phường xã gửi</label>
-                                        <select class="form-control" ng-model="senderExcelInfo.senderWard" required>
-                                            <option ng-repeat="item in wardSend" value="{{item.code}}">{{item.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

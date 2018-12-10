@@ -73,7 +73,7 @@ namespace MNPOST.Controllers.mailer
 
         #region
         [HttpPost]
-        public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string senderWard, string postId)
+        public ActionResult InsertByExcel(HttpPostedFileBase files, string senderID, string senderAddress, string senderName, string senderPhone, string senderProvince, string senderDistrict, string postId)
         {
             MailerHandleCommon mailerHandle = new MailerHandleCommon(db);
             List<MailerIdentity> mailers = new List<MailerIdentity>();
@@ -86,7 +86,6 @@ namespace MNPOST.Controllers.mailer
             string path = "";
             try
             {
-
                 // check sender
                 var checkSender = db.BS_Customers.Where(p => p.CustomerCode == senderID).FirstOrDefault();
 
@@ -101,10 +100,6 @@ namespace MNPOST.Controllers.mailer
                 var checkSendDistrict = db.BS_Districts.Find(senderDistrict);
                 if (checkSendDistrict == null)
                     throw new Exception("Sai thông tin quận huyện ");
-
-                var checkSendWard = db.BS_Wards.Find(senderWard);
-                if (checkSendWard == null)
-                    throw new Exception("Sai thông tin phường xã ");
 
                 if (files == null || files.ContentLength <= 0)
                     throw new Exception("Thiếu file Excel");
@@ -136,19 +131,14 @@ namespace MNPOST.Controllers.mailer
                     int receiAddressIdx = -1;
                     int receiProvinceIdx = -1;
                     int receiDistrictIdx = -1;
-                    int receiWardIdx = -1;
                     int mailerTypeIdx = -1;
                     int payTypeIdx = -1;
                     int codIdx = -1;
                     int merchandiseIdx = -1;
                     int weigthIdx = -1;
                     int quantityIdx = -1;
-                    int lengthIdx = -1;
-                    int widthIdx = -1;
-                    int heightIdx = -1;
                     int notesIdx = -1;
                     int desIdx = -1;
-                    int otherPriceIdx = -1;
 
                     // lay index col tren excel
                     for (int i = 0; i < totalCols; i++)
@@ -182,9 +172,6 @@ namespace MNPOST.Controllers.mailer
                                 case "6":
                                     receiDistrictIdx = i + 1;
                                     break;
-                                case "7":
-                                    receiWardIdx = i + 1;
-                                    break;
                                 case "8":
                                     mailerTypeIdx = i + 1;
                                     break;
@@ -203,23 +190,11 @@ namespace MNPOST.Controllers.mailer
                                 case "13":
                                     quantityIdx = i + 1;
                                     break;
-                                case "14":
-                                    lengthIdx = i + 1;
-                                    break;
-                                case "15":
-                                    widthIdx = i + 1;
-                                    break;
-                                case "16":
-                                    heightIdx = i + 1;
-                                    break;
                                 case "17":
                                     notesIdx = i + 1;
                                     break;
                                 case "18":
                                     desIdx = i + 1;
-                                    break;
-                                case "19":
-                                    otherPriceIdx = i + 1;
                                     break;
                             }
 
@@ -235,8 +210,9 @@ namespace MNPOST.Controllers.mailer
 
                     for (int i = 2; i <= totalRows; i++)
                     {
-                        string mailerId = mailerCodeIdx == -1 ? mailerHandle.GeneralMailerCode("") : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
-
+                        string mailerId = mailerCodeIdx == -1 ? mailerHandle.GeneralMailerCode(postId) : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
+                        if (String.IsNullOrEmpty(mailerId))
+                            mailerId = mailerHandle.GeneralMailerCode(postId);
                         //
                         string receiverPhone = Convert.ToString(sheet.Cells[i, receiPhoneIdx].Value);
                         if (String.IsNullOrEmpty(receiverPhone))
@@ -252,27 +228,20 @@ namespace MNPOST.Controllers.mailer
                             throw new Exception("Dòng " + (i) + " cột " + receiAddressIdx + " : thiếu thông tin");
                         // 
                         string receiverProvince = Convert.ToString(sheet.Cells[i, receiProvinceIdx].Value);
-                        var checkProvince = db.BS_Provinces.Find(receiverProvince);
+                        var checkProvince = db.BS_Provinces.Where(p=> p.ProvinceCode == receiverProvince).FirstOrDefault();
                         if (checkProvince == null)
                             throw new Exception("Dòng " + (i) + " cột " + receiProvinceIdx + " : sai thông tin");
 
                         //
                         string receiverDistrict = Convert.ToString(sheet.Cells[i, receiDistrictIdx].Value);
-                        var checkDistrict = db.BS_Districts.Find(receiverDistrict);
+                        var receiverDistrictSplit = receiverDistrict.Split('-');
+                        var checkDistrict = db.BS_Districts.Find(receiverDistrictSplit[0]);
                         if (checkDistrict == null)
                             throw new Exception("Dòng " + (i) + " cột " + receiDistrictIdx + " : sai thông tin");
 
-                        //
-                        string receiverWard = receiWardIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, receiWardIdx].Value);
-                        if (receiWardIdx != -1)
-                        {
-                            var checkWard = db.BS_Wards.Find(receiverWard);
-                            receiverWard = checkWard == null ? "" : receiverWard;
-                        }
-
-                        //
                         string mailerType = Convert.ToString(sheet.Cells[i, mailerTypeIdx].Value);
-                        var checkMailerType = db.BS_ServiceTypes.Find(mailerType);
+                        var checkMailerTypeSplit = mailerType.Split('-');
+                        var checkMailerType = db.BS_ServiceTypes.Find(checkMailerTypeSplit[0]);
                         if (checkMailerType == null)
                             throw new Exception("Dòng " + (i) + " cột " + mailerTypeIdx + " : sai thông tin");
 
@@ -280,6 +249,8 @@ namespace MNPOST.Controllers.mailer
                         var mailerPay = payTypeIdx == -1 ? "NGTT" : Convert.ToString(sheet.Cells[i, payTypeIdx].Value);
                         if (payTypeIdx != -1)
                         {
+                            var mailerPaySplit = mailerPay.Split('-');
+                            mailerPay = mailerPaySplit[0];
                             var checkMailerPay = db.CDatas.Where(p => p.Code == mailerPay && p.CType == "MAILERPAY").FirstOrDefault();
                             mailerPay = checkMailerPay == null ? "NGTT" : checkMailerPay.Code;
                         }
@@ -295,6 +266,8 @@ namespace MNPOST.Controllers.mailer
 
                         // hang hoa
                         var merchandisType = Convert.ToString(sheet.Cells[i, merchandiseIdx].Value);
+                        var merchandisTypeSplit = merchandisType.Split('-');
+                        merchandisType = merchandisTypeSplit[0];
                         var checkMerchandisType = db.CDatas.Where(p => p.Code == merchandisType && p.CType == "GOODTYPE").FirstOrDefault();
                         if (checkMerchandisType == null)
                             throw new Exception("Dòng " + (i) + " cột " + merchandiseIdx + " : sai thông tin");
@@ -314,36 +287,13 @@ namespace MNPOST.Controllers.mailer
                         var quantityValue = sheet.Cells[i, quantityIdx].Value;
                         var isQuantityNumber = quantityIdx == -1 ? false : Regex.IsMatch(quantityValue == null ? "0" : quantityValue.ToString(), @"^\d+$");
                         var quantity = isQuantityNumber ? Convert.ToInt32(quantityValue) : 0;
-
-
-                        // dai
-                        var lengthValue = sheet.Cells[i, lengthIdx].Value;
-                        var isLengthNumber = lengthIdx == -1 ? false : Regex.IsMatch(lengthValue == null ? "0" : lengthValue.ToString(), @"^\d+$");
-                        var length = isLengthNumber ? Convert.ToDouble(lengthValue) : 0;
-
-                        // rong
-                        var widthValue = sheet.Cells[i, widthIdx].Value;
-                        var isWidthNumber = widthIdx == -1 ? false : Regex.IsMatch(widthValue == null ? "0" : widthValue.ToString(), @"^\d+$");
-                        var width = isWidthNumber ? Convert.ToDouble(widthValue) : 0;
-
-                        //cao
-                        var heightValue = sheet.Cells[i, heightIdx].Value;
-                        var isHeightNumber = heightIdx == -1 ? false : Regex.IsMatch(heightValue == null ? "0" : heightValue.ToString(), @"^\d+$");
-                        var height = isHeightNumber ? Convert.ToDouble(heightValue) : 0;
-
                         //
                         string notes = notesIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, notesIdx].Value);
 
                         //
                         string describe = desIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, desIdx].Value);
 
-                        // phu phi
-                        var otherPriceValue = sheet.Cells[i, otherPriceIdx].Value;
-                        var isOtherPirce = otherPriceIdx == -1 ? false : Regex.IsMatch(otherPriceValue == null ? "0" : otherPriceValue.ToString(), @"^\d+$");
-                        var otherPrice = isHeightNumber ? Convert.ToDecimal(otherPriceValue) : 0;
-
-
-                        var price = db.CalPrice(weight, senderID, senderProvince, mailerType, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                        var price = db.CalPrice(weight, senderID, checkProvince.ProvinceID, checkMailerType.ServiceID, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
                         var codPrice = 0;
 
 
@@ -352,37 +302,34 @@ namespace MNPOST.Controllers.mailer
                             MailerID = mailerId,
                             COD = cod,
                             PriceCoD = codPrice,
-                            HeightSize = height,
-                            LengthSize = length,
+                            HeightSize = 0,
+                            LengthSize = 0,
                             MailerDescription = describe,
-                            MailerTypeID = mailerType,
+                            MailerTypeID = checkMailerType.ServiceID,
                             MerchandiseID = merchandisType,
                             MerchandiseValue = cod,
                             Notes = notes,
                             PaymentMethodID = mailerPay,
                             PriceDefault = price,
-                            Amount = price + otherPrice + codPrice,
-                            PriceService = otherPrice,
+                            Amount = price  + codPrice,
+                            PriceService = 0,
                             Quantity = quantity,
                             RecieverAddress = receiverAddress,
-                            RecieverDistrictID = receiverDistrict,
+                            RecieverDistrictID = checkDistrict.DistrictID,
                             RecieverName = receiver,
                             RecieverPhone = receiverPhone,
-                            RecieverProvinceID = receiverProvince,
-                            RecieverWardID = receiverWard,
+                            RecieverProvinceID = checkProvince.ProvinceID,
                             Weight = weight,
-                            WidthSize = width,
+                            WidthSize = 0,
                             SenderID = senderID,
                             SenderAddress = senderAddress,
                             SenderDistrictID = senderDistrict,
                             SenderName = senderName,
                             SenderPhone = senderPhone,
-                            SenderProvinceID = senderProvince,
-                            SenderWardID = senderWard
+                            SenderProvinceID = senderProvince
                         });
 
                     }
-
                     // xoa file temp
                     package.Dispose();
                     if (System.IO.File.Exists(path))

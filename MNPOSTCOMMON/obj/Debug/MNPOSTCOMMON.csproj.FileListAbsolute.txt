@@ -39,3 +39,4 @@ D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\bin\Debug\EntityFramework.SqlServe
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.dll
 D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.pdb
 D:\LapTrinh\Win\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache
+D:\work\Project\007MNPost\MNPOST\MNPOSTCOMMON\obj\Debug\MNPOSTCOMMON.csprojResolveAssemblyReference.cache

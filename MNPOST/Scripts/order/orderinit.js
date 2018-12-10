@@ -370,12 +370,10 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
                 if (pType === "ward") {
                     $scope.mailers[idx].ListWardRecive = angular.copy(response.data);
                 }
-            }
+            } 
             if (typeof (callback) === typeof (Function)) {
                 callback();
             }
-                  
-
         });
 
     };
@@ -392,10 +390,12 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             $scope.senderExcelInfo.senderDistrict = cus.districtId;
             $scope.senderExcelInfo.senderWard = cus.wardId;
             $scope.senderExcelInfo.postId = mailerService.getPost();
+
+            $scope.provinceExcelChange("district");
         }
     };
 
-    $scope.provinceExcelChange = function (pType, type) {
+    $scope.provinceExcelChange = function (pType) {
 
         var url = '/mailerinit/GetProvinces?';
 
@@ -428,7 +428,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             data: {
                 'weight': info.Weight,
                 'customerId': info.SenderID,
-                'provinceId': info.SenderProvinceID,
+                'provinceId': info.RecieverProvinceID,
                 'serviceTypeId': info.MailerTypeID,
                 'postId': mailerService.getPost(),
                 'cod': info.COD,
@@ -484,14 +484,16 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
                     showLoader(false);
                     var result = angular.fromJson(response);
                     console.log(result);
+                    uiUploader.removeAll();
+                    inserByExcelElement.value = "";
                     if (result.error === 1) {
                         alert(result.msg);
                     } else {
-                        uiUploader.removeAll();
-                        inserByExcelElement.value = "";
+                       
                         hideModel('insertbyexcel');
                         for (var i = 0; i < result.data.length; i++) {
                             mailerService.addMailer(result.data[i]);
+      
                         }
                         $scope.$apply();
                     }
