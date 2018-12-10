@@ -301,3 +301,15 @@ D:\work\Project\007MNPost\MNPOST\MNPOST\bin\Microsoft.Owin.Security.MicrosoftAcc
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.csprojResolveAssemblyReference.cache
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.dll
 D:\work\Project\007MNPost\MNPOST\MNPOST\obj\Debug\MNPOST.pdb
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+D:\LapTrinh\Win\MNPOST\MNPOST\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
