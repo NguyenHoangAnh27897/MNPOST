@@ -75,13 +75,13 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
             var reportDelivery = db.DELIVERY_GETREPORT_EMPLOYEE(employeeId, fDate, tDate).Select(p => new
             {
                 code = p.DeliveryStatus,
-                quantity = p.CountMailer
+                data = p.CountMailer
             }).ToList();
 
             var reportCOD = db.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID(employeeId, fDate, tDate).Select(p => new
             {
                 code = p.AccountantConfirm,
-                quantity = p.MoneySum
+                data = p.MoneySum
             }).ToList();
 
             return new ResponseInfo()

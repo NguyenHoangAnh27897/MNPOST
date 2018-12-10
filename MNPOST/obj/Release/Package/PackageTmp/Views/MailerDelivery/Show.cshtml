@@ -405,14 +405,14 @@
                         </div>
 
                         <div class="col-sm-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive scrollmenu">
 
-                                <ul class="listroutes">
+                                <ul class="listroutes ">
                                     <li><span>Tổng vận đơn cần phân phát: <strong>{{countMailers}}</strong></span></li>
                                     <li ng-repeat="item in autoRoutes">
                                         <span><strong>{{item.EmployeeName + '-' + item.EmployeeID}}</strong></span><br />
                                         <a href="#" class="label label-primary" ng-click="createAutoOneEmployee($index)" ng-show="item.Mailers.length > 0">Tạo bảng kê phát</a>
-                                        <table class="table table-striped scrollmenu">
+                                        <table class="table table-striped ">
                                             <thead>
                                                 <tr class="headings">
                                                     <th>STT</th>

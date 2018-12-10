@@ -428,7 +428,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
             data: {
                 'weight': info.Weight,
                 'customerId': info.SenderID,
-                'provinceId': info.SenderProvinceID,
+                'provinceId': info.RecieverProvinceID,
                 'serviceTypeId': info.MailerTypeID,
                 'postId': mailerService.getPost(),
                 'cod': info.COD,
@@ -706,7 +706,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
             data: {
                 'weight': $scope.mailer.Weight,
                 'customerId': $scope.mailer.SenderID,
-                'provinceId': $scope.mailer.SenderProvinceID,
+                'provinceId': $scope.mailer.RecieverProvinceID,
                 'serviceTypeId': $scope.mailer.MailerTypeID,
                 'postId': mailerService.getPost(),
                 'cod': $scope.mailer.COD,

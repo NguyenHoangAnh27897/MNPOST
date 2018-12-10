@@ -385,7 +385,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         var date = $('#deliveryRouteDate').val();
         showLoader(true);
         $http({
-            method: "POsT",
+            method: "POST",
             url: "/mailerdelivery/CreateFromRoutes",
             data: {
                 routes: routesSend,
@@ -396,7 +396,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
             for (var i = 0; i < response.data.length; i++) {
                 $scope.allDeliveries.unshift(response.data[i]);
-
             }
             showLoader(false);
             hideModel('autoRoutes');
