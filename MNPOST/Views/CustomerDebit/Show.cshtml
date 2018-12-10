@@ -8,7 +8,7 @@
         <div class="x_panel">
             <div class="x_content">
                 <div class="x_title">
-                    <h2>Cong nợ khách hàng</h2>
+                    <h2>Công nợ khách hàng</h2>
                     <div class="nav navbar-right">
                         <a class="btn btn-success" ng-click="addNew()">Tạo bảng kê</a>
                         <a class="btn btn-primary" ng-click="printBK()">In bảng kê</a>
@@ -59,6 +59,8 @@
                                                 <th>Khách hàng</th>
                                                 <th>Tháng</th>
                                                 <th>Số tiền nợ</th>
+                                                <th>Thanh toán</th>
+                                                <th>#</th>
                                                 <th>#</th>
                                                 <th>#</th>
                                             </tr>
@@ -72,9 +74,10 @@
                                                 <td>{{item.CustomerName}}</td>
                                                 <td>{{item.DebtMonth.slice(6, -2) | date : 'MM/yyyy'}}</td>
                                                 <td>{{item.TotalAmount}}</td>
+                                                <td><a href="#" ng-class="{'fa fa-check' : item.StatusID == 1, 'fa fa-close' : item.StatusID == 0}" ng-click="thanhtoan($index)"></a></td>
                                                 <td><a href="#" class="btn-xs btn-primary" ng-click="edit($index)">Xem</a></td>
                                                 <td><a href="#" class="btn-xs btn-danger" ng-click="sendDelete($index)">Xóa</a></td>
-                                                <td><a href="#" ng-click="showPDF('/customerdebit/ShowReport?docid=' + item.DocumentID)">Report</a></td>
+                                                <td><a href="#" class="btn-xs btn-info" ng-click="showPDF('/customerdebit/ShowReport?docid=' + item.DocumentID)">Report</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -375,10 +378,7 @@
             }
                 showModel('khachhangmodal');
             };
-        //xóa những dòng không cần tính công nợ
-        $scope.xoa = function (index) {
-            $scope.AllSoCaBiet.splice(index, 1);
-        }
+        
 
         $scope.addNew = function () {
             //var date = new Date();
@@ -401,7 +401,6 @@
             $http.get('/customerdebit/getDetail?documentid=' + $scope.CongNo.DocumentID).then(function (response) {
                 var result = response.data;
                 $scope.allChiTiet = result;
-                console.log($scope.allChiTiet);
             });
 
         };
@@ -498,7 +497,45 @@
             } else {
 
             }
-        }
+        };
+        // xác nhận thanh toán
+        $scope.thanhtoan = function (index) {
+            var info = $scope.allDanhMuc[index];
+            if (info.StatusID === 0) {
+                var r = confirm("Bạn có chắc muốn thanh toán ?");
+                if (r == true) {
+                    showLoader(true);
+                    $http({
+                        method: "POST",
+                        url: "/CustomerDebit/thanhtoan",
+                        data: { documentid: info.DocumentID }
+                    }).then(
+                        function success(response) {
+
+                            var result = response.data;
+
+                            if (result.error == 0) {
+                                $scope.GetData();
+                            } else {
+
+                                alert(result.msg);
+
+                            }
+                            showLoader(false);
+
+                        },
+                        function errror(response) {
+                            showLoader(false);
+                            showNotify("connect has disconnect");
+                        }
+                        );
+                } else {
+
+                }
+            } else {
+                showNotify('Bảng kê đã được xác nhận thanh toán');
+            }          
+        };
         //in bang ke cong no
         //chon tat ca bang ke tren man hình
         $scope.chkAll = false;

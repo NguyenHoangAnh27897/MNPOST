@@ -62,6 +62,8 @@ namespace MNPOST.Controllers.customerdebit
                             CustomerName = cg.CustomerGroupName,
                             TotalAmount = cdv.ToTalAmount,
                             DebtMonth = cdv.DebtMonth,
+                            StatusID = cdv.StatusID,
+                            Description = cdv.Description
 
                         }).ToList();
             // var data;
@@ -412,6 +414,22 @@ namespace MNPOST.Controllers.customerdebit
             db.AC_CustomerDebitVoucherDetail.RemoveRange(db.AC_CustomerDebitVoucherDetail.Where(p => p.DocumentID == documentid));
 
             db.Entry(check).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+            return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult thanhtoan(string documentid)
+        {
+            if (String.IsNullOrEmpty(documentid))
+                return Json(new ResultInfo() { error = 1, msg = "Missing info" }, JsonRequestBehavior.AllowGet);
+
+            var check = db.AC_CustomerDebitVoucher.Where(p => p.DocumentID == documentid).FirstOrDefault();
+
+            if (check == null)
+                return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
+
+            check.StatusID = 1;
+            db.Entry(check).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
         }
