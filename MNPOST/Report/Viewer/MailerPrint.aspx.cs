@@ -40,12 +40,18 @@ namespace MNPOST.Report.Viewer
                 SenderDistrictName = p.SendDistrictName,
                 SenderProvinceName = p.SendProvinceName,
                 PostOfficeName = p.PostOfficeName,
-                TL = p.MerchandiseID == "T" ? "X" : "",
-                HH = p.MerchandiseID == "H" ? "X" : "",
-                MH = p.MerchandiseID == "M" ? "X" : "",
-                N = p.MailerTypeID == "SN" ? "X" : "",
-                DB = p.MerchandiseID == "ST" ? "X" : "",
-                TK = p.MerchandiseID == "TK" ? "X" : "",
+                TL = p.MerchandiseID == "T" ? "X" : ".",
+                HH = p.MerchandiseID == "H" ? "X" : ".",
+                MH = p.MerchandiseID == "M" ? "X" : ".",
+                N = p.MailerTypeID == "SN" ? "X" : ".",
+                DB = p.MerchandiseID == "ST" ? "X" : ".",
+                TK = p.MerchandiseID == "TK" ? "X" : ".",
+                COD = p.COD.Value.ToString("C", MNPOST.Utils.Cultures.VietNam),
+                Weight = p.Weight.ToString(),
+                Quantity = p.Quantity.ToString(),
+                Amount= p.Amount.Value.ToString("C", MNPOST.Utils.Cultures.VietNam),
+                Price = p.Price.Value.ToString("C", MNPOST.Utils.Cultures.VietNam),
+                ServicePrice = p.PriceService.Value.ToString("C", MNPOST.Utils.Cultures.VietNam)
             }).ToList();
 
             if (mailer == null)

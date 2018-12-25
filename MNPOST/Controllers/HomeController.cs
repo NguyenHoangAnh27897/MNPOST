@@ -28,5 +28,14 @@ namespace MNPOST.Controllers
 
             return View();
         }
+
+
+        [AllowAnonymous]
+        public ActionResult Show()
+        {
+    
+
+            return View();
+        }
     }
 }

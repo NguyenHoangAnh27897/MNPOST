@@ -333,5 +333,222 @@ namespace MNPOSTAPI.Controllers.web
         }
 
 
+        [HttpGet]
+        public ResultInfo ReportCusCoD(string cusId)
+        {
+            var findCus = db.BS_Customers.Where(p => p.CustomerCode == cusId).FirstOrDefault();
+
+            if (findCus == null)
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không có chơi phá"
+                };
+
+            var findAllCus = db.BS_Customers.Where(p => p.CustomerGroupID == findCus.CustomerGroupID).Select(p => p.CustomerCode).ToList();
+
+            var data = db.MM_Mailers.Where(p => findAllCus.Contains(p.SenderID) && p.PaidCoD != 2 && p.COD > 0).ToList();
+
+            var countMailer = data.Count();
+            var sumCoD = data.Sum(p => p.COD);
+
+            return new ResponseInfo()
+            {
+                error = 0,
+                data = new
+                {
+                    countMailer = countMailer,
+                    sumCoD = sumCoD
+                }
+            };
+        }
+
+
+        [HttpPost]
+        public ResultInfo CoDBill()
+        {
+            ResultInfo result = new ResultInfo()
+            {
+                error = 0,
+                msg = "Them moi thanh cong"
+            };
+
+            try
+            {
+                var requestContent = Request.Content.ReadAsStringAsync().Result;
+
+                var jsonserializer = new JavaScriptSerializer();
+                var paser = jsonserializer.Deserialize<CoDShowRequest>(requestContent);
+
+                int pageSize = 50;
+
+                int pageNumber = (paser.page ?? 1);
+
+
+                DateTime paserFromDate = DateTime.Now;
+                DateTime paserToDate = DateTime.Now;
+
+                try
+                {
+                    paserFromDate = DateTime.ParseExact(paser.fromDate, "dd/MM/yyyy", null);
+                    paserToDate = DateTime.ParseExact(paser.toDate, "dd/MM/yyyy", null);
+                }
+                catch
+                {
+                    paserFromDate = DateTime.Now;
+                    paserToDate = DateTime.Now;
+                }
+
+                var findCus = db.BS_Customers.Where(p => p.CustomerCode == paser.customerId).FirstOrDefault();
+                if (findCus == null)
+                    throw new Exception("sai thông tin");
+
+                var findGroup = db.BS_CustomerGroups.Find(findCus.CustomerGroupID);
+
+                if (findGroup == null)
+                    throw new Exception("sai thông tin");
+
+                var data = db.CUSTOMER_COD_DEBIT_GETDOCUMENTS(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), "%" + findGroup.CustomerGroupCode + "%").ToList();
+
+                result = new ResultWithPaging()
+                {
+                    error = 0,
+                    msg = "",
+                    page = pageNumber,
+                    pageSize = pageSize,
+                    toltalSize = data.Count(),
+                    data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
+                };
+
+            }
+            catch (Exception e)
+            {
+                result.error = 1;
+                result.msg = e.Message;
+            }
+            return result;
+        }
+
+
+        [HttpGet]
+        public ResultInfo GetCoDBillDetail(string documentId)
+        {
+            var data = db.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS(documentId).ToList();
+
+            return new ResponseInfo()
+            {
+                error = 0,
+                data = data
+            };
+        }
+
+
+        // cong no
+        [HttpGet]
+        public ResultInfo CustomerDebitNoPaid (string cusId)
+        {
+            // danh sách các thang chưa thanh tonas
+            var findCus = db.BS_Customers.Where(p => p.CustomerCode == cusId).FirstOrDefault();
+
+            if (findCus == null)
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không có chơi phá"
+                };
+
+            var findGroup = db.BS_CustomerGroups.Find(findCus.CustomerGroupID);
+            if (findGroup == null)
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không có chơi phá"
+                };
+
+            var data = db.CUSTOMER_DEBIT_GET_NOPAID(findGroup.CustomerGroupCode).ToList();
+
+            return new ResponseInfo()
+            {
+                data = data,
+                error = 0,
+                msg = ""
+            };
+
+        }
+
+        [HttpGet]
+        public ResultInfo CustomerDebitFindByMonth(string cusId, int month, int year)
+        {
+            // danh sách các thang chưa thanh tonas
+            var findCus = db.BS_Customers.Where(p => p.CustomerCode == cusId).FirstOrDefault();
+
+            if (findCus == null)
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không có chơi phá"
+                };
+
+            var findGroup = db.BS_CustomerGroups.Find(findCus.CustomerGroupID);
+            if (findGroup == null)
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không có chơi phá"
+                };
+
+            var data = db.CUSTOMER_DEBIT_FIND_BYDebtMonth(findGroup.CustomerGroupCode, month, year).FirstOrDefault();
+
+            return new ResponseInfo()
+            {
+                data = data,
+                error = 0,
+                msg = ""
+            };
+
+        }
+
+        //lay ra danh sach chi tiet phieu gui dua vao documentid
+        [HttpGet]
+        public ResultInfo CustomerDebitDetail(string documentid)
+        {
+            var data = (from mm in db.MM_Mailers
+                        join d in db.AC_CustomerDebitVoucherDetail
+                        on mm.MailerID equals d.MailerID
+                        join p in db.BS_Provinces
+                        on mm.RecieverProvinceID equals p.ProvinceID
+                        where d.DocumentID == documentid
+                        select new
+                        {
+                            MailerID = mm.MailerID,
+                            AcceptDate = mm.AcceptDate,
+                            ReciveprovinceID = p.ProvinceCode,
+                            MerchandiseID = mm.MerchandiseID,
+                            MailerTypeID = mm.MailerTypeID,
+                            Quantity = mm.Quantity,
+                            Weight = mm.Weight,
+                            Price = mm.Price,
+                            PriceService = mm.PriceService,
+                            Discount = mm.Discount,
+                            Amount = mm.Amount,
+                            COD = mm.COD
+                        }).ToList();
+            if (data == null)
+            {
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Không tìm th?y"
+                };
+            }
+
+            return new ResponseInfo()
+            {
+                data = data,
+                error = 0,
+                msg = ""
+            };
+        }
+
     }
 }

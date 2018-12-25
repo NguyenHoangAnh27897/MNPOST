@@ -86,25 +86,24 @@ namespace MNPOST.Controllers.customerdebit
                 if (checkMailer == null)
                     continue;
 
-                if(checkMailer.PaidCoD == null || checkMailer.PaidCoD == 0)
+                var detail = new AC_CODDebitVoucherDetails()
                 {
-                    var detail = new AC_CODDebitVoucherDetails()
-                    {
-                        CreateDate = DateTime.Now,
-                        DocumentID = document.DocumentID,
-                        MailerID = item,
-                        Money = Convert.ToDouble(checkMailer.COD)
-                    };
-                    db.AC_CODDebitVoucherDetails.Add(detail);
+                    CreateDate = DateTime.Now,
+                    DocumentID = document.DocumentID,
+                    MailerID = item,
+                    Money = Convert.ToDouble(checkMailer.COD)
+                };
+                db.AC_CODDebitVoucherDetails.Add(detail);
+                db.SaveChanges();
 
-                    checkMailer.PaidCoD = 1;
-                    checkMailer.PaidDate = DateTime.Now;
-                    checkMailer.PaidNotes = notes;
-                    checkMailer.EmployeePaid = EmployeeInfo.employeeId;
 
-                    db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
+                checkMailer.PaidCoD = 1;
+                checkMailer.PaidDate = DateTime.Now;
+                checkMailer.PaidNotes = notes;
+                checkMailer.EmployeePaid = EmployeeInfo.employeeId;
+
+                db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
             }
 
 

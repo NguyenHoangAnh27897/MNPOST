@@ -39,7 +39,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.BS_Routes" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Services" Width="1.5" PointX="16.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_ServiceTypes" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_Wards" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_Wards" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Zones" Width="1.5" PointX="8.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.CData" Width="1.5" PointX="18.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.EmpployeeDebitCOD" Width="1.5" PointX="4.75" PointY="18.75" IsExpanded="true" />

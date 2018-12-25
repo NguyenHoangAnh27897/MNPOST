@@ -40,5 +40,17 @@ namespace MNPOST.Models
         public string DB { get; set; }
         //tiet kiem
         public string TK { get; set; }
+
+        public string COD { get; set; }
+
+        public string Weight { get; set; }
+
+        public string Quantity { get; set; }
+
+        public string Price { get; set; }
+
+        public string ServicePrice { get; set; }
+
+        public string Amount { get; set; }
     }
 }

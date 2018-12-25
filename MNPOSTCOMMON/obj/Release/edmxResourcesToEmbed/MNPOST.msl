@@ -1524,6 +1524,12 @@
           <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
           <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
           <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+          <ScalarProperty Name="PaidCoD" ColumnName="PaidCoD" />
+          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+          <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
+          <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
+          <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
+          <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1577,6 +1583,12 @@
           <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
           <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
           <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+          <ScalarProperty Name="PaidCoD" ColumnName="PaidCoD" />
+          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+          <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
+          <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
+          <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
+          <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -2232,5 +2244,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_DEBIT_FIND_BYDebtMonth" FunctionName="MNPOSTModel.Store.CUSTOMER_DEBIT_FIND_BYDebtMonth">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_DEBIT_FIND_BYDebtMonth_Result">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+          <ScalarProperty Name="DMonthn" ColumnName="DMonthn" />
+          <ScalarProperty Name="DYear" ColumnName="DYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_DEBIT_GET_NOPAID" FunctionName="MNPOSTModel.Store.CUSTOMER_DEBIT_GET_NOPAID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_DEBIT_GET_NOPAID_Result">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+          <ScalarProperty Name="DMonthn" ColumnName="DMonthn" />
+          <ScalarProperty Name="DYear" ColumnName="DYear" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

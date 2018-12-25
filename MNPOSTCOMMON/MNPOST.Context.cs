@@ -842,5 +842,31 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_customerforcommission", postParameter, debtMonthParameter, debtYearParameter);
         }
+    
+        public virtual ObjectResult<CUSTOMER_DEBIT_FIND_BYDebtMonth_Result> CUSTOMER_DEBIT_FIND_BYDebtMonth(string cusId, Nullable<int> month, Nullable<int> year)
+        {
+            var cusIdParameter = cusId != null ?
+                new ObjectParameter("cusId", cusId) :
+                new ObjectParameter("cusId", typeof(string));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_FIND_BYDebtMonth_Result>("CUSTOMER_DEBIT_FIND_BYDebtMonth", cusIdParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<CUSTOMER_DEBIT_GET_NOPAID_Result> CUSTOMER_DEBIT_GET_NOPAID(string cusId)
+        {
+            var cusIdParameter = cusId != null ?
+                new ObjectParameter("cusId", cusId) :
+                new ObjectParameter("cusId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_GET_NOPAID_Result>("CUSTOMER_DEBIT_GET_NOPAID", cusIdParameter);
+        }
     }
 }

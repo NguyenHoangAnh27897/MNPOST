@@ -1165,6 +1165,14 @@
     <Parameter Name="cusId" Type="varchar" Mode="In" />
   </Function>
   <Function Name="CUSTOMER_COD_DEBIT_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="CUSTOMER_DEBIT_FIND_BYDebtMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cusId" Type="nvarchar" Mode="In" />
+    <Parameter Name="month" Type="int" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CUSTOMER_DEBIT_GET_NOPAID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cusId" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupID" Type="nvarchar" Mode="In" />
   </Function>

@@ -98,9 +98,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
         if (listMailers === '') {
             showNotify("Phải chọn vận đơn để in");
         } else {
-            window.open("/Report/Viewer/MailerPrint.aspx?mailer=" + listMailers, "_blank");
+            $scope.showPDF('/report/PhieuGui?mailerId=' + listMailers);
         }
-
+        
     };
 
     $scope.tracks = [];
@@ -305,6 +305,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
                 $scope.wardRecei = angular.copy(response.data.wards);
             }
         });
+    };
+
+    $scope.showPDF = function (url) {
+
+        runShowPDF(url);
     };
 
 });

@@ -19,6 +19,8 @@ namespace MNPOST.Report.customer
         public decimal GiamTru { get; set; }
         public decimal VAT { get; set; }
         public decimal TongTien {get;set;}
+        public string GhiChu { get; set; }
+        public string DebtMonth { get; set; }
 
     }
     public class CustomerDebitDetail

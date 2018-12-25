@@ -1170,6 +1170,14 @@
           <Parameter Name="cusId" Type="varchar" Mode="In" />
         </Function>
         <Function Name="CUSTOMER_COD_DEBIT_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CUSTOMER_DEBIT_FIND_BYDebtMonth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cusId" Type="nvarchar" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CUSTOMER_DEBIT_GET_NOPAID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cusId" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupID" Type="nvarchar" Mode="In" />
         </Function>
@@ -2814,6 +2822,14 @@
             <Parameter Name="DebtYear" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="MM_ComissionPolicys" EntityType="MNPOSTModel.MM_ComissionPolicys" />
+          <FunctionImport Name="CUSTOMER_DEBIT_FIND_BYDebtMonth" ReturnType="Collection(MNPOSTModel.CUSTOMER_DEBIT_FIND_BYDebtMonth_Result)">
+            <Parameter Name="cusId" Mode="In" Type="String" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CUSTOMER_DEBIT_GET_NOPAID" ReturnType="Collection(MNPOSTModel.CUSTOMER_DEBIT_GET_NOPAID_Result)">
+          <Parameter Name="cusId" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CODCUSTOMER_TRANSFER_Result">
           <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
@@ -3231,6 +3247,12 @@
           <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
           <Property Type="String" Name="ReceiWardName" Nullable="true" />
           <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PaidCoD" Nullable="true" />
+          <Property Type="String" Name="PaidDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmployeePaid" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="PaidNotes" Nullable="true" />
+          <Property Type="String" Name="PaidCoDInvoice" Nullable="true" />
+          <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
           </ComplexType>
         <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -3280,6 +3302,12 @@
           <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
           <Property Type="String" Name="ReceiWardName" Nullable="true" />
           <Property Type="String" Name="PostOfficeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PaidCoD" Nullable="true" />
+          <Property Type="String" Name="PaidDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmployeePaid" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="PaidNotes" Nullable="true" />
+          <Property Type="String" Name="PaidCoDInvoice" Nullable="true" />
+          <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
           </ComplexType>
         <ComplexType Name="MAILER_GETTRACKING_Result">
           <Property Type="String" Name="MailerID" Nullable="true" MaxLength="128" />
@@ -3825,6 +3853,28 @@
           <Property Name="LimitValue" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="AllMethod" Type="Int32" />
         </EntityType>
+        <ComplexType Name="CUSTOMER_DEBIT_FIND_BYDebtMonth_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="Double" Name="TotalAmount" Nullable="true" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="DebtMonth" Nullable="true" MaxLength="61" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+          <Property Type="String" Name="DMonthn" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DYear" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="CUSTOMER_DEBIT_GET_NOPAID_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="Double" Name="TotalAmount" Nullable="true" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="CustomerGroupCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="DebtMonth" Nullable="true" MaxLength="61" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+          <Property Type="String" Name="DMonthn" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DYear" Nullable="true" MaxLength="30" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5354,6 +5404,12 @@
                 <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
                 <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
                 <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+                <ScalarProperty Name="PaidCoD" ColumnName="PaidCoD" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
+                <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
+                <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
+                <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5407,6 +5463,12 @@
                 <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
                 <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
                 <ScalarProperty Name="PostOfficeName" ColumnName="PostOfficeName" />
+                <ScalarProperty Name="PaidCoD" ColumnName="PaidCoD" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="EmployeePaid" ColumnName="EmployeePaid" />
+                <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
+                <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
+                <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6062,6 +6124,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_DEBIT_FIND_BYDebtMonth" FunctionName="MNPOSTModel.Store.CUSTOMER_DEBIT_FIND_BYDebtMonth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_DEBIT_FIND_BYDebtMonth_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+                <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+                <ScalarProperty Name="DMonthn" ColumnName="DMonthn" />
+                <ScalarProperty Name="DYear" ColumnName="DYear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_DEBIT_GET_NOPAID" FunctionName="MNPOSTModel.Store.CUSTOMER_DEBIT_GET_NOPAID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.CUSTOMER_DEBIT_GET_NOPAID_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+                <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+                <ScalarProperty Name="DMonthn" ColumnName="DMonthn" />
+                <ScalarProperty Name="DYear" ColumnName="DYear" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

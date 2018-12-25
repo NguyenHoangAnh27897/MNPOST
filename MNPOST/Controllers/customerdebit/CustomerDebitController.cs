@@ -99,7 +99,7 @@ namespace MNPOST.Controllers.customerdebit
                                MailerTypeID = mm.MailerTypeID,
                                Quantity = mm.Quantity,
                                Weight = mm.Weight,
-                               Price = mm.Price,
+                               Price = d.Price,
                                PriceService = mm.PriceService,
                                Discount = mm.Discount,
                                Amount = mm.Amount
@@ -252,7 +252,8 @@ namespace MNPOST.Controllers.customerdebit
                                 ct.DocumentID = maxid;
                                 ct.MailerID = item1.MailerID;
                                 ct.Amount = double.Parse((item1.Amount).ToString());
-                                ct.Price = decimal.Parse((item1.Price).ToString());
+                                ct.Price = decimal.Parse((double.Parse(item1.Price.ToString())/1.1).ToString());
+                                //ct.Price = 0;
                                 ct.PriceService = decimal.Parse((item1.PriceService).ToString());
                                 ct.DiscountPercent = decimal.Parse((item1.DiscountPercent).ToString());
                                 ct.Discount = decimal.Parse((item1.Discount).ToString());
@@ -277,7 +278,7 @@ namespace MNPOST.Controllers.customerdebit
                                 mt.StatusID = 0;
                                 mt.ToTalAmount = totalamount;
                                 mt.DebtMonth = todate;
-                                mt.Description = "Từ ngày" + fromdate.ToString("dd/MM/yyyy") + " đến ngày " + todate.ToString("dd/MM/yyyy");
+                                mt.Description = "Từ ngày " + fromdate.ToString("dd/MM/yyyy") + " đến ngày " + todate.ToString("dd/MM/yyyy");
                                 db.AC_CustomerDebitVoucher.Add(mt);
                                 db.SaveChanges();
                             }
@@ -306,7 +307,7 @@ namespace MNPOST.Controllers.customerdebit
                                 ct.DocumentID = maxid;
                                 ct.MailerID = item1.MailerID;
                                 ct.Amount = double.Parse((item1.Amount).ToString());
-                                ct.Price = decimal.Parse((item1.Price).ToString());
+                                ct.Price = decimal.Parse((double.Parse(item1.Price.ToString()) / 1.1).ToString());
                                 ct.PriceService = decimal.Parse((item1.PriceService).ToString());
                                 ct.DiscountPercent = decimal.Parse((item1.DiscountPercent).ToString());
                                 ct.Discount = decimal.Parse((item1.Discount).ToString());
@@ -331,7 +332,7 @@ namespace MNPOST.Controllers.customerdebit
                                 mt.StatusID = 0;
                                 mt.ToTalAmount = totalamount;
                                 mt.DebtMonth = todate;
-                                mt.Description = "Từ ngày" + fromdate.ToString("dd/MM/yyyy") + " đến ngày " + todate.ToString("dd/MM/yyyy");
+                                mt.Description = "Từ ngày " + fromdate.ToString("dd/MM/yyyy") + " đến ngày " + todate.ToString("dd/MM/yyyy");
                                 db.AC_CustomerDebitVoucher.Add(mt);
                                 db.SaveChanges();
                             }
@@ -362,7 +363,7 @@ namespace MNPOST.Controllers.customerdebit
                             ct.DocumentID = maxid;
                             ct.MailerID = item1.MailerID;
                             ct.Amount = double.Parse((item1.Amount).ToString());
-                            ct.Price = decimal.Parse((item1.Price).ToString());
+                            ct.Price = decimal.Parse((double.Parse(item1.Price.ToString()) / 1.1).ToString());
                             ct.PriceService = decimal.Parse((item1.PriceService).ToString());
                             ct.DiscountPercent = decimal.Parse((item1.DiscountPercent).ToString());
                             ct.Discount = decimal.Parse((item1.Discount).ToString());
@@ -387,7 +388,7 @@ namespace MNPOST.Controllers.customerdebit
                             mt.StatusID = 0;
                             mt.ToTalAmount = totalamount;
                             mt.DebtMonth = todate;
-                            mt.Description = "Từ ngày" + fromdate.ToString("dd/MM/yyyy") + " đến ngày " + todate.ToString("dd/MM/yyyy");
+                            mt.Description = "Từ ngày " + fromdate.ToString("dd/MM/yyyy") + " đến ngày " + todate.ToString("dd/MM/yyyy");
                             db.AC_CustomerDebitVoucher.Add(mt);
                             db.SaveChanges();
                         }
@@ -411,8 +412,15 @@ namespace MNPOST.Controllers.customerdebit
 
             if (check == null)
                 return Json(new ResultInfo() { error = 1, msg = "Không tìm thấy thông tin" }, JsonRequestBehavior.AllowGet);
+            var listup = db.AC_CustomerDebitVoucherDetail.Where(p => p.DocumentID == documentid).Select(p => p.MailerID).ToList();
+            foreach(var item in listup)
+            {
+                var mailerid = db.MM_Mailers.Where(p => p.MailerID == item).FirstOrDefault();
+                mailerid.DiscountPercent = 0;
+                mailerid.Discount = 0;
+                db.Entry(mailerid).State = System.Data.Entity.EntityState.Modified;
+            }           
             db.AC_CustomerDebitVoucherDetail.RemoveRange(db.AC_CustomerDebitVoucherDetail.Where(p => p.DocumentID == documentid));
-
             db.Entry(check).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
             return Json(new ResultInfo() { error = 0, msg = "", data = check }, JsonRequestBehavior.AllowGet);
@@ -440,15 +448,42 @@ namespace MNPOST.Controllers.customerdebit
             //var chiTiet = db.AC_CustomerDebitVoucherDetail.Where(p => p.DocumentID == documentid).ToList();
             return Json(results, JsonRequestBehavior.AllowGet);
         }
-
-
         [HttpGet]
         public ActionResult ShowReport(string docid)
         {
              // lam như phân lấy dữ liệu thư viện
             Dictionary<string, string> textValues = new Dictionary<string, string>();
+            var listmaster = db.AC_CustomerDebitVoucher.Where(p => p.DocumentID == docid).FirstOrDefault();
 
-            textValues.Add("DocumentID1", "abc");
+            textValues.Add("txtDocumentID", docid);
+            textValues.Add("txtDebtMonth", DateTime.Parse( listmaster.DebtMonth.ToString()).ToString("MM/yyyy"));
+            textValues.Add("txtGhiChu", listmaster.Description);
+            textValues.Add("txtCustomerID", listmaster.CustomerGroupID);
+            textValues.Add("txttotal", string.Format("{0:n0}", listmaster.ToTalAmount)); //tong tien
+
+            //txttenkh
+            var query =
+                   (from a in db.AC_CustomerDebitVoucher
+                   join b in db.BS_CustomerGroups on a.CustomerGroupID equals b.CustomerGroupCode
+                   where a.DocumentID == docid
+                   select b.CustomerGroupName).FirstOrDefault();
+            textValues.Add("txttenkh", query);
+            //
+            decimal totalprice = (from a in db.AC_CustomerDebitVoucherDetail
+                                where a.DocumentID == docid
+                                select a.Price).Sum();
+            textValues.Add("txttongcuoc", string.Format("{0:n0}", totalprice));
+
+            decimal discount = (from a in db.AC_CustomerDebitVoucherDetail
+                        where a.DocumentID == docid
+                        select a.Discount).Sum();
+            textValues.Add("txtgiamtru", string.Format("{0:n0}", discount));
+
+            decimal vat = (from a in db.AC_CustomerDebitVoucherDetail
+                                where a.DocumentID == docid
+                                select a.VATamount).Sum();
+            textValues.Add("txtgiamtru", string.Format("{0:n0}", discount));
+            textValues.Add("txtvat", string.Format("{0:n0}", vat));
 
             Dictionary<string, Dictionary<string, string>> values = new Dictionary<string, Dictionary<string, string>>();
             values.Add("Section2", textValues); // 
@@ -464,13 +499,18 @@ namespace MNPOST.Controllers.customerdebit
                            {
                                SoPhieu = mm.MailerID,
                                NgayGui = mm.AcceptDate,
-                               NoiDen = p.ProvinceCode,
-                               CuocPhi = mm.Price
+                               NoiDen = p.ProvinceCode,                              
+                               DichVu = mm.MailerTypeID,
+                               SoLuong = mm.Quantity,
+                               TrongLuong = mm.Weight,
+                               CuocPhi = d.Price,
+                               PhuPhi = d.PriceService,
+                               ThanhTien = d.BfVATamount
                            }).ToList();
 
 
 
-            Stream stream = REPORTUTILS.GetReportStream(ReportPath.RptAC_CustomerDebitDetails, null);
+            Stream stream = REPORTUTILS.GetReportStream(ReportPath.RptAC_CustomerDebitDetails, results);
 
             return File(stream, "application/pdf");
         }

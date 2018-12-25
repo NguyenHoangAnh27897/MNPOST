@@ -60,5 +60,11 @@ namespace MNPOSTCOMMON
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
         public string PostOfficeName { get; set; }
+        public Nullable<int> PaidCoD { get; set; }
+        public string PaidDate { get; set; }
+        public string EmployeePaid { get; set; }
+        public string PaidNotes { get; set; }
+        public string PaidCoDInvoice { get; set; }
+        public Nullable<decimal> PriceCoD { get; set; }
     }
 }
