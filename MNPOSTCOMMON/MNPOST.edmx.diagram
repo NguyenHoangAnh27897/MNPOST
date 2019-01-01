@@ -88,6 +88,7 @@
         <EntityTypeShape EntityType="MNPOSTModel.MM_DiscountPolicyMethod" Width="1.5" PointX="25.375" PointY="13.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_TroubleTicketDetails" Width="1.5" PointX="25.375" PointY="16.75" />
         <EntityTypeShape EntityType="MNPOSTModel.MM_ComissionPolicys" Width="1.5" PointX="25.375" PointY="19.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.AddressTemp" Width="1.5" PointX="15.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

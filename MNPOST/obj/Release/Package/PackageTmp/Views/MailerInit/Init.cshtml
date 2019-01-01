@@ -34,8 +34,8 @@
                                             <th class="tableth">Đ/CHỈ (GỬI)</th>
                                             <th class="tableth" ng-show="hideSenderDetail">T/THÀNH (GỬI)</th>
                                             <th class="tableth" ng-show="hideSenderDetail">Q/HUYỆN (GỬI)</th>
-                                            <th class="tableth">NGƯỜI NHẬN</th>
                                             <th class="tableth">SĐT(NHẬN)</th>
+                                            <th class="tableth">NGƯỜI NHẬN</th>
                                             <th class="tableth">Đ/CHỈ (NHẬN)</th>
                                             <th class="tableth">T/THÀNH(NHẬN)</th>
                                             <th class="tableth">Q/HUYỆN(NHẬN)</th>
@@ -84,8 +84,8 @@
                                                     <option ng-repeat="district in item.ListDistrictSend" value="{{district.code}}">{{district.name}}</option>
                                                 </select>
                                             </td>
+                                            <td class="warning"><input type="tel" ng-model="item.RecieverPhone" class="tableinput" required uib-typeahead="(phone.Phone+ '<br/>' + phone.Name + '<br/>' + phone.AddressInfo) for phone in getAddressInfoTemp($viewValue)" typeahead-on-select="showAddressTemp($item, $index)" /></td>
                                             <td class="warning"><input type="text" ng-model="item.RecieverName" required class="tableinput" /></td>
-                                            <td class="warning"><input type="tel" ng-model="item.RecieverPhone" class="tableinput" required /></td>
                                             <td class="warning"><input type="text" ng-model="item.RecieverAddress" required class="tableinput" uib-typeahead="address for address in getLocation($viewValue)" /></td>
                                             <td class="warning">
                                                 <select ui-select2="select2Options" class="tableinput" ng-model="item.RecieverProvinceID" required ng-change="provinceChange('district', 'recei', $index)">

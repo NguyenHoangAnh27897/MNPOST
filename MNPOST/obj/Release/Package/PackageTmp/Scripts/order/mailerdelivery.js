@@ -63,6 +63,16 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         });
     };
 
+    $scope.removeDocument = function (idx) {
+        showLoader(true);
+        var info = $scope.allDeliveries[idx];
+        $http.get("/mailerdelivery/RemoveDocument?documentId=" + info.DocumentID).then(function (response) {
+            
+            $scope.allDeliveries.splice(idx, 1);
+            showLoader(false);
+        });
+    };
+
     //nhan vien
     $scope.employees = [];
     $scope.licensePlates = [];

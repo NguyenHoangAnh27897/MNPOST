@@ -758,6 +758,8 @@
     <Property Name="PaidNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PaidCoDInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="PriceCoD" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LastStatus" Type="Int32" />
+    <Property Name="IsReturn" Type="Boolean" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -1341,6 +1343,7 @@
     <FunctionImport Name="CUSTOMER_DEBIT_GET_NOPAID" ReturnType="Collection(MNPOSTModel.CUSTOMER_DEBIT_GET_NOPAID_Result)">
       <Parameter Name="cusId" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="AddressTemps" EntityType="MNPOSTModel.AddressTemp" />
   </EntityContainer>
   <ComplexType Name="CODCUSTOMER_TRANSFER_Result">
     <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
@@ -2386,4 +2389,16 @@
     <Property Type="String" Name="DMonthn" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="DYear" Nullable="true" MaxLength="30" />
   </ComplexType>
+  <EntityType Name="AddressTemp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AddressInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ProvinceId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DistrictId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="WardId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

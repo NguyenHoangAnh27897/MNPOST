@@ -112,6 +112,18 @@
     <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="Weight" Type="decimal" Precision="18" Scale="6" Nullable="false" />
   </EntityType>
+  <EntityType Name="AddressTemp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="AddressInfo" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="ProvinceId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DistrictId" Type="nvarchar" MaxLength="128" />
+    <Property Name="WardId" Type="nvarchar" MaxLength="128" />
+  </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
       <PropertyRef Name="Id" />
@@ -831,6 +843,8 @@
     <Property Name="PaidNotes" Type="nvarchar(max)" />
     <Property Name="PaidCoDInvoice" Type="nvarchar(max)" />
     <Property Name="PriceCoD" Type="money" />
+    <Property Name="LastStatus" Type="int" />
+    <Property Name="IsReturn" Type="bit" />
   </EntityType>
   <EntityType Name="MM_MailerServices">
     <Key>
@@ -1383,6 +1397,7 @@
     <EntitySet Name="AC_CommissionOfferDetail" EntityType="Self.AC_CommissionOfferDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CustomerDebitVoucher" EntityType="Self.AC_CustomerDebitVoucher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AC_CustomerDebitVoucherDetail" EntityType="Self.AC_CustomerDebitVoucherDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AddressTemp" EntityType="Self.AddressTemp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />

@@ -154,7 +154,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     mailerInfo.DeliveryTo = "";
                     mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = findReason.ReasonName;
-
+                    mailerInfo.IsReturn = true;
                     HandleHistory.AddTracking(5, info.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
 
                 }

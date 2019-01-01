@@ -105,6 +105,7 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_DiscountPolicyMethod> MM_DiscountPolicyMethod { get; set; }
         public virtual DbSet<MM_TroubleTicketDetails> MM_TroubleTicketDetails { get; set; }
         public virtual DbSet<MM_ComissionPolicys> MM_ComissionPolicys { get; set; }
+        public virtual DbSet<AddressTemp> AddressTemps { get; set; }
     
         [DbFunction("MNPOSTEntities", "Split")]
         public virtual IQueryable<Split_Result> Split(string rowData, string splitOn)

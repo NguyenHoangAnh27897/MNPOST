@@ -1,6 +1,6 @@
 ﻿
 // tao controller
-var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'ui.uploader', 'ui.select2']);
+var app = angular.module('myApp', ['ui.bootstrap', 'myDirective', 'myKeyPress', 'ui.uploader', 'ui.select2', 'ngSanitize']);
 
 app.service('mailerService', function () {
 
@@ -249,6 +249,24 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
                 return item.formatted_address;
             });
         });
+    };
+
+    $scope.getAddressInfoTemp = function (val) {
+        return $http.get('/mailer/GetAddressTemp?phone=' + val).then(function (response) {
+            return response.data;
+        });
+    };
+
+    $scope.showAddressTemp = function (phone, idx) {
+        $scope.mailers[idx].RecieverName = phone.Name;
+        $scope.mailers[idx].RecieverPhone = phone.Phone;
+        $scope.mailers[idx].RecieverAddress = phone.AddressInfo;
+        $scope.mailers[idx].RecieverProvinceID = phone.ProvinceId;
+        $scope.mailers[idx].RecieverDistrictID = phone.DistrictId;
+        $scope.mailers[idx].RecieverWardID = phone.WardId;
+        $scope.provinceChange('district', 'recie', idx);
+
+        $scope.provinceChange('ward', 'recie', idx);
     };
 
     $scope.getMailerCode = function (idx) {

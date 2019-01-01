@@ -147,16 +147,18 @@
                                                         <strong>Tên NV: </strong> {{item.EmployeeName}} <br />
                                                         <strong>Mã NV: </strong> {{item.EmployeeID}}
                                                     </td>
-                                                    <td>
+                                                    <td ng-init="item.CountAll = item.CountFinish + item.CountNotFinish + item.CountFail + item.CountReturn">
                                                         <strong>Số xe: </strong>{{item.NumberPlate}} <br />
-                                                        <strong>Số lượng: </strong>{{item.CountFinish + item.CountNotFinish + item.CountFail + item.CountReturn }}<br />
+                                                        <strong>Số lượng: </strong>{{ item.CountAll}}<br />
                                                         <strong>Trọng lượng: </strong>{{item.Weight}} GRAM<br />
                                                         <strong>Đã phát: </strong>{{item.CountFinish}}<br />
                                                         <strong>Chưa phát: </strong>{{item.CountNotFinish}}<br />
                                                         <strong>Chưa phát được: </strong>{{item.CountFail}}<br />
                                                         <strong>Chuyển hoàn: </strong>{{item.CountReturn}}
                                                     </td>
-                                                    <td><span class="label label-primary">{{deliveryStatus[item.StatusID].name}}</span></td>
+                                                    <td><span class="label label-primary">{{deliveryStatus[item.StatusID].name}}</span> <br />
+                                                        <a href="#" ng-click="removeDocument($index)" ng-show="item.CountAll == 0">Xóa</a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

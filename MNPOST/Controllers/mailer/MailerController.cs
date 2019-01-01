@@ -276,6 +276,13 @@ namespace MNPOST.Controllers.mailer
             return check == null ? false : true;
         }
 
+        [HttpGet]
+        public ActionResult GetAddressTemp(string phone)
+        {
+            var data = db.AddressTemps.Where(p => p.Phone.Contains(phone)).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

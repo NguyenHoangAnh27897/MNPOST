@@ -202,12 +202,10 @@ namespace MNPOST.Controllers.mailer
                     }
 
                     // check cac gia tri can
-                    if (receiverIdx == -1 || receiAddressIdx == -1 || receiPhoneIdx == -1 || receiDistrictIdx == -1 || receiProvinceIdx == -1 || mailerTypeIdx == 1 ||
-                        merchandiseIdx == -1 || weigthIdx == -1)
+                    if (receiverIdx == -1 || receiAddressIdx == -1 || receiPhoneIdx == -1 || receiProvinceIdx == -1 || weigthIdx == -1)
                         throw new Exception("Thiếu các cột cần thiết");
-
                     //
-
+                
                     for (int i = 2; i <= totalRows; i++)
                     {
                         string mailerId = mailerCodeIdx == -1 ? mailerHandle.GeneralMailerCode(postId) : Convert.ToString(sheet.Cells[i, mailerCodeIdx].Value);
@@ -227,10 +225,9 @@ namespace MNPOST.Controllers.mailer
                         if (String.IsNullOrEmpty(receiverAddress))
                             throw new Exception("Dòng " + (i) + " cột " + receiAddressIdx + " : thiếu thông tin");
                         // 
-                        string receiverProvince = Convert.ToString(sheet.Cells[i, receiProvinceIdx].Value);
-                        var checkProvince = db.BS_Provinces.Where(p=> p.ProvinceCode == receiverProvince).FirstOrDefault();
-                        if (checkProvince == null)
-                            throw new Exception("Dòng " + (i) + " cột " + receiProvinceIdx + " : sai thông tin");
+                        string receiverProvince = receiProvinceIdx == -1 ? "" : Convert.ToString(sheet.Cells[i, receiProvinceIdx].Value);
+                        var checkProvince = db.BS_Provinces.Where(p => p.ProvinceCode == receiverProvince).FirstOrDefault();
+
 
                         //
                         string receiverDistrict = Convert.ToString(sheet.Cells[i, receiDistrictIdx].Value);
@@ -311,11 +308,11 @@ namespace MNPOST.Controllers.mailer
                             Notes = notes,
                             PaymentMethodID = mailerPay,
                             PriceDefault = price,
-                            Amount = price  + codPrice,
+                            Amount = price + codPrice,
                             PriceService = 0,
                             Quantity = quantity,
                             RecieverAddress = receiverAddress,
-                            RecieverDistrictID = checkDistrict.DistrictID,
+                            RecieverDistrictID = checkDistrict != null ? checkDistrict.DistrictID : "",
                             RecieverName = receiver,
                             RecieverPhone = receiverPhone,
                             RecieverProvinceID = checkProvince.ProvinceID,
@@ -447,6 +444,37 @@ namespace MNPOST.Controllers.mailer
                 // 
                 db.MM_Mailers.Add(mailerIns);
                 db.SaveChanges();
+
+                // add addressTemp
+                var findAddressTemp = db.AddressTemps.Where(p => p.Phone == mailerIns.RecieverPhone).FirstOrDefault();
+
+                if (findAddressTemp != null)
+                {
+                    findAddressTemp.AddressInfo = mailerIns.RecieverAddress;
+                    findAddressTemp.DistrictId = mailerIns.RecieverDistrictID;
+                    findAddressTemp.ProvinceId = mailerIns.RecieverProvinceID;
+                    findAddressTemp.WardId = mailerIns.RecieverWardID;
+                    findAddressTemp.Name = mailerIns.RecieverName;
+
+                    db.Entry(findAddressTemp).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    var insAddressInfo = new AddressTemp()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Name = mailerIns.RecieverName,
+                        Phone = mailerIns.RecieverPhone,
+                        AddressInfo = mailerIns.RecieverAddress,
+                        DistrictId = mailerIns.RecieverDistrictID,
+                        ProvinceId = mailerIns.RecieverProvinceID,
+                        WardId = mailerIns.RecieverWardID
+                    };
+
+                    db.AddressTemps.Add(insAddressInfo);
+                    db.SaveChanges();
+                }
 
                 // save service
                 if (item.Services != null)

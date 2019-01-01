@@ -66,6 +66,9 @@
     <Compile Include="AC_CustomerDebitVoucherDetail.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="AddressTemp.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>

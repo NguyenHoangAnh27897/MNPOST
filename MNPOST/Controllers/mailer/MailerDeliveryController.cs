@@ -89,6 +89,25 @@ namespace MNPOST.Controllers.mailer
         }
 
 
+        [HttpGet]
+        public ActionResult RemoveDocument(string documentId)
+        {
+            var find = db.MM_MailerDelivery.Find(documentId);
+
+            if(find != null)
+            {
+                var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == documentId).ToList();
+
+                if(findDetail.Count() == 0)
+                {
+                    db.MM_MailerDelivery.Remove(find);
+                    db.SaveChanges();
+                }
+            }
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
 
 
         [HttpGet]
@@ -97,12 +116,6 @@ namespace MNPOST.Controllers.mailer
             var data = GetEmployeeByPost(postId);
 
             var licensePlates = new List<CommonData>();
-
-            licensePlates.Add(new CommonData()
-            {
-                code = "10180",
-                name = "Xe chạy chuyến 3320"
-            });
 
             return Json(new { employees = data, licensePlates = licensePlates }, JsonRequestBehavior.AllowGet);
         }
@@ -222,7 +235,7 @@ namespace MNPOST.Controllers.mailer
                 if (mailer == null)
                     continue;
 
-                if (mailer.CurrentStatusID != 2 && mailer.CurrentStatusID != 6)
+                if (mailer.CurrentStatusID != 2 && mailer.CurrentStatusID != 6 && mailer.CurrentStatusID != 5)
                     continue;
 
                 var data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, item).FirstOrDefault();
@@ -290,27 +303,31 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
 
             // remove in tracking
-            var tracking = db.MM_Tracking.Where(p => p.StatusID == 3 && p.MailerID == mailer.MailerID).OrderByDescending(p => p.CreateTime).FirstOrDefault();
+            var lastTracking = db.MM_Tracking.Where(p => p.MailerID == mailer.MailerID).OrderByDescending(p => p.CreateTime).FirstOrDefault();
 
-            if (tracking != null)
+            if (lastTracking != null)
             {
-                db.MM_Tracking.Remove(tracking);
+                db.MM_Tracking.Remove(lastTracking);
                 db.SaveChanges();
             }
+            lastTracking = db.MM_Tracking.Where(p => p.MailerID == mailer.MailerID).OrderByDescending(p => p.CreateTime).FirstOrDefault();
 
-            //
-            db.MM_MailerDeliveryDetail.Remove(data);
+            if(lastTracking != null)
+            {
+                //
+                db.MM_MailerDeliveryDetail.Remove(data);
 
-            mailer.CurrentStatusID = 2;
-            mailer.LastUpdateDate = DateTime.Now;
+                mailer.CurrentStatusID = lastTracking.StatusID;
+                mailer.LastUpdateDate = DateTime.Now;
 
-            delivery.Quantity = delivery.Quantity - 1;
-            delivery.Weight = delivery.Weight - mailer.Weight;
+                delivery.Quantity = delivery.Quantity - 1;
+                delivery.Weight = delivery.Weight - mailer.Weight;
 
-            db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
-            db.Entry(delivery).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(delivery).State = System.Data.Entity.EntityState.Modified;
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
 
             return Json(new ResultInfo()
             {
@@ -435,7 +452,7 @@ namespace MNPOST.Controllers.mailer
             var employees = db.BS_Employees.Where(p => p.PostOfficeID == postId).ToList();
             List<EmployeeAutoRouteInfo> routeAutoes = new List<EmployeeAutoRouteInfo>();
 
-            var countMailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6)).ToList();
+            var countMailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6 || p.CurrentStatusID == 5)).ToList();
 
             foreach (var item in employees)
             {
@@ -504,7 +521,7 @@ namespace MNPOST.Controllers.mailer
         {
             var employee = db.BS_Employees.Find(employeeId);
 
-            var countMailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6)).ToList();
+            var countMailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6 || p.CurrentStatusID == 5)).ToList();
 
             var listMailer = db.ROUTE_GETMAILER_BYEMPLOYEEID(employee.EmployeeID, postId).ToList();
             var data = new EmployeeAutoRouteInfo()
@@ -566,7 +583,7 @@ namespace MNPOST.Controllers.mailer
         [HttpGet]
         public ActionResult GetMailerForEmployee(string postId, string province, string district)
         {
-            var mailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6) && p.RecieverProvinceID.Contains(province) && p.RecieverDistrictID.Contains(district)).ToList();
+            var mailers = db.MM_Mailers.Where(p => p.CurrentPostOfficeID == postId && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6 || p.CurrentStatusID == 5) && p.RecieverProvinceID.Contains(province) && p.RecieverDistrictID.Contains(district)).ToList();
             var data = new List<MailerIdentity>();
             foreach (var item in mailers)
             {
@@ -635,7 +652,7 @@ namespace MNPOST.Controllers.mailer
                 // add to detail
                 foreach (var mailer in item.Mailers)
                 {
-                    var checkMailer = db.MM_Mailers.Where(p => p.MailerID == mailer.MailerID && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6)).FirstOrDefault();
+                    var checkMailer = db.MM_Mailers.Where(p => p.MailerID == mailer.MailerID && (p.CurrentStatusID == 2 || p.CurrentStatusID == 6 || p.CurrentStatusID == 5)).FirstOrDefault();
 
                     if (checkMailer != null)
                     {
@@ -730,6 +747,7 @@ namespace MNPOST.Controllers.mailer
                     mailerInfo.DeliveryTo = "";
                     mailerInfo.DeliveryDate = deliveryDate;
                     mailerInfo.DeliveryNotes = findReason.ReasonName;
+                    mailerInfo.IsReturn = true;
 
                     HandleHistory.AddTracking(5, detail.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
                 }
