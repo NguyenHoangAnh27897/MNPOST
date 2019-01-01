@@ -24,5 +24,9 @@ namespace MNPOSTCOMMON
         public string RecieverName { get; set; }
         public string RecieverDistrictID { get; set; }
         public Nullable<int> CurrentStatusID { get; set; }
+        public string MailerTypeID { get; set; }
+        public string RecieProvinceName { get; set; }
+        public string ReceiDistrictName { get; set; }
+        public string ReceiWardName { get; set; }
     }
 }

@@ -347,7 +347,7 @@ namespace MNPOSTAPI.Controllers.web
 
             var findAllCus = db.BS_Customers.Where(p => p.CustomerGroupID == findCus.CustomerGroupID).Select(p => p.CustomerCode).ToList();
 
-            var data = db.MM_Mailers.Where(p => findAllCus.Contains(p.SenderID) && p.PaidCoD != 2 && p.COD > 0).ToList();
+            var data = db.MM_Mailers.Where(p => findAllCus.Contains(p.SenderID) && p.PaidCoD != 2 && p.COD > 0 && p.CurrentStatusID == 4).ToList();
 
             var countMailer = data.Count();
             var sumCoD = data.Sum(p => p.COD);

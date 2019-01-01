@@ -230,24 +230,17 @@ namespace MNPOST.Controllers.mailer
 
 
                         //
-                        string receiverDistrict = Convert.ToString(sheet.Cells[i, receiDistrictIdx].Value);
+                        string receiverDistrict = receiDistrictIdx == -1 ? "": Convert.ToString(sheet.Cells[i, receiDistrictIdx].Value);
                         var receiverDistrictSplit = receiverDistrict.Split('-');
                         var checkDistrict = db.BS_Districts.Find(receiverDistrictSplit[0]);
-                        if (checkDistrict == null)
-                            throw new Exception("Dòng " + (i) + " cột " + receiDistrictIdx + " : sai thông tin");
 
                         string mailerType = Convert.ToString(sheet.Cells[i, mailerTypeIdx].Value);
-                        var checkMailerTypeSplit = mailerType.Split('-');
-                        var checkMailerType = db.BS_ServiceTypes.Find(checkMailerTypeSplit[0]);
-                        if (checkMailerType == null)
-                            throw new Exception("Dòng " + (i) + " cột " + mailerTypeIdx + " : sai thông tin");
+                        var checkMailerType = db.BS_ServiceTypes.Find(mailerType);
 
                         //
                         var mailerPay = payTypeIdx == -1 ? "NGTT" : Convert.ToString(sheet.Cells[i, payTypeIdx].Value);
                         if (payTypeIdx != -1)
                         {
-                            var mailerPaySplit = mailerPay.Split('-');
-                            mailerPay = mailerPaySplit[0];
                             var checkMailerPay = db.CDatas.Where(p => p.Code == mailerPay && p.CType == "MAILERPAY").FirstOrDefault();
                             mailerPay = checkMailerPay == null ? "NGTT" : checkMailerPay.Code;
                         }
@@ -263,8 +256,6 @@ namespace MNPOST.Controllers.mailer
 
                         // hang hoa
                         var merchandisType = Convert.ToString(sheet.Cells[i, merchandiseIdx].Value);
-                        var merchandisTypeSplit = merchandisType.Split('-');
-                        merchandisType = merchandisTypeSplit[0];
                         var checkMerchandisType = db.CDatas.Where(p => p.Code == merchandisType && p.CType == "GOODTYPE").FirstOrDefault();
                         if (checkMerchandisType == null)
                             throw new Exception("Dòng " + (i) + " cột " + merchandiseIdx + " : sai thông tin");
@@ -302,7 +293,7 @@ namespace MNPOST.Controllers.mailer
                             HeightSize = 0,
                             LengthSize = 0,
                             MailerDescription = describe,
-                            MailerTypeID = checkMailerType.ServiceID,
+                            MailerTypeID = checkMailerType != null ? checkMailerType.ServiceID: "",
                             MerchandiseID = merchandisType,
                             MerchandiseValue = cod,
                             Notes = notes,
@@ -315,7 +306,7 @@ namespace MNPOST.Controllers.mailer
                             RecieverDistrictID = checkDistrict != null ? checkDistrict.DistrictID : "",
                             RecieverName = receiver,
                             RecieverPhone = receiverPhone,
-                            RecieverProvinceID = checkProvince.ProvinceID,
+                            RecieverProvinceID = checkProvince != null ? checkProvince.ProvinceID : "",
                             Weight = weight,
                             WidthSize = 0,
                             SenderID = senderID,
@@ -394,7 +385,9 @@ namespace MNPOST.Controllers.mailer
                     continue;
                 }
 
-                var price = db.CalPrice(item.Weight, checkSender.CustomerID, item.RecieverDistrictID, item.MailerTypeID, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+                var price = db.CalPrice(item.Weight, checkSender.CustomerID, item.RecieverProvinceID, item.MailerTypeID, postId, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+
+     
                 var codPrice = 0;
                 // theem
                 var mailerIns = new MM_Mailers()
@@ -513,6 +506,19 @@ namespace MNPOST.Controllers.mailer
         public ActionResult GetProvinces(string parentId, string type)
         {
             return Json(GetProvinceDatas(parentId, type), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetDistrictSendAndRecei(string provinceSend, string provinceRecie)
+        {
+            var listSend = GetProvinceDatas(provinceSend, "district");
+            var listRecei = GetProvinceDatas(provinceRecie, "district");
+            return Json(new
+            {
+                send = listSend,
+                recei = listRecei
+
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

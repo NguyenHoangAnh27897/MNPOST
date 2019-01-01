@@ -269,7 +269,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
 
 
         // lay hang
-        public ResultInfo GetTakeMailer(string user, string date, int statusId)
+        public ResultInfo GetTakeMailer(string user)
         {
             var checkUser = db.BS_Employees.Where(p => p.UserLogin == user).FirstOrDefault();
 
@@ -282,10 +282,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                 };
 
             }
-       
-
-
-            var data = db.TAKEMAILER_GETLIST_BY_EMPLOYEE(checkUser.EmployeeID, statusId, date).ToList();
+            var data = db.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH(checkUser.EmployeeID).ToList();
 
             return new ResponseInfo()
             {
@@ -298,7 +295,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
 
         public ResultInfo GetTakeMailerDetail(string documentID)
         {
-            var data = db.TAKEMAILER_GETDETAILs(documentID).ToList();
+            var data = db.TAKEMAILER_GETDETAILs(documentID).Where(p=> p.CurrentStatusID == 7).ToList();
 
             return new ResponseInfo()
             {
@@ -306,6 +303,70 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                 msg = "",
                 data = data
             };
+
+        }
+
+        public ResultInfo CancelTakeMailer(string user, UpdateTakeMailerReceive info)
+        {
+            var result = new ResultInfo()
+            {
+                error = 0,
+                msg = "success"
+            };
+            var checkUser = db.BS_Employees.Where(p => p.UserLogin == user).FirstOrDefault();
+
+            if (checkUser == null)
+            {
+                return new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+                };
+
+            }
+            try
+            {
+                var checkDocument = db.MM_TakeMailers.Find(info.documentId);
+
+                if (checkDocument == null)
+                    throw new Exception("Sai thông tin");
+
+
+                var checkMailer = db.MM_Mailers.Find(info.mailers);
+
+                var findDetail = db.MM_TakeDetails.Where(p => p.DocumentID == checkDocument.DocumentID && p.MailerID == info.mailers).FirstOrDefault();
+
+
+                if (findDetail == null || checkMailer == null)
+                    throw new Exception("Sai thông tin");
+
+                findDetail.StatusID = 10;
+                db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
+
+                //
+                checkMailer.CurrentStatusID = 10;
+                checkMailer.LastUpdateDate = DateTime.Now;
+                db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                HandleHistory.AddTracking(10, info.mailers, checkMailer.CurrentPostOfficeID, "KHÁCH HÀNG YÊU CẦU HỦY KHI ĐI LẤY HÀNG");
+
+                var checkCount = db.TAKEMAILER_GETDETAILs(checkDocument.DocumentID).Where(p => p.CurrentStatusID == 7).ToList();
+
+                if (checkCount.Count() == 0)
+                {
+                    checkDocument.StatusID = 8;
+                    db.Entry(checkDocument).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                result.msg = e.Message;
+                result.error = 1;
+            }
+
+            return result;
 
         }
 
@@ -334,32 +395,25 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                 if (checkDocument == null)
                     throw new Exception("Sai thông tin");
 
-                foreach (var item in info.mailers)
-                {
+                var checkMailer = db.MM_Mailers.Find(info.mailers);
 
-                    var checkMailer = db.MM_Mailers.Find(item);
+                var findDetail = db.MM_TakeDetails.Where(p => p.DocumentID == checkDocument.DocumentID && p.MailerID == info.mailers).FirstOrDefault();
 
-                    if (checkMailer == null)
-                        continue;
+                if (findDetail == null || checkMailer == null)
+                    throw new Exception("Sai thông tin");
 
-                    var findDetail = db.MM_TakeDetails.Where(p => p.DocumentID == checkDocument.DocumentID && p.MailerID == item).FirstOrDefault();
+                findDetail.StatusID = 8;
+                findDetail.TimeTake = DateTime.Now;
+                db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
 
-                    if (findDetail == null)
-                        continue;
+                checkMailer.CurrentStatusID = 8;
+                checkMailer.LastUpdateDate = DateTime.Now;
+                checkMailer.Weight = info.weight;
+                db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
 
-                    findDetail.StatusID = 8;
-                    findDetail.TimeTake = DateTime.Now;
-                    db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-
-                    checkMailer.CurrentStatusID = 8;
-                    checkMailer.LastUpdateDate = DateTime.Now;
-                    db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-
-                    HandleHistory.AddTracking(8, item, checkMailer.CurrentPostOfficeID, "Đã lấy hàng, đang giao về kho");
-
-                }
+                HandleHistory.AddTracking(8, info.mailers, checkMailer.CurrentPostOfficeID, "Đã lấy hàng, đang giao về kho. Cập nhật trọng lượng: " + info.weight + " Gram");
 
                 var checkCount = db.TAKEMAILER_GETDETAILs(checkDocument.DocumentID).Where(p=> p.CurrentStatusID == 7).ToList();
 

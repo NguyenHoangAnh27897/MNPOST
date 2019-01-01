@@ -227,16 +227,16 @@ namespace MNPOST.Controllers.mailer
                 var data = db.MAILER_GETTRACKING(mailerId).ToList();
                 var images = db.MailerImages.Where(p => p.MailerID == mailerId).Select(p => new
                 {
-                    url = p.PathImage,
-                    time = p.CreateTime.Value.ToString("dd/MM/yyyy HH:mm")
-                });
+                    url = p.PathImage
+                }).ToList();
                 return Json(new ResultInfo()
                 {
                     error = 0,
                     data = new
                     {
                         mailer = mailer,
-                        tracks = data
+                        tracks = data,
+                        images = images
                     }
 
                 }, JsonRequestBehavior.AllowGet);

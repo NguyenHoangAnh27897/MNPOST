@@ -306,7 +306,37 @@ app.controller('myCtrl', function ($scope, $http, $rootScope) {
             }
         });
     };
+    $scope.calPrice = function () {
+        console.log("tinh gia");
+        showLoader(true);
+        $http({
+            method: "POST",
+            url: "/mailer/CalBillPrice",
+            data: {
+                'weight': $scope.mailer.Weight,
+                'customerId': $scope.mailer.SenderID,
+                'provinceId': $scope.mailer.SenderProvinceID,
+                'serviceTypeId': $scope.mailer.MailerTypeID,
+                'postId': $scope.mailer.PostOfficeAcceptID,
+                'cod': $scope.mailer.COD,
+                'merchandiseValue': $scope.mailer.MerchandiseValue
+            }
+        }).then(function mySuccess(response) {
+            console.log(response.data);
+            showLoader(false);
+            $scope.mailer.PriceDefault = response.data.price;
+            $scope.mailer.PriceCoD = response.data.codPrice;
 
+            $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
+
+        }, function myError(response) {
+            alert('Connect error');
+        });
+    };
+    $scope.changePrice = function () {
+        console.log('tinh gia tong');
+        $scope.mailer.Amount = $scope.mailer.PriceDefault + $scope.mailer.PriceCoD + $scope.mailer.PriceService;
+    };
     $scope.showPDF = function (url) {
 
         runShowPDF(url);

@@ -62,27 +62,39 @@ namespace MNPOST.Controllers.mailer
                     msg = "Sai thông tin nhân viên lấy hàng"
                 }, JsonRequestBehavior.AllowGet);
 
+            // tim ma document co trung id
+            var documentCode = DateTime.Now.ToString("ddMMyyyy");
 
-            var takeMaileInfo = new MM_TakeMailers()
+            var findDocument = db.MM_TakeMailers.Where(p => p.EmployeeID == findEmployee.EmployeeID && p.CustomerID == cusCode && p.DocumentCode == documentCode).FirstOrDefault();
+
+            if(findDocument == null)
             {
-                DocumentID = Guid.NewGuid().ToString(),
-                Content = content,
-                CreateTime = DateTime.Now,
-                CustomerAddress = cusAddress,
-                CustomerID = cusCode,
-                CustomerName = cusName,
-                CustomerPhone = cusPhone,
-                UserCreate = EmployeeInfo.user,
-                EmployeeID = employeeId,
-                StatusID = 7,
-                PostID = postId,
-                DocumentCode = DateTime.Now.ToString("ddMMyyyyHHmmss")
+                findDocument = new MM_TakeMailers()
+                {
+                    DocumentID = Guid.NewGuid().ToString(),
+                    Content = content,
+                    CreateTime = DateTime.Now,
+                    CustomerAddress = cusAddress,
+                    CustomerID = cusCode,
+                    CustomerName = cusName,
+                    CustomerPhone = cusPhone,
+                    UserCreate = EmployeeInfo.user,
+                    EmployeeID = employeeId,
+                    StatusID = 7,
+                    PostID = postId,
+                    DocumentCode = DateTime.Now.ToString("ddMMyyyy")
+      
+                };
 
-            };
-
-            db.MM_TakeMailers.Add(takeMaileInfo);
-            db.SaveChanges();
-
+                db.MM_TakeMailers.Add(findDocument);
+                db.SaveChanges();
+            } else
+            {
+                findDocument.StatusID = 7;
+                findDocument.Content = content;
+                db.Entry(findDocument).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
 
             foreach(var item in mailers)
             {
@@ -92,7 +104,7 @@ namespace MNPOST.Controllers.mailer
                 {
                     var deltail = new MM_TakeDetails()
                     {
-                        DocumentID = takeMaileInfo.DocumentID,
+                        DocumentID = findDocument.DocumentID,
                         MailerID = item,
                         StatusID = 7,
                         TimeTake = null
@@ -130,7 +142,6 @@ namespace MNPOST.Controllers.mailer
 
             try
             {
-
                 var checkDate = DateTime.ParseExact(date, "dd/M/yyyy", null);
 
                 checkDate = checkDate == null ? DateTime.Now : checkDate;
@@ -229,6 +240,71 @@ namespace MNPOST.Controllers.mailer
                 error = 0,
                 msg = ""
             }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult CancelTake(string documentID, string mailerId)
+        {
+            var checkDocument = db.MM_TakeMailers.Find(documentID);
+
+            if (checkDocument == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+
+            var checkMailer = db.MM_Mailers.Find(mailerId);
+
+            var findDetail = db.MM_TakeDetails.Where(p => p.DocumentID == documentID && p.MailerID == mailerId).FirstOrDefault();
+
+
+            if (findDetail == null || checkMailer == null)
+            {
+                return Json(new ResultInfo()
+                {
+                    error = 1,
+                    msg = "Sai thông tin"
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            db.MM_TakeDetails.Remove(findDetail);
+            db.SaveChanges();
+
+            //
+            checkMailer.CurrentStatusID = 0;
+            checkMailer.LastUpdateDate = DateTime.Now;
+            db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            var lastTracking = db.MM_Tracking.Where(p => p.MailerID == mailerId).OrderByDescending(p => p.CreateTime).FirstOrDefault();
+
+            if (lastTracking != null)
+            {
+                db.MM_Tracking.Remove(lastTracking);
+                db.SaveChanges();
+            }
+
+            var checkCount = db.TAKEMAILER_GETDETAILs(documentID).Where(p => p.CurrentStatusID == 7).ToList();
+
+            if (checkCount.Count() == 0)
+            {
+                checkDocument.StatusID = 8;
+                db.Entry(checkDocument).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new
+            {
+                error = 0
+            }, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]

@@ -63,5 +63,6 @@ namespace MNPOSTCOMMON
         public string RecieProvinceName { get; set; }
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
+        public Nullable<bool> IsReturn { get; set; }
     }
 }
