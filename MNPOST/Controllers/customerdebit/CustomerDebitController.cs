@@ -255,8 +255,8 @@ namespace MNPOST.Controllers.customerdebit
                                 ct.Price = decimal.Parse((double.Parse(item1.Price.ToString())/1.1).ToString());
                                 //ct.Price = 0;
                                 ct.PriceService = decimal.Parse((item1.PriceService).ToString());
-                                ct.DiscountPercent = decimal.Parse((item1.DiscountPercent).ToString());
-                                ct.Discount = decimal.Parse((item1.Discount).ToString());
+                                ct.DiscountPercent = decimal.Parse((item1.DiscountPercent ?? 0).ToString());
+                                ct.Discount = decimal.Parse((item1.Discount ?? 0).ToString());
                                 ct.VATpercent = decimal.Parse((item1.VATPercent).ToString());
                                 ct.BfVATamount = decimal.Parse((item1.BfVATAmount).ToString());
                                 ct.VATamount = decimal.Parse((item1.VATAmount).ToString());
@@ -309,8 +309,8 @@ namespace MNPOST.Controllers.customerdebit
                                 ct.Amount = double.Parse((item1.Amount).ToString());
                                 ct.Price = decimal.Parse((double.Parse(item1.Price.ToString()) / 1.1).ToString());
                                 ct.PriceService = decimal.Parse((item1.PriceService).ToString());
-                                ct.DiscountPercent = decimal.Parse((item1.DiscountPercent).ToString());
-                                ct.Discount = decimal.Parse((item1.Discount).ToString());
+                                ct.DiscountPercent = decimal.Parse((item1.DiscountPercent ?? 0).ToString());
+                                ct.Discount = decimal.Parse((item1.Discount ?? 0).ToString());
                                 ct.VATpercent = decimal.Parse((item1.VATPercent).ToString());
                                 ct.BfVATamount = decimal.Parse((item1.BfVATAmount).ToString());
                                 ct.VATamount = decimal.Parse((item1.VATAmount).ToString());
@@ -365,8 +365,8 @@ namespace MNPOST.Controllers.customerdebit
                             ct.Amount = double.Parse((item1.Amount).ToString());
                             ct.Price = decimal.Parse((double.Parse(item1.Price.ToString()) / 1.1).ToString());
                             ct.PriceService = decimal.Parse((item1.PriceService).ToString());
-                            ct.DiscountPercent = decimal.Parse((item1.DiscountPercent).ToString());
-                            ct.Discount = decimal.Parse((item1.Discount).ToString());
+                            ct.DiscountPercent = decimal.Parse((item1.DiscountPercent ?? 0).ToString());
+                            ct.Discount = decimal.Parse((item1.Discount ?? 0).ToString());
                             ct.VATpercent = decimal.Parse((item1.VATPercent).ToString());
                             ct.BfVATamount = decimal.Parse((item1.BfVATAmount).ToString());
                             ct.VATamount = decimal.Parse((item1.VATAmount).ToString());
