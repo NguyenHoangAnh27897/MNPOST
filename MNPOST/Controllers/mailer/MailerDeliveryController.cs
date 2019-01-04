@@ -14,8 +14,6 @@ namespace MNPOST.Controllers.mailer
         public ActionResult Show()
         {
             ViewBag.PostOffices = EmployeeInfo.postOffices;
-            ViewBag.ToDate = DateTime.Now.AddDays(7).ToString("dd/MM/yyyy");
-            ViewBag.FromDate = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");
             List<CommonData> allProvince = GetProvinceDatas("", "province");
             ViewBag.Provinces = allProvince;
             ViewBag.ReturnReasons = db.BS_ReturnReasons.Select(p => new { name = p.ReasonName, code = p.ReasonID }).ToList();
@@ -42,73 +40,6 @@ namespace MNPOST.Controllers.mailer
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult GetMailerDelivery(int? page, string fromDate, string toDate, string postId, string employeeId)
-        {
-            int pageSize = 50;
-
-            int pageNumber = (page ?? 1);
-
-            if (!CheckPostOffice(postId))
-                return Json(new { error = 1, msg = "Không phải bưu cục" }, JsonRequestBehavior.AllowGet);
-
-            if (String.IsNullOrEmpty(fromDate) || String.IsNullOrEmpty(toDate))
-            {
-                fromDate = DateTime.Now.ToString("dd/MM/yyyy");
-                toDate = DateTime.Now.ToString("dd/MM/yyyy");
-            }
-
-            DateTime paserFromDate = DateTime.Now;
-            DateTime paserToDate = DateTime.Now;
-
-            try
-            {
-                paserFromDate = DateTime.ParseExact(fromDate, "dd/MM/yyyy", null);
-                paserToDate = DateTime.ParseExact(toDate, "dd/MM/yyyy", null);
-            }
-            catch
-            {
-                paserFromDate = DateTime.Now;
-                paserToDate = DateTime.Now;
-            }
-
-            var data = db.MAILER_GET_ALL_DELIVERY(paserFromDate.ToString("yyyy-MM-dd"), paserToDate.ToString("yyyy-MM-dd"), postId).Where(p=> p.EmployeeID.Contains(employeeId)).ToList();
-
-            ResultInfo result = new ResultWithPaging()
-            {
-                error = 0,
-                msg = "",
-                page = pageNumber,
-                pageSize = pageSize,
-                toltalSize = data.Count(),
-                data = data.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList()
-            };
-
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-
-        [HttpGet]
-        public ActionResult RemoveDocument(string documentId)
-        {
-            var find = db.MM_MailerDelivery.Find(documentId);
-
-            if(find != null)
-            {
-                var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == documentId).ToList();
-
-                if(findDetail.Count() == 0)
-                {
-                    db.MM_MailerDelivery.Remove(find);
-                    db.SaveChanges();
-                }
-            }
-
-            return Json(new { }, JsonRequestBehavior.AllowGet);
-        }
-
-
 
         [HttpGet]
         public ActionResult GetDataHandle(string postId)
@@ -133,7 +64,7 @@ namespace MNPOST.Controllers.mailer
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            if (mailer.CurrentStatusID != 2 && mailer.CurrentStatusID != 6)
+            if (mailer.CurrentStatusID != 2 && mailer.CurrentStatusID != 6 && mailer.CurrentStatusID != 5)
             {
                 return Json(new ResultInfo()
                 {
@@ -144,7 +75,7 @@ namespace MNPOST.Controllers.mailer
 
             var delivery = db.MM_MailerDelivery.Find(documentId);
 
-            if (delivery == null || delivery.StatusID != 0)
+            if (delivery == null || (delivery.DocumentDate.Value.ToString("ddMMyyyy") != DateTime.Now.ToString("ddMMyyyy")))
             {
                 return Json(new ResultInfo()
                 {
@@ -155,23 +86,12 @@ namespace MNPOST.Controllers.mailer
 
             try
             {
-                var data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, mailerId).FirstOrDefault();
-
-                if (data != null)
-                {
-                    return Json(new ResultInfo()
-                    {
-                        error = 1,
-                        msg = "Mã đã tồn tại"
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
                 var insData = new MM_MailerDeliveryDetail()
                 {
                     DocumentID = documentId,
                     MailerID = mailerId,
                     CreationDate = DateTime.Now,
-                    DeliveryStatus = 3,
+                    DeliveryStatus = 3
                 };
 
                 db.MM_MailerDeliveryDetail.Add(insData);
@@ -181,21 +101,13 @@ namespace MNPOST.Controllers.mailer
                 mailer.CurrentStatusID = 3;
                 mailer.LastUpdateDate = DateTime.Now;
                 db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
-
                 db.SaveChanges();
-
-                delivery.Quantity = delivery.Quantity + 1;
-                delivery.Weight = delivery.Weight + mailer.Weight;
-
-                db.Entry(delivery).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-
 
                 // luu tracking
                 var employee = db.BS_Employees.Where(p => p.EmployeeID == delivery.EmployeeID).FirstOrDefault();
                 HandleHistory.AddTracking(3, mailerId, mailer.CurrentPostOfficeID, "Nhân viên " + employee.EmployeeName + "(" + employee.Phone + ") , đang đi phát hàng");
 
-                data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, mailerId).FirstOrDefault();
+               var data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, mailerId).FirstOrDefault();
 
                 return Json(new ResultInfo()
                 {
@@ -221,7 +133,7 @@ namespace MNPOST.Controllers.mailer
         {
             var delivery = db.MM_MailerDelivery.Find(documentId);
             var employee = db.BS_Employees.Where(p => p.EmployeeID == delivery.EmployeeID).FirstOrDefault();
-            if (delivery == null || delivery.StatusID != 0)
+            if (delivery == null || (delivery.DocumentDate.Value.ToString("ddMMyyyy") != DateTime.Now.ToString("ddMMyyyy")))
             {
                 return Json(new ResultInfo()
                 {
@@ -238,10 +150,7 @@ namespace MNPOST.Controllers.mailer
                 if (mailer.CurrentStatusID != 2 && mailer.CurrentStatusID != 6 && mailer.CurrentStatusID != 5)
                     continue;
 
-                var data = db.MAILERDELIVERY_GETMAILER_BY_ID(documentId, item).FirstOrDefault();
-                if (data != null)
-                    continue;
-
+          
                 var insData = new MM_MailerDeliveryDetail()
                 {
                     DocumentID = documentId,
@@ -263,13 +172,7 @@ namespace MNPOST.Controllers.mailer
 
                 HandleHistory.AddTracking(3, item, mailer.CurrentPostOfficeID, "Nhân viên " + employee.EmployeeName + "(" + employee.Phone + ") , đang đi phát hàng");
 
-                delivery.Quantity = delivery.Quantity + 1;
-                delivery.Weight = delivery.Weight + mailer.Weight;
-
             }
-
-            db.Entry(delivery).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
 
             return Json(new ResultInfo()
             {
@@ -285,9 +188,8 @@ namespace MNPOST.Controllers.mailer
         {
             var data = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == documentId && p.MailerID == mailerId).FirstOrDefault();
             var mailer = db.MM_Mailers.Find(mailerId);
-            var delivery = db.MM_MailerDelivery.Find(documentId);
 
-            if (data == null || mailer == null || delivery == null)
+            if (data == null || mailer == null )
                 return Json(new ResultInfo()
                 {
                     error = 1,
@@ -312,7 +214,7 @@ namespace MNPOST.Controllers.mailer
             }
             lastTracking = db.MM_Tracking.Where(p => p.MailerID == mailer.MailerID).OrderByDescending(p => p.CreateTime).FirstOrDefault();
 
-            if(lastTracking != null)
+            if (lastTracking != null)
             {
                 //
                 db.MM_MailerDeliveryDetail.Remove(data);
@@ -320,11 +222,7 @@ namespace MNPOST.Controllers.mailer
                 mailer.CurrentStatusID = lastTracking.StatusID;
                 mailer.LastUpdateDate = DateTime.Now;
 
-                delivery.Quantity = delivery.Quantity - 1;
-                delivery.Weight = delivery.Weight - mailer.Weight;
-
                 db.Entry(mailer).State = System.Data.Entity.EntityState.Modified;
-                db.Entry(delivery).State = System.Data.Entity.EntityState.Modified;
 
                 db.SaveChanges();
             }
@@ -336,8 +234,9 @@ namespace MNPOST.Controllers.mailer
             }, JsonRequestBehavior.AllowGet);
         }
 
+    
         [HttpPost]
-        public ActionResult Create(string employeeId, string deliveryDate, string licensePlate, string notes, string postId)
+        public ActionResult GetDeliveryMailerDetail(string employeeId, string deliveryDate, string postId)
         {
 
             if (!CheckPostOffice(postId))
@@ -351,7 +250,6 @@ namespace MNPOST.Controllers.mailer
             {
                 date = DateTime.Now;
             }
-
             var checkEmployyee = db.BS_Employees.Find(employeeId);
             if (checkEmployyee == null)
                 return Json(new ResultInfo()
@@ -360,39 +258,80 @@ namespace MNPOST.Controllers.mailer
                     msg = "Sai nhân viên"
                 }, JsonRequestBehavior.AllowGet);
 
-            var insDocument = new MM_MailerDelivery()
+            var documentCod = postId + date.ToString("ddMMyyyy");
+            //
+            var findDocument = db.MM_MailerDelivery.Where(p => p.DocumentCode == documentCod && p.EmployeeID == checkEmployyee.EmployeeID).FirstOrDefault();
+
+            if (findDocument == null)
             {
-                DocumentID = Guid.NewGuid().ToString(),
-                DocumentCode = postId + DateTime.Now.ToString("ddMMyyyyHHmmss"),
-                CreateDate = DateTime.Now,
-                DocumentDate = date,
-                EmployeeID = employeeId,
-                Notes = notes,
-                NumberPlate = licensePlate,
-                Quantity = 0,
-                StatusID = 0,
-                Weight = 0,
-                PostID = postId
-            };
+                if (DateTime.Now.ToString("dd/MM/yyyy") == deliveryDate)
+                {
+                    findDocument = new MM_MailerDelivery()
+                    {
+                        DocumentID = Guid.NewGuid().ToString(),
+                        DocumentCode = documentCod,
+                        CreateDate = date,
+                        DocumentDate = date,
+                        EmployeeID = employeeId,
+                        LastEditDate = DateTime.Now,
+                        Notes = "",
+                        NumberPlate = "",
+                        Quantity = 0,
+                        StatusID = 0,
+                        Weight = 0,
+                        PostID = postId
+                    };
 
-            db.MM_MailerDelivery.Add(insDocument);
+                    db.MM_MailerDelivery.Add(findDocument);
 
-            db.SaveChanges();
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return Json(new ResultInfo()
+                    {
+                        error = 1,
+                        msg = "Không có bảng kê nào cho ngày " + deliveryDate
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+
+            var document = db.MAILER_GET_DELIVERY_EMPLOYEE_BYDATE(date.ToString("yyyy-MM-dd"), documentCod, checkEmployyee.EmployeeID).FirstOrDefault();
+
+            var data = db.MAILERDELIVERY_GETMAILER(document.DocumentID).ToList();
 
             return Json(new ResultInfo()
             {
-                error = 0,
-                msg = ""
-            }, JsonRequestBehavior.AllowGet);
+                data = new
+                {
 
+                    document = document,
+                    details = data
+                },
+                error = 0
+            }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult GetDeliveryMailerDetail(string documentID)
-        {
-            var data = db.MAILERDELIVERY_GETMAILER(documentID).ToList();
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+        [HttpPost]
+        public ActionResult UpdateDelivery(string documentId, string notes, string numberPlate)
+        {
+            var find = db.MM_MailerDelivery.Find(documentId);
+
+            if(find != null)
+            {
+                find.LastEditDate = DateTime.Now;
+                find.Notes = notes;
+                find.NumberPlate = numberPlate;
+                db.Entry(find).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new
+            {
+
+            }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -587,7 +526,7 @@ namespace MNPOST.Controllers.mailer
             var data = new List<MailerIdentity>();
             foreach (var item in mailers)
             {
-                var mailer = db.MAILER_GETINFO_BYID(item.MailerID).FirstOrDefault(); 
+                var mailer = db.MAILER_GETINFO_BYID(item.MailerID).FirstOrDefault();
 
                 data.Add(new MailerIdentity()
                 {
@@ -608,46 +547,51 @@ namespace MNPOST.Controllers.mailer
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult ShowMailerNotFinishOfDate(string employeeId)
+        {
+            var data = db.DELIVERY_GETMAILER_OFDATE_NOTFINISH(employeeId).ToList();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
-        public ActionResult CreateFromRoutes(List<EmployeeAutoRouteInfo> routes, string postId, string deliveryDate)
+        public ActionResult CreateFromRoutes(List<EmployeeAutoRouteInfo> routes, string postId)
         {
             DateTime date = DateTime.Now;
-            try
-            {
-                date = DateTime.ParseExact(deliveryDate, "dd/MM/yyyy", null);
-            }
-            catch
-            {
-                date = DateTime.Now;
-            }
-
-            List<MailerDeliveryIdentity> result = new List<MailerDeliveryIdentity>();
 
             foreach (var item in routes)
             {
                 if (item.Mailers.Count() == 0)
                     continue;
 
-                var insDocument = new MM_MailerDelivery()
+                var documentCod = postId + date.ToString("ddMMyyyy");
+                //
+                var findDocument = db.MM_MailerDelivery.Where(p => p.DocumentCode == documentCod && p.EmployeeID == item.EmployeeID).FirstOrDefault();
+
+                if (findDocument == null)
                 {
-                    DocumentID = Guid.NewGuid().ToString(),
-                    DocumentCode = postId + DateTime.Now.ToString("ddMMyyyyHHmmss"),
-                    CreateDate = DateTime.Now,
-                    DocumentDate = date,
-                    EmployeeID = item.EmployeeID,
-                    Notes = "Tạo từ chia tuyến phát",
-                    NumberPlate = "",
-                    Quantity = 0,
-                    StatusID = 0,
-                    Weight = 0
-                };
+                    findDocument = new MM_MailerDelivery()
+                    {
+                        DocumentID = Guid.NewGuid().ToString(),
+                        DocumentCode = documentCod,
+                        CreateDate = date,
+                        DocumentDate = date,
+                        EmployeeID = item.EmployeeID,
+                        LastEditDate = DateTime.Now,
+                        Notes = "",
+                        NumberPlate = "",
+                        Quantity = 0,
+                        StatusID = 0,
+                        Weight = 0,
+                        PostID = postId
+                    };
 
-                db.MM_MailerDelivery.Add(insDocument);
+                    db.MM_MailerDelivery.Add(findDocument);
 
-                db.SaveChanges();
+                    db.SaveChanges();
+                }
 
-                int allQuantity = 0;
-                double? allWeight = 0;
 
                 // add to detail
                 foreach (var mailer in item.Mailers)
@@ -658,7 +602,7 @@ namespace MNPOST.Controllers.mailer
                     {
                         var insData = new MM_MailerDeliveryDetail()
                         {
-                            DocumentID = insDocument.DocumentID,
+                            DocumentID = findDocument.DocumentID,
                             MailerID = checkMailer.MailerID,
                             CreationDate = DateTime.Now,
                             DeliveryStatus = 3,
@@ -671,34 +615,9 @@ namespace MNPOST.Controllers.mailer
                         db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
 
                         db.SaveChanges();
-
-                        allQuantity++;
-                        allWeight = allWeight + checkMailer.Weight;
                     }
                 }
 
-                var deliveryDocument = db.MM_MailerDelivery.Find(insDocument.DocumentID);
-
-                deliveryDocument.Quantity = allQuantity;
-                deliveryDocument.Weight = allWeight;
-                db.Entry(deliveryDocument).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-
-                result.Add(new MailerDeliveryIdentity()
-                {
-                    DocumentDate = deliveryDocument.DocumentDate.Value.ToString("dd/MM/yyyy HH:mm"),
-                    DocumentID = deliveryDocument.DocumentID,
-                    DocumentCode = deliveryDocument.DocumentCode,
-                    EmployeeID = deliveryDocument.EmployeeID,
-                    EmployeeName = deliveryDocument.BS_Employees.EmployeeName,
-                    Notes = deliveryDocument.Notes,
-                    NumberPlate = deliveryDocument.NumberPlate,
-                    PostOfficeId = postId,
-                    Quantity = deliveryDocument.Quantity,
-                    RouteID = deliveryDocument.RouteID,
-                    StatusID = deliveryDocument.StatusID,
-                    Weight = deliveryDocument.Weight
-                });
             }
 
             return Json(new { }, JsonRequestBehavior.AllowGet);
@@ -794,11 +713,9 @@ namespace MNPOST.Controllers.mailer
                     }
                 }
 
-
                 db.Entry(mailerInfo).State = System.Data.Entity.EntityState.Modified;
                 db.Entry(findDetail).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                UpdateDeliveryStatus(findDetail.DocumentID);
 
                 return Json(new ResultInfo()
                 {
@@ -814,34 +731,7 @@ namespace MNPOST.Controllers.mailer
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public void UpdateDeliveryStatus(string documentId)
-        {
-            var find = db.MM_MailerDelivery.Find(documentId);
-
-            var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == documentId).ToList();
-
-            var countSucess = 0;
-
-            foreach (var item in findDetail)
-            {
-                if (item.DeliveryStatus == 4 || item.DeliveryStatus == 5)
-                {
-                    countSucess++;
-                }
-            }
-
-            if (countSucess == findDetail.Count())
-            {
-                find.StatusID = 3;
-            }
-            else
-            {
-                find.StatusID = 2;
-            }
-
-            db.Entry(find).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-        }
+      
 
     }
 }

@@ -1326,6 +1326,10 @@
           <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
           <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
           <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+          <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+          <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+          <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+          <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1347,6 +1351,10 @@
           <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
           <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
           <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+          <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+          <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+          <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+          <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1473,6 +1481,7 @@
           <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
           <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
           <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
+          <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1532,6 +1541,7 @@
           <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
           <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
           <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
+          <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -2289,5 +2299,49 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH" FunctionName="MNPOSTModel.Store.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE" FunctionName="MNPOSTModel.Store.MAILER_GET_DELIVERY_EMPLOYEE_BYDATE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+          <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+          <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+          <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+          <ScalarProperty Name="CountNotFinish" ColumnName="CountNotFinish" />
+          <ScalarProperty Name="CountFinish" ColumnName="CountFinish" />
+          <ScalarProperty Name="CountFail" ColumnName="CountFail" />
+          <ScalarProperty Name="CountReturn" ColumnName="CountReturn" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DELIVERY_GETMAILER_OFDATE_NOTFINISH" FunctionName="MNPOSTModel.Store.DELIVERY_GETMAILER_OFDATE_NOTFINISH">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MNPOSTModel.DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result">
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

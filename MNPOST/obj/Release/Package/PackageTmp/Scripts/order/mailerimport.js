@@ -87,9 +87,30 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         if (listMailers === '') {
             showNotify("Phải chọn vận đơn để in");
         } else {
-            window.open("/Report/Viewer/MailerPrint.aspx?mailer=" + listMailers, "_blank");
+            $scope.showPDF('/report/PhieuGui?mailerId=' + listMailers);
         }
+    };
 
+    $scope.returnTake = function (mailerId, idx) {
+        showLoader(true);
+        $http({
+            method: 'POST',
+            url: '/mailerimport/CancelTake',
+            data: {
+                documentID: $scope.takeInfo.DocumentID,
+                mailerId: mailerId
+            }
+
+        }).then(function sucess(response) {
+            showLoader(false);
+            if (response.data.error === 1) {
+                alert(response.data.msg);
+            } else {
+                $scope.takeDetailDatas.splice(idx, 1);
+                $scope.getData();
+                $scope.sendGetTakeMailers();
+            }
+        });
     };
 
     $scope.sendImport = function () {

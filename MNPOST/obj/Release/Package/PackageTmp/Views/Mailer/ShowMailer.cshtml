@@ -104,7 +104,8 @@
                                                         <strong>Ngày lập: </strong>{{item.AcceptDate}} <br />
                                                         <strong>BC nhận: </strong>{{item.PostOfficeAcceptID}} <br />
                                                         <strong>BC H/tại: </strong>{{item.CurrentPostOfficeID}}<br />
-                                                        <strong>Trạng thái: </strong><span class="label label-info">{{findStatus(item.CurrentStatusID)}}</span><br /><br />
+                                                        <span class="label label-info">{{findStatus(item.CurrentStatusID)}}</span><br />
+                                                        <span ng-show="item.IsReturn" class="label label-warning">ĐƠN CHUYỂN HOÀN</span><br /><br />
                                                         <a href="#" class="label label-primary" ng-click="showMailerDetail($index)">Chi tiết</a> &nbsp;&nbsp;
                                                         <a href="#" ng-click="showPDF('/report/PhieuGui?mailerId=' + item.MailerID)">In phiếu</a>
                                                     </td>
@@ -379,7 +380,7 @@
                                         <label>Tổng cước</label>
                                         <div class="input-group">
                                             <input type="number" class="form-control" step="any" ng-model="mailer.Amount" />
-                                            <span class="input-group-addon"><a href="#" ng-click="calPrice()"><i my-tool-tip="Tính giá" class="fa fa-calculator"></i></a></span>
+                                            <span class="input-group-addon"><a href="#" ng-click="calPrice()">Tính giá</a></span>
                                         </div>
                                         {{mailer.PriceDefault |  currency: 'VND ':0}}
                                     </div>
@@ -459,9 +460,6 @@
     <!-- end show tracking -->
 
 </div>
-@section styles {
-
-}
 
 <!-- end content-->
 @section scripts {

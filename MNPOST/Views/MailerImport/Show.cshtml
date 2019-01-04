@@ -165,7 +165,7 @@
                                     <tbody>
                                         <tr ng-repeat="item in takeDetailDatas">
                                             <td><input type="checkbox" ng-model="item.isCheck" /></td>
-                                            <td>{{$index + 1}}</td>
+                                            <td>{{$index + 1}}<a class="label label-danger" href="#" ng-click="returnTake(item.MailerID, $index)">Thu hồi</a></td>
                                             <td>{{item.MailerID}}</td>
                                             <td>{{status[item.CurrentStatusID].name}}</td>
                                             <td>{{item.AcceptDate}}</td>

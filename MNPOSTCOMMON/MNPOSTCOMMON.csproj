@@ -195,6 +195,9 @@
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
+    <Compile Include="DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
     <Compile Include="DELIVERY_GETREPORT_EMPLOYEE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
@@ -276,6 +279,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_ALL_DELIVERY_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="MAILER_GET_NOT_INVENTORY_Result.cs">
@@ -424,6 +430,9 @@
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="TAKEMAILER_GETDETAILs_Result.cs">
+      <DependentUpon>MNPOST.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result.cs">
       <DependentUpon>MNPOST.tt</DependentUpon>
     </Compile>
     <Compile Include="TAKEMAILER_GETLIST_BY_EMPLOYEE_Result.cs">

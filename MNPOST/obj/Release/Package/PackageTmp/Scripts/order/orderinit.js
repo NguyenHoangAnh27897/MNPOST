@@ -508,11 +508,16 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
                         alert(result.msg);
                     } else {
                        
-                        hideModel('insertbyexcel');
+                       
                         for (var i = 0; i < result.data.length; i++) {
-                            mailerService.addMailer(result.data[i]);
-      
+
+                            var item = result.data[i];
+                           // item.ListProvinceSend = provinceSendGet;
+                           // item.ListProvinceRecive = provinceSendGet;
+                            item.Services = [];
+                            mailerService.addMailer(item);
                         }
+                        hideModel('insertbyexcel');
                         $scope.$apply();
                     }
                 }
@@ -722,7 +727,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
 
         $http({
             method: "POST",
-            url: "/mailer/calbillprice",
+            url: "/mailer/CalBillPrice",
             data: {
                 'weight': $scope.mailer.Weight,
                 'customerId': $scope.mailer.SenderID,
@@ -733,7 +738,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
                 'merchandiseValue': $scope.mailer.MerchandiseValue
             }
         }).then(function mySuccess(response) {
-
+            console.log(response.data);
             $scope.mailer.PriceDefault = response.data.price;
             $scope.mailer.PriceCoD = response.data.codPrice;
 

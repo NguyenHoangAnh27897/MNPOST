@@ -1190,6 +1190,9 @@
   <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupID" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="DELIVERY_GETMAILER_OFDATE_NOTFINISH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employeeId" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="DELIVERY_GETREPORT_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
     <Parameter Name="fdate" Type="nvarchar" Mode="In" />
@@ -1267,6 +1270,11 @@
     <Parameter Name="fdate" Type="varchar" Mode="In" />
     <Parameter Name="tdate" Type="varchar" Mode="In" />
     <Parameter Name="postId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="date" Type="varchar" Mode="In" />
+    <Parameter Name="documentCode" Type="varchar" Mode="In" />
+    <Parameter Name="employeeId" Type="varchar" Mode="In" />
   </Function>
   <Function Name="MAILER_GET_NOT_INVENTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
@@ -1372,6 +1380,9 @@
     <Parameter Name="employee" Type="nvarchar" Mode="In" />
     <Parameter Name="statusId" Type="int" Mode="In" />
     <Parameter Name="date" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employee" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="groupId" Type="nvarchar" Mode="In" />

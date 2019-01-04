@@ -6,13 +6,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
 
     // phan trang
-    $scope.numPages;
-    $scope.itemPerPage;
-    $scope.totalItems;
-    $scope.currentPage = 1;
-    $scope.maxSize = 5;
     $scope.showEdit = false;
-    $scope.showDeliveries = false;
     $scope.showUpdate = false;
     $scope.provinces = provinceData;
     $scope.districts = [];
@@ -22,45 +16,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.pageChanged = function () {
         $scope.GetData();
-    };
-
-    $scope.searchInfo = {
-        "fromDate": fromDate,
-        "toDate": toDate,
-        "page": $scope.currentPage,
-        "postId": "",
-        "employeeId": ""
-    };
-
-    $scope.allDeliveries = [];
-
-    $scope.GetData = function () {
-        $scope.searchInfo.page = $scope.currentPage;
-        $scope.searchInfo.postId = $scope.postHandle;
-
-        showLoader(true);
-        $http({
-            method: "POST",
-            url: "/mailerdelivery/getmailerdelivery",
-            data: $scope.searchInfo
-        }).then(function mySuccess(response) {
-            showLoader(false);
-
-            if (response.data.error === 0) {
-                $scope.itemPerPage = response.data.pageSize;
-                $scope.totalItems = response.data.toltalSize;
-                $scope.numPages = Math.round($scope.totalItems / $scope.itemPerPage);
-
-                $scope.allDeliveries = response.data.data;
-                console.log($scope.allDeliveries);
-            } else {
-                alert(response.data.msg);
-            }
-
-        }, function myError(response) {
-            showLoader(false);
-            showNotify('Connect error');
-        });
     };
 
     $scope.removeDocument = function (idx) {
@@ -155,11 +110,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         if ($scope.postHandle === '') {
             alert('Chọn bưu cục nếu không sẽ không thể thao tác');
         } else {
-
-            $scope.GetData();
             $scope.getFirstData();
             $scope.getReportEmployeeDelivery();
-            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 60);
+            $interval(function () {  $scope.getReportEmployeeDelivery() }, 1000 * 60);
             hideModel('choosePostOfficeModal');
         }
     };
@@ -170,50 +123,16 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
         if ($scope.postOffices.length === 1) {
             $scope.postHandle = $scope.postOffices[0];
-            $scope.GetData();
             $scope.getFirstData();
             $scope.getReportEmployeeDelivery();
-            $interval(function () { $scope.GetData(); $scope.getReportEmployeeDelivery() }, 1000 * 60);
+            $interval(function () {$scope.getReportEmployeeDelivery() }, 1000 * 60);
         } else {
             showModelFix('choosePostOfficeModal');
         }
 
     };
 
-    // xư ly bang ke
-    $scope.createDelivery = function () {
-        $scope.createDeliveryInfo = { deliveryDate: currentDate, postId: $scope.postHandle, licensePlate: '' };
-        showModel('createDelivery');
-
-    };
-    $scope.createDeliveryInfo = {};
-    $scope.finishCreateDelivery = function () {
-
-        showLoader(true);
-        $http({
-            method: "POST",
-            url: "/mailerdelivery/create",
-            data: $scope.createDeliveryInfo
-        }).then(function sucess(response) {
-            showLoader(false);
-            if (response.data.error === 0) {
-                resfeshData();
-                hideModel('createDelivery');
-            } else {
-                alert(response.data.msg);
-            }
-
-
-        }, function error(response) {
-            showLoader(false);
-            alert("connect error");
-        });
-
-    };
-
-
     var resfeshData = function () {
-        $scope.GetData();
         $scope.getReportEmployeeDelivery();
     };
 
@@ -221,12 +140,11 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     $scope.currentDocument = {};
     $scope.mailers = [];
     $scope.mailerId = '';
-    $scope.showDocumentDetail = function (idx) {
+    $scope.showDocumentDetail = function (employeeId) {
         $scope.mailers = [];
         $scope.showEdit = true;
-        $scope.showDeliveries = false;
         $scope.showUpdate = false;
-        $scope.currentDocument = angular.copy($scope.allDeliveries[idx]);
+        $scope.currentDocument = { DocumentDate: currentDate, EmployeeID: employeeId };
 
         $('.nav-tabs a[href="#tab_chitiet"]').tab('show');
         $scope.getDocumentDetail();
@@ -234,6 +152,34 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
 
     $scope.getDocumentDetail = function () {
+
+        showLoader(true);
+        $http({
+            method: "post",
+            url: "/mailerdelivery/GetDeliveryMailerDetail",
+            data: {
+                employeeId: $scope.currentDocument.EmployeeID,
+                deliveryDate: $scope.currentDocument.DocumentDate,
+                postId: $scope.postHandle
+            }
+            
+        }).then(function sucess(response) {
+            showLoader(false);
+
+            var ressult = response.data;
+
+            if (ressult.error === 1) {
+                alert(ressult.msg);
+            } else {
+                $scope.currentDocument = ressult.data.document;
+                $scope.mailers = ressult.data.details;
+            }
+
+        }, function error() {
+            alert("connect error");
+            showLoader(false);
+        });
+
         $http.get("/mailerdelivery/GetDeliveryMailerDetail?documentID=" + $scope.currentDocument.DocumentID).then(
             function (response) {
                 console.log(response.data);
@@ -242,9 +188,29 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
         );
     };
 
+    $scope.updateDocument = function () {
+        showLoader(true);
 
+        $http({
+            method: "POST",
+            url: "/mailerdelivery/UpdateDelivery",
+            data: {
+                documentId: $scope.currentDocument.DocumentID,
+                numberPlate: $scope.currentDocument.NumberPlate,
+                notes: $scope.currentDocument.Notes
+            }
+        }).then(function sucess(response) {
+           
+            showLoader(false);
 
-    $scope.addMailer = function (valid) {
+        }, function error() {
+            alert("connect error");
+            showLoader(false);
+        });
+
+    };
+
+    $scope.addMailer = function () {
         if ($scope.currentDocument.DocumentID === '') {
             alert("Không thể thêm");
         } else {
@@ -392,24 +358,18 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
         var routesSend = [];
         routesSend.push($scope.autoRoutes[idx]);
-        var date = $('#deliveryRouteDate').val();
         showLoader(true);
         $http({
             method: "POsT",
             url: "/mailerdelivery/CreateFromRoutes",
             data: {
                 routes: routesSend,
-                postId: $scope.postHandle,
-                deliveryDate: date
+                postId: $scope.postHandle
             }
         }).then(function sucess(response) {
-
-            for (var i = 0; i < response.data.length; i++) {
-                $scope.allDeliveries.unshift(response.data[i]);
-
-            }
-            showLoader(false);
             hideModel('autoRoutes');
+            showLoader(false);
+            $scope.resfeshData();
         }, function error(response) {
             showLoader(false);
             alert("connect error");
@@ -420,21 +380,19 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     $scope.createAutoAllEmployee = function () {
 
-        var date = $('#deliveryRouteDate').val();
         showLoader(true);
         $http({
             method: "POsT",
             url: "/mailerdelivery/CreateFromRoutes",
             data: {
                 routes: $scope.autoRoutes,
-                postId: $scope.postHandle,
-                deliveryDate: date
+                postId: $scope.postHandle
             }
         }).then(function sucess(response) {
-
-            resfeshData();
             showLoader(false);
             hideModel('autoRoutes');
+            resfeshData();
+           
         }, function error(response) {
             showLoader(false);
             alert("connect error");
@@ -442,6 +400,18 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     };
 
+    $scope.mailerNotFinishOfDate = [];
+    $scope.showMailerOfDate = function (employeeId) {
+        showLoader(true);
+
+        $http.get("/mailerdelivery/ShowMailerNotFinishOfDate?employeeId=" + employeeId).then(function (response) {
+            showLoader(false);
+
+            $scope.mailerNotFinishOfDate = response.data;
+            showModel('mailerNotfinish');
+        });
+
+    };
 
     // do danh sach tu dong
     $scope.fillMailerForEmployee = function () {

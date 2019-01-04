@@ -10,8 +10,7 @@
             <div class="x_title">
                 <h2>QUẢN LÝ PHÁT - {{postHandle}}</h2>
                 <div class="nav navbar-right">
-                    <button type="button" class="btn btn-primary" ng-click="createDelivery()" ng-show="showDeliveries">Tạo bảng kê</button>
-                    <button type="button" class="btn btn-warning" ng-show="showDeliveries" ng-click="getAutoRoutes()">Tạo từ chia tuyến</button>
+                    <button type="button" class="btn btn-primary" ng-hide="showEdit" ng-click="getAutoRoutes()">Tạo từ chia tuyến</button>
                     <button type="button" class="btn btn-warning" ng-show="showEdit" ng-click="fillMailerForEmployee()">Đổ danh sách</button>
                     <button type="button" class="btn btn-success" ng-show="showEdit" ng-click="confirmAllMailers()">Cập nhật phát</button>
                 </div>
@@ -24,13 +23,10 @@
                             <a href="#tab_monitor" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=false; showDeliveries = false;showUpdate = false">Theo dõi phát hàng</a>
                         </li>
                         <li role="presentation">
-                            <a href="#tab_sophat" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=false; showDeliveries = true;showUpdate = false">Sổ phát</a>
+                            <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showUpdate = false">Chi tiết</a>
                         </li>
                         <li role="presentation">
-                            <a href="#tab_chitiet" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=true ; showDeliveries = false; showUpdate = false">Chi tiết</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#tab_capnhatphat" role="tab" data-toggle="tab" aria-expanded="false" ng-click="showEdit=false ; showDeliveries = false; showUpdate = true">Cập nhật phát</a>
+                            <a href="#tab_capnhatphat" role="tab" data-toggle="tab" aria-expanded="false">Cập nhật phát</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -71,11 +67,11 @@
                                             <tbody>
                                                 <tr ng-repeat="item in deliveryReports">
                                                     <td>
-                                                        {{$index + 1}}
+                                                        {{$index + 1}} <a class="label label-info" href="#" ng-click="showDocumentDetail(item.EmployeeID)">&nbsp;Xem bảng kê</a>
                                                     </td>
                                                     <td>{{item.EmployeeID}}</td>
                                                     <td>{{item.EmployeeName}}</td>
-                                                    <td>{{item.AllMailer}}</td>
+                                                    <td>{{item.AllMailer}} <a href="#" ng-click="showMailerOfDate(item.EmployeeID)">&nbsp;xem chi tiết</a></td>
                                                     <td>{{item.AllCoD}}</td>
                                                     <td>{{item.AllDebit}}</td>
                                                 </tr>
@@ -85,133 +81,63 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div role="tabpanel" class="tab-pane" id="tab_sophat" aria-labelledby="profile-tab">
-                            <!-- begin tab-->
-                            <div class="row">
-                                <form name="formSearch" ng-submit="GetData()">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Lọc theo nhân viên</label>
-                                            <select class="form-control" ng-model="searchInfo.employeeId" ui-select2="select2Options">
-                                                <option value="">Tất cả</option>
-                                                <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Thời gian (từ ngày --> đến ngày)</label>
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <input type="text" required class="form-control" ui-mask='99/99/9999' model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="searchInfo.fromDate">
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <input type="text" required class="form-control" ui-mask='99/99/9999' model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="" ng-model="searchInfo.toDate">
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button class="btn btn-primary" type="submit">Xem thông tin</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-
-                                <!-- thong tin-->
-                                <div class="col-md-12">
-                                    <!-- table data-->
-                                    <div class="table-responsive">
-                                        <table class="table table-striped jambo_table bulk_action">
-                                            <thead>
-                                                <tr class="headings">
-                                                    <th>STT</th>
-                                                    <th>Mã bảng kê</th>
-                                                    <th>Ngày phát</th>
-                                                    <th>Ngày lập</th>
-                                                    <th>Nhân viên</th>
-                                                    <th>Thông tin</th>
-                                                    <th>Tình trạng</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr ng-repeat="item in allDeliveries" ng-class="{'active': item.StatusID == 0, 'warning' : item.StatusID == 1,'danger' : item.StatusID == 2, 'success' : item.StatusID == 3}">
-                                                    <td>
-                                                        {{$index + 1}}&nbsp;&nbsp;
-                                                        <a href="#" ng-click="showDocumentDetail($index)">Chi tiết</a>
-                                                    </td>
-                                                    <td> <a href="#" ng-click="showDocumentDetail($index)">{{item.DocumentCode}}</a></td>
-                                                    <td><span class="label label-danger">{{item.DocumentDate}}</span></td>
-                                                    <td>{{item.CreateDate}}</td>
-                                                    <td>
-                                                        <strong>Tên NV: </strong> {{item.EmployeeName}} <br />
-                                                        <strong>Mã NV: </strong> {{item.EmployeeID}}
-                                                    </td>
-                                                    <td ng-init="item.CountAll = item.CountFinish + item.CountNotFinish + item.CountFail + item.CountReturn">
-                                                        <strong>Số xe: </strong>{{item.NumberPlate}} <br />
-                                                        <strong>Số lượng: </strong>{{ item.CountAll}}<br />
-                                                        <strong>Trọng lượng: </strong>{{item.Weight}} GRAM<br />
-                                                        <strong>Đã phát: </strong>{{item.CountFinish}}<br />
-                                                        <strong>Chưa phát: </strong>{{item.CountNotFinish}}<br />
-                                                        <strong>Chưa phát được: </strong>{{item.CountFail}}<br />
-                                                        <strong>Chuyển hoàn: </strong>{{item.CountReturn}}
-                                                    </td>
-                                                    <td><span class="label label-primary">{{deliveryStatus[item.StatusID].name}}</span> <br />
-                                                        <a href="#" ng-click="removeDocument($index)" ng-show="item.CountAll == 0">Xóa</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--phan trang-->
-                                    <ul items-per-page="itemPerPage" uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize" boundary-link-numbers="true" rotate="false" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
-                                    <!-- end phan trang-->
-
-                                </div>
-
-                            </div>
-                            <!-- end tab-->
-                        </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_chitiet" aria-labelledby="profile-tab">
-                            <div class="row">
+                            <div class="row" ng-show="showEdit">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Mã bảng kê</label>
-                                        <input type="text" class="form-control" disabled value="{{currentDocument.DocumentCode}}" />
+                                        <label>Chọn ngày tạo để xem</label>
+                                        <form ng-submit="getDocumentDetail()">
+                                            <input type="text" ng-model="currentDocument.DocumentDate" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="">
+                                        </form>
                                     </div>
                                     <div class="form-group">
                                         <label>Nhân viên</label>
                                         <input type="text" class="form-control" disabled value="{{currentDocument.EmployeeName + ' - ' + currentDocument.EmployeeID}}" />
                                     </div>
-                                    <div class="form-group">
-                                        <label>Ghi chú</label>
-                                        <textarea class="form-control" ng-model="currentDocument.Notes" rows="2"></textarea>
-                                    </div>
+
+                                    <button class="btn btn-primary" ng-click="updateDocument()">Cập nhật thông tin</button>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Ngày phát</label>
-                                        <input type="text" class="form-control" disabled value="{{currentDocument.DocumentDate}}" />
+                                        <label>Ghi chú</label>
+                                        <input type="text" class="form-control" ng-model="currentDocument.Notes" />
                                     </div>
                                     <div class="form-group">
                                         <label>Chuyến xe</label>
-                                        <input type="text" class="form-control" disabled value="{{currentDocument.NumberPlate}}" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tình trạng</label>
-                                        <input type="text" class="form-control" disabled value="{{deliveryStatus[currentDocument.StatusID].name}}" />
+                                        <select class="form-control selectpicker" data-live-search="true" ng-model="currentDocument.NumberPlate">
+                                            <option value="">KHÔNG CHỌN</option>
+                                            <option ng-repeat="x in licensePlates" value="{{x.code}}">{{x.code}}</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
+                                    <br />
+                                    <br />
+                                    <div class="x_title">
+                                        <h2><i class="fa fa-align-left"></i> Thông tin phát</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Số lượng: </strong>{{currentDocument.AllMailer}}<br />
+                                    <strong>Trọng lượng: </strong>{{currentDocument.Weight}} GRAM<br />
+                                    <strong>Đã phát: </strong>{{currentDocument.CountFinish}}<br />
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Chưa phát: </strong>{{currentDocument.CountNotFinish}}<br />
+                                    <strong>Chưa phát được: </strong>{{currentDocument.CountFail}}<br />
+                                    <strong>Chuyển hoàn: </strong>{{currentDocument.CountReturn}}
+                                </div>
+
+                                <div class="col-sm-12">
                                     <hr />
-                                    <form ng-submit="addMailer(addmailerdelivery.$valid)" name="addmailerdelivery">
+                                    <form ng-submit="addMailer()">
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" ng-model="mailerId" required />
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="btn btn-primary" type="submit">Thêm</button>
                                             </div>
                                         </div>
                                     </form>
@@ -237,7 +163,8 @@
                                                     <td><span class="label label-info">{{mailerStatus[item.CurrentStatusID].name}}</span></td>
                                                     <td>{{item.Weight}} GRAM</td>
                                                     <td>{{item.MailerTypeID}}</td>
-                                                    <td>{{item.RecieverAddress}} <br />
+                                                    <td>
+                                                        {{item.RecieverAddress}} <br />
                                                         <span class="label label-info">{{item.RecieProvinceName}}</span>&nbsp;&nbsp;<span class="label label-info">{{item.ReceiDistrictName}}</span>&nbsp;&nbsp;<span class="label label-info">{{item.ReceiWardName}}</span>
                                                     </td>
                                                     <td>{{item.COD}}</td>
@@ -346,66 +273,12 @@
         </div>
     </div>
     <!-- end chon buu cuc-->
-    <!-- tao bang ke-->
-    <div id="createDelivery" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <form name="createDeliveryForm" ng-submit="finishCreateDelivery(createDeliveryForm.$valid)">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Nhân viên phát</label>
-                                    <select class="form-control" ng-model="createDeliveryInfo.employeeId" ui-select2="select2Options">
-                                        <option ng-repeat="x in employees" value="{{x.code}}">{{x.name + ' - ' + x.code}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Xe vận chuyển</label>
-                                    <select class="form-control selectpicker" data-live-search="true" ng-model="createDeliveryInfo.licensePlate">
-                                        <option value="">KHÔNG CHỌN</option>
-                                        <option ng-repeat="x in licensePlates" value="{{x.code}}">{{x.code}}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Ghi chú</label>
-                                    <textarea rows="3" required class="form-control" ng-model="createDeliveryInfo.notes"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Thời gian phát</label>
-                                    <input type="text" ng-model="createDeliveryInfo.deliveryDate" required class="form-control" ui-mask="99/99/9999" model-view-value="true" ui-mask-placeholder ui-mask-placeholder-char="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default">Hoàn thành</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- end tao bang ke-->
     <!--Lay tuyen tu dong -->
     <div id="autoRoutes" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
-
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Thời gian phát</label>
-                                <input type="text" id="deliveryRouteDate" required class="form-control" data-inputmask="'mask': '99/99/9999'" value="@ViewBag.FromDate">
-                            </div>
-                        </div>
-
                         <div class="col-sm-12">
                             <div class="table-responsive">
 
@@ -562,6 +435,36 @@
         </div>
     </div>
     <!-- Lay tuyen nhan vien -->
+    <!-- show not finish -->
+    <div id="mailerNotfinish" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Số lượng chưa phát</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in mailerNotFinishOfDate">
+                                <td>{{item.DocumentDate}}</td>
+                                <td>{{item.AllMailer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
 @section styles {
@@ -589,8 +492,6 @@
 
         // tao controller
         var postOfficeDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.PostOffices)));
-        var fromDate = '@Html.Raw(ViewBag.FromDate)';
-        var toDate = '@Html.Raw(ViewBag.ToDate)';
 
         var reasonReturnDatas = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.ReturnReasons)));
         var provinceData = angular.fromJson(@Html.Raw(Json.Encode(ViewBag.Provinces)));

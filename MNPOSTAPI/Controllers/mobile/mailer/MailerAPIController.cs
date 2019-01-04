@@ -77,7 +77,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
         public ResultInfo GetTakeMailerInDay()
         {
             var user = User.Identity.Name;
-            var data = presenter.GetTakeMailer(user, DateTime.Now.ToString("yyyy-MM-dd"), 7);
+            var data = presenter.GetTakeMailer(user);
 
             return data;
         }
@@ -96,7 +96,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
             }
 
             var user = User.Identity.Name;
-            var data = presenter.GetTakeMailer(user, dateTime.ToString("yyyy-MM-dd"), status);
+            var data = presenter.GetTakeMailer(user);
 
             return data;
         }
@@ -125,6 +125,35 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                 var user = User.Identity.Name;
 
                 result = presenter.UpdateTakeMailer(user, paser);
+
+            }
+            catch (Exception e)
+            {
+                result.error = 1;
+                result.msg = e.Message;
+            }
+            return result;
+
+        }
+
+        [HttpPost]
+        public ResultInfo CancelTakeMailer()
+        {
+            var result = new ResultInfo()
+            {
+                error = 0,
+                msg = "success"
+            };
+            try
+            {
+
+                var requestContent = Request.Content.ReadAsStringAsync().Result;
+                var jsonserializer = new JavaScriptSerializer();
+                var paser = jsonserializer.Deserialize<UpdateTakeMailerReceive>(requestContent);
+
+                var user = User.Identity.Name;
+
+                result = presenter.CancelTakeMailer(user, paser);
 
             }
             catch (Exception e)

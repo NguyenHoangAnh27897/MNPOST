@@ -33,6 +33,8 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
     {
         public string documentId { get; set; }
 
-        public List<string> mailers { get; set; }
+        public string mailers { get; set; }
+
+        public float weight { get; set; }
     }
 }

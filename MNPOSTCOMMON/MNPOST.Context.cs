@@ -869,5 +869,40 @@ namespace MNPOSTCOMMON
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_GET_NOPAID_Result>("CUSTOMER_DEBIT_GET_NOPAID", cusIdParameter);
         }
+    
+        public virtual ObjectResult<TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result> TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH(string employee)
+        {
+            var employeeParameter = employee != null ?
+                new ObjectParameter("employee", employee) :
+                new ObjectParameter("employee", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result>("TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH", employeeParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result> MAILER_GET_DELIVERY_EMPLOYEE_BYDATE(string date, string documentCode, string employeeId)
+        {
+            var dateParameter = date != null ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(string));
+    
+            var documentCodeParameter = documentCode != null ?
+                new ObjectParameter("documentCode", documentCode) :
+                new ObjectParameter("documentCode", typeof(string));
+    
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result>("MAILER_GET_DELIVERY_EMPLOYEE_BYDATE", dateParameter, documentCodeParameter, employeeIdParameter);
+        }
+    
+        public virtual ObjectResult<DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result> DELIVERY_GETMAILER_OFDATE_NOTFINISH(string employeeId)
+        {
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result>("DELIVERY_GETMAILER_OFDATE_NOTFINISH", employeeIdParameter);
+        }
     }
 }

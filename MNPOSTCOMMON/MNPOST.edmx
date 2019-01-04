@@ -1195,6 +1195,9 @@
         <Function Name="CUSTOMER_GET_BYGROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupID" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="DELIVERY_GETMAILER_OFDATE_NOTFINISH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employeeId" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="DELIVERY_GETREPORT_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="employeeId" Type="nvarchar" Mode="In" />
           <Parameter Name="fdate" Type="nvarchar" Mode="In" />
@@ -1272,6 +1275,11 @@
           <Parameter Name="fdate" Type="varchar" Mode="In" />
           <Parameter Name="tdate" Type="varchar" Mode="In" />
           <Parameter Name="postId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="date" Type="varchar" Mode="In" />
+          <Parameter Name="documentCode" Type="varchar" Mode="In" />
+          <Parameter Name="employeeId" Type="varchar" Mode="In" />
         </Function>
         <Function Name="MAILER_GET_NOT_INVENTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="postId" Type="nvarchar" Mode="In" />
@@ -1377,6 +1385,9 @@
           <Parameter Name="employee" Type="nvarchar" Mode="In" />
           <Parameter Name="statusId" Type="int" Mode="In" />
           <Parameter Name="date" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="USER_CHECKACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="nvarchar" Mode="In" />
@@ -2848,6 +2859,17 @@
           <Parameter Name="cusId" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="AddressTemps" EntityType="MNPOSTModel.AddressTemp" />
+          <FunctionImport Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result)">
+          <Parameter Name="employee" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE" ReturnType="Collection(MNPOSTModel.MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result)">
+            <Parameter Name="date" Mode="In" Type="String" />
+            <Parameter Name="documentCode" Mode="In" Type="String" />
+            <Parameter Name="employeeId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DELIVERY_GETMAILER_OFDATE_NOTFINISH" ReturnType="Collection(MNPOSTModel.DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result)">
+            <Parameter Name="employeeId" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CODCUSTOMER_TRANSFER_Result">
           <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
@@ -3085,6 +3107,10 @@
           <Property Type="String" Name="RecieverName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="RecieverDistrictID" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="CurrentStatusID" Nullable="true" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE_Result">
           <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
@@ -3102,6 +3128,10 @@
           <Property Type="String" Name="DeliveryTo" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="DeliveryDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="DeliveryTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="MailerTypeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RecieProvinceName" Nullable="true" />
+          <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
+          <Property Type="String" Name="ReceiWardName" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_GET_ALL_DELIVERY_Result">
           <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
@@ -3216,6 +3246,7 @@
           <Property Type="String" Name="RecieProvinceName" Nullable="true" />
           <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
           <Property Type="String" Name="ReceiWardName" Nullable="true" />
+          <Property Type="Boolean" Name="IsReturn" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILER_GETINFO_BYID_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -3271,6 +3302,7 @@
           <Property Type="String" Name="PaidNotes" Nullable="true" />
           <Property Type="String" Name="PaidCoDInvoice" Nullable="true" />
           <Property Type="Decimal" Name="PriceCoD" Nullable="true" Precision="19" />
+          <Property Type="Boolean" Name="IsReturn" Nullable="true" />
           </ComplexType>
         <ComplexType Name="MAILER_GETINFO_BYLISTID_Result">
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
@@ -3905,6 +3937,38 @@
           <Property Name="DistrictId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="WardId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="CustomerName" Nullable="true" />
+          <Property Type="String" Name="CustomerAddress" Nullable="true" />
+          <Property Type="String" Name="CustomerPhone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Content" Nullable="true" />
+          <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result">
+          <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="DocumentTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+          <Property Type="String" Name="NumberPlate" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="DocumentCode" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="EmployeePhone" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="EmployeeEmail" Nullable="true" MaxLength="512" />
+          <Property Type="Int32" Name="CountNotFinish" Nullable="true" />
+          <Property Type="Int32" Name="CountFinish" Nullable="true" />
+          <Property Type="Int32" Name="CountFail" Nullable="true" />
+          <Property Type="Int32" Name="CountReturn" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result">
+          <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="AllMailer" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5236,6 +5300,10 @@
                 <ScalarProperty Name="RecieverName" ColumnName="RecieverName" />
                 <ScalarProperty Name="RecieverDistrictID" ColumnName="RecieverDistrictID" />
                 <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5257,6 +5325,10 @@
                 <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
                 <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
                 <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="MailerTypeID" ColumnName="MailerTypeID" />
+                <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
+                <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
+                <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5383,6 +5455,7 @@
                 <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
                 <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
                 <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
+                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5442,6 +5515,7 @@
                 <ScalarProperty Name="PaidNotes" ColumnName="PaidNotes" />
                 <ScalarProperty Name="PaidCoDInvoice" ColumnName="PaidCoDInvoice" />
                 <ScalarProperty Name="PriceCoD" ColumnName="PriceCoD" />
+                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6199,6 +6273,50 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH" FunctionName="MNPOSTModel.Store.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MAILER_GET_DELIVERY_EMPLOYEE_BYDATE" FunctionName="MNPOSTModel.Store.MAILER_GET_DELIVERY_EMPLOYEE_BYDATE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+                <ScalarProperty Name="NumberPlate" ColumnName="NumberPlate" />
+                <ScalarProperty Name="DocumentCode" ColumnName="DocumentCode" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="CountNotFinish" ColumnName="CountNotFinish" />
+                <ScalarProperty Name="CountFinish" ColumnName="CountFinish" />
+                <ScalarProperty Name="CountFail" ColumnName="CountFail" />
+                <ScalarProperty Name="CountReturn" ColumnName="CountReturn" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DELIVERY_GETMAILER_OFDATE_NOTFINISH" FunctionName="MNPOSTModel.Store.DELIVERY_GETMAILER_OFDATE_NOTFINISH">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MNPOSTModel.DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result">
+                <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+                <ScalarProperty Name="AllMailer" ColumnName="AllMailer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
