@@ -32,7 +32,7 @@ namespace MNPOST.Models
         public string RecieverProvinceID { get; set; }
         public string RecieverPhone { get; set; }
         public double? Weight { get; set; }
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
         public string PaymentMethodID { get; set; }
         public string MailerTypeID { get; set; }
         public decimal? PriceService { get; set; }

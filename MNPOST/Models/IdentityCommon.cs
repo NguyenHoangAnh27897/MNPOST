@@ -76,7 +76,7 @@ namespace MNPOST.Models
     {
         public decimal? price { get; set; }
 
-        public bool choose { get; set; }
+        public bool? choose { get; set; }
     }
 
     public class EmployeeInfoCommon
