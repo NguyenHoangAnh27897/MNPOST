@@ -107,6 +107,7 @@ namespace MNPOST.Models
 
         public string DeliveryTime { get; set; }
 
+        public string DetailId { get; set; }
 
     }
 

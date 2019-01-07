@@ -12,6 +12,8 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
 
     public class UpdateDeliveryReceive
     {
+        public string DetailId { get; set; }
+
         public string MailerID { get; set; }
 
         public string DocumentID { get; set; }

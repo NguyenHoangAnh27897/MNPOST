@@ -56,6 +56,7 @@ namespace MNPOSTCOMMON
         public Nullable<double> LengthSize { get; set; }
         public Nullable<double> HeightSize { get; set; }
         public Nullable<double> WidthSize { get; set; }
+        public Nullable<bool> IsReturn { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryTime { get; set; }
         public string SendProvinceName { get; set; }
@@ -63,6 +64,5 @@ namespace MNPOSTCOMMON
         public string RecieProvinceName { get; set; }
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
-        public Nullable<bool> IsReturn { get; set; }
     }
 }

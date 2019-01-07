@@ -49,9 +49,16 @@ namespace MNPOSTCOMMON
         public string ThirdpartyCode { get; set; }
         public string ThirdpartyDocID { get; set; }
         public Nullable<decimal> ThirdpartyCost { get; set; }
+        public Nullable<int> PaidCoD { get; set; }
+        public string PaidDate { get; set; }
+        public string EmployeePaid { get; set; }
+        public string PaidNotes { get; set; }
+        public string PaidCoDInvoice { get; set; }
+        public Nullable<decimal> PriceCoD { get; set; }
         public string DeliveryNotes { get; set; }
         public string DeliveryTo { get; set; }
         public string StatusNotes { get; set; }
+        public string PostOfficeName { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryTime { get; set; }
         public string SendProvinceName { get; set; }
@@ -59,12 +66,5 @@ namespace MNPOSTCOMMON
         public string RecieProvinceName { get; set; }
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
-        public string PostOfficeName { get; set; }
-        public Nullable<int> PaidCoD { get; set; }
-        public string PaidDate { get; set; }
-        public string EmployeePaid { get; set; }
-        public string PaidNotes { get; set; }
-        public string PaidCoDInvoice { get; set; }
-        public Nullable<decimal> PriceCoD { get; set; }
     }
 }

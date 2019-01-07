@@ -80,5 +80,7 @@ namespace MNPOSTCOMMON
         public string PaidNotes { get; set; }
         public string PaidCoDInvoice { get; set; }
         public Nullable<decimal> PriceCoD { get; set; }
+        public Nullable<int> LastStatus { get; set; }
+        public Nullable<bool> IsReturn { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
             try
             {
 
-                var dateChoose = DateTime.ParseExact(date, "dd/M/yyyy", null);
+                var dateChoose = DateTime.ParseExact(date, "d/M/yyyy", null);
 
                 if (dateChoose == null)
                     throw new Exception("Sai thông tin");
@@ -121,7 +121,7 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     throw new Exception("Đơn này không được phân cho bạn phát");
 
                 // find detail
-                var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == info.DocumentID && p.MailerID == info.MailerID).FirstOrDefault();
+                var findDetail = db.MM_MailerDeliveryDetail.Where(p => p.DocumentID == info.DocumentID && p.MailerID == info.MailerID && p.DeliveryStatus == 3).FirstOrDefault();
 
                 if (findDetail == null)
                     throw new Exception("Sai thông tin");
@@ -143,19 +143,19 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
 
                 if (info.StatusID == 5)
                 {
-                    var findReason = db.BS_ReturnReasons.Where(p => p.ReasonID == info.ReturnReasonID).FirstOrDefault();
+                  //  var findReason = db.BS_ReturnReasons.Where(p => p.ReasonID == info.ReturnReasonID).FirstOrDefault();
 
                     findDetail.DeliveryTo = "";
-                    findDetail.DeliveryNotes = findReason.ReasonName;
+                    findDetail.DeliveryNotes = info.Note;
                     findDetail.ReturnReasonID = info.ReturnReasonID;
                     findDetail.DeliveryDate = deliverDate;
 
                    
                     mailerInfo.DeliveryTo = "";
                     mailerInfo.DeliveryDate = deliverDate;
-                    mailerInfo.DeliveryNotes = findReason.ReasonName;
+                    mailerInfo.DeliveryNotes = info.Note;
                     mailerInfo.IsReturn = true;
-                    HandleHistory.AddTracking(5, info.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + findReason.ReasonName);
+                    HandleHistory.AddTracking(5, info.MailerID, mailerInfo.CurrentPostOfficeID, "Trả lại hàng, vì lý do " + info.Note);
 
                 }
                 else if (info.StatusID == 6)
@@ -182,25 +182,39 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                     mailerInfo.DeliveryDate = deliverDate;
                     mailerInfo.DeliveryNotes = "Đã phát";
 
-                    HandleHistory.AddTracking(4, info.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày phát " + deliverDate.ToString("dd/MM/yyyy") + " lúc " + deliverDate.ToString("HH:mm") + ", người nhận: " + info.Reciever);
-
-                    // save nhung don co thu tien COD
-                    if (mailerInfo.COD > 0)
+                    if (mailerInfo.IsReturn == true)
                     {
-                        var saveCoDDebit = new EmpployeeDebitCOD()
-                        {
-                            Id = Guid.NewGuid().ToString(),
-                            AccountantConfirm = 0,
-                            COD = Convert.ToDouble(mailerInfo.COD),
-                            ConfirmDate = DateTime.Now,
-                            CreateDate = DateTime.Now,
-                            DocumentID = info.DocumentID,
-                            EmployeeID = checkUser.EmployeeID,
-                            MailerID = mailerInfo.MailerID
-                        };
+                        findDetail.DeliveryNotes = "Đã hoàn";
+                        mailerInfo.DeliveryNotes = "Đã hoàn";
 
-                        db.EmpployeeDebitCODs.Add(saveCoDDebit);
+                        findDetail.DeliveryStatus = 11;
+                        mailerInfo.CurrentStatusID = 11;
+
+                        HandleHistory.AddTracking(11, info.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày hoàn " + deliverDate.ToString("dd/MM/yyyy") + " lúc " + deliverDate.ToString("HH:mm") + ", người nhận: " + info.Reciever);
+                    } else
+                    {
+                        HandleHistory.AddTracking(4, info.MailerID, mailerInfo.CurrentPostOfficeID, "Ngày phát " + deliverDate.ToString("dd/MM/yyyy") + " lúc " + deliverDate.ToString("HH:mm") + ", người nhận: " + info.Reciever);
+
+                        // save nhung don co thu tien COD
+                        if (mailerInfo.COD > 0)
+                        {
+                            var saveCoDDebit = new EmpployeeDebitCOD()
+                            {
+                                Id = Guid.NewGuid().ToString(),
+                                AccountantConfirm = 0,
+                                COD = Convert.ToDouble(mailerInfo.COD),
+                                ConfirmDate = DateTime.Now,
+                                CreateDate = DateTime.Now,
+                                DocumentID = info.DocumentID,
+                                EmployeeID = checkUser.EmployeeID,
+                                MailerID = mailerInfo.MailerID
+                            };
+
+                            db.EmpployeeDebitCODs.Add(saveCoDDebit);
+                        }
                     }
+
+                   
                 }
 
                 if(info.images != null)

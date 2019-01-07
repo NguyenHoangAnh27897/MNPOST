@@ -25,10 +25,10 @@ namespace MNPOSTCOMMON
         public string RecieverDistrictID { get; set; }
         public Nullable<int> CurrentStatusID { get; set; }
         public string DeliveryNotes { get; set; }
+        public string MailerTypeID { get; set; }
         public string DeliveryTo { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryTime { get; set; }
-        public string MailerTypeID { get; set; }
         public string RecieProvinceName { get; set; }
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }

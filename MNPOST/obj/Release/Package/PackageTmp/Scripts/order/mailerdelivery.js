@@ -179,13 +179,6 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             alert("connect error");
             showLoader(false);
         });
-
-        $http.get("/mailerdelivery/GetDeliveryMailerDetail?documentID=" + $scope.currentDocument.DocumentID).then(
-            function (response) {
-                console.log(response.data);
-                $scope.mailers = angular.copy(response.data);
-            }
-        );
     };
 
     $scope.updateDocument = function () {
@@ -243,14 +236,13 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     };
 
     // huy phat
-    $scope.detroyMailerDelivery = function (mailerId) {
+    $scope.detroyMailerDelivery = function (detailId) {
         showLoader(true);
         $http({
             method: 'POST',
             url: '/mailerdelivery/DetroyMailerDelivery',
             data: {
-                mailerId: mailerId,
-                documentId: $scope.currentDocument.DocumentID
+                id: detailId
             }
         }).then(function success(response) {
             showLoader(false);
@@ -295,6 +287,17 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
 
     };
 
+    $scope.changeReason = function (idx) {
+        var data = $scope.mailerUpdates[idx];
+
+        for (i = 0; i < $scope.returnReasons.length; i++) {
+            if ($scope.returnReasons[i].code === data.ReturnReasonID) {
+                $scope.mailerUpdates[idx].DeliveryNotes = $scope.returnReasons[i].name;
+            }
+        }
+        
+    };
+
     function findMailerUpdatesIndex(mailerId) {
         for (var i = 0; i < $scope.mailerUpdates.length; i++) {
             if ($scope.mailerUpdates[i].MailerID === mailerId)
@@ -315,9 +318,9 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
             } else {
 
                 if (findMailerUpdatesIndex(result.data.MailerID) === -1) {
-                    if (result.data.DeliveryStatus === 3) {
-                        result.data.DeliveryStatus = 4;
-                    }
+                    result.data.DeliveryStatus = 4;
+                    result.data.DeliveryDate = currentDate;
+                    result.data.DeliveryTime = currentTime;
 
                     $scope.mailerUpdates.push(result.data);
 

@@ -30,8 +30,11 @@ namespace MNPOSTCOMMON
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AC_CODDebitVoucher> AC_CODDebitVoucher { get; set; }
         public virtual DbSet<AC_CODDebitVoucherDetails> AC_CODDebitVoucherDetails { get; set; }
+        public virtual DbSet<AC_CommissionOffer> AC_CommissionOffer { get; set; }
+        public virtual DbSet<AC_CommissionOfferDetail> AC_CommissionOfferDetail { get; set; }
         public virtual DbSet<AC_CustomerDebitVoucher> AC_CustomerDebitVoucher { get; set; }
         public virtual DbSet<AC_CustomerDebitVoucherDetail> AC_CustomerDebitVoucherDetail { get; set; }
+        public virtual DbSet<AddressTemp> AddressTemps { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -70,10 +73,13 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MailerImage> MailerImages { get; set; }
         public virtual DbSet<MM_ComissionDinhMuc> MM_ComissionDinhMuc { get; set; }
         public virtual DbSet<MM_ComissionPolicyCustomer> MM_ComissionPolicyCustomer { get; set; }
+        public virtual DbSet<MM_ComissionPolicyMethod> MM_ComissionPolicyMethod { get; set; }
+        public virtual DbSet<MM_ComissionPolicys> MM_ComissionPolicys { get; set; }
         public virtual DbSet<MM_ComissionService> MM_ComissionService { get; set; }
         public virtual DbSet<MM_CustomerMoneyAdvances> MM_CustomerMoneyAdvances { get; set; }
         public virtual DbSet<MM_DiscountPolicyCustomer> MM_DiscountPolicyCustomer { get; set; }
         public virtual DbSet<MM_DiscountPolicyDinhMuc> MM_DiscountPolicyDinhMuc { get; set; }
+        public virtual DbSet<MM_DiscountPolicyMethod> MM_DiscountPolicyMethod { get; set; }
         public virtual DbSet<MM_DiscountPolicys> MM_DiscountPolicys { get; set; }
         public virtual DbSet<MM_DiscountPolicyService> MM_DiscountPolicyService { get; set; }
         public virtual DbSet<MM_EmployeeDebitVoucher> MM_EmployeeDebitVoucher { get; set; }
@@ -91,7 +97,9 @@ namespace MNPOSTCOMMON
         public virtual DbSet<MM_TakeMailers> MM_TakeMailers { get; set; }
         public virtual DbSet<MM_Tracking> MM_Tracking { get; set; }
         public virtual DbSet<MM_TrackingPartner> MM_TrackingPartner { get; set; }
+        public virtual DbSet<MM_TroubleTicketDetails> MM_TroubleTicketDetails { get; set; }
         public virtual DbSet<MM_TroubleTickets> MM_TroubleTickets { get; set; }
+        public virtual DbSet<NoticeSave> NoticeSaves { get; set; }
         public virtual DbSet<UMS_GroupMenu> UMS_GroupMenu { get; set; }
         public virtual DbSet<UMS_Menu> UMS_Menu { get; set; }
         public virtual DbSet<UMS_MenuGroupUser> UMS_MenuGroupUser { get; set; }
@@ -99,13 +107,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserMessage> UserMessages { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
-        public virtual DbSet<AC_CommissionOffer> AC_CommissionOffer { get; set; }
-        public virtual DbSet<AC_CommissionOfferDetail> AC_CommissionOfferDetail { get; set; }
-        public virtual DbSet<MM_ComissionPolicyMethod> MM_ComissionPolicyMethod { get; set; }
-        public virtual DbSet<MM_DiscountPolicyMethod> MM_DiscountPolicyMethod { get; set; }
-        public virtual DbSet<MM_TroubleTicketDetails> MM_TroubleTicketDetails { get; set; }
-        public virtual DbSet<MM_ComissionPolicys> MM_ComissionPolicys { get; set; }
-        public virtual DbSet<AddressTemp> AddressTemps { get; set; }
     
         [DbFunction("MNPOSTEntities", "Split")]
         public virtual IQueryable<Split_Result> Split(string rowData, string splitOn)
@@ -159,6 +160,27 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("documentid", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AC_CODDEBITVOUCHERDETAILS_BYDOCUMENTID", documentidParameter);
+        }
+    
+        public virtual int AC_CommissionOffer_procUpdateComissionMailer(string debtMonth, string debtYear, string postOfficeID, string custID)
+        {
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var debtYearParameter = debtYear != null ?
+                new ObjectParameter("DebtYear", debtYear) :
+                new ObjectParameter("DebtYear", typeof(string));
+    
+            var postOfficeIDParameter = postOfficeID != null ?
+                new ObjectParameter("PostOfficeID", postOfficeID) :
+                new ObjectParameter("PostOfficeID", typeof(string));
+    
+            var custIDParameter = custID != null ?
+                new ObjectParameter("CustID", custID) :
+                new ObjectParameter("CustID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AC_CommissionOffer_procUpdateComissionMailer", debtMonthParameter, debtYearParameter, postOfficeIDParameter, custIDParameter);
         }
     
         public virtual int AC_CustomerDebitVoucher_procUpdateDiscountMailer(Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate, string postOfficeID, string paymentMethodID, string customerID, Nullable<bool> groupByRep, Nullable<bool> byDebtDate)
@@ -277,6 +299,32 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_COD_DEBIT_REPORT_Result>("CUSTOMER_COD_DEBIT_REPORT");
         }
     
+        public virtual ObjectResult<CUSTOMER_DEBIT_FIND_BYDebtMonth_Result> CUSTOMER_DEBIT_FIND_BYDebtMonth(string cusId, Nullable<int> month, Nullable<int> year)
+        {
+            var cusIdParameter = cusId != null ?
+                new ObjectParameter("cusId", cusId) :
+                new ObjectParameter("cusId", typeof(string));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_FIND_BYDebtMonth_Result>("CUSTOMER_DEBIT_FIND_BYDebtMonth", cusIdParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<CUSTOMER_DEBIT_GET_NOPAID_Result> CUSTOMER_DEBIT_GET_NOPAID(string cusId)
+        {
+            var cusIdParameter = cusId != null ?
+                new ObjectParameter("cusId", cusId) :
+                new ObjectParameter("cusId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_GET_NOPAID_Result>("CUSTOMER_DEBIT_GET_NOPAID", cusIdParameter);
+        }
+    
         public virtual ObjectResult<CUSTOMER_GET_BYGROUP_Result> CUSTOMER_GET_BYGROUP(string groupID)
         {
             var groupIDParameter = groupID != null ?
@@ -284,6 +332,15 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("groupID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_GET_BYGROUP_Result>("CUSTOMER_GET_BYGROUP", groupIDParameter);
+        }
+    
+        public virtual ObjectResult<DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result> DELIVERY_GETMAILER_OFDATE_NOTFINISH(string employeeId)
+        {
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result>("DELIVERY_GETMAILER_OFDATE_NOTFINISH", employeeIdParameter);
         }
     
         public virtual ObjectResult<DELIVERY_GETREPORT_EMPLOYEE_Result> DELIVERY_GETREPORT_EMPLOYEE(string employeeId, string fdate, string tdate)
@@ -391,6 +448,91 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EMPLOYEE_GETBYID_Result>("EMPLOYEE_GETBYID", employeeIDParameter);
         }
     
+        public virtual ObjectResult<get_commissiondata_Result> get_commissiondata(string debtMonth, string post, string customerGroupID)
+        {
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var postParameter = post != null ?
+                new ObjectParameter("Post", post) :
+                new ObjectParameter("Post", typeof(string));
+    
+            var customerGroupIDParameter = customerGroupID != null ?
+                new ObjectParameter("CustomerGroupID", customerGroupID) :
+                new ObjectParameter("CustomerGroupID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commissiondata_Result>("get_commissiondata", debtMonthParameter, postParameter, customerGroupIDParameter);
+        }
+    
+        public virtual ObjectResult<get_commissiondetaildata_Result> get_commissiondetaildata(string post, string debtMonth, string debtYear, string customerGroupID)
+        {
+            var postParameter = post != null ?
+                new ObjectParameter("Post", post) :
+                new ObjectParameter("Post", typeof(string));
+    
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var debtYearParameter = debtYear != null ?
+                new ObjectParameter("DebtYear", debtYear) :
+                new ObjectParameter("DebtYear", typeof(string));
+    
+            var customerGroupIDParameter = customerGroupID != null ?
+                new ObjectParameter("CustomerGroupID", customerGroupID) :
+                new ObjectParameter("CustomerGroupID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commissiondetaildata_Result>("get_commissiondetaildata", postParameter, debtMonthParameter, debtYearParameter, customerGroupIDParameter);
+        }
+    
+        public virtual ObjectResult<get_customerforcommission_Result> get_customerforcommission(string post, string debtMonth, string debtYear)
+        {
+            var postParameter = post != null ?
+                new ObjectParameter("Post", post) :
+                new ObjectParameter("Post", typeof(string));
+    
+            var debtMonthParameter = debtMonth != null ?
+                new ObjectParameter("DebtMonth", debtMonth) :
+                new ObjectParameter("DebtMonth", typeof(string));
+    
+            var debtYearParameter = debtYear != null ?
+                new ObjectParameter("DebtYear", debtYear) :
+                new ObjectParameter("DebtYear", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_customerforcommission_Result>("get_customerforcommission", postParameter, debtMonthParameter, debtYearParameter);
+        }
+    
+        public virtual ObjectResult<get_mailerfordebit_Result> get_mailerfordebit(string custID, string fromDate, string toDate)
+        {
+            var custIDParameter = custID != null ?
+                new ObjectParameter("CustID", custID) :
+                new ObjectParameter("CustID", typeof(string));
+    
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_mailerfordebit_Result>("get_mailerfordebit", custIDParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual int getpricematrixdetail(string maTrixID, string groupID)
+        {
+            var maTrixIDParameter = maTrixID != null ?
+                new ObjectParameter("MaTrixID", maTrixID) :
+                new ObjectParameter("MaTrixID", typeof(string));
+    
+            var groupIDParameter = groupID != null ?
+                new ObjectParameter("GroupID", groupID) :
+                new ObjectParameter("GroupID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("getpricematrixdetail", maTrixIDParameter, groupIDParameter);
+        }
+    
         public virtual ObjectResult<GROUPUSER_GETLISTMENU_Result> GROUPUSER_GETLISTMENU(string groupId)
         {
             var groupIdParameter = groupId != null ?
@@ -446,6 +588,23 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("postId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_ALL_DELIVERY_Result>("MAILER_GET_ALL_DELIVERY", fdateParameter, tdateParameter, postIdParameter);
+        }
+    
+        public virtual ObjectResult<MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result> MAILER_GET_DELIVERY_EMPLOYEE_BYDATE(string date, string documentCode, string employeeId)
+        {
+            var dateParameter = date != null ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(string));
+    
+            var documentCodeParameter = documentCode != null ?
+                new ObjectParameter("documentCode", documentCode) :
+                new ObjectParameter("documentCode", typeof(string));
+    
+            var employeeIdParameter = employeeId != null ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result>("MAILER_GET_DELIVERY_EMPLOYEE_BYDATE", dateParameter, documentCodeParameter, employeeIdParameter);
         }
     
         public virtual ObjectResult<MAILER_GET_NOT_INVENTORY_Result> MAILER_GET_NOT_INVENTORY(string postId)
@@ -583,17 +742,13 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_Result>("MAILERDELIVERY_GETMAILER", documentIDParameter);
         }
     
-        public virtual ObjectResult<MAILERDELIVERY_GETMAILER_BY_ID_Result> MAILERDELIVERY_GETMAILER_BY_ID(string documentID, string mailerID)
+        public virtual ObjectResult<MAILERDELIVERY_GETMAILER_BY_ID_Result> MAILERDELIVERY_GETMAILER_BY_ID(string detailId)
         {
-            var documentIDParameter = documentID != null ?
-                new ObjectParameter("documentID", documentID) :
-                new ObjectParameter("documentID", typeof(string));
+            var detailIdParameter = detailId != null ?
+                new ObjectParameter("detailId", detailId) :
+                new ObjectParameter("detailId", typeof(string));
     
-            var mailerIDParameter = mailerID != null ?
-                new ObjectParameter("mailerID", mailerID) :
-                new ObjectParameter("mailerID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_BY_ID_Result>("MAILERDELIVERY_GETMAILER_BY_ID", documentIDParameter, mailerIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILERDELIVERY_GETMAILER_BY_ID_Result>("MAILERDELIVERY_GETMAILER_BY_ID", detailIdParameter);
         }
     
         public virtual ObjectResult<PARTNER_MAP_INFO_Result> PARTNER_MAP_INFO(string partnerCode, string form)
@@ -612,6 +767,48 @@ namespace MNPOSTCOMMON
         public virtual ObjectResult<POSTOFFICE_GETALL_Result> POSTOFFICE_GETALL()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<POSTOFFICE_GETALL_Result>("POSTOFFICE_GETALL");
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> proc_getFromDateOfCust(Nullable<int> debtDay, Nullable<int> month, Nullable<int> year, Nullable<System.DateTime> defaultDate)
+        {
+            var debtDayParameter = debtDay.HasValue ?
+                new ObjectParameter("DebtDay", debtDay) :
+                new ObjectParameter("DebtDay", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var defaultDateParameter = defaultDate.HasValue ?
+                new ObjectParameter("DefaultDate", defaultDate) :
+                new ObjectParameter("DefaultDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("proc_getFromDateOfCust", debtDayParameter, monthParameter, yearParameter, defaultDateParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> proc_getToDateOfCust(Nullable<int> debtDay, Nullable<int> month, Nullable<int> year, Nullable<System.DateTime> defaultDate)
+        {
+            var debtDayParameter = debtDay.HasValue ?
+                new ObjectParameter("DebtDay", debtDay) :
+                new ObjectParameter("DebtDay", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("Month", month) :
+                new ObjectParameter("Month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var defaultDateParameter = defaultDate.HasValue ?
+                new ObjectParameter("DefaultDate", defaultDate) :
+                new ObjectParameter("DefaultDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("proc_getToDateOfCust", debtDayParameter, monthParameter, yearParameter, defaultDateParameter);
         }
     
         public virtual ObjectResult<PROVINCE_GETALL_Result> PROVINCE_GETALL()
@@ -715,6 +912,15 @@ namespace MNPOSTCOMMON
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_BY_EMPLOYEE_Result>("TAKEMAILER_GETLIST_BY_EMPLOYEE", employeeParameter, statusIdParameter, dateParameter);
         }
     
+        public virtual ObjectResult<TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result> TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH(string employee)
+        {
+            var employeeParameter = employee != null ?
+                new ObjectParameter("employee", employee) :
+                new ObjectParameter("employee", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result>("TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH", employeeParameter);
+        }
+    
         public virtual ObjectResult<USER_CHECKACCESS_Result> USER_CHECKACCESS(string groupId, string menuCode)
         {
             var groupIdParameter = groupId != null ?
@@ -766,143 +972,6 @@ namespace MNPOSTCOMMON
                 new ObjectParameter("PostOfficeID", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WIN_GET_MAILER_BY_DATE_POST_Result>("WIN_GET_MAILER_BY_DATE_POST", fromDateParameter, toDateParameter, postOfficeIDParameter);
-        }
-    
-        public virtual int AC_CommissionOffer_procUpdateComissionMailer(string debtMonth, string debtYear, string postOfficeID, string custID)
-        {
-            var debtMonthParameter = debtMonth != null ?
-                new ObjectParameter("DebtMonth", debtMonth) :
-                new ObjectParameter("DebtMonth", typeof(string));
-    
-            var debtYearParameter = debtYear != null ?
-                new ObjectParameter("DebtYear", debtYear) :
-                new ObjectParameter("DebtYear", typeof(string));
-    
-            var postOfficeIDParameter = postOfficeID != null ?
-                new ObjectParameter("PostOfficeID", postOfficeID) :
-                new ObjectParameter("PostOfficeID", typeof(string));
-    
-            var custIDParameter = custID != null ?
-                new ObjectParameter("CustID", custID) :
-                new ObjectParameter("CustID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AC_CommissionOffer_procUpdateComissionMailer", debtMonthParameter, debtYearParameter, postOfficeIDParameter, custIDParameter);
-        }
-    
-        public virtual ObjectResult<get_commissiondata_Result> get_commissiondata(string debtMonth, string post, string customerGroupID)
-        {
-            var debtMonthParameter = debtMonth != null ?
-                new ObjectParameter("DebtMonth", debtMonth) :
-                new ObjectParameter("DebtMonth", typeof(string));
-    
-            var postParameter = post != null ?
-                new ObjectParameter("Post", post) :
-                new ObjectParameter("Post", typeof(string));
-    
-            var customerGroupIDParameter = customerGroupID != null ?
-                new ObjectParameter("CustomerGroupID", customerGroupID) :
-                new ObjectParameter("CustomerGroupID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commissiondata_Result>("get_commissiondata", debtMonthParameter, postParameter, customerGroupIDParameter);
-        }
-    
-        public virtual ObjectResult<get_commissiondetaildata_Result> get_commissiondetaildata(string post, string debtMonth, string debtYear, string customerGroupID)
-        {
-            var postParameter = post != null ?
-                new ObjectParameter("Post", post) :
-                new ObjectParameter("Post", typeof(string));
-    
-            var debtMonthParameter = debtMonth != null ?
-                new ObjectParameter("DebtMonth", debtMonth) :
-                new ObjectParameter("DebtMonth", typeof(string));
-    
-            var debtYearParameter = debtYear != null ?
-                new ObjectParameter("DebtYear", debtYear) :
-                new ObjectParameter("DebtYear", typeof(string));
-    
-            var customerGroupIDParameter = customerGroupID != null ?
-                new ObjectParameter("CustomerGroupID", customerGroupID) :
-                new ObjectParameter("CustomerGroupID", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commissiondetaildata_Result>("get_commissiondetaildata", postParameter, debtMonthParameter, debtYearParameter, customerGroupIDParameter);
-        }
-    
-        public virtual ObjectResult<string> get_customerforcommission(string post, string debtMonth, string debtYear)
-        {
-            var postParameter = post != null ?
-                new ObjectParameter("Post", post) :
-                new ObjectParameter("Post", typeof(string));
-    
-            var debtMonthParameter = debtMonth != null ?
-                new ObjectParameter("DebtMonth", debtMonth) :
-                new ObjectParameter("DebtMonth", typeof(string));
-    
-            var debtYearParameter = debtYear != null ?
-                new ObjectParameter("DebtYear", debtYear) :
-                new ObjectParameter("DebtYear", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_customerforcommission", postParameter, debtMonthParameter, debtYearParameter);
-        }
-    
-        public virtual ObjectResult<CUSTOMER_DEBIT_FIND_BYDebtMonth_Result> CUSTOMER_DEBIT_FIND_BYDebtMonth(string cusId, Nullable<int> month, Nullable<int> year)
-        {
-            var cusIdParameter = cusId != null ?
-                new ObjectParameter("cusId", cusId) :
-                new ObjectParameter("cusId", typeof(string));
-    
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("month", month) :
-                new ObjectParameter("month", typeof(int));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_FIND_BYDebtMonth_Result>("CUSTOMER_DEBIT_FIND_BYDebtMonth", cusIdParameter, monthParameter, yearParameter);
-        }
-    
-        public virtual ObjectResult<CUSTOMER_DEBIT_GET_NOPAID_Result> CUSTOMER_DEBIT_GET_NOPAID(string cusId)
-        {
-            var cusIdParameter = cusId != null ?
-                new ObjectParameter("cusId", cusId) :
-                new ObjectParameter("cusId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUSTOMER_DEBIT_GET_NOPAID_Result>("CUSTOMER_DEBIT_GET_NOPAID", cusIdParameter);
-        }
-    
-        public virtual ObjectResult<TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result> TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH(string employee)
-        {
-            var employeeParameter = employee != null ?
-                new ObjectParameter("employee", employee) :
-                new ObjectParameter("employee", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result>("TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH", employeeParameter);
-        }
-    
-        public virtual ObjectResult<MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result> MAILER_GET_DELIVERY_EMPLOYEE_BYDATE(string date, string documentCode, string employeeId)
-        {
-            var dateParameter = date != null ?
-                new ObjectParameter("date", date) :
-                new ObjectParameter("date", typeof(string));
-    
-            var documentCodeParameter = documentCode != null ?
-                new ObjectParameter("documentCode", documentCode) :
-                new ObjectParameter("documentCode", typeof(string));
-    
-            var employeeIdParameter = employeeId != null ?
-                new ObjectParameter("employeeId", employeeId) :
-                new ObjectParameter("employeeId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MAILER_GET_DELIVERY_EMPLOYEE_BYDATE_Result>("MAILER_GET_DELIVERY_EMPLOYEE_BYDATE", dateParameter, documentCodeParameter, employeeIdParameter);
-        }
-    
-        public virtual ObjectResult<DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result> DELIVERY_GETMAILER_OFDATE_NOTFINISH(string employeeId)
-        {
-            var employeeIdParameter = employeeId != null ?
-                new ObjectParameter("employeeId", employeeId) :
-                new ObjectParameter("employeeId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result>("DELIVERY_GETMAILER_OFDATE_NOTFINISH", employeeIdParameter);
         }
     }
 }

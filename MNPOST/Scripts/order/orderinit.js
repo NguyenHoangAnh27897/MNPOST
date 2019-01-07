@@ -460,7 +460,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
                 'serviceTypeId': info.MailerTypeID,
                 'postId': mailerService.getPost(),
                 'cod': info.COD,
-                'goodPrice': info.MerchandiseValue
+                'merchandiseValue': info.MerchandiseValue
             }
         }).then(function mySuccess(response) {
 
@@ -474,6 +474,8 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, mailerService, uiU
         });
 
     };
+
+    
 
     $scope.setMerchandiseValue = function (index) {
         $scope.mailers[index].MerchandiseValue = $scope.mailers[index].COD;
@@ -558,8 +560,8 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.$on('insert-started', function (event, args) {
         $scope.customers = mailerService.getCustomers();
         $scope.mailer = angular.copy(args.mailer);
-       // console.log($scope.mailer);
-       // $scope.otherServices = angular.copy(servicesGet);
+        console.log($scope.mailer);
+      // $scope.otherServices = angular.copy(servicesGet);
         $scope.actionEdit = args.actionEdit;
 
         for (var i = 0; i < $scope.mailer.Services.length; i++) {
@@ -615,6 +617,7 @@ app.controller('ctrlAddDetail', function ($scope, $rootScope, $http, mailerServi
     $scope.changeCus = function () {
 
         var cus = mailerService.findCustomer($scope.mailer.SenderID);
+        console.log(cus);
         if (cus.code.indexOf('KHACHLE') === -1) {
             showNotify("Đang chọn: " + cus.name);
         } else {

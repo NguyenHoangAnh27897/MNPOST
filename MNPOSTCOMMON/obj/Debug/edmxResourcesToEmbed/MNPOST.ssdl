@@ -220,6 +220,7 @@
     <Property Name="IsActive" Type="bit" />
     <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
     <Property Name="DebitDate" Type="int" />
+    <Property Name="COD" Type="bit" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>
@@ -748,6 +749,7 @@
     <Property Name="DeliveryNotes" Type="nvarchar" MaxLength="200" />
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="ReturnReasonID" Type="int" />
+    <Property Name="Id" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="MM_MailerPartner">
     <Key>
@@ -985,6 +987,17 @@
     <Property Name="CreationDate" Type="datetime" />
     <Property Name="LastUpdateDate" Type="datetime" />
     <Property Name="Contact" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="NoticeSave">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="NType" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsRead" Type="bit" />
+    <Property Name="CreateTime" Type="datetime" />
   </EntityType>
   <EntityType Name="UMS_GroupMenu">
     <Key>
@@ -1241,11 +1254,20 @@
     <Parameter Name="DebtMonth" Type="nvarchar" Mode="In" />
     <Parameter Name="DebtYear" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="get_mailerfordebit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CustID" Type="nvarchar" Mode="In" />
+    <Parameter Name="FromDate" Type="nvarchar" Mode="In" />
+    <Parameter Name="ToDate" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="getFromDateOfCust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
     <Parameter Name="CustomerID" Type="varchar" Mode="In" />
     <Parameter Name="Month" Type="int" Mode="In" />
     <Parameter Name="Year" Type="int" Mode="In" />
     <Parameter Name="DefaultDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="getpricematrixdetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MaTrixID" Type="nvarchar" Mode="In" />
+    <Parameter Name="GroupID" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="getToDateOfCust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="datetime">
     <Parameter Name="CustomerID" Type="varchar" Mode="In" />
@@ -1319,14 +1341,25 @@
     <Parameter Name="documentID" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="MAILERDELIVERY_GETMAILER_BY_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="documentID" Type="nvarchar" Mode="In" />
-    <Parameter Name="mailerID" Type="nvarchar" Mode="In" />
+    <Parameter Name="detailId" Type="varchar" Mode="In" />
   </Function>
   <Function Name="PARTNER_MAP_INFO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="partnerCode" Type="nvarchar" Mode="In" />
     <Parameter Name="form" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="POSTOFFICE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="proc_getFromDateOfCust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DebtDay" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="int" Mode="In" />
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="DefaultDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="proc_getToDateOfCust" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="DebtDay" Type="int" Mode="In" />
+    <Parameter Name="Month" Type="int" Mode="In" />
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="DefaultDate" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="PROVINCE_GETALL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="REPORT_EMPLOYEE_DEBIT_COD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="postId" Type="nvarchar" Mode="In" />
@@ -1474,6 +1507,7 @@
     <EntitySet Name="MM_TrackingPartner" EntityType="Self.MM_TrackingPartner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTicketDetails" EntityType="Self.MM_TroubleTicketDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MM_TroubleTickets" EntityType="Self.MM_TroubleTickets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NoticeSave" EntityType="Self.NoticeSave" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_GroupMenu" EntityType="Self.UMS_GroupMenu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_Menu" EntityType="Self.UMS_Menu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMS_MenuGroupUser" EntityType="Self.UMS_MenuGroupUser" Schema="dbo" store:Type="Tables" />

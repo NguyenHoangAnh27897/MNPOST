@@ -22,5 +22,6 @@ namespace MNPOSTCOMMON
         public string DeliveryNotes { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<int> ReturnReasonID { get; set; }
+        public string Id { get; set; }
     }
 }
