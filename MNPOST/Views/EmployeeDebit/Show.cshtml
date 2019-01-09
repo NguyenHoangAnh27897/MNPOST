@@ -10,7 +10,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>THU TIỀN COD <strong>{{postHandle}}</strong></h2>
+                    <h2>THU TIỀN COD CỦA NHÂN VIÊN PHÁT - <strong>{{postHandle}}</strong></h2>
                     <div class="nav navbar-right">
                         <button type="button" class="btn btn-primary" ng-click="createDocument()" ng-show="tabcreate">Tạo bảng kê</button>
                         <button type="button" class="btn btn-warning" ng-click="refeshData()" ng-hide="tabcreate">TẢI LẠI</button>
@@ -119,7 +119,7 @@
                                                         <th>STT</th>
                                                         <th>Ng thu</th>
                                                         <th>Ng nộp</th>
-                                                        <th>Tgian</th>
+                                                        <th>Tgian nộp</th>
                                                         <th>Số tiền</th>
                                                         <th>Số đơn</th>
                                                         <th>Ghi chú</th>
@@ -129,7 +129,7 @@
                                                 <tbody>
                                                     <tr ng-repeat="item in documents">
                                                         <td>
-                                                            {{$index + 1}} <a href="#" ng-click="showDocumentDetail($index)">chi tiết</a>
+                                                            <strong>{{$index + 1}}</strong>.<a href="#" ng-click="showDocumentDetail($index)">chi tiết</a>
                                                         </td>
                                                         <td>
                                                             {{item.ColectorName}}<br />
@@ -171,10 +171,9 @@
                                                     <tr class="headings">
                                                         <th>STT</th>
                                                         <th>Mã đơn</th>
+                                                        <th>Tiền thu</th>
                                                         <th>Khách hàng</th>
-                                                        <th>CoD</th>
                                                         <th>Thông tin phát</th>
-                                                        <th>Trả khách hàng</th>
                                                     </tr>
                                                 </thead>
 
@@ -182,18 +181,15 @@
                                                     <tr ng-repeat="item in details">
                                                         <td>{{$index + 1}}</td>
                                                         <td>{{item.MailerID}}</td>
+                                                        <td>{{item.COD | currency: 'VND'}}</td>
                                                         <td><strong>Tên: </strong> {{item.SenderName}}<br />
                                                             <strong>Mã: </strong> {{item.SenderID}} <br />
                                                             <strong>Phone: </strong> {{item.SenderPhone}}
                                                          </td>
-                                                        <td>{{item.COD | currency: 'VND'}}</td>
                                                         <td>
                                                             <strong>Ngày phát: </strong> {{item.DeliveryDate}} <br />
                                                             <strong>Giờ phát: </strong> {{item.DeliveryTime}} <br />
                                                             <strong>Ký nhận: </strong> {{item.DeliveryTo}} 
-                                                        </td>
-                                                        <td>
-                                                            <span class="label label-info">{{item.PaidCoD === 1?'Đã thanh toán':'Chưa thanh toán'}}</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>

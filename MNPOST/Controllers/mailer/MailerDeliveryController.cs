@@ -647,7 +647,7 @@ namespace MNPOST.Controllers.mailer
         public ActionResult ConfirmDeliveyMailer(MailerDeliveryConfirmInfo detail)
         {
 
-            var findDetail = db.MM_MailerDeliveryDetail.Find(detail.DetailId);
+            var findDetail = db.MM_MailerDeliveryDetail.Where(p=> p.Id == detail.DetailId).FirstOrDefault();
 
             if (findDetail != null)
             {
