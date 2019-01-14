@@ -83,7 +83,7 @@ namespace MNPOST.Controllers.customerdebit
             {
                 var checkMailer = db.MM_Mailers.Find(item);
 
-                if (checkMailer == null)
+                if (checkMailer == null || checkMailer.CurrentStatusID != 4)
                     continue;
 
                 var detail = new AC_CODDebitVoucherDetails()

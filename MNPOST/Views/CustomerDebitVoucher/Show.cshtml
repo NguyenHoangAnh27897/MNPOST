@@ -10,7 +10,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>TRẢ TIỀN COD</h2>
+                    <h2>TRẢ TIỀN COD CHO KHÁCH HÀNG</h2>
                     <div class="nav navbar-right">
                         <button type="button" class="btn btn-primary" ng-click="createDocument()" ng-show="tabcreate">Tạo bảng kê</button>
                     </div>
@@ -42,7 +42,7 @@
                                                 <div class="col-sm-6">
                                                     <select ui-select2="select2Options" ng-model="reportFilter.CustomerGroupCode" class="form-control">
                                                         <option value="">Tất cả</option>
-                                                        <option ng-repeat="item in groups" value="{{item.code}}">{{item.name}}</option>
+                                                        <option ng-repeat="item in groups" value="{{item.code}}">{{item.name}}-{{item.code}}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -58,20 +58,17 @@
                                                 <thead>
                                                     <tr class="headings">
                                                         <th>STT</th>
-                                                        <th>Mã KH</th>
-                                                        <th>Tên KH</th>
-                                                        <th>Số tiền CoD</th>
-                                                        <th>Số đơn</th>
+                                                        <th>KHÁCH HÀNG</th>
+                                                        <th>Tiền CoD đã thu/Số đơn</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
                                                     <tr ng-repeat="item in debitReports | filter: reportFilter"> 
-                                                        <td>{{$index + 1}} <a href="#" class="label label-primary" ng-click="sendToCreate(item.CustomerGroupCode)">thanh toán</a> </td>
-                                                        <td>{{item.CustomerGroupCode}}</td>
-                                                        <td>{{item.CustomerGroupName}}</td>
-                                                        <td>{{item.AllCOD | currency: 'VND'}}</td>
-                                                        <td>{{item.AllMailer}}</td>
+                                                        <td><strong>{{$index + 1}}. </strong><a href="#"  ng-click="sendToCreate(item.CustomerGroupCode)">thanh toán</a> </td>
+                                                        <td>{{item.CustomerGroupCode}} <br />
+                                                        {{item.CustomerGroupName}}</td>
+                                                        <td><h4 class="label label-info">{{item.AllCOD | currency: ' VND'}}</h4> / <strong>{{item.AllMailer}} đơn</strong></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -117,7 +114,7 @@
                                                         <th>STT</th>
                                                         <th>Ng tạo</th>
                                                         <th>Khách hàng</th>
-                                                        <th>Tgian</th>
+                                                        <th>Tgian trả</th>
                                                         <th>Số tiền</th>
                                                         <th>Số đơn</th>
                                                         <th>Tình trạng</th>
@@ -128,14 +125,14 @@
 
                                                 <tbody>
                                                     <tr ng-repeat="item in documents">
-                                                       <td>{{$index + 1}} <a href="#" class="label label-primary" ng-click="showDetails($index)">chi tiết</a></td>
+                                                       <td><strong>{{$index + 1}}. </strong><a href="#" ng-click="showDetails($index)">chi tiết</a></td>
                                                         <td>
-                                                            <strong>Tên: </strong> {{item.EmployeeID}}<br />
-                                                            <strong>Mã: </strong> {{item.EmployeeName}}
+                                                            {{item.EmployeeID}}<br />
+                                                            {{item.EmployeeName}}
                                                         </td>
                                                         <td>
-                                                            <strong>Tên: </strong> {{item.CustomerGroupName}}<br />
-                                                            <strong>Mã: </strong> {{item.CustomerGroupCode}}
+                                                            <strong>Mã: </strong> {{item.CustomerGroupCode}}<br />
+                                                            {{item.CustomerGroupName}}
                                                         </td>
                                                         <td>
                                                             {{item.DocumentDate}} <br />
@@ -176,10 +173,9 @@
                                                     <tr class="headings">
                                                         <th>STT</th>
                                                         <th>Mã đơn</th>
-                                                        <th>Khách hàng</th>
                                                         <th>CoD</th>
+                                                        <th>Khách hàng</th>
                                                         <th>Thông tin phát</th>
-                                                        <th>Tình trạng thu</th>
                                                     </tr>
                                                 </thead>
 
@@ -187,20 +183,16 @@
                                                     <tr ng-repeat="item in details">
                                                         <td>{{$index + 1}}</td>
                                                         <td>{{item.MailerID}}</td>
+                                                        <td><h4 class="label label-info">{{item.COD | currency: 'VND '}}</h4></td>
                                                         <td>
                                                             <strong>Tên: </strong> {{item.SenderName}}<br />
                                                             <strong>Mã: </strong> {{item.SenderID}} <br />
                                                             <strong>Phone: </strong> {{item.SenderPhone}}
                                                         </td>
-                                                        <td>{{item.COD | currency: 'VND'}}</td>
                                                         <td>
                                                             <strong>Ngày phát: </strong> {{item.DeliveryDate}} <br />
                                                             <strong>Giờ phát: </strong> {{item.DeliveryTime}} <br />
                                                             <strong>Ký nhận: </strong> {{item.DeliveryTo}}
-                                                        </td>
-                                                        <td>
-                                                            <strong>Đã thu: </strong>{{ECoDStatus[item.AccountantConfirm].name}}<br />
-                                                            <strong>Ngày thu: </strong>{{item.EmployeePaidConfirmDate}}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -217,7 +209,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Khách hàng</label>
-                                                <select ui-select2="select2Options" ng-model="createDocumentInfo.CustomerGroupCode" class="form-control">
+                                                <select ui-select2="select2Options" ng-model="createDocumentInfo.CustomerGroupCode" class="form-control" ng-change="getMailerNotPaid()">
                                                     <option ng-repeat="item in groups" value="{{item.code}}">{{item.name}}</option>
                                                 </select>
                                             </div>
@@ -254,9 +246,8 @@
                                                         <th><input type="checkbox" ng-model="isChkPaid" ng-checked="isChkPaid" ng-change="chkAllPaid()" /> STT</th>
                                                         <th>Mã đơn</th>
                                                         <th>Khách hàng</th>
-                                                        <th>Tiền thu</th>
+                                                        <th>Tiền CoD</th>
                                                         <th>Thông tin phát</th>
-                                                        <th>Tình trạng thu</th>
                                                     </tr>
                                                 </thead>
 
@@ -269,15 +260,11 @@
                                                             <strong>Mã: </strong> {{item.SenderID}} <br />
                                                             <strong>Phone: </strong> {{item.SenderPhone}}
                                                         </td>
-                                                        <td>{{item.COD | currency: 'VND'}}</td>
+                                                        <td><h4 class="label label-info">{{item.COD | currency: 'VND '}}</h4></td>
                                                         <td>
                                                             <strong>Ngày phát: </strong> {{item.DeliveryDate}} <br />
                                                             <strong>Giờ phát: </strong> {{item.DeliveryTime}} <br />
                                                             <strong>Ký nhận: </strong> {{item.DeliveryTo}}
-                                                        </td>
-                                                        <td>
-                                                            <strong>Đã thu: </strong>{{ECoDStatus[item.AccountantConfirm].name}}<br />
-                                                            <strong>Ngày thu: </strong>{{item.EmployeePaidConfirmDate}}
                                                         </td>
                                                     </tr>
                                                 </tbody>

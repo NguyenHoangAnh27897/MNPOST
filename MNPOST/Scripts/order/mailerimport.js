@@ -264,7 +264,7 @@ app.controller('myCtrl', function ($scope, $http, $rootScope, $interval) {
     $scope.sendGetTakeMailers = function () {
         $scope.isrungettake = true;
         $http.get("/MailerImport/GetTakeMailers?postId=" + $scope.postHandle + "&date=" + $scope.dateimport).then(function (response) {
-
+            console.log(response.data);
             $scope.takeMailerDatas = response.data;
             $scope.isrungettake = false;
         });
