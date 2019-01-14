@@ -20,5 +20,6 @@ namespace MNPOST.Controllers.customerdebit
        public Nullable<DateTime> AcceptDate { get; set; }
        public int Quantity {get;set;}
        public double Weight {get;set;}
+       public Nullable<decimal> COD { get; set; }
     }
 }

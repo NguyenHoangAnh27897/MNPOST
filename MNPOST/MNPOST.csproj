@@ -205,6 +205,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\customercommission\CustomerCommissionController.cs" />
     <Compile Include="Controllers\customerdebit\CustomerDebitController.cs" />
+    <Compile Include="Controllers\customerdebit\CustomerDebitNewController.cs" />
     <Compile Include="Controllers\customerdebit\CustomerDebitVoucherController.cs" />
     <Compile Include="Controllers\customerdebit\IdentityDebit.cs" />
     <Compile Include="Controllers\customer\ComPolicyController.cs" />
@@ -1834,6 +1835,7 @@
     <Content Include="Views\CustomerDebit\Show.cshtml" />
     <Content Include="Views\CustomerCommission\Show.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
+    <Content Include="Views\CustomerDebitNew\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

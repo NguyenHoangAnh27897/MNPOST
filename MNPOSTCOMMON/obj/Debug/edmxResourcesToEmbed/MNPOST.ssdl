@@ -91,6 +91,7 @@
     <Property Name="LastTime" Type="datetime" />
     <Property Name="ToTalAmount" Type="float" />
     <Property Name="DebtMonth" Type="date" />
+    <Property Name="CODTotal" Type="float" />
   </EntityType>
   <EntityType Name="AC_CustomerDebitVoucherDetail">
     <Key>
@@ -221,6 +222,7 @@
     <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
     <Property Name="DebitDate" Type="int" />
     <Property Name="COD" Type="bit" />
+    <Property Name="CODDebitDate" Type="int" />
   </EntityType>
   <EntityType Name="BS_Customers">
     <Key>

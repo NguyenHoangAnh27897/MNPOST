@@ -4,13 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="da70d580d19e45088f1e11e9a396d5d6" Name="Diagram1">
+      <Diagram DiagramId="da70d580d19e45088f1e11e9a396d5d6" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="MNPOSTModel.C__MigrationHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucher" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CODDebitVoucherDetails" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CommissionOffer" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CommissionOfferDetail" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucher" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucherDetail" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AddressTemp" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
@@ -19,7 +18,6 @@
         <EntityTypeShape EntityType="MNPOSTModel.AspNetUser" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Contracts" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Countries" Width="1.5" PointX="7.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MNPOSTModel.BS_CustomerGroups" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Customers" Width="1.5" PointX="9.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Distants" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MNPOSTModel.BS_Districts" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
@@ -90,6 +88,8 @@
         <AssociationConnector Association="MNPOSTModel.FK__MM_Mailer__Emplo__531856C7" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.FK__UMS_Menu__GroupM__540C7B00" ManuallyRouted="false" />
         <AssociationConnector Association="MNPOSTModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MNPOSTModel.AC_CustomerDebitVoucher" Width="1.5" PointX="15.375" PointY="25.75" />
+        <EntityTypeShape EntityType="MNPOSTModel.BS_CustomerGroups" Width="1.5" PointX="5.375" PointY="26.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

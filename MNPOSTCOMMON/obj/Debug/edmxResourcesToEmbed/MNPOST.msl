@@ -81,22 +81,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="AC_CustomerDebitVoucher">
-      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
-        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
-          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
-          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
-          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
-          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-          <ScalarProperty Name="LastTime" ColumnName="LastTime" />
-          <ScalarProperty Name="ToTalAmount" ColumnName="ToTalAmount" />
-          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AC_CustomerDebitVoucherDetail">
       <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucherDetail">
         <MappingFragment StoreEntitySet="AC_CustomerDebitVoucherDetail">
@@ -204,24 +188,6 @@
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BS_CustomerGroups">
-      <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
-        <MappingFragment StoreEntitySet="BS_CustomerGroups">
-          <ScalarProperty Name="COD" ColumnName="COD" />
-          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
-          <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
-          <ScalarProperty Name="Company" ColumnName="Company" />
-          <ScalarProperty Name="ConatctPhone" ColumnName="ConatctPhone" />
-          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
-          <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-          <ScalarProperty Name="DebitDate" ColumnName="DebitDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -2391,5 +2357,41 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="AC_CustomerDebitVoucher">
+      <EntityTypeMapping TypeName="MNPOSTModel.AC_CustomerDebitVoucher">
+        <MappingFragment StoreEntitySet="AC_CustomerDebitVoucher">
+          <ScalarProperty Name="CODTotal" ColumnName="CODTotal" />
+          <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+          <ScalarProperty Name="ToTalAmount" ColumnName="ToTalAmount" />
+          <ScalarProperty Name="LastTime" ColumnName="LastTime" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="InvoiceCode" ColumnName="InvoiceCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+          <ScalarProperty Name="PostOfficeID" ColumnName="PostOfficeID" />
+          <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BS_CustomerGroups">
+      <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
+        <MappingFragment StoreEntitySet="BS_CustomerGroups">
+          <ScalarProperty Name="CODDebitDate" ColumnName="CODDebitDate" />
+          <ScalarProperty Name="COD" ColumnName="COD" />
+          <ScalarProperty Name="DebitDate" ColumnName="DebitDate" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
+          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+          <ScalarProperty Name="ConatctPhone" ColumnName="ConatctPhone" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="CustomerGroupCode" ColumnName="CustomerGroupCode" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
+          <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

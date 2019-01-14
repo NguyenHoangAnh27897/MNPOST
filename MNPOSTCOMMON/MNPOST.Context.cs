@@ -32,7 +32,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<AC_CODDebitVoucherDetails> AC_CODDebitVoucherDetails { get; set; }
         public virtual DbSet<AC_CommissionOffer> AC_CommissionOffer { get; set; }
         public virtual DbSet<AC_CommissionOfferDetail> AC_CommissionOfferDetail { get; set; }
-        public virtual DbSet<AC_CustomerDebitVoucher> AC_CustomerDebitVoucher { get; set; }
         public virtual DbSet<AC_CustomerDebitVoucherDetail> AC_CustomerDebitVoucherDetail { get; set; }
         public virtual DbSet<AddressTemp> AddressTemps { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
@@ -41,7 +40,6 @@ namespace MNPOSTCOMMON
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<BS_Contracts> BS_Contracts { get; set; }
         public virtual DbSet<BS_Countries> BS_Countries { get; set; }
-        public virtual DbSet<BS_CustomerGroups> BS_CustomerGroups { get; set; }
         public virtual DbSet<BS_Customers> BS_Customers { get; set; }
         public virtual DbSet<BS_Distants> BS_Distants { get; set; }
         public virtual DbSet<BS_Districts> BS_Districts { get; set; }
@@ -107,6 +105,8 @@ namespace MNPOSTCOMMON
         public virtual DbSet<UserLevel> UserLevels { get; set; }
         public virtual DbSet<UserMessage> UserMessages { get; set; }
         public virtual DbSet<UserPostOption> UserPostOptions { get; set; }
+        public virtual DbSet<AC_CustomerDebitVoucher> AC_CustomerDebitVoucher { get; set; }
+        public virtual DbSet<BS_CustomerGroups> BS_CustomerGroups { get; set; }
     
         [DbFunction("MNPOSTEntities", "Split")]
         public virtual IQueryable<Split_Result> Split(string rowData, string splitOn)

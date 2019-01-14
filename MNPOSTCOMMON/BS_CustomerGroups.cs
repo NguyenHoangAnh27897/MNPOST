@@ -26,5 +26,6 @@ namespace MNPOSTCOMMON
         public string PaymentMethodID { get; set; }
         public Nullable<int> DebitDate { get; set; }
         public Nullable<bool> COD { get; set; }
+        public Nullable<int> CODDebitDate { get; set; }
     }
 }
