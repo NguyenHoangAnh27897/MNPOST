@@ -24,5 +24,6 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> LastTime { get; set; }
         public Nullable<double> ToTalAmount { get; set; }
         public Nullable<System.DateTime> DebtMonth { get; set; }
+        public Nullable<double> CODTotal { get; set; }
     }
 }

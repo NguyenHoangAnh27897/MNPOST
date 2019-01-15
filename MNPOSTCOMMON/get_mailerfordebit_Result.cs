@@ -27,5 +27,6 @@ namespace MNPOSTCOMMON
         public Nullable<System.DateTime> AcceptDate { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<double> Weight { get; set; }
+        public Nullable<decimal> COD { get; set; }
     }
 }

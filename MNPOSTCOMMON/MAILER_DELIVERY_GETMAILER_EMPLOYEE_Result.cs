@@ -17,6 +17,7 @@ namespace MNPOSTCOMMON
         public string DocumentDate { get; set; }
         public string DocumentTime { get; set; }
         public string MailerID { get; set; }
+        public string DetailId { get; set; }
         public Nullable<decimal> COD { get; set; }
         public string RecieverAddress { get; set; }
         public string RecieverProvinceID { get; set; }

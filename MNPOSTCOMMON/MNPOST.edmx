@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MNPOSTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -33,9 +33,10 @@
         <EntityType Name="AC_CODDebitVoucherDetails">
           <Key>
             <PropertyRef Name="DocumentID" />
+            <PropertyRef Name="MailerID" />
           </Key>
           <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="MailerID" Type="nvarchar" MaxLength="128" />
+          <Property Name="MailerID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Money" Type="float" />
           <Property Name="CreateDate" Type="datetime" />
         </EntityType>
@@ -96,6 +97,7 @@
           <Property Name="LastTime" Type="datetime" />
           <Property Name="ToTalAmount" Type="float" />
           <Property Name="DebtMonth" Type="date" />
+          <Property Name="CODTotal" Type="float" />
         </EntityType>
         <EntityType Name="AC_CustomerDebitVoucherDetail">
           <Key>
@@ -226,6 +228,7 @@
           <Property Name="PaymentMethodID" Type="nvarchar" MaxLength="128" />
           <Property Name="DebitDate" Type="int" />
           <Property Name="COD" Type="bit" />
+          <Property Name="CODDebitDate" Type="int" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
@@ -1545,7 +1548,8 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MNPOSTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1584,9 +1588,10 @@
         <EntityType Name="AC_CODDebitVoucherDetails">
           <Key>
             <PropertyRef Name="DocumentID" />
+            <PropertyRef Name="MailerID" />
           </Key>
           <Property Name="DocumentID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MailerID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Money" Type="Double" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1647,6 +1652,7 @@
           <Property Name="LastTime" Type="DateTime" Precision="3" />
           <Property Name="ToTalAmount" Type="Double" />
           <Property Name="DebtMonth" Type="DateTime" Precision="0" />
+          <Property Name="CODTotal" Type="Double" />
         </EntityType>
         <EntityType Name="AC_CustomerDebitVoucherDetail">
           <Key>
@@ -1775,6 +1781,7 @@
           <Property Name="PaymentMethodID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DebitDate" Type="Int32" />
           <Property Name="COD" Type="Boolean" />
+          <Property Name="CODDebitDate" Type="Int32" />
         </EntityType>
         <EntityType Name="BS_Customers">
           <Key>
@@ -2794,7 +2801,7 @@
             <Parameter Name="todate" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AC_CODDEBITVOUCHERDETAILS_BYDOCUMENTID">
-          <Parameter Name="documentid" Mode="In" Type="String" />
+            <Parameter Name="documentid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AC_CommissionOffer_procUpdateComissionMailer">
             <Parameter Name="DebtMonth" Mode="In" Type="String" />
@@ -2820,11 +2827,11 @@
             <Parameter Name="Ngay" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CODCUSTOMER_TRANSFER" ReturnType="Collection(MNPOSTModel.CODCUSTOMER_TRANSFER_Result)">
-          <Parameter Name="customerid" Mode="In" Type="String" />
+            <Parameter Name="customerid" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="COUNTRY_GETALL" ReturnType="Collection(MNPOSTModel.COUNTRY_GETALL_Result)" />
           <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENT_DETAILS_Result)">
-          <Parameter Name="documentId" Mode="In" Type="String" />
+            <Parameter Name="documentId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CUSTOMER_COD_DEBIT_GETDOCUMENTS" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETDOCUMENTS_Result)">
             <Parameter Name="fdate" Mode="In" Type="String" />
@@ -2832,7 +2839,7 @@
             <Parameter Name="groupId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_GETMAILER_NOTPAID_Result)">
-          <Parameter Name="cusId" Mode="In" Type="String" />
+            <Parameter Name="cusId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CUSTOMER_COD_DEBIT_REPORT" ReturnType="Collection(MNPOSTModel.CUSTOMER_COD_DEBIT_REPORT_Result)" />
           <FunctionImport Name="CUSTOMER_DEBIT_FIND_BYDebtMonth" ReturnType="Collection(MNPOSTModel.CUSTOMER_DEBIT_FIND_BYDebtMonth_Result)">
@@ -2841,13 +2848,13 @@
             <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CUSTOMER_DEBIT_GET_NOPAID" ReturnType="Collection(MNPOSTModel.CUSTOMER_DEBIT_GET_NOPAID_Result)">
-          <Parameter Name="cusId" Mode="In" Type="String" />
+            <Parameter Name="cusId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CUSTOMER_GET_BYGROUP" ReturnType="Collection(MNPOSTModel.CUSTOMER_GET_BYGROUP_Result)">
-          <Parameter Name="groupID" Mode="In" Type="String" />
+            <Parameter Name="groupID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DELIVERY_GETMAILER_OFDATE_NOTFINISH" ReturnType="Collection(MNPOSTModel.DELIVERY_GETMAILER_OFDATE_NOTFINISH_Result)">
-          <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="employeeId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DELIVERY_GETREPORT_EMPLOYEE" ReturnType="Collection(MNPOSTModel.DELIVERY_GETREPORT_EMPLOYEE_Result)">
             <Parameter Name="employeeId" Mode="In" Type="String" />
@@ -2861,13 +2868,13 @@
             <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EMPLOYEE_DEBIT_DETAIL" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_DETAIL_Result)">
-          <Parameter Name="documentId" Mode="In" Type="String" />
+            <Parameter Name="documentId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EMPLOYEE_DEBIT_GET_NOTPAID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_GET_NOTPAID_Result)">
-          <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="employeeId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EMPLOYEE_DEBIT_REPORT" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_REPORT_Result)">
-          <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_DEBIT_REPORT_BY_EMPLOYEEID_Result)">
             <Parameter Name="employeeId" Mode="In" Type="String" />
@@ -2879,7 +2886,7 @@
             <Parameter Name="search" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="EMPLOYEE_GETBYID" ReturnType="Collection(MNPOSTModel.EMPLOYEE_GETBYID_Result)">
-          <Parameter Name="employeeID" Mode="In" Type="String" />
+            <Parameter Name="employeeID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_commissiondata" ReturnType="Collection(MNPOSTModel.get_commissiondata_Result)">
             <Parameter Name="DebtMonth" Mode="In" Type="String" />
@@ -2907,13 +2914,13 @@
             <Parameter Name="GroupID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GROUPUSER_GETLISTMENU" ReturnType="Collection(MNPOSTModel.GROUPUSER_GETLISTMENU_Result)">
-          <Parameter Name="groupId" Mode="In" Type="String" />
+            <Parameter Name="groupId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_DELIVERY__EMPLOYEE" ReturnType="Collection(MNPOSTModel.MAILER_DELIVERY__EMPLOYEE_Result)">
-          <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE" ReturnType="Collection(MNPOSTModel.MAILER_DELIVERY_GETMAILER_EMPLOYEE_Result)">
-          <Parameter Name="employeeId" Mode="In" Type="String" />
+            <Parameter Name="employeeId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE" ReturnType="Collection(MNPOSTModel.MAILER_DELIVERY_GETMAILER_EMPLOYEE_BYDATE_Result)">
             <Parameter Name="employeeId" Mode="In" Type="String" />
@@ -2930,7 +2937,7 @@
             <Parameter Name="employeeId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GET_NOT_INVENTORY" ReturnType="Collection(MNPOSTModel.MAILER_GET_NOT_INVENTORY_Result)">
-          <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GETALL" ReturnType="Collection(MNPOSTModel.MAILER_GETALL_Result)">
             <Parameter Name="fdate" Mode="In" Type="String" />
@@ -2939,16 +2946,16 @@
             <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GETINFO_BYID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYID_Result)">
-          <Parameter Name="mailerId" Mode="In" Type="String" />
+            <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GETINFO_BYLISTID" ReturnType="Collection(MNPOSTModel.MAILER_GETINFO_BYLISTID_Result)">
-          <Parameter Name="mailers" Mode="In" Type="String" />
+            <Parameter Name="mailers" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GETTRACKING" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_Result)">
-          <Parameter Name="mailerId" Mode="In" Type="String" />
+            <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_GETTRACKING_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_GETTRACKING_BY_MAILERID_Result)">
-          <Parameter Name="mailerId" Mode="In" Type="String" />
+            <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_PARTNER_GETALL" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETALL_Result)">
             <Parameter Name="fromDate" Mode="In" Type="String" />
@@ -2962,17 +2969,17 @@
             <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_PARTNER_GETDETAIL" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETDETAIL_Result)">
-          <Parameter Name="documentId" Mode="In" Type="String" />
+            <Parameter Name="documentId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILER_PARTNER_GETDETAIL_BY_MAILERID" ReturnType="Collection(MNPOSTModel.MAILER_PARTNER_GETDETAIL_BY_MAILERID_Result)">
             <Parameter Name="documentId" Mode="In" Type="String" />
             <Parameter Name="mailerId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILERDELIVERY_GETMAILER" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_Result)">
-          <Parameter Name="documentID" Mode="In" Type="String" />
+            <Parameter Name="documentID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="MAILERDELIVERY_GETMAILER_BY_ID" ReturnType="Collection(MNPOSTModel.MAILERDELIVERY_GETMAILER_BY_ID_Result)">
-          <Parameter Name="detailId" Mode="In" Type="String" />
+            <Parameter Name="detailId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="PARTNER_MAP_INFO" ReturnType="Collection(MNPOSTModel.PARTNER_MAP_INFO_Result)">
             <Parameter Name="partnerCode" Mode="In" Type="String" />
@@ -2993,13 +3000,13 @@
           </FunctionImport>
           <FunctionImport Name="PROVINCE_GETALL" ReturnType="Collection(MNPOSTModel.PROVINCE_GETALL_Result)" />
           <FunctionImport Name="REPORT_EMPLOYEE_DEBIT_COD" ReturnType="Collection(MNPOSTModel.REPORT_EMPLOYEE_DEBIT_COD_Result)">
-          <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ROUTE_GET_ALLEMPLOYEE_ROUTE" ReturnType="Collection(MNPOSTModel.ROUTE_GET_ALLEMPLOYEE_ROUTE_Result)">
-          <Parameter Name="postId" Mode="In" Type="String" />
+            <Parameter Name="postId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ROUTE_GETDETAIL_BYROUTEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETDETAIL_BYROUTEID_Result)">
-          <Parameter Name="routeId" Mode="In" Type="String" />
+            <Parameter Name="routeId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ROUTE_GETMAILER_BYEMPLOYEEID" ReturnType="Collection(MNPOSTModel.ROUTE_GETMAILER_BYEMPLOYEEID_Result)">
             <Parameter Name="employeeId" Mode="In" Type="String" />
@@ -3010,7 +3017,7 @@
             <Parameter Name="districtId" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="TAKEMAILER_GETDETAILs" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETDETAILs_Result)">
-          <Parameter Name="documentID" Mode="In" Type="String" />
+            <Parameter Name="documentID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="TAKEMAILER_GETLIST" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_Result)">
             <Parameter Name="postId" Mode="In" Type="String" />
@@ -3023,17 +3030,17 @@
             <Parameter Name="date" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH" ReturnType="Collection(MNPOSTModel.TAKEMAILER_GETLIST_BY_EMPLOYEE_NOTFINISH_Result)">
-          <Parameter Name="employee" Mode="In" Type="String" />
+            <Parameter Name="employee" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USER_CHECKACCESS" ReturnType="Collection(MNPOSTModel.USER_CHECKACCESS_Result)">
             <Parameter Name="groupId" Mode="In" Type="String" />
             <Parameter Name="menuCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USER_GETMENU" ReturnType="Collection(MNPOSTModel.USER_GETMENU_Result)">
-          <Parameter Name="user" Mode="In" Type="String" />
+            <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USER_GETROLE" ReturnType="Collection(MNPOSTModel.USER_GETROLE_Result)">
-          <Parameter Name="user" Mode="In" Type="String" />
+            <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="WARD_GETALL" ReturnType="Collection(MNPOSTModel.WARD_GETALL_Result)" />
           <FunctionImport Name="WIN_GET_MAILER_BY_DATE_POST" ReturnType="Collection(MNPOSTModel.WIN_GET_MAILER_BY_DATE_POST_Result)">
@@ -3301,6 +3308,7 @@
           <Property Type="DateTime" Name="AcceptDate" Nullable="true" />
           <Property Type="Int32" Name="Quantity" Nullable="true" />
           <Property Type="Double" Name="Weight" Nullable="true" />
+          <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
         </ComplexType>
         <ComplexType Name="GROUPUSER_GETLISTMENU_Result">
           <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
@@ -3328,6 +3336,7 @@
           <Property Type="String" Name="DocumentDate" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="DocumentTime" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="DetailId" Nullable="true" MaxLength="128" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
           <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
@@ -3346,6 +3355,7 @@
           <Property Type="String" Name="DocumentTime" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="128" />
           <Property Type="Decimal" Name="COD" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DetailId" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="RecieverProvinceID" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="RecieverPhone" Nullable="true" MaxLength="20" />
@@ -3730,6 +3740,7 @@
           <Property Type="Int32" Name="StatusID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MAILERDELIVERY_GETMAILER_Result">
+          <Property Type="String" Name="DetailId" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
           <Property Type="Double" Name="Weight" Nullable="true" />
@@ -3750,9 +3761,9 @@
           <Property Type="String" Name="RecieProvinceName" Nullable="true" />
           <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
           <Property Type="String" Name="ReceiWardName" Nullable="true" />
-          <Property Type="String" Name="DetailId" Nullable="true" MaxLength="128" />
         </ComplexType>
         <ComplexType Name="MAILERDELIVERY_GETMAILER_BY_ID_Result">
+          <Property Type="String" Name="DetailId" Nullable="true" MaxLength="128" />
           <Property Type="String" Name="MailerID" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="RecieverAddress" Nullable="true" MaxLength="200" />
           <Property Type="Double" Name="Weight" Nullable="true" />
@@ -3773,7 +3784,6 @@
           <Property Type="String" Name="RecieProvinceName" Nullable="true" />
           <Property Type="String" Name="ReceiDistrictName" Nullable="true" />
           <Property Type="String" Name="ReceiWardName" Nullable="true" />
-          <Property Type="String" Name="DetailId" Nullable="true" MaxLength="128" />
         </ComplexType>
         <ComplexType Name="PARTNER_MAP_INFO_Result">
           <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
@@ -3942,6 +3952,7 @@
           <Property Type="String" Name="Content" Nullable="true" />
           <Property Type="String" Name="CreateTime" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="EmployeeName" Nullable="true" />
+          <Property Type="String" Name="EmployeeID" Nullable="false" MaxLength="128" />
         </ComplexType>
         <ComplexType Name="TAKEMAILER_GETLIST_BY_EMPLOYEE_Result">
           <Property Type="String" Name="DocumentID" Nullable="false" MaxLength="128" />
@@ -4160,6 +4171,7 @@
                 <ScalarProperty Name="LastTime" ColumnName="LastTime" />
                 <ScalarProperty Name="ToTalAmount" ColumnName="ToTalAmount" />
                 <ScalarProperty Name="DebtMonth" ColumnName="DebtMonth" />
+                <ScalarProperty Name="CODTotal" ColumnName="CODTotal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4276,7 +4288,6 @@
           <EntitySetMapping Name="BS_CustomerGroups">
             <EntityTypeMapping TypeName="MNPOSTModel.BS_CustomerGroups">
               <MappingFragment StoreEntitySet="BS_CustomerGroups">
-                <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="CustomerGroupID" ColumnName="CustomerGroupID" />
                 <ScalarProperty Name="CustomerGroupName" ColumnName="CustomerGroupName" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
@@ -4288,6 +4299,8 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
                 <ScalarProperty Name="DebitDate" ColumnName="DebitDate" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="CODDebitDate" ColumnName="CODDebitDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5552,6 +5565,7 @@
                 <ScalarProperty Name="AcceptDate" ColumnName="AcceptDate" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="COD" ColumnName="COD" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5592,6 +5606,7 @@
                 <ScalarProperty Name="DocumentDate" ColumnName="DocumentDate" />
                 <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
                 <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
                 <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
@@ -5614,6 +5629,7 @@
                 <ScalarProperty Name="DocumentTime" ColumnName="DocumentTime" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="COD" ColumnName="COD" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
                 <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
                 <ScalarProperty Name="RecieverProvinceID" ColumnName="RecieverProvinceID" />
                 <ScalarProperty Name="RecieverPhone" ColumnName="RecieverPhone" />
@@ -6050,6 +6066,7 @@
           <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_Result">
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -6070,13 +6087,13 @@
                 <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
                 <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
                 <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
-                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="MAILERDELIVERY_GETMAILER_BY_ID" FunctionName="MNPOSTModel.Store.MAILERDELIVERY_GETMAILER_BY_ID">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MNPOSTModel.MAILERDELIVERY_GETMAILER_BY_ID_Result">
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
                 <ScalarProperty Name="MailerID" ColumnName="MailerID" />
                 <ScalarProperty Name="RecieverAddress" ColumnName="RecieverAddress" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -6097,7 +6114,6 @@
                 <ScalarProperty Name="RecieProvinceName" ColumnName="RecieProvinceName" />
                 <ScalarProperty Name="ReceiDistrictName" ColumnName="ReceiDistrictName" />
                 <ScalarProperty Name="ReceiWardName" ColumnName="ReceiWardName" />
-                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -6308,6 +6324,7 @@
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

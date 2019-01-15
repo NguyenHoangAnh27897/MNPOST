@@ -13,6 +13,7 @@ namespace MNPOSTCOMMON
     
     public partial class MAILERDELIVERY_GETMAILER_BY_ID_Result
     {
+        public string DetailId { get; set; }
         public string MailerID { get; set; }
         public string RecieverAddress { get; set; }
         public Nullable<double> Weight { get; set; }
@@ -33,6 +34,5 @@ namespace MNPOSTCOMMON
         public string RecieProvinceName { get; set; }
         public string ReceiDistrictName { get; set; }
         public string ReceiWardName { get; set; }
-        public string DetailId { get; set; }
     }
 }

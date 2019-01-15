@@ -21,5 +21,6 @@ namespace MNPOSTCOMMON
         public string Content { get; set; }
         public string CreateTime { get; set; }
         public string EmployeeName { get; set; }
+        public string EmployeeID { get; set; }
     }
 }

@@ -424,6 +424,15 @@ namespace MNPOSTAPI.Controllers.mobile.mailer
                 checkMailer.CurrentStatusID = 8;
                 checkMailer.LastUpdateDate = DateTime.Now;
                 checkMailer.Weight = info.weight;
+
+
+                var price = db.CalPrice(checkMailer.Weight, checkMailer.SenderID, checkMailer.RecieverProvinceID, checkMailer.MailerTypeID, checkMailer.PostOfficeAcceptID, DateTime.Now.ToString("yyyy-MM-dd")).FirstOrDefault();
+
+
+                checkMailer.Price = price;
+                checkMailer.PriceDefault = price;
+                checkMailer.Amount = price + checkMailer.PriceCoD + checkMailer.PriceService;
+
                 db.Entry(checkMailer).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
 
